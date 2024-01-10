@@ -1,0 +1,11 @@
+{
+    "Actor": {
+        "types": [
+            "character"
+        ],
+        "htmlFields": [
+            "calling",
+            "biography"
+        ]
+    }
+}
