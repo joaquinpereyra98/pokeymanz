@@ -32,41 +32,36 @@ function ensureCurrencyIsNumeric(source) {
   }
 }
 function boundTraitDie(die) {
-    const sides = die.sides;
-    if (sides < 4 && sides !== 1) {
-        die.sides = 4;
-    }
-    else if (sides > 12) {
-        const difference = sides - 12;
-        die.sides = 12;
-        die.modifier += difference / 2;
-    }
-    return die;
+  const sides = die.sides;
+  if (sides < 4 && sides !== 1) {
+    die.sides = 4;
+  } else if (sides > 12) {
+    const difference = sides - 12;
+    die.sides = 12;
+    die.modifier += difference / 2;
+  }
+  return die;
 }
 class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
       attributes: new fields.SchemaField({
-        heart: attributeDiceFields(),
-        fitness: attributeDiceFields(),
-        research: attributeDiceFields(),
-        tatics: attributeDiceFields(),
+        heart: new fields.SchemaField(attributeDiceFields()),
+        fitness: new fields.SchemaField(attributeDiceFields()),
+        research: new fields.SchemaField(attributeDiceFields()),
+        tatics: new fields.SchemaField(attributeDiceFields()),
       }),
       stats: new fields.SchemaField({
-        toughness: {
-          value: new fields$1.NumberField({ initial: 0, integer: true }),
-          modifer: new fields$1.NumberField({
-            initial: 0,
-            integer: true,
-            required: false,
-          }),
-        },
+        toughness: new fields.SchemaField({
+          value: new fields.NumberField({ initial: 0, integer: true }),
+          modifer: new fields.NumberField({initial: 0, integer: true, required: false}),
+        }),
       }),
-      details: new fields$1.SchemaField({
-        calling: new fields$1.HTMLField({ initial: "", textSearch: true }),
-        currency: new fields$1.NumberField({ initial: 0 }),
-        biography: new fields$1.HTMLField({ initial: "", textSearch: true }),
+      details: new fields.SchemaField({
+        calling: new fields.HTMLField({ initial: "", textSearch: true }),
+        currency: new fields.NumberField({ initial: 0 }),
+        biography: new fields.HTMLField({ initial: "", textSearch: true }),
       }),
     };
   }
@@ -80,18 +75,56 @@ class CharacterData extends foundry.abstract.TypeDataModel {
       attribute.effects = new Array();
     }
   }
-  prepareDerivedData(){
+  prepareDerivedData() {
     Object.entries(this.attributes).forEach(([key, attribute]) => {
-        attribute.die = boundTraitDie(attribute.die);
-      });
-      this.stats.toughness.value = this.attribute.fitness.die/2;
+      attribute.die = boundTraitDie(attribute.die);
+    });
   }
 }
 
-/*Registering DataModel*/
-Hooks.on("init", ()=>{
-    Object.assign(CONFIG.Actor.dataModels,{
-        "character":CharacterData,
-    })
-    console.log(CONFIG.Actor.dataModels)
+
+Hooks.on("init", () => {
+  Object.assign(CONFIG.Actor.dataModels, {
+    character: CharacterData,
+  });
+  //console.log(CONFIG.Actor.dataModels)
 });
+
+/*Defining Sheet*/
+class CharacterSheet extends ActorSheet {
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ["pokeymanz", "sheet", "actor"],
+      width: 650,
+      height: 700,
+      resizable: true,
+      tabs: [
+        {
+          group: "primary",
+          navSelector: ".tabs",
+          contentSelector: ".sheet-body",
+          initial: "features",
+        },
+      ],
+    });
+  }
+  get template() {
+    const base = "systems/pokeymanz/templates/";
+    //if(this.actor.limited)return base+'limited.hbs'; //Create limited template later.
+    return base + "character-sheet.hbs";
+  }
+  async getData(options){
+    const context = super.getData();
+    const actorData = this.actor.toObject(false);
+    context.system = actorData.system;
+    console.log(context)
+    return context;
+  }
+}
+
+/*Registering Sheets*/
+Hooks.on("init",() =>{
+  Actors.unregisterSheet("core", ActorSheet);
+  Actors.registerSheet("Chatacter Sheet", CharacterSheet, { makeDefault: true });  
+})
+
