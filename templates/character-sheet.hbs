@@ -5,6 +5,36 @@
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <div class="section1">
+                <div class="box1">
+                    <div class="box1 labelbox">
+                        <label for="actor.system.details.calling" class="box1label">Calling</label>
+                    </div>
+                    <div class="box1 valuebox">
+                        <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class="box2 labelbox">
+                        {{log actor.system.details}}
+                        <label for="actor.system.details.pronouns" class="box1label">Pronouns</label>
+                    </div>
+                    <div class="box2 valuebox">
+                        <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
+                    </div>
+                </div>
+                <div class="box3">
+                    <div class="box2 labelbox">
+                        <label for="actor.system.details.currency" class="box1label">Currency</label>
+                    </div>
+                    <div class="box2 valuebox">
+                        <input name="system.details.currency" type="text" data-dtype="Number"
+                            value="{{actor.system.details.currency}}">
+                    </div>
+                </div>
+            </div>
         </div>
+        </div>
+
     </header>
 </form>

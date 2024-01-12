@@ -3,7 +3,7 @@ function attributeDiceFields() {
   const fields = foundry.data.fields;
   return {
     die: new fields.SchemaField({
-      sides: new foundry.data.fields.NumberField({
+      sides: new fields.NumberField({
         initial: 4,
         min: 0,
         integer: true,
@@ -55,13 +55,17 @@ class CharacterData extends foundry.abstract.TypeDataModel {
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
           value: new fields.NumberField({ initial: 0, integer: true }),
-          modifer: new fields.NumberField({initial: 0, integer: true, required: false}),
+          modifer: new fields.NumberField({
+            initial: 0,
+            integer: true,
+            required: false,
+          }),
         }),
       }),
       details: new fields.SchemaField({
-        calling: new fields.HTMLField({ initial: "", textSearch: true }),
-        currency: new fields.NumberField({ initial: 0 }),
-        biography: new fields.HTMLField({ initial: "", textSearch: true }),
+        calling: new fields.StringField({ initial: ""}),
+        currency: new fields.NumberField({ initial: 0, integer: true }),
+        pronouns: new fields.StringField({ initial: "" })
       }),
     };
   }
@@ -82,7 +86,7 @@ class CharacterData extends foundry.abstract.TypeDataModel {
   }
 }
 
-
+/*Registering dataModels*/
 Hooks.on("init", () => {
   Object.assign(CONFIG.Actor.dataModels, {
     character: CharacterData,
@@ -90,13 +94,36 @@ Hooks.on("init", () => {
   //console.log(CONFIG.Actor.dataModels)
 });
 
-/*Defining Sheet*/
+/*Defining ActorDocumments*/
+class PokeymanzActor extends Actor {
+  prepareData() {
+    super.prepareData();
+  }
+  prepareDerivedData() {
+    const actorData = this;
+    const systemData = actorData.system;
+    const flags = actorData.flags.boilerplate || {};
+  }
+  getRollData() {
+      const data = super.getRollData();
+      return data;
+  }
+}
+
+/*Registering ActorDocumments*/
+Hooks.on("init", () => {
+  game.pokeymanz = {
+    PokeymanzActor
+  }
+  CONFIG.Actor.documentClass=PokeymanzActor;
+})
+/*Defining ActorSheets*/
 class CharacterSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["pokeymanz", "sheet", "actor"],
-      width: 650,
-      height: 700,
+      width: 600,
+      height: 600,
       resizable: true,
       tabs: [
         {
@@ -113,18 +140,25 @@ class CharacterSheet extends ActorSheet {
     //if(this.actor.limited)return base+'limited.hbs'; //Create limited template later.
     return base + "character-sheet.hbs";
   }
-  async getData(options){
+  async getData(options) {
     const context = super.getData();
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
-    console.log(context)
+    context.flags = actorData.flags
+    //console.log(context);
     return context;
   }
+  activateListeners(html) {
+    super.activateListeners(html);
+    }
 }
 
-/*Registering Sheets*/
-Hooks.on("init",() =>{
+/*Registering ActorSheets*/
+Hooks.on("init", () => {
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("Chatacter Sheet", CharacterSheet, { makeDefault: true });  
-})
-
+  Actors.registerSheet("Chatacter Sheet", CharacterSheet, {
+    types:['character'],
+    makeDefault: true,
+    label: 'Pokeymanz.CharacterSheet'
+  });
+});
