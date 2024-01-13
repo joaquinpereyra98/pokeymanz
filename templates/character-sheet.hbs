@@ -2,34 +2,42 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
-            <div class="section1">
-                <div class="box1">
-                    <div class="box1 labelbox">
-                        <label for="actor.system.details.calling" class="box1label">Calling</label>
+            <div class="calling-box">
+                    <div class="labelbox">
+                        <label for="actor.system.details.calling" class="label">Calling</label>
                     </div>
-                    <div class="box1 valuebox">
+                    <div class="valuebox">
                         <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
                     </div>
                 </div>
-                <div class="box2">
-                    <div class="box2 labelbox">
-                        {{log actor.system.details}}
-                        <label for="actor.system.details.pronouns" class="box1label">Pronouns</label>
+            <div class="details-section">
+                <div class="detail pronouns-box">
+                    <div class="labelbox">
+                        <label for="actor.system.details.pronouns" class="label">Pronouns</label>
                     </div>
-                    <div class="box2 valuebox">
+                    <div class="valuebox">
                         <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
                     </div>
                 </div>
-                <div class="box3">
-                    <div class="box2 labelbox">
-                        <label for="actor.system.details.currency" class="box1label">Currency</label>
+                <div class="detail currency-box">
+                    <div class="labelbox">
+                        <label for="actor.system.details.currency" class="label">Currency</label>
                     </div>
-                    <div class="box2 valuebox">
+                    <div class="valuebox">
                         <input name="system.details.currency" type="text" data-dtype="Number"
                             value="{{actor.system.details.currency}}">
+                    </div>
+                </div>
+                <div class="detail age-box">
+                    <div class="labelbox">
+                        <label for="actor.system.details.age" class="label">Age</label>
+                    </div>
+                    <div class="valuebox">
+                        <input name="system.details.age" type="text" data-dtype="Number"
+                            value="{{actor.system.details.age}}">
                     </div>
                 </div>
             </div>

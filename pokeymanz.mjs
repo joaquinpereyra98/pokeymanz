@@ -65,7 +65,8 @@ class CharacterData extends foundry.abstract.TypeDataModel {
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: ""}),
         currency: new fields.NumberField({ initial: 0, integer: true }),
-        pronouns: new fields.StringField({ initial: "" })
+        pronouns: new fields.StringField({ initial: "" }),
+        age: new fields.NumberField({integer: true})
       }),
     };
   }

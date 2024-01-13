@@ -18,7 +18,9 @@
   "esmodules": [
     "pokeymanz.mjs"
   ],
-  "styles": [],
+  "styles": [
+    "styles/pokestyle.css"
+  ],
   "packs": [],
   "languages": [],
   "gridDistance": 5,

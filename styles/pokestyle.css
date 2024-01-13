@@ -1,0 +1,15 @@
+.sheet header.sheet-header h1 input{
+    margin: 8px 0;
+}
+.sheet header.sheet-header img {
+    flex: 0 0 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+.details-section{
+    display: flex;
+    justify-content: space-between;
+}
+.details-section .detail{
+    width: 31.9%;
+}
