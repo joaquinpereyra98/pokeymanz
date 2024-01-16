@@ -1,15 +1,37 @@
+.window-app .window-content{
+    padding: 0;
+}
 .sheet header.sheet-header h1 input{
-    margin: 8px 0;
+    width: 100%;
+    margin: 2px 0;
 }
 .sheet header.sheet-header img {
     flex: 0 0 100px;
     height: 100px;
-    margin-right: 10px;
+    margin:0 10px;
+    border-radius:10px;
   }
+.header-fields{
+    background-color: #e55035;
+    border-bottom: 15px solid #737373;
+    border-left: 15px solid #737373;
+    border-radius: 0 0 0 25px;
+}
 .details-section{
     display: flex;
     justify-content: space-between;
 }
 .details-section .detail{
     width: 31.9%;
+}
+.sheet input[type = "text"]{
+    background-color: rgba(0, 0, 0, 0.1); 
+    border: 0px;
+    padding: 1px 8px;
+}
+
+.sheet header label{
+    padding: 0 3px;
+    font-weight: bold;
+    font-size: 15px;
 }
