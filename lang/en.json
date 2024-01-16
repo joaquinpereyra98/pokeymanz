@@ -1,0 +1,9 @@
+{
+    "POKEYMANZ":{
+        "Name":"Name",
+        "Calling": "Calling",
+        "Pronouns": "Pronouns",
+        "Age":"Age",
+        "Currency":"Currency"
+    }
+}

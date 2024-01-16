@@ -146,7 +146,7 @@ class CharacterSheet extends ActorSheet {
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
     context.flags = actorData.flags
-    //console.log(context);
+
     return context;
   }
   activateListeners(html) {

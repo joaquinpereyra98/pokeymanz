@@ -1,13 +1,11 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
-
-    {{!-- Sheet Header --}}
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{localize "POKEYMANZ.Name" }} /></h1>
             <div class="calling-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.calling" class="label">Calling</label>
+                        <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
@@ -16,7 +14,7 @@
             <div class="details-section">
                 <div class="detail pronouns-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.pronouns" class="label">Pronouns</label>
+                        <label for="actor.system.details.pronouns" class="label">{{localize "POKEYMANZ.Pronouns"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
@@ -24,7 +22,7 @@
                 </div>
                 <div class="detail currency-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.currency" class="label">Currency</label>
+                        <label for="actor.system.details.currency" class="label">{{localize "POKEYMANZ.Currency"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.currency" type="text" data-dtype="Number"
@@ -33,7 +31,7 @@
                 </div>
                 <div class="detail age-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.age" class="label">Age</label>
+                        <label for="actor.system.details.age" class="label">{{localize "POKEYMANZ.Age"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.age" type="text" data-dtype="Number"
@@ -42,7 +40,5 @@
                 </div>
             </div>
         </div>
-        </div>
-
     </header>
 </form>
