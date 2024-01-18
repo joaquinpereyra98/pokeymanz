@@ -61,6 +61,7 @@ class CharacterData extends foundry.abstract.TypeDataModel {
             required: false,
           }),
         }),
+        type: new fields.StringField({ initial: ""}),
       }),
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: ""}),

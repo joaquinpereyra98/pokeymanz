@@ -1,9 +1,14 @@
 {
-    "POKEYMANZ":{
-        "Name":"Name",
+    "POKEYMANZ": {
+        "Name": "Name",
         "Calling": "Calling",
         "Pronouns": "Pronouns",
-        "Age":"Age",
-        "Currency":"Currency"
+        "Age": "Age",
+        "Currency": "Currency",
+        "Heart": "Heart",
+        "Fitness": "Fitness",
+        "Research": "Research",
+        "Tatics": "Tatics",
+        "Attributes": "Attributes"
     }
 }

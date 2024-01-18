@@ -2,19 +2,21 @@
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{localize "POKEYMANZ.Name"}} /></h1>
+            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
+                    placeholder={{localize "POKEYMANZ.Name" }} /></h1>
             <div class="calling-box">
-                    <div class="labelbox">
-                        <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
-                    </div>
-                    <div class="valuebox">
-                        <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
-                    </div>
+                <div class="labelbox">
+                    <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
+                </div>
+                <div class="valuebox">
+                    <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
+                </div>
             </div>
             <div class="details-section">
                 <div class="detail pronouns-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.pronouns" class="label">{{localize "POKEYMANZ.Pronouns"}}</label>
+                        <label for="actor.system.details.pronouns" class="label">{{localize
+                            "POKEYMANZ.Pronouns"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
@@ -22,7 +24,8 @@
                 </div>
                 <div class="detail currency-box">
                     <div class="labelbox">
-                        <label for="actor.system.details.currency" class="label">{{localize "POKEYMANZ.Currency"}}</label>
+                        <label for="actor.system.details.currency" class="label">{{localize
+                            "POKEYMANZ.Currency"}}</label>
                     </div>
                     <div class="valuebox">
                         <input name="system.details.currency" type="text" data-dtype="Number"
@@ -41,4 +44,60 @@
             </div>
         </div>
     </header>
+
+    <body class="sheet-body">
+        <div class="attribute-fields">
+            <div class="attributes">
+                <div class="attr-box attr-heart">
+                    <label for="atrr-heart" class="attr-label">{{localize "POKEYMANZ.Heart"}}</label>
+                    <button type="button" class="attribute-value rolleable">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.heart.die.sides}}.svg'>
+                        <span class="modifier">+{{actor.system.attributes.heart.die.modifier}}</span>
+                    </button>
+                </div>
+                <div class="attr-box attr-fitness">
+                    <label for="atrr-fitness" class="attr-label">{{localize "POKEYMANZ.Fitness"}}</label>
+                    <button type="button" class="attribute-value rolleable">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.fitness.die.sides}}.svg'>
+                        <span class="modifier">+{{actor.system.attributes.fitness.die.modifier}}</span>
+                    </button>
+                </div>
+                <div class="config-box">
+                    <button class="config-button" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
+                </div>
+                <div class="attr-box attr-research">
+                    <label for="atrr-research" class="attr-label">{{localize "POKEYMANZ.Research"}}</label>
+                    <button type="button" class="attribute-value rolleable">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.research.die.sides}}.svg'>
+                        <span class="modifier">+{{actor.system.attributes.research.die.modifier}}</span>
+                    </button>
+                </div>
+                <div class="attr-box attr-tatics">
+                    <label for="atrr-tatics" class="attr-label">{{localize "POKEYMANZ.Tatics"}}</label>
+                    <button type="button" class="attribute-value rolleable">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.tatics.die.sides}}.svg'>
+                        <span class="modifier">+{{actor.system.attributes.tatics.die.modifier}}</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="stats">
+                <div class="toughness">
+                    <label for="actor.system.stat.toughness">Toughness</label>
+                </div>
+                <div class="types">
+                    <label for="actor.system.stat.type">Type</label>
+                    <input name="system.stat.type" type="text" value="{{actor.system.stat.type}}">
+                </div>
+            </div>
+            <div class="wounds">
+                <label for="">Wounds</label>
+                <ul>
+                    <li>Wounds -1</li>
+                    <li>Wounds -3</li>
+                    <li>Wounds KO</li>
+                </ul>
+            </div>
+        </div>
+    </body>
 </form>
