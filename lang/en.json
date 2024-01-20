@@ -9,6 +9,7 @@
         "Fitness": "Fitness",
         "Research": "Research",
         "Tatics": "Tatics",
-        "Attributes": "Attributes"
+        "Attributes": "Attributes",
+        "AttributePromptTitle": "{attr} Attribute Check"
     }
 }

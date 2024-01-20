@@ -1,3 +1,19 @@
+const POKEYMANZ = {
+  attributes: {
+    heart: {
+      label: "POKEYMANZ.Heart",
+    },
+    fitness: {
+      label: "POKEYMANZ.Fitness",
+    },
+    research: {
+      label: "POKEYMANZ.Research",
+    },
+    tatics: {
+      label: "POKEYMANZ.Tatics",
+    },
+  },
+};
 /* Defining CharacterData*/
 function attributeDiceFields() {
   const fields = foundry.data.fields;
@@ -61,13 +77,13 @@ class CharacterData extends foundry.abstract.TypeDataModel {
             required: false,
           }),
         }),
-        type: new fields.StringField({ initial: ""}),
+        type: new fields.StringField({ initial: "" }),
       }),
       details: new fields.SchemaField({
-        calling: new fields.StringField({ initial: ""}),
+        calling: new fields.StringField({ initial: "" }),
         currency: new fields.NumberField({ initial: 0, integer: true }),
         pronouns: new fields.StringField({ initial: "" }),
-        age: new fields.NumberField({integer: true})
+        age: new fields.NumberField({ integer: true }),
       }),
     };
   }
@@ -93,7 +109,6 @@ Hooks.on("init", () => {
   Object.assign(CONFIG.Actor.dataModels, {
     character: CharacterData,
   });
-  //console.log(CONFIG.Actor.dataModels)
 });
 
 /*Defining ActorDocumments*/
@@ -104,21 +119,25 @@ class PokeymanzActor extends Actor {
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
-    const flags = actorData.flags.boilerplate || {};
+    const flags = actorData.flags.pokeymanz || {};
   }
   getRollData() {
-      const data = super.getRollData();
-      return data;
-  }
+    const data = super.getRollData();
+    const attributes = foundry.utils.deepClone(this.system.attributes);
+    for (const [key, attribute] of Object.entries(attributes)) {
+      data.attributes[key].name = game.i18n.localize(POKEYMANZ.attributes[key].label);
+    }
+    return data;
+  } 
 }
 
 /*Registering ActorDocumments*/
 Hooks.on("init", () => {
   game.pokeymanz = {
-    PokeymanzActor
-  }
-  CONFIG.Actor.documentClass=PokeymanzActor;
-})
+    PokeymanzActor,
+  };
+  CONFIG.Actor.documentClass = PokeymanzActor;
+});
 /*Defining ActorSheets*/
 class CharacterSheet extends ActorSheet {
   static get defaultOptions() {
@@ -142,25 +161,45 @@ class CharacterSheet extends ActorSheet {
     //if(this.actor.limited)return base+'limited.hbs'; //Create limited template later.
     return base + "character-sheet.hbs";
   }
+  _rollAttribute(event, option={}) {
+    event.preventDefault();
+    const data = this.actor.getRollData();
+    const attribute = event.currentTarget.dataset.attribute;
+    const label = data.attributes[attribute].name; 
+    const die = data.attributes[attribute].die.sides;
+    const mod = data.attributes[attribute].die.modifier
+
+    const formula = `1d${die}x+${mod}[${label}]`;
+    let roll = new Roll(formula, data)
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: game.i18n.format("POKEYMANZ.AttributePromptTitle", {attr: label}),
+      rollMode: null,
+    })
+    return roll;
+  }
   async getData(options) {
     const context = super.getData();
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
-    context.flags = actorData.flags
+    context.flags = actorData.flags;
 
     return context;
   }
   activateListeners(html) {
     super.activateListeners(html);
-    }
+
+    /*ROLL ATTRIBUTES BUTTON*/
+    html.find(".rollable[data-attribute]").click(this._rollAttribute.bind(this));
+  }
 }
 
 /*Registering ActorSheets*/
 Hooks.on("init", () => {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("Chatacter Sheet", CharacterSheet, {
-    types:['character'],
+    types: ["character"],
     makeDefault: true,
-    label: 'Pokeymanz.CharacterSheet'
+    label: "Pokeymanz.CharacterSheet",
   });
 });
