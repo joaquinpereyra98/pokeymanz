@@ -128,6 +128,23 @@ class PokeymanzActor extends Actor {
       data.attributes[key].name = game.i18n.localize(POKEYMANZ.attributes[key].label);
     }
     return data;
+  }
+  rollAttribute(event, option={}){
+    event.preventDefault();
+    const data = this.actor.getRollData();
+    const attribute = event.currentTarget.dataset.attribute;
+    const label = data.attributes[attribute].name; 
+    const die = data.attributes[attribute].die.sides;
+    const mod = data.attributes[attribute].die.modifier
+
+    const formula = `1d${die}x+${mod}[${label}]`;
+    let roll = new Roll(formula, data)
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: game.i18n.format("POKEYMANZ.AttributePromptTitle", {attr: label}),
+      rollMode: null,
+    })
+    return roll;
   } 
 }
 
@@ -161,23 +178,6 @@ class CharacterSheet extends ActorSheet {
     //if(this.actor.limited)return base+'limited.hbs'; //Create limited template later.
     return base + "character-sheet.hbs";
   }
-  _rollAttribute(event, option={}) {
-    event.preventDefault();
-    const data = this.actor.getRollData();
-    const attribute = event.currentTarget.dataset.attribute;
-    const label = data.attributes[attribute].name; 
-    const die = data.attributes[attribute].die.sides;
-    const mod = data.attributes[attribute].die.modifier
-
-    const formula = `1d${die}x+${mod}[${label}]`;
-    let roll = new Roll(formula, data)
-    roll.toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: game.i18n.format("POKEYMANZ.AttributePromptTitle", {attr: label}),
-      rollMode: null,
-    })
-    return roll;
-  }
   async getData(options) {
     const context = super.getData();
     const actorData = this.actor.toObject(false);
@@ -190,7 +190,7 @@ class CharacterSheet extends ActorSheet {
     super.activateListeners(html);
 
     /*ROLL ATTRIBUTES BUTTON*/
-    html.find(".rollable[data-attribute]").click(this._rollAttribute.bind(this));
+    html.find(".rollable[data-attribute]").click(this.actor.rollAttribute.bind(this));
   }
 }
 
