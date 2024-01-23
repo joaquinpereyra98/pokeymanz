@@ -52,7 +52,9 @@
                     <label for="atrr-heart" class="attr-label">{{localize "POKEYMANZ.Heart"}}</label>
                     <button type="button" class="attribute-value  rollable" data-attribute="heart">
                         <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.heart.die.sides}}.svg'>
-                        <span class="modifier">+{{actor.system.attributes.heart.die.modifier}}</span>
+                        <span class="modifier">
+                            {{#ifCond actor.system.attributes.heart.die.modifier '>=' 0}} + {{/ifCond}}
+                            {{actor.system.attributes.heart.die.modifier}}</span>
                     </button>
                 </div>
                 <div class="attr-box attr-fitness">
@@ -63,7 +65,7 @@
                     </button>
                 </div>
                 <div class="config-box">
-                    <button class="config-button" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
+                    <button class="config-button attribute" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
                 </div>
                 <div class="attr-box attr-research">
                     <label for="atrr-research" class="attr-label">{{localize "POKEYMANZ.Research"}}</label>

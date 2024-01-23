@@ -1,62 +1,76 @@
-.window-app .window-content{
+.pokeymanz {
+    --main-div-color: #e55035;
+    --main-div-border: #737373;
+}
+
+.window-app .window-content {
     padding: 0;
 }
-.sheet header.sheet-header h1 input{
+
+.sheet header.sheet-header h1 input {
     width: 100%;
     margin: 2px 0;
 }
+
 .sheet header.sheet-header img {
     flex: 0 0 100px;
     height: 100px;
-    margin:0 10px;
-    border-radius:10px;
-  }
-.sheet .header-fields{
-    background-color: #e55035;
-    border-bottom: 15px solid #737373;
-    border-left: 15px solid #737373;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+.sheet .header-fields {
+    background-color: var(--main-div-color);
+    border-style: solid;
+    border-width: 0 0 15px 15px;
+    border-color: var(--main-div-border);
     border-radius: 0 0 0 25px;
 }
-.sheet .details-section{
+
+.sheet .details-section {
     display: flex;
     justify-content: space-between;
 }
-.sheet .details-section .detail{
+
+.sheet .details-section .detail {
     width: 31.9%;
 }
-.sheet input[type = "text"]{
-    background-color: rgba(0, 0, 0, 0.1); 
+
+.sheet input[type="text"] {
+    background-color: rgba(0, 0, 0, 0.1);
     border: 0px;
     padding: 1px 8px;
 }
 
-.sheet header label{
+.sheet header label {
     padding: 0 3px;
     font-weight: bold;
     font-size: 15px;
 }
-.sheet .attribute-fields{
-    background-color: #e55035;
+
+.sheet .attribute-fields {
+    background-color: var(--main-div-color);
     border-style: solid;
     border-width: 15px 15px 15px 0;
-    border-color: #737373;
+    border-color: var(--main-div-border);
     margin: 20px 30px 0 0;
     border-radius: 0 25px 25px 0;
-    display:flex;
+    display: flex;
     justify-content: space-evenly;
 }
-.sheet .attributes{
+
+.sheet .attributes {
     display: grid;
-    grid-template-columns: repeat(2,70px) 20px;
-    grid-gap:10px;
+    grid-template-columns: repeat(2, 70px) 20px;
+    grid-gap: 10px;
     margin: 5px 0;
 }
 
-.sheet .attributes:hover .config-button{
+.sheet .attributes:hover .config-button {
     visibility: visible;
 }
 
-.sheet .attributes .attribute-value{
+.sheet .attributes .attribute-value {
     --height: 28px;
     border: none;
     border-radius: 4px;
@@ -67,25 +81,30 @@
     display: flex;
     justify-content: space-around;
 }
-.sheet .attributes .die{
+
+.sheet .attributes .die {
     border: none;
     height: var(--height)
 }
+
 .sheet .attributes .modifier {
     font-size: 1.25em;
     line-height: var(--height);
     margin: 0;
     width: 100%
 }
+
 .sheet .attributes .attr-box {
     display: flex;
     flex-direction: column;
-    align-items: center ;
+    align-items: center;
 }
-.sheet .attributes .attr-label{
+
+.sheet .attributes .attr-label {
     font-weight: bold;
 }
-.sheet .config-button{
+
+.sheet .config-button {
     visibility: collapse;
     background: rgba(0, 0, 0, 0);
     border: 0;
@@ -94,7 +113,45 @@
     fill: opacity(0.5);
     padding: 0;
 }
-.sheet .gear-svg{
+
+.sheet .gear-svg {
     border: 0;
     filter: opacity(0.5);
+}
+
+.attr-menu {
+    background-color: #e55035;
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: var(--main-div-border);
+    margin: 20px 25px 0 0;
+    border-radius: 0 25px 25px 0;
+}
+
+.attr-menu li.element {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    justify-content: space-evenly;
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+    margin: 2.5px 0;
+}
+
+.attr-menu li.element input {
+    border: 0px;
+    width: 50%;
+    text-align: center;
+    font-weight: inherit;
+}
+
+.attr-menu li.element select {
+    text-align: center;
+    border: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dialog .dialog-buttons{
+    margin: 5px;
 }

@@ -14,6 +14,49 @@ const POKEYMANZ = {
     },
   },
 };
+/*Restering Handlebars Helpers*/
+
+Handlebars.registerHelper('concat', function() {
+  var outStr = '';
+  for (var arg in arguments) {
+    if (typeof arguments[arg] != 'object') {
+      outStr += arguments[arg];
+    }
+  }
+  return outStr;
+});
+
+Handlebars.registerHelper('toLowerCase', function(str) {
+  return str.toLowerCase();
+});
+
+Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
+  switch (operator) {
+    case "==":
+      return v1 == v2 ? options.fn(this) : options.inverse(this);
+    case "===":
+      return v1 === v2 ? options.fn(this) : options.inverse(this);
+    case "!=":
+      return v1 != v2 ? options.fn(this) : options.inverse(this);
+    case "!==":
+      return v1 !== v2 ? options.fn(this) : options.inverse(this);
+    case "<":
+      return v1 < v2 ? options.fn(this) : options.inverse(this);
+    case "<=":
+      return v1 <= v2 ? options.fn(this) : options.inverse(this);
+    case ">":
+      return v1 > v2 ? options.fn(this) : options.inverse(this);
+    case ">=":
+      return v1 >= v2 ? options.fn(this) : options.inverse(this);
+    case "&&":
+      return v1 && v2 ? options.fn(this) : options.inverse(this);
+    case "||":
+      return v1 || v2 ? options.fn(this) : options.inverse(this);
+    default:
+      return options.inverse(this);
+  }
+});
+
 /* Defining CharacterData*/
 function attributeDiceFields() {
   const fields = foundry.data.fields;
@@ -71,7 +114,7 @@ class CharacterData extends foundry.abstract.TypeDataModel {
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
           value: new fields.NumberField({ initial: 0, integer: true }),
-          modifer: new fields.NumberField({
+          modifier: new fields.NumberField({
             initial: 0,
             integer: true,
             required: false,
@@ -135,9 +178,12 @@ class PokeymanzActor extends Actor {
     const attribute = event.currentTarget.dataset.attribute;
     const label = data.attributes[attribute].name; 
     const die = data.attributes[attribute].die.sides;
-    const mod = data.attributes[attribute].die.modifier
+    const mod = data.attributes[attribute].die.modifier;
+    let Mod;
+    if(mod>=0)Mod=`+${mod}`
+    else Mod=`${mod}`
 
-    const formula = `1d${die}x+${mod}[${label}]`;
+    const formula = `1d${die}x${Mod}[${label}]`;
     let roll = new Roll(formula, data)
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -145,6 +191,41 @@ class PokeymanzActor extends Actor {
       rollMode: null,
     })
     return roll;
+  }
+  async attributeMenu(event){
+    const attributesPath = 'system.attributes';
+    const attributes = deepClone(this.actor.getRollData().attributes);
+    const content = await renderTemplate("systems/pokeymanz/templates/apps/attribute-menu.hbs",{
+      actor: this.actor,
+      attributes: attributes
+    });
+    let d = new Dialog({
+      title: game.i18n.format("POKEYMANZ.AttributeMenuTitle"),
+      content: content,
+      buttons: {
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel Changes"
+         },
+       accept: {
+        icon: '<i class="fas fa-check"></i>',
+        label: "Apply Changes",
+        callback: (html) => {
+          const newData = Object.keys(attributes).reduce((data, att) => {
+            data[`${attributesPath}.${att}.die.modifier`] = parseInt(html.find(`input[name="${att}.modifier"]`).val());
+            data[`${attributesPath}.${att}.die.sides`] = html.find(`select[name="${att}.sides"]`).val();
+            return data;
+          }, {});
+          this.actor.update(newData)
+        }
+       }
+      },
+      default: "cancel",
+     },{
+      classes:['pokeymanz','dialog'],
+      height: 255
+     });
+     d.render(true);
   } 
 }
 
@@ -190,6 +271,7 @@ class CharacterSheet extends ActorSheet {
     super.activateListeners(html);
 
     /*ROLL ATTRIBUTES BUTTON*/
+    html.find(".config-button").click(this.actor.attributeMenu.bind(this));
     html.find(".rollable[data-attribute]").click(this.actor.rollAttribute.bind(this));
   }
 }
