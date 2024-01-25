@@ -75,11 +75,8 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    flex-wrap: nowrap;
     line-height: var(--height);
-    text-align: center;
     display: flex;
-    justify-content: space-around;
 }
 
 .sheet .attributes .die {
@@ -120,7 +117,7 @@
 }
 
 .attr-menu {
-    background-color: #e55035;
+    background-color: var(--main-div-color);
     border-style: solid;
     border-width: 15px 15px 15px 0;
     border-color: var(--main-div-border);
@@ -154,4 +151,100 @@
 
 .dialog .dialog-buttons{
     margin: 5px;
+}
+
+.sheet .stats{
+    margin: 5px 0;
+}
+.sheet .stats .config-box{
+    float: right;
+}
+
+.sheet .stats:hover .config-button {
+    visibility: visible;
+}
+
+.sheet .stats .toughness label{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.sheet .stats .toughness-value {
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: var(--height);
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    align-items: center;
+}
+
+.sheet .stats .toughness-value .shield{
+    height: 28px;
+    border: 0px;
+}
+
+.sheet .stats .toughness-value .value{
+    font-size: 1.5em;
+}
+
+.sheet .stats .toughness{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-menu .toughness-box{
+    background-color: var(--main-div-color);
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: var(--main-div-border);
+    margin: 20px 25px 0 0;
+    border-radius: 0 25px 25px 0;
+}
+
+.stat-menu .toughness-box .toughness-autocalc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 5px 5px 5px;
+}
+
+.stat-menu .toughness-box .toughness-body{
+    display: flex;
+    align-items: center;
+}
+
+.stat-menu .toughness-box .toughness-label{
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.stat-menu .toughness-box .toughness-value{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.stat-menu .toughness-box .toughness-value .box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.stat-menu .toughness-box .toughness-value input{
+    width: 20%;
+    font-size: large;
+    border: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+.stat-menu .toughness-box .toughness-value input:disabled{
+    width: 20%;
+    font-size: large;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    font-weight: bold;
 }

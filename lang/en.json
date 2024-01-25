@@ -1,5 +1,7 @@
 {
     "POKEYMANZ": {
+        "Modifier":"Modifier",
+        "Value":"Value",
         "Name": "Name",
         "Calling": "Calling",
         "Pronouns": "Pronouns",
@@ -10,7 +12,31 @@
         "Research": "Research",
         "Tatics": "Tatics",
         "Attributes": "Attributes",
+        "Toughness": "Toughness",
         "AttributePromptTitle": "{attr} Attribute Check",
-        "AttributeMenuTitle": "Attribute Menu"
+        "AttributeMenuTitle": "Attribute Menu",
+        "StatMenuTitle": "Stats Menu",
+        "ApplyButton": "Apply Changes",
+        "CancelButton": "Cancel Changes",
+        "ToughnessBooleanLabel":"Auto-Calc Toughness",
+        "ToughnessBooleanText": "Activated the Trainer's Toughness value will be its Fitness die type halved.",
+        "Normal":"Normal",
+        "Fire":"Fire",
+        "Water":"Water",
+        "Grass":"Grass",
+        "Flying":"Flying",
+        "Fighting":"Fighting",
+        "Poison":"Poison",
+        "Electric":"Electric",
+        "Ground":"Ground",
+        "Rock":"Rock",
+        "Psychic":"Psychic",
+        "Ice":"Ice",
+        "Bug":"Bug",
+        "Ghost":"Ghost",
+        "Steel":"Steel",
+        "Dragon":"Dragon",
+        "Dark":"Dark",
+        "Fairy":"Fairy"
     }
 }

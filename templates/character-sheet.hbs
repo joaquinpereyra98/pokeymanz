@@ -61,7 +61,9 @@
                     <label for="atrr-fitness" class="attr-label">{{localize "POKEYMANZ.Fitness"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="fitness">
                         <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.fitness.die.sides}}.svg'>
-                        <span class="modifier">+{{actor.system.attributes.fitness.die.modifier}}</span>
+                        <span class="modifier">
+                            {{#ifCond actor.system.attributes.fitness.die.modifier '>=' 0}} + {{/ifCond}}
+                            {{actor.system.attributes.fitness.die.modifier}}</span>
                     </button>
                 </div>
                 <div class="config-box">
@@ -71,26 +73,39 @@
                     <label for="atrr-research" class="attr-label">{{localize "POKEYMANZ.Research"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="research">
                         <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.research.die.sides}}.svg'>
-                        <span class="modifier">+{{actor.system.attributes.research.die.modifier}}</span>
+                        <span class="modifier">
+                            {{#ifCond actor.system.attributes.research.die.modifier '>=' 0}} + {{/ifCond}}
+                            {{actor.system.attributes.research.die.modifier}}</span>
                     </button>
                 </div>
                 <div class="attr-box attr-tatics">
                     <label for="atrr-tatics" class="attr-label">{{localize "POKEYMANZ.Tatics"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="tatics">
                         <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.tatics.die.sides}}.svg'>
-                        <span class="modifier">+{{actor.system.attributes.tatics.die.modifier}}</span>
+                        <span class="modifier">
+                            {{#ifCond actor.system.attributes.tatics.die.modifier '>=' 0}} + {{/ifCond}}
+                            {{actor.system.attributes.tatics.die.modifier}}</span>
                     </button>
                 </div>
 
             </div>
             <div class="stats">
+                <div class="config-box">
+                    <button class="config-button toughness" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
+                </div>
                 <div class="toughness">
-                    <label for="actor.system.stat.toughness">Toughness</label>
+                    <label for="actor.system.stat.toughness">{{localize "POKEYMANZ.Toughness"}}</label>
+                    <button type="button" class="toughness-value rollable" data-stat="toughness">
+                        <img class="shield" src="systems/pokeymanz/assets/icon-ui/shield.svg">
+                        <span class="value">
+                            {{actor.system.stats.toughness.value}}
+                        </span>
+                    </button>
                 </div>
                 <div class="types">
                     <label for="actor.system.stat.type">Type</label>
                     <input name="system.stat.type" type="text" value="{{actor.system.stat.type}}">
-                </div>
+                </div>                
             </div>
             <div class="wounds">
                 <label for="">Wounds</label>

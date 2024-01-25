@@ -13,6 +13,26 @@ const POKEYMANZ = {
       label: "POKEYMANZ.Tatics",
     },
   },
+  types: {
+    normal:"POKEYMANZ.Normal", 
+    fire:"POKEYMANZ.Fire", 
+    water:"POKEYMANZ.Water", 
+    grass:"POKEYMANZ.Grass", 
+    flying:"POKEYMANZ.Flying", 
+    fighting:"POKEYMANZ.Fighting", 
+    poison:"POKEYMANZ.Poison", 
+    electric:"POKEYMANZ.Electric", 
+    ground:"POKEYMANZ.Ground", 
+    rock:"POKEYMANZ.Rock", 
+    psychic:"POKEYMANZ.Psychic", 
+    ice:"POKEYMANZ.Ice", 
+    bug:"POKEYMANZ.Bug", 
+    ghost:"POKEYMANZ.Ghost", 
+    steel:"POKEYMANZ.Steel", 
+    dragon:"POKEYMANZ.Dragon", 
+    dark:"POKEYMANZ.Dark", 
+    fairy:"POKEYMANZ.Fairy"
+  }
 };
 /*Restering Handlebars Helpers*/
 
@@ -128,6 +148,9 @@ class CharacterData extends foundry.abstract.TypeDataModel {
         pronouns: new fields.StringField({ initial: "" }),
         age: new fields.NumberField({ integer: true }),
       }),
+      setting: new fields.SchemaField({
+        autoCalcToughness: new fields.BooleanField({initial: true})
+      })
     };
   }
   static migrateData(source) {
@@ -138,6 +161,9 @@ class CharacterData extends foundry.abstract.TypeDataModel {
     for (const key in this.attributes) {
       const attribute = this.attributes[key];
       attribute.effects = new Array();
+    }
+    if(this.setting.autoCalcToughness){
+      this.stats.toughness.value=0;
     }
   }
   prepareDerivedData() {
@@ -163,6 +189,9 @@ class PokeymanzActor extends Actor {
     const actorData = this;
     const systemData = actorData.system;
     const flags = actorData.flags.pokeymanz || {};
+    if(systemData.setting.autoCalcToughness){
+    systemData.stats.toughness.value = (systemData.attributes.fitness.die.sides)/2;
+    }
   }
   getRollData() {
     const data = super.getRollData();
@@ -205,11 +234,11 @@ class PokeymanzActor extends Actor {
       buttons: {
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: "Cancel Changes"
+          label: game.i18n.format("POKEYMANZ.CancelButton"),
          },
        accept: {
         icon: '<i class="fas fa-check"></i>',
-        label: "Apply Changes",
+        label: game.i18n.format("POKEYMANZ.ApplyButton"),
         callback: (html) => {
           const newData = Object.keys(attributes).reduce((data, att) => {
             data[`${attributesPath}.${att}.die.modifier`] = parseInt(html.find(`input[name="${att}.modifier"]`).val());
@@ -226,7 +255,37 @@ class PokeymanzActor extends Actor {
       height: 255
      });
      d.render(true);
-  } 
+  }
+  async statMenu(event){
+    const toughBolean = this.actor.system.setting.autoCalcToughness;
+    const toughness = this.actor.system.stats.toughness;
+    const content = await renderTemplate("systems/pokeymanz/templates/apps/stat-menu.hbs",{
+      actor: this.actor,
+      toughness: toughness,
+      toughBolean: toughBolean
+    });
+
+    let d = new Dialog({
+      title: game.i18n.format("POKEYMANZ.StatMenuTitle"),
+      content: content,
+      buttons: {
+        cancel:{
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.format("POKEYMANZ.CancelButton"),
+        },
+        accept: {
+          icon: '<i class fas fa-check></i> ',
+          label: game.i18n.format("POKEYMANZ.ApplyButton"),
+          callback:(html) =>{
+          }
+        }
+      },
+      default: "cancel",
+    }, {
+      classes: ['pokeymanz','dialog']
+    });
+    d.render(true);
+  }
 }
 
 /*Registering ActorDocumments*/
@@ -270,9 +329,11 @@ class CharacterSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    /*ROLL ATTRIBUTES BUTTON*/
-    html.find(".config-button").click(this.actor.attributeMenu.bind(this));
+    /*ATTRIBUTES BUTTON*/
+    html.find(".attributes .config-button").click(this.actor.attributeMenu.bind(this));
     html.find(".rollable[data-attribute]").click(this.actor.rollAttribute.bind(this));
+    /*STATS BUTTONS*/
+    html.find(".stats .config-button").click(this.actor.statMenu.bind(this));
   }
 }
 

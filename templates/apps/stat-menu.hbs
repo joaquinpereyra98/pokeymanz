@@ -1,0 +1,22 @@
+<div class="stat-menu">
+    <div class="toughness-box">
+        <div class="toughness-autocalc">
+            <label for="toughBolean" class="toughness-label">{{localize "POKEYMANZ.ToughnessBooleanLabel"}}</label>
+            <div class="toughness-body">
+                <input class="toughness-input" type="checkbox" name="toughBolean" {{checked toughBolean}}>
+                <p class="toughness-text">{{localize "POKEYMANZ.ToughnessBooleanText"}}</p>
+            </div>
+        </div>
+        <label class="toughness-label" for="toughness">{{localize "POKEYMANZ.Toughness"}}</label>
+        <div class="toughness-value">
+            <div class="box">
+                <input type="text" name="toughness.value" data-dtype="Number" value="{{toughness.value}}">
+                <label class="toughness-label" for="toughness-value">{{localize "POKEYMANZ.Value"}}</label>
+            </div>
+            <div class="box">
+                <input type="text" name="toughness.modifier" data-dtype="Number" value="{{toughness.modifier}}">
+                <label class="toughness-label" for="toughness-modifier">{{localize "POKEYMANZ.Modifier"}}</label>
+            </div>  
+        </div>
+    </div>
+</div>
