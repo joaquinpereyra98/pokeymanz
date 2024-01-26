@@ -139,6 +139,7 @@ class CharacterData extends foundry.abstract.TypeDataModel {
             integer: true,
             required: false,
           }),
+          sum: new fields.NumberField({integer:true}),
         }),
         type: new fields.StringField({ initial: "" }),
       }),
@@ -192,6 +193,7 @@ class PokeymanzActor extends Actor {
     if(systemData.setting.autoCalcToughness){
     systemData.stats.toughness.value = (systemData.attributes.fitness.die.sides)/2;
     }
+    systemData.stats.toughness.sum= systemData.stats.toughness.value+systemData.stats.toughness.modifier
   }
   getRollData() {
     const data = super.getRollData();
@@ -241,7 +243,7 @@ class PokeymanzActor extends Actor {
         label: game.i18n.format("POKEYMANZ.ApplyButton"),
         callback: (html) => {
           const newData = Object.keys(attributes).reduce((data, att) => {
-            data[`${attributesPath}.${att}.die.modifier`] = parseInt(html.find(`input[name="${att}.modifier"]`).val());
+            data[`${attributesPath}.${att}.die.modifier`] = parseInt(html.find(`input[name="${att}.modifier"]`).val() || 0);
             data[`${attributesPath}.${att}.die.sides`] = html.find(`select[name="${att}.sides"]`).val();
             return data;
           }, {});
@@ -257,12 +259,12 @@ class PokeymanzActor extends Actor {
      d.render(true);
   }
   async statMenu(event){
-    const toughBolean = this.actor.system.setting.autoCalcToughness;
+    const toughnessBolean = this.actor.system.setting.autoCalcToughness;
     const toughness = this.actor.system.stats.toughness;
     const content = await renderTemplate("systems/pokeymanz/templates/apps/stat-menu.hbs",{
       actor: this.actor,
       toughness: toughness,
-      toughBolean: toughBolean
+      toughnessBolean: toughnessBolean
     });
 
     let d = new Dialog({
@@ -277,6 +279,13 @@ class PokeymanzActor extends Actor {
           icon: '<i class fas fa-check></i> ',
           label: game.i18n.format("POKEYMANZ.ApplyButton"),
           callback:(html) =>{
+            const newData = {};
+            newData['system.setting.autoCalcToughness'] = html.find(`input[name="toughnessBolean"]`)[0].checked;
+            newData['system.stats.toughness'] = {
+              value: parseInt(html.find('input[name="toughness.value"]').val() || 0),
+              modifier: parseInt(html.find('input[name="toughness.modifier"]').val() || 0)
+            }
+            this.actor.update(newData)
           }
         }
       },

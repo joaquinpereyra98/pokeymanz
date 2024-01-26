@@ -3,6 +3,10 @@
     --main-div-border: #737373;
 }
 
+input[type="checkbox"]:checked, input[type="radio"]:checked{
+    accent-color: var(--color-text-dark-primary);
+}
+
 .window-app .window-content {
     padding: 0;
 }
@@ -242,9 +246,6 @@
     background: rgba(0, 0, 0, 0.1);
 }
 .stat-menu .toughness-box .toughness-value input:disabled{
-    width: 20%;
-    font-size: large;
-    border: 0;
+    color: black;
     background-color: rgba(0, 0, 0, 0);
-    font-weight: bold;
 }

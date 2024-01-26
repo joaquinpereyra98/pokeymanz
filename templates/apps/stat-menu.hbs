@@ -1,16 +1,16 @@
 <div class="stat-menu">
     <div class="toughness-box">
         <div class="toughness-autocalc">
-            <label for="toughBolean" class="toughness-label">{{localize "POKEYMANZ.ToughnessBooleanLabel"}}</label>
+            <label for="toughnessBolean" class="toughness-label">{{localize "POKEYMANZ.ToughnessBooleanLabel"}}</label>
             <div class="toughness-body">
-                <input class="toughness-input" type="checkbox" name="toughBolean" {{checked toughBolean}}>
+                <input class="toughness-input" onclick="myFunction()" type="checkbox" name="toughnessBolean" {{checked toughnessBolean}}>
                 <p class="toughness-text">{{localize "POKEYMANZ.ToughnessBooleanText"}}</p>
             </div>
         </div>
         <label class="toughness-label" for="toughness">{{localize "POKEYMANZ.Toughness"}}</label>
         <div class="toughness-value">
             <div class="box">
-                <input type="text" name="toughness.value" data-dtype="Number" value="{{toughness.value}}">
+                <input id="input-toughness-dialog" disabled type="text" name="toughness.value" data-dtype="Number" value="{{toughness.value}}">
                 <label class="toughness-label" for="toughness-value">{{localize "POKEYMANZ.Value"}}</label>
             </div>
             <div class="box">
@@ -20,3 +20,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function myFunction(){
+        let input = document.getElementById("input-toughness-dialog");
+        if(input.disabled)input.removeAttribute("disabled");
+        else input.setAttribute("disabled",'');
+    }
+</script>
