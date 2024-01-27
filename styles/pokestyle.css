@@ -1,6 +1,24 @@
 .pokeymanz {
     --main-div-color: #e55035;
     --main-div-border: #737373;
+    --icon-type-bug:: #A5B613;
+    --icon-type-dark: #623A25;
+    --icon-type-dragon: #7D6DA4;
+    --icon-type-electric: #F2C400;
+    --icon-type-fairy: #E3A0C4;
+    --icon-type-fighting: #DE513F;
+    --icon-type-fire: #DE513F;
+    --icon-type-flying: #658ABB;
+    --icon-type-ghost: #594592;
+    --icon-type-grass: #01913A;
+    --icon-type-ground: #E6AF44;
+    --icon-type-ice: #39A3C4;
+    --icon-type-normal: #B3A492;
+    --icon-type-poison: #B15292;
+    --icon-type-psychic: #D9558C;
+    --icon-type-rock: #AB9153;
+    --icon-type-steel: #92A3AA;
+    --icon-type-water: #0167AB;
 }
 
 input[type="checkbox"]:checked, input[type="radio"]:checked{
@@ -158,46 +176,75 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
 }
 
 .sheet .stats{
+    width: 30%;
     margin: 5px 0;
-}
-.sheet .stats .config-box{
-    float: right;
-}
+    display: grid;
+    grid-template-areas: "b b a" "c c .";
+
+    .config-box{
+        grid-area: a;
+    }
+    .toughness {
+        grid-area: b;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .toughness-label{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .toughness-value {
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            line-height: var(--height);
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            align-items: center;
+            .shield{
+                height: 28px;
+                border: 0px;
+            }
+            .value{
+                font-size: 1.5em;
+        }
+
+        }
+    }
+    .types{
+        grid-area: c;
+        text-align: center;
+        font-size: 15px;
+        font-weight: bold;
+        .types-icons{
+            display: flex;
+            .type-box{
+                transition: 200ms all;
+                border-radius: 100%;
+                height: 40px;
+                width: 40px;
+                margin: auto;
+                .type-img{
+                    border: 0;
+                    height: 60%;
+                    width: 60%;
+                    margin: 20%;
+                }
+            }
+            .type-box:hover{
+                cursor: pointer;
+                filter: saturate(150%);
+                transform: scale(1.1);
+            }
+        }
+    }
+        
+} 
 
 .sheet .stats:hover .config-button {
     visibility: visible;
-}
-
-.sheet .stats .toughness label{
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.sheet .stats .toughness-value {
-    height: 32px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    line-height: var(--height);
-    display: flex;
-    justify-content: space-around;
-    width: 40%;
-    align-items: center;
-}
-
-.sheet .stats .toughness-value .shield{
-    height: 28px;
-    border: 0px;
-}
-
-.sheet .stats .toughness-value .value{
-    font-size: 1.5em;
-}
-
-.sheet .stats .toughness{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .stat-menu .toughness-box{

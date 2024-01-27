@@ -94,7 +94,7 @@
                     <button class="config-button toughness" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
                 </div>
                 <div class="toughness">
-                    <label for="actor.system.stat.toughness">{{localize "POKEYMANZ.Toughness"}}</label>
+                    <label class="toughness-label" for="actor.system.stat.toughness">{{localize "POKEYMANZ.Toughness"}}</label>
                     <button type="button" class="toughness-value rollable" data-stat="toughness">
                         <img class="shield" src="systems/pokeymanz/assets/icon-ui/shield.svg">
                         <span class="value">
@@ -104,7 +104,14 @@
                 </div>
                 <div class="types">
                     <label for="actor.system.stat.type">Type</label>
-                    <input name="system.stat.type" type="text" value="{{actor.system.stat.type}}">
+                    <div class="types-icons rollable">
+                        <div class="type-box {{actor.system.stats.types.primary}}">
+                            <img class="type-img primary-type" src="systems/pokeymanz/assets/icon-type/{{actor.system.stats.types.primary}}.svg">
+                        </div>
+                        <div class="type-box {{actor.system.stats.types.secondary}}">
+                            <img class="type-img secondary-type" src="systems/pokeymanz/assets/icon-type/{{actor.system.stats.types.secondary}}.svg">
+                        </div>
+                    </div>
                 </div>                
             </div>
             <div class="wounds">

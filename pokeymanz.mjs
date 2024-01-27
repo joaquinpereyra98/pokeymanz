@@ -14,6 +14,7 @@ const POKEYMANZ = {
     },
   },
   types: {
+    none: "POKEYMANZ.None",
     normal:"POKEYMANZ.Normal", 
     fire:"POKEYMANZ.Fire", 
     water:"POKEYMANZ.Water", 
@@ -141,7 +142,10 @@ class CharacterData extends foundry.abstract.TypeDataModel {
           }),
           sum: new fields.NumberField({integer:true}),
         }),
-        type: new fields.StringField({ initial: "" }),
+        types: new fields.SchemaField({ 
+          primary: new fields.StringField({initial: "none"}),
+          secondary: new fields.StringField({initial: "none"})
+        }),
       }),
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: "" }),

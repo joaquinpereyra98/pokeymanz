@@ -20,6 +20,7 @@
         "CancelButton": "Cancel Changes",
         "ToughnessBooleanLabel":"Auto-Calc Toughness",
         "ToughnessBooleanText": "Activated the Trainer's Toughness value will be its Fitness die type halved.",
+        "None": "No Type",
         "Normal":"Normal",
         "Fire":"Fire",
         "Water":"Water",
