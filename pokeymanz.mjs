@@ -265,10 +265,17 @@ class PokeymanzActor extends Actor {
   async statMenu(event){
     const toughnessBolean = this.actor.system.setting.autoCalcToughness;
     const toughness = this.actor.system.stats.toughness;
+    const primary = this.actor.system.stats.types.primary;
+    const secondary =  this.actor.system.stats.types.secondary;
+    console.log(typeof primary)
+    const choices = POKEYMANZ.types;
     const content = await renderTemplate("systems/pokeymanz/templates/apps/stat-menu.hbs",{
       actor: this.actor,
       toughness: toughness,
-      toughnessBolean: toughnessBolean
+      toughnessBolean: toughnessBolean,
+      primary: primary,
+      secondary: secondary,
+      choices: choices,
     });
 
     let d = new Dialog({
@@ -289,6 +296,11 @@ class PokeymanzActor extends Actor {
               value: parseInt(html.find('input[name="toughness.value"]').val() || 0),
               modifier: parseInt(html.find('input[name="toughness.modifier"]').val() || 0)
             }
+            newData['system.stats.types']={
+              primary: html.find(`select[name="primaryType"]`).val(),
+              secondary: html.find(`select[name="secondaryType"]`).val(),
+            }
+            console.log(newData)
             this.actor.update(newData)
           }
         }
