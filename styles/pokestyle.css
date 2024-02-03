@@ -3,7 +3,13 @@
     --main-div-border: #737373;
 }
 
-input[type="checkbox"]:checked, input[type="radio"]:checked{
+button:hover,
+button:focus {
+    box-shadow: 0 0 5px #000;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
     accent-color: var(--color-text-dark-primary);
 }
 
@@ -11,33 +17,35 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     padding: 0;
 }
 
-.sheet header.sheet-header h1 input {
-    width: 100%;
-    margin: 2px 0;
-}
+.sheet header.sheet-header {
+    .profile-img {
+        flex: 0 0 100px;
+        height: 100px;
+        margin: 0 10px;
+        border-radius: 10px;
+    }
 
-.sheet header.sheet-header img {
-    flex: 0 0 100px;
-    height: 100px;
-    margin: 0 10px;
-    border-radius: 10px;
-}
+    .header-fields {
+        background-color: var(--main-div-color);
+        border-style: solid;
+        border-width: 0 0 15px 15px;
+        border-color: var(--main-div-border);
+        border-radius: 0 0 0 25px;
 
-.sheet .header-fields {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 0 0 15px 15px;
-    border-color: var(--main-div-border);
-    border-radius: 0 0 0 25px;
-}
+        .charname input {
+            width: 100%;
+            margin: 2px 0;
+        }
 
-.sheet .details-section {
-    display: flex;
-    justify-content: space-between;
-}
+        .details-section {
+            display: flex;
+            justify-content: space-between;
 
-.sheet .details-section .detail {
-    width: 31.9%;
+            .detail {
+                width: 31.9%;
+            }
+        }
+    }
 }
 
 .sheet input[type="text"] {
@@ -52,7 +60,7 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     font-size: 15px;
 }
 
-.sheet .attribute-fields {
+.sheet .attribute-div {
     background-color: var(--main-div-color);
     border-style: solid;
     border-width: 15px 15px 15px 0;
@@ -61,48 +69,49 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     border-radius: 0 25px 25px 0;
     display: flex;
     justify-content: space-evenly;
-}
 
-.sheet .attributes {
-    display: grid;
-    grid-template-columns: repeat(2, 70px) 20px;
-    grid-gap: 10px;
-    margin: 5px 0;
-}
+    .attributes {
+        display: grid;
+        grid-template-columns: repeat(2, 70px) 20px;
+        grid-gap: 10px;
+        margin: 5px 0;
 
-.sheet .attributes:hover .config-button {
-    visibility: visible;
-}
+        .attr-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-.sheet .attributes .attribute-value {
-    --height: 28px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    line-height: var(--height);
-    display: flex;
-}
+            .attr-label {
+                font-weight: bold;
+            }
 
-.sheet .attributes .die {
-    border: none;
-    height: var(--height)
-}
+            .attribute-value {
+                --height: 28px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                line-height: var(--height);
+                display: flex;
+            }
 
-.sheet .attributes .modifier {
-    font-size: 1.25em;
-    line-height: var(--height);
-    margin: 0;
-    width: 100%
-}
+            .die {
+                border: none;
+                height: var(--height)
+            }
 
-.sheet .attributes .attr-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+            .modifier {
+                font-size: 1.25em;
+                line-height: var(--height);
+                margin: 0;
+                width: 100%
+            }
+        }
 
-.sheet .attributes .attr-label {
-    font-weight: bold;
+    }
+
+    .attributes:hover .config-button {
+        visibility: visible;
+    }
 }
 
 .sheet .config-button {
@@ -113,11 +122,11 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     height: 20px;
     fill: opacity(0.5);
     padding: 0;
-}
 
-.sheet .gear-svg {
-    border: 0;
-    filter: opacity(0.5);
+    .gear-svg {
+        border: 0;
+        filter: opacity(0.5);
+    }
 }
 
 .attr-menu {
@@ -153,28 +162,31 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     background: rgba(0, 0, 0, 0.1);
 }
 
-.dialog .dialog-buttons{
+.dialog .dialog-buttons {
     margin: 5px;
 }
 
-.sheet .stats{
+.sheet .stats {
     width: 30%;
     margin: 5px 0;
     display: grid;
     grid-template-areas: "b b a" "c c .";
 
-    .config-box{
+    .config-box {
         grid-area: a;
     }
+
     .toughness {
         grid-area: b;
         display: flex;
         flex-direction: column;
         align-items: center;
-        .toughness-label{
+
+        .toughness-label {
             font-size: 15px;
             font-weight: bold;
         }
+
         .toughness-value {
             height: 32px;
             border: none;
@@ -185,47 +197,54 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
             justify-content: space-around;
             width: 70%;
             align-items: center;
-            .shield{
+
+            .shield {
                 height: 28px;
                 border: 0px;
             }
-            .value{
+
+            .value {
                 font-size: 1.5em;
-        }
+            }
 
         }
     }
-    .types{
+
+    .types {
         grid-area: c;
         text-align: center;
         font-size: 15px;
         font-weight: bold;
-        .types-icons{
+
+        .types-icons {
             display: flex;
-            .type-box{
+
+            .type-box {
                 transition: 200ms all;
                 height: 40px;
                 width: 40px;
                 margin: auto;
-                .type-img{
+
+                .type-img {
                     border: 0;
                 }
             }
-            .type-box:hover{
+
+            .type-box:hover {
                 cursor: pointer;
                 filter: saturate(150%);
                 transform: scale(1.1);
             }
         }
     }
-        
-} 
+
+}
 
 .sheet .stats:hover .config-button {
     visibility: visible;
 }
 
-.stat-menu .toughness-box{
+.stat-menu .toughness-box {
     background-color: var(--main-div-color);
     border-style: solid;
     border-width: 15px 15px 15px 0;
@@ -234,48 +253,51 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     border-radius: 0 25px 25px 0;
 }
 
-.stat-menu .toughness-box .toughness-autocalc{
+.stat-menu .toughness-box .toughness-autocalc {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px 5px 5px 5px;
 }
 
-.stat-menu .toughness-box .toughness-body{
+.stat-menu .toughness-box .toughness-body {
     display: flex;
     align-items: center;
 }
 
-.stat-menu .stat-menu-label{
+.stat-menu .stat-menu-label {
     display: flex;
     justify-content: center;
     font-size: medium;
     font-weight: bold;
 }
 
-.stat-menu .toughness-box .toughness-value{
+.stat-menu .toughness-box .toughness-value {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
-.stat-menu .toughness-box .toughness-value .box{
+
+.stat-menu .toughness-box .toughness-value .box {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
-.stat-menu .toughness-box .toughness-value input{
+
+.stat-menu .toughness-box .toughness-value input {
     width: 20%;
     font-size: large;
     border: 0;
     background: rgba(0, 0, 0, 0.1);
 }
-.stat-menu .toughness-box .toughness-value input:disabled{
+
+.stat-menu .toughness-box .toughness-value input:disabled {
     color: black;
     background-color: rgba(0, 0, 0, 0);
 }
 
-.stat-menu .type-box{
+.stat-menu .type-box {
     background-color: var(--main-div-color);
     border-style: solid;
     border-width: 15px 0 15px 15px;
@@ -285,12 +307,14 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     display: flex;
     align-items: center;
     flex-direction: column;
-    .types{
+
+    .types {
         display: flex;
         justify-content: space-between;
         width: 70%;
         margin: 0 0 10px 0;
-        .input-type{
+
+        .input-type {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -298,24 +322,27 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
     }
 }
 
-.sheet  .wounds{
+.sheet .wounds {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 5px 0;
     font-size: 15px;
     font-weight: bold;
-    .wounds-box{
+
+    .wounds-box {
         display: flex;
         align-items: center;
-        .wounds-button{
+
+        .wounds-button {
             width: 25px;
             border: 0;
             padding: 0;
             font-weight: bold;
             font-size: 35px;
         }
-        .wounds-values{
+
+        .wounds-values {
             border-radius: 5px;
             width: 80px;
             display: flex;
@@ -323,15 +350,17 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
             align-items: center;
             text-align: center;
             border: 2px solid rgba(0, 0, 0, 0.2);
-            .wounds-input{
+
+            .wounds-input {
                 width: 50%;
                 border: 0;
                 background: rgba(0, 0, 0, 0.2);
             }
-            .max-value{
+
+            .max-value {
                 width: 50%;
             }
-            
+
         }
     }
 }
