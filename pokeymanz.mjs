@@ -37,45 +37,9 @@ const POKEYMANZ = {
 };
 /*Restering Handlebars Helpers*/
 
-Handlebars.registerHelper('concat', function() {
-  var outStr = '';
-  for (var arg in arguments) {
-    if (typeof arguments[arg] != 'object') {
-      outStr += arguments[arg];
-    }
-  }
-  return outStr;
-});
 
 Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
-});
-
-Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
-  switch (operator) {
-    case "==":
-      return v1 == v2 ? options.fn(this) : options.inverse(this);
-    case "===":
-      return v1 === v2 ? options.fn(this) : options.inverse(this);
-    case "!=":
-      return v1 != v2 ? options.fn(this) : options.inverse(this);
-    case "!==":
-      return v1 !== v2 ? options.fn(this) : options.inverse(this);
-    case "<":
-      return v1 < v2 ? options.fn(this) : options.inverse(this);
-    case "<=":
-      return v1 <= v2 ? options.fn(this) : options.inverse(this);
-    case ">":
-      return v1 > v2 ? options.fn(this) : options.inverse(this);
-    case ">=":
-      return v1 >= v2 ? options.fn(this) : options.inverse(this);
-    case "&&":
-      return v1 && v2 ? options.fn(this) : options.inverse(this);
-    case "||":
-      return v1 || v2 ? options.fn(this) : options.inverse(this);
-    default:
-      return options.inverse(this);
-  }
 });
 
 /* Defining CharacterData*/
@@ -146,6 +110,10 @@ class CharacterData extends foundry.abstract.TypeDataModel {
           primary: new fields.StringField({initial: "none"}),
           secondary: new fields.StringField({initial: "none"})
         }),
+        wounds: new fields.SchemaField({
+          value: new fields.NumberField({initial: 0}),
+          max: new fields.NumberField({initial:3})
+        })
       }),
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: "" }),
@@ -169,6 +137,15 @@ class CharacterData extends foundry.abstract.TypeDataModel {
     }
     if(this.setting.autoCalcToughness){
       this.stats.toughness.value=0;
+    }
+    this.stats.globalModifiers = {
+      heart: new Array(),
+      fitness:  new Array(),
+      research:  new Array(),
+      tatics:  new Array(),
+      toughness:  new Array(),
+      attack: new Array(),
+      damage: new Array()
     }
   }
   prepareDerivedData() {
@@ -214,11 +191,11 @@ class PokeymanzActor extends Actor {
     const label = data.attributes[attribute].name; 
     const die = data.attributes[attribute].die.sides;
     const mod = data.attributes[attribute].die.modifier;
-    let Mod;
-    if(mod>=0)Mod=`+${mod}`
-    else Mod=`${mod}`
+    const Mod = (mod >= 0) ? `+${mod}` : `${mod}`;
 
-    const formula = `1d${die}x${Mod}[${label}]`;
+    const wounds = `${this.actor.calcWoundPenalties() || ''}`;
+
+    const formula = `1d${die}x${Mod}${wounds}[${label}]`;
     let roll = new Roll(formula, data)
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -311,6 +288,11 @@ class PokeymanzActor extends Actor {
     });
     d.render(true);
   }
+  calcWoundPenalties(){
+    console.log("Wounds Penalti")
+    const wounds = getProperty(this, 'system.stats.wounds');
+    return Math.clamped(wounds.value,0,wounds.max)*-1;
+  }
 }
 
 /*Registering ActorDocumments*/
@@ -359,6 +341,19 @@ class CharacterSheet extends ActorSheet {
     html.find(".rollable[data-attribute]").click(this.actor.rollAttribute.bind(this));
     /*STATS BUTTONS*/
     html.find(".stats .config-button").click(this.actor.statMenu.bind(this));
+    /*COUNTERS BUTTONS*/
+    html.find(".wounds .wounds-button").on("click",(event)=>{
+      const wounds = this.actor.system.stats.wounds;
+      switch (event.currentTarget.dataset.action){
+        case 'wounds-plus':
+          this.actor.update({'system.stats.wounds.value': Math.min(wounds.max, wounds.value + 1)})
+          break;
+        case 'wounds-minus':
+          this.actor.update({'system.stats.wounds.value': Math.max(0, wounds.value - 1)})
+          break;
+      }
+      
+    })
   }
 }
 

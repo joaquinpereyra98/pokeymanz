@@ -297,3 +297,41 @@ input[type="checkbox"]:checked, input[type="radio"]:checked{
         }
     }
 }
+
+.sheet  .wounds{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 15px;
+    font-weight: bold;
+    .wounds-box{
+        display: flex;
+        align-items: center;
+        .wounds-button{
+            width: 25px;
+            border: 0;
+            padding: 0;
+            font-weight: bold;
+            font-size: 35px;
+        }
+        .wounds-values{
+            border-radius: 5px;
+            width: 80px;
+            display: flex;
+            font-size: large;
+            align-items: center;
+            text-align: center;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            .wounds-input{
+                width: 50%;
+                border: 0;
+                background: rgba(0, 0, 0, 0.2);
+            }
+            .max-value{
+                width: 50%;
+            }
+            
+        }
+    }
+}

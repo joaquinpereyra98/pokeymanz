@@ -51,50 +51,54 @@
                 <div class="attr-box attr-heart">
                     <label for="atrr-heart" class="attr-label">{{localize "POKEYMANZ.Heart"}}</label>
                     <button type="button" class="attribute-value  rollable" data-attribute="heart">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.heart.die.sides}}.svg'>
+                        <img class="die"
+                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.heart.die.sides}}.svg'>
                         <span class="modifier">
-                            {{#ifCond actor.system.attributes.heart.die.modifier '>=' 0}} + {{/ifCond}}
-                            {{actor.system.attributes.heart.die.modifier}}</span>
+                            {{numberFormat actor.system.attributes.heart.die.modifier sign=true}}
+                        </span>
                     </button>
                 </div>
                 <div class="attr-box attr-fitness">
                     <label for="atrr-fitness" class="attr-label">{{localize "POKEYMANZ.Fitness"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="fitness">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.fitness.die.sides}}.svg'>
+                        <img class="die"
+                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.fitness.die.sides}}.svg'>
                         <span class="modifier">
-                            {{#ifCond actor.system.attributes.fitness.die.modifier '>=' 0}} + {{/ifCond}}
-                            {{actor.system.attributes.fitness.die.modifier}}</span>
+                            {{numberFormat actor.system.attributes.fitness.die.modifier sign=true}}</span>
                     </button>
                 </div>
                 <div class="config-box">
-                    <button class="config-button attribute" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
+                    <button class="config-button attribute" type="button"><img class="gear-svg"
+                            src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
                 </div>
                 <div class="attr-box attr-research">
                     <label for="atrr-research" class="attr-label">{{localize "POKEYMANZ.Research"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="research">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.research.die.sides}}.svg'>
+                        <img class="die"
+                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.research.die.sides}}.svg'>
                         <span class="modifier">
-                            {{#ifCond actor.system.attributes.research.die.modifier '>=' 0}} + {{/ifCond}}
-                            {{actor.system.attributes.research.die.modifier}}</span>
+                            {{numberFormat actor.system.attributes.research.die.modifier sign=true}}</span>
                     </button>
                 </div>
                 <div class="attr-box attr-tatics">
                     <label for="atrr-tatics" class="attr-label">{{localize "POKEYMANZ.Tatics"}}</label>
                     <button type="button" class="attribute-value rollable" data-attribute="tatics">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.tatics.die.sides}}.svg'>
+                        <img class="die"
+                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.tatics.die.sides}}.svg'>
                         <span class="modifier">
-                            {{#ifCond actor.system.attributes.tatics.die.modifier '>=' 0}} + {{/ifCond}}
-                            {{actor.system.attributes.tatics.die.modifier}}</span>
+                            {{numberFormat actor.system.attributes.tatics.die.modifier sign=true}}</span>
                     </button>
                 </div>
 
             </div>
             <div class="stats">
                 <div class="config-box">
-                    <button class="config-button toughness" type="button"><img class="gear-svg" src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
+                    <button class="config-button toughness" type="button"><img class="gear-svg"
+                            src="systems/pokeymanz/assets/icon-ui/gear.svg"></button>
                 </div>
                 <div class="toughness">
-                    <label class="toughness-label" for="actor.system.stat.toughness">{{localize "POKEYMANZ.Toughness"}}</label>
+                    <label class="toughness-label" for="actor.system.stat.toughness">{{localize
+                        "POKEYMANZ.Toughness"}}</label>
                     <button type="button" class="toughness-value rollable" data-stat="toughness">
                         <img class="shield" src="systems/pokeymanz/assets/icon-ui/shield.svg">
                         <span class="value">
@@ -106,21 +110,29 @@
                     <label for="actor.system.stat.type">Type</label>
                     <div class="types-icons rollable">
                         <div class="type-box {{actor.system.stats.types.primary}}">
-                            <img class="type-img primary-type" src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.primary}}.svg">
+                            <img class="type-img primary-type"
+                                src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.primary}}.svg">
                         </div>
                         <div class="type-box {{actor.system.stats.types.secondary}}">
-                            <img class="type-img secondary-type" src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.secondary}}.svg">
+                            <img class="type-img secondary-type"
+                                src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.secondary}}.svg">
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="wounds">
-                <label for="">Wounds</label>
-                <ul>
-                    <li>Wounds -1</li>
-                    <li>Wounds -3</li>
-                    <li>Wounds KO</li>
-                </ul>
+                <label>Wounds</label>
+                <div class="wounds-box">
+                    <button class="wounds-button" data-action="wounds-minus" type="button">-</button>
+                    <div class="wounds-values">
+                        <input data-dtype="Number" type="text" class="wounds-input"
+                            value="{{actor.system.stats.wounds.value}}" 
+                            step="1" min="0"
+                            max="{{actor.system.stats.wounds.max}}">
+                        <span class="max-value">{{actor.system.stats.wounds.max}}</span>
+                    </div>
+                    <button class="wounds-button" data-action="wounds-plus" type="button">+</button>
+                </div>
             </div>
         </div>
     </body>
