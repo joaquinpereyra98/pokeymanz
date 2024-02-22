@@ -8,6 +8,6 @@
     },
     "Item":{
         "types": ["edge"],
-        "htmlFields":["description"]
+        "htmlFields":["enrichedTexts.description","enrichedTexts.requirement","enrichedTexts.notes"]
     }
 }

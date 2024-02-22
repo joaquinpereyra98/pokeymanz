@@ -1,7 +1,7 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
-        <div class="header-fields">
+        <div class="header-fields sheet-box">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
                     placeholder={{localize "POKEYMANZ.Name" }} /></h1>
             <div class="calling-box">
@@ -12,8 +12,8 @@
                     <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
                 </div>
             </div>
-            <div class="details-section">
-                <div class="detail pronouns-box">
+            <div class="details-fields">
+                <div class="detail-field pronouns-box">
                     <div class="labelbox">
                         <label for="actor.system.details.pronouns" class="label">{{localize
                             "POKEYMANZ.Pronouns"}}</label>
@@ -22,7 +22,7 @@
                         <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
                     </div>
                 </div>
-                <div class="detail currency-box">
+                <div class="detail-field currency-box">
                     <div class="labelbox">
                         <label for="actor.system.details.currency" class="label">{{localize
                             "POKEYMANZ.Currency"}}</label>
@@ -32,7 +32,7 @@
                             value="{{actor.system.details.currency}}">
                     </div>
                 </div>
-                <div class="detail age-box">
+                <div class="detail-field age-box">
                     <div class="labelbox">
                         <label for="actor.system.details.age" class="label">{{localize "POKEYMANZ.Age"}}</label>
                     </div>
@@ -46,7 +46,7 @@
     </header>
 
     <body class="sheet-body">
-        <div class="attribute-div">
+        <div class="attribute-div sheet-box">
             <div class="attributes">
                 <div class="attr-box attr-heart">
                     <label for="atrr-heart" class="attr-label">{{localize "POKEYMANZ.Heart"}}</label>

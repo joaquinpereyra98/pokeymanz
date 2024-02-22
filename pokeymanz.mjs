@@ -13,7 +13,7 @@ const POKEYMANZ = {
       label: "POKEYMANZ.Tatics",
     },
   },
-  types: {
+  pokemonTypes: {
     none: "POKEYMANZ.None",
     normal: "POKEYMANZ.Normal",
     fire: "POKEYMANZ.Fire",
@@ -34,11 +34,16 @@ const POKEYMANZ = {
     dark: "POKEYMANZ.Dark",
     fairy: "POKEYMANZ.Fairy",
   },
-  category:{
-    battle: "POKEYMANZ.Battle",
-    social:"POKEYMANZ.Social",
-    utility:"POKEYMANZ.Utility",
-  }
+  itemCategories: {
+    edge: {
+      battle: "POKEYMANZ.Battle",
+      social: "POKEYMANZ.Social",
+      utility: "POKEYMANZ.Utility",
+    },
+  },
+  itemTypes: {
+    edge: "POKEYMANZ.Edge",
+  },
 };
 /*Restering Handlebars Helpers*/
 
@@ -163,22 +168,16 @@ class ItemData extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       category: new fields.StringField({ initial: "", textSearch: true }),
-      description: new fields.HTMLField({ initial: "description", textSearch: true }),
-      requirement: new fields.StringField({ initial: "requirement", textSearch: true }),
-      notes: new fields.StringField({ initial: "notes", textSearch: true }),
+      source: new fields.StringField({initial: "", textSearch: true}),
+      enrichedTexts:new fields.SchemaField({
+        description: new fields.HTMLField({initial: "" }),
+        requirement: new fields.HTMLField({ initial: "" }),
+        notes: new fields.HTMLField({ initial: "" }),
+      })
     };
   }
 }
 
-/*Registering dataModels*/
-Hooks.on("init", () => {
-  Object.assign(CONFIG.Actor.dataModels, {
-    character: CharacterData,
-  });
-  Object.assign(CONFIG.Item.dataModels, {
-    edge: ItemData,
-  });
-});
 
 /*Defining ActorDocumments*/
 class PokeymanzActor extends Actor {
@@ -278,7 +277,7 @@ class PokeymanzActor extends Actor {
     const toughness = this.actor.system.stats.toughness;
     const primary = this.actor.system.stats.types.primary;
     const secondary = this.actor.system.stats.types.secondary;
-    const choices = POKEYMANZ.types;
+    const choices = POKEYMANZ.pokemonTypes;
     const content = await renderTemplate(
       "systems/pokeymanz/templates/apps/stat-menu.hbs",
       {
@@ -348,17 +347,15 @@ class PokeymanzItem extends Item {
     rollData.item = foundry.utils.deepClone(this.system);
     return rollData;
   }
+  async _preCreate(data, options, user){
+    await super._preCreate(data, options, user);
+    if (!data.img) {
+      this.updateSource({
+          img: `systems/pokeymanz/assets/item-img/${data.type}.svg`,
+      });
+  }
+  }
 }
-
-/*Registering ActorDocumments*/
-Hooks.on("init", () => {
-  game.pokeymanz = {
-    PokeymanzActor,
-    PokeymanzItem,
-  };
-  CONFIG.Actor.documentClass = PokeymanzActor;
-  CONFIG.Item.documentClass = PokeymanzItem;
-});
 /*Defining ActorSheets*/
 class CharacterSheet extends ActorSheet {
   static get defaultOptions() {
@@ -425,34 +422,62 @@ class PokeymanzItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["pokeymanz", "sheet", "item"],
-      width: 520,
+      width: 605,
       height: 480,
     });
   }
   get template() {
     return `systems/pokeymanz/templates/items/${this.item.type}-sheet.hbs`;
   }
-  getData() {
-    const context = super.getData();
+  async getData(options) {
+    const context = await super.getData(options);
     const itemData = context.item;
 
     let actor = this.object?.parent;
-    context.rollData = actor?.getRollData() ?? null;
+    return foundry.utils.mergeObject(context, {
+      rollData: actor?.getRollData() ?? null,
 
-    context.system = itemData.system;
-    context.flags = itemData.flags;
+      system: itemData.system,
+      flags: itemData.flags,
 
-    context.edgeCategory=POKEYMANZ.category;
-    console.log(context)
-    return context;
+      itemCategory: POKEYMANZ.itemCategories[this.item.type],
+      itemType: game.i18n.localize(POKEYMANZ.itemTypes[this.item.type]),
+      enrichedHTML: Object.fromEntries(
+        await Promise.all(
+          Object.entries(this.object.system.enrichedTexts).map(
+            async ([key, val]) => [
+              key + "HTML",
+              await TextEditor.enrichHTML(val, { async: true }),
+            ]
+          )
+        )
+      ),
+    });
   }
   activateListeners(html) {
     super.activateListeners(html);
   }
 }
 
-/*Registering ActorSheets*/
-Hooks.on("init", () => {
+
+Hooks.once("init", () => {
+  /*Registering dataModels*/
+  Object.assign(CONFIG.Actor.dataModels, {
+    character: CharacterData,
+  });
+  Object.assign(CONFIG.Item.dataModels, {
+    edge: ItemData,
+  });
+  game.pokeymanz = {
+    PokeymanzActor,
+    PokeymanzItem,
+  };
+
+  /*Registering ActorDocumments*/
+  CONFIG.Actor.documentClass = PokeymanzActor;
+  CONFIG.Item.documentClass = PokeymanzItem;
+
+  /*Registering ActorSheets*/
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("Character Sheet", CharacterSheet, {
     types: ["character"],

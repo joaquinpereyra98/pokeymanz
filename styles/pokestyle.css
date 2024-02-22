@@ -4,7 +4,8 @@
 }
 
 button:hover,
-button:focus {
+button:focus,
+select:focus {
     box-shadow: 0 0 5px #000;
 }
 
@@ -17,6 +18,12 @@ input[type="radio"]:checked {
     padding: 0;
 }
 
+.sheet-box{
+    background-color: var(--main-div-color);
+    border: solid 15px var(--main-div-border);
+}
+
+
 .sheet header.sheet-header .profile-img {
     flex: 0 0 100px;
     height: 100px;
@@ -25,11 +32,9 @@ input[type="radio"]:checked {
 }
 
 .sheet header.sheet-header .header-fields {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 0 0 15px 15px;
-    border-color: var(--main-div-border);
-    border-radius: 0 0 0 25px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-left-radius: 25px;
 }
 
 .sheet header.sheet-header .header-fields .charname input {
@@ -37,12 +42,12 @@ input[type="radio"]:checked {
     margin: 2px 0;
 }
 
-.sheet header.sheet-header .header-fields .details-section {
+.sheet header.sheet-header .header-fields .details-fields {
     display: flex;
     justify-content: space-between;
 }
 
-.sheet header.sheet-header .header-fields .details-section .detail {
+.sheet header.sheet-header .header-fields .details-fields .detail-field {
     width: 31.9%;
 }
 
@@ -51,7 +56,15 @@ input[type="radio"]:checked {
     border: 0px;
     padding: 1px 8px;
 }
-
+.sheet select{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    padding: 1px 8px;
+    width: 95%;
+    font-weight: bold;
+    font-size: medium;
+    color: var(--color-border-dark-primary);
+}
 .sheet header label {
     padding: 0 3px;
     font-weight: bold;
@@ -59,57 +72,51 @@ input[type="radio"]:checked {
 }
 
 .sheet .attribute-div {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 15px 15px 15px 0;
-    border-color: var(--main-div-border);
+    border-left-width: 0;
     margin: 20px 30px 0 0;
     border-radius: 0 25px 25px 0;
     display: flex;
     justify-content: space-evenly;
+}
+.sheet .attribute-div .attributes {
+    display: grid;
+    grid-template-columns: repeat(2, 70px) 20px;
+    grid-gap: 10px;
+    margin: 5px 0;
+}
 
-    .attributes {
-        display: grid;
-        grid-template-columns: repeat(2, 70px) 20px;
-        grid-gap: 10px;
-        margin: 5px 0;
+.sheet .attribute-div .attributes .attr-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .attr-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+.sheet .attribute-div .attributes .attr-box .attr-label {
+    font-weight: bold;
+}
 
-            .attr-label {
-                font-weight: bold;
-            }
+.sheet .attribute-div .attributes .attr-box .attribute-value {
+    --height: 28px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: var(--height);
+    display: flex;
+}
 
-            .attribute-value {
-                --height: 28px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                line-height: var(--height);
-                display: flex;
-            }
+.sheet .attribute-div .attributes .attr-box .die {
+    border: none;
+    height: var(--height)
+}
 
-            .die {
-                border: none;
-                height: var(--height)
-            }
-
-            .modifier {
-                font-size: 1.25em;
-                line-height: var(--height);
-                margin: 0;
-                width: 100%
-            }
-        }
-
-    }
-
-    .attributes:hover .config-button {
-        visibility: visible;
-    }
+.sheet .attribute-div .attributes .attr-box .modifier {
+    font-size: 1.25em;
+    line-height: var(--height);
+    margin: 0;
+    width: 100%
+}
+.sheet .attribute-div .attributes:hover .config-button {
+    visibility: visible;
 }
 
 .sheet .config-button {
@@ -128,10 +135,7 @@ input[type="radio"]:checked {
 }
 
 .attr-menu {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 15px 15px 15px 0;
-    border-color: var(--main-div-border);
+    border-left-width: 0;
     margin: 20px 25px 0 0;
     border-radius: 0 25px 25px 0;
 }
@@ -148,6 +152,7 @@ input[type="radio"]:checked {
 }
 
 .attr-menu li.element input {
+    background-color: rgba(0, 0, 0, 0.1);
     border: 0px;
     width: 50%;
     text-align: center;
@@ -243,10 +248,7 @@ input[type="radio"]:checked {
 }
 
 .stat-menu .toughness-box {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 15px 15px 15px 0;
-    border-color: var(--main-div-border);
+    border-left-width: 0;
     margin: 20px 25px 0 0;
     border-radius: 0 25px 25px 0;
 }
@@ -276,7 +278,7 @@ input[type="radio"]:checked {
     justify-content: space-around;
 }
 
-.stat-menu .toughness-box .toughness-value .box {
+.stat-menu .toughness-box .toughness-value .number-box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -296,10 +298,7 @@ input[type="radio"]:checked {
 }
 
 .stat-menu .type-box {
-    background-color: var(--main-div-color);
-    border-style: solid;
-    border-width: 15px 0 15px 15px;
-    border-color: var(--main-div-border);
+    border-right-width: 0;
     margin: 20px 0 0 25px;
     border-radius: 25px 0 0 25px;
     display: flex;
@@ -361,4 +360,31 @@ input[type="radio"]:checked {
 
         }
     }
+}
+
+.item .item-text-box{
+    margin: 20px 10px 0 10px;
+    border-radius: 25px;
+}
+.item .item-text-box h2{
+    margin: 0;
+    padding-left: 10px;
+}
+.item .item-text-box .editor{
+    min-height: 10vh;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.item .item-text-box .editor .editor-content{
+    padding: 0 15px;
+}
+.item .item-text-box .prosemirror .editor-container{
+    min-height: 100px;
+}
+.item header .item-type-value{
+    padding: 3.5px 5px;
+    font-size: medium;
+    font-weight: bold;
+    background-color: rgba(0,0,0,0.1);
+    margin: 0;
+    border-radius: 3px;
 }
