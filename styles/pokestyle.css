@@ -127,11 +127,6 @@ input[type="radio"]:checked {
     height: 20px;
     fill: opacity(0.5);
     padding: 0;
-
-    .gear-svg {
-        border: 0;
-        filter: opacity(0.5);
-    }
 }
 
 .attr-menu {
@@ -223,7 +218,7 @@ input[type="radio"]:checked {
             display: flex;
 
             .type-box {
-                transition: 200ms all;
+                transition: 100ms all;
                 height: 40px;
                 width: 40px;
                 margin: auto;

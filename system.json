@@ -2,10 +2,10 @@
   "id": "pokeymanz",
   "title": "Pokeymanz TTRPG",
   "description": "A FoundryVTT system for PokeymanzTTRPG, pokemon fan-made tabletop RPG",
-  "version": "0.0.1",
+  "version": "#{VERSION}#",
   "compatibility": {
-    "minimum": "11",
-    "verified": "11.315"
+    "minimum": "12",
+    "verified": "12"
   },
   "authors": [
     {
@@ -24,15 +24,16 @@
   "packs": [],
   "languages": [
     {
-      "lang":"en",
+      "lang": "en",
       "name": "English",
       "path": "lang/en.json"
     }
-
   ],
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "url": "",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  "url": "#{URL}#",
   "media": [
     {
       "type": "setup",
@@ -41,5 +42,5 @@
     }
   ],
   "manifest": "",
-  "download": ""
+  "download": "#{DOWNLOAD}#"
 }
