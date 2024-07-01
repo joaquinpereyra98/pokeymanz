@@ -7,6 +7,7 @@
         "Pronouns": "Pronouns",
         "Age": "Age",
         "Currency": "Currency",
+        "PokemonType": "Pokemon Type",
         "Attributes": {
             "Label": "Attributes",
             "Heart": "Heart",
@@ -14,10 +15,12 @@
             "Research": "Research",
             "Tatics": "Tatics"
         },
-        "Toughness": "Toughness",
-        "Edge": "Edge",
-        "PrimaryType": "Primary Type",
-        "SecondaryType": "Secondary Type",
+        "Stats": {
+            "Toughness": "Toughness",
+            "Edge": "Edge",
+            "PrimaryType": "Primary Type",
+            "SecondaryType": "Secondary Type"
+        },
         "AttributePromptTitle": "{attr} Attribute Check",
         "AttributeMenuTitle": "Attribute Menu",
         "StatMenuTitle": "Stats Menu",

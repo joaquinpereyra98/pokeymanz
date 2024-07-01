@@ -136,12 +136,12 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       }),
       primaryTypeField: new fields.StringField({
         value: systemData.stats.types.primary,
-        label: "POKEYMANZ.Stat.PrimaryType",
+        label: "POKEYMANZ.Stats.PrimaryType",
         choices: pokemonTypesChoices,
       }),
       secondaryTypeField: new fields.StringField({
         value: systemData.stats.types.secondary,
-        label: "POKEYMANZ.Stat.SecondaryType",
+        label: "POKEYMANZ.Stats.SecondaryType",
         choices: pokemonTypesChoices,
       }),
     };
