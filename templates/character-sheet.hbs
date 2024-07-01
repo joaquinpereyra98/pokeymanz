@@ -1,117 +1,117 @@
-<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-action="setImg" title="{{actor.name}}" height="200" width="200" />
-        <div class="header-fields sheet-box">
-            <input class="charname" name="name" type="text" value="{{actor.name}}"
-                placeholder={{localize "POKEYMANZ.Name" }} />
-            <div class="calling-box">
+<header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-action="setImg" title="{{actor.name}}" height="200" width="200" />
+    <div class="header-fields sheet-box">
+        <input class="charname" name="name" type="text" value="{{actor.name}}" placeholder={{localize "POKEYMANZ.Name"
+            }} />
+        <div class="calling-box">
+            <div class="labelbox">
+                <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
+            </div>
+            <div class="valuebox">
+                <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
+            </div>
+        </div>
+        <div class="details-fields">
+            <div class="detail-field pronouns-box">
                 <div class="labelbox">
-                    <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
+                    <label for="actor.system.details.pronouns" class="label">{{localize
+                        "POKEYMANZ.Pronouns"}}</label>
                 </div>
                 <div class="valuebox">
-                    <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
+                    <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
                 </div>
             </div>
-            <div class="details-fields">
-                <div class="detail-field pronouns-box">
-                    <div class="labelbox">
-                        <label for="actor.system.details.pronouns" class="label">{{localize
-                            "POKEYMANZ.Pronouns"}}</label>
-                    </div>
-                    <div class="valuebox">
-                        <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
-                    </div>
+            <div class="detail-field currency-box">
+                <div class="labelbox">
+                    <label for="actor.system.details.currency" class="label">{{localize
+                        "POKEYMANZ.Currency"}}</label>
                 </div>
-                <div class="detail-field currency-box">
-                    <div class="labelbox">
-                        <label for="actor.system.details.currency" class="label">{{localize
-                            "POKEYMANZ.Currency"}}</label>
-                    </div>
-                    <div class="valuebox">
-                        <input name="system.details.currency" type="text" data-dtype="Number"
-                            value="{{actor.system.details.currency}}">
-                    </div>
+                <div class="valuebox">
+                    <input name="system.details.currency" type="text" data-dtype="Number"
+                        value="{{actor.system.details.currency}}">
                 </div>
-                <div class="detail-field age-box">
-                    <div class="labelbox">
-                        <label for="actor.system.details.age" class="label">{{localize "POKEYMANZ.Age"}}</label>
-                    </div>
-                    <div class="valuebox">
-                        <input name="system.details.age" type="text" data-dtype="Number"
-                            value="{{actor.system.details.age}}">
-                    </div>
+            </div>
+            <div class="detail-field age-box">
+                <div class="labelbox">
+                    <label for="actor.system.details.age" class="label">{{localize "POKEYMANZ.Age"}}</label>
+                </div>
+                <div class="valuebox">
+                    <input name="system.details.age" type="text" data-dtype="Number"
+                        value="{{actor.system.details.age}}">
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <body class="sheet-body">
-        <div class="attribute-div sheet-box">
-            <div class="attributes attr-sections">
-                <div class="attribute-grid">
-                    {{#each actor.system.attributes as |attribute attributeKey|}}
-                    <div class="attr-box flexcol attr-{{attributeKey}}">
-                        <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
-                        <button type="button" class="attribute-value" data-action="roll" data-roll="attribute"
-                            data-attribute="{{attributeKey}}">
-                            <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
-                            <span class="modifier">
-                                {{numberFormat attribute.die.modifier sign=true}}
-                            </span>
-                        </button>
-                    </div>
-                    {{/each}}
-                </div>
-                <div class="config-box">
-                    <a class="config-button" data-action='openConfigMenu' data-menu="attribute">
-                        <i class="fa-solid fa-gear"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="stats attr-sections">
-                <div class="config-box">
-                    <a class="config-button" data-action='openConfigMenu' data-menu="stat">
-                        <i class="fa-solid fa-gear"></i>
-                    </a>
-                    </button>
-                </div>
-                <div class="toughness flexcol">
-                    <label class="toughness-label" for="actor.system.stat.toughness">{{localize
-                        "POKEYMANZ.Stats.Toughness"}}</label>
-                    <button type="button" class="toughness-value rollable" data-stat="toughness">
-                        <i class="fa-solid fa-shield fa-2xl"></i>
-                        <span class="value">
-                            {{actor.system.stats.toughness.sum}}
+<body class="sheet-body">
+    <div class="attribute-div sheet-box">
+        <div class="attributes attr-sections">
+            <div class="attribute-grid">
+                {{#each actor.system.attributes as |attribute attributeKey|}}
+                <div class="attr-box flexcol attr-{{attributeKey}}">
+                    <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
+                    <button type="button" class="attribute-value" data-action="roll" data-roll="attribute"
+                        data-attribute="{{attributeKey}}">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
+                        <span class="modifier">
+                            {{numberFormat attribute.die.modifier sign=true}}
                         </span>
                     </button>
                 </div>
-                <div class="types">
-                    <label for="actor.system.stat.type">{{localize "POKEYMANZ.PokemonType"}}</label>
-                    <div class="types-icons rollable">
-                        <div class="type-box {{actor.system.stats.types.primary}}">
-                            <img class="type-img primary-type"
-                                src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.primary}}.svg">
-                        </div>
-                        <div class="type-box {{actor.system.stats.types.secondary}}">
-                            <img class="type-img secondary-type"
-                                src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.secondary}}.svg">
-                        </div>
-                    </div>
-                </div>
+                {{/each}}
             </div>
-            <div class="wounds attr-sections flexcol">
-                <label>Wounds</label>
-                <div class="wounds-box">
-                    <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-minus" type="button">-</button>
-                    <div class="wounds-values">
-                        <input data-dtype="Number" type="text" class="wounds-input"
-                            value="{{actor.system.stats.wounds.value}}" step="1" min="0"
-                            max="{{actor.system.stats.wounds.max}}">
-                        <span class="max-value">{{actor.system.stats.wounds.max}}</span>
+            <div class="config-box">
+                <a class="config-button" data-action='openConfigMenu' data-menu="attribute">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+            </div>
+        </div>
+        <div class="stats attr-sections">
+            <div class="config-box">
+                <a class="config-button" data-action='openConfigMenu' data-menu="stat">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+                </button>
+            </div>
+            <div class="toughness flexcol">
+                <label class="toughness-label" for="actor.system.stat.toughness">{{localize
+                    "POKEYMANZ.Stats.Toughness"}}</label>
+                <button type="button" class="toughness-value rollable" data-stat="toughness">
+                    <i class="fa-solid fa-shield fa-2xl"></i>
+                    <span class="value">
+                        {{actor.system.stats.toughness.sum}}
+                    </span>
+                </button>
+            </div>
+            <div class="types">
+                <label for="actor.system.stat.type">{{localize "POKEYMANZ.PokemonType"}}</label>
+                <div class="types-icons rollable">
+                    <div class="type-box {{actor.system.stats.types.primary}}">
+                        <img class="type-img primary-type"
+                            src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.primary}}.svg">
                     </div>
-                    <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-plus" type="button">+</button>
+                    <div class="type-box {{actor.system.stats.types.secondary}}">
+                        <img class="type-img secondary-type"
+                            src="systems/pokeymanz/assets/icon-type/Pokemon_Type_Icon_{{actor.system.stats.types.secondary}}.svg">
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</form>
+        <div class="wounds attr-sections flexcol">
+            <label>Wounds</label>
+            <div class="wounds-box">
+                <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-minus"
+                    type="button">-</button>
+                <div class="wounds-values">
+                    <input data-dtype="Number" type="text" class="wounds-input"
+                        value="{{actor.system.stats.wounds.value}}" step="1" min="0"
+                        max="{{actor.system.stats.wounds.max}}">
+                    <span class="max-value">{{actor.system.stats.wounds.max}}</span>
+                </div>
+                <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-plus"
+                    type="button">+</button>
+            </div>
+        </div>
+    </div>
+</body>
