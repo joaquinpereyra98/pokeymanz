@@ -50,6 +50,7 @@
     height: 130px;
     margin: 0 10px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .pokeymanz header.sheet-header .header-fields {

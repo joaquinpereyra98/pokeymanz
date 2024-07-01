@@ -12,6 +12,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       openConfigMenu: this._openMenu,
       modifyWounds: this._modifyWounds,
       roll: this._onRoll,
+      setImg: this._setImg,
     },
     window: {
       resizable: true,
@@ -201,7 +202,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     dialog.render(true);
   }
   static _modifyWounds(event, target) {
-    const action = target.dataset;
+    const action = target.dataset.operation;
     const wounds = this.actor.system.stats.wounds;
     switch (action) {
       case "wounds-plus":
@@ -229,5 +230,23 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       default:
         break;
     }
+  }
+  static _setImg(event, target) {
+    const current = foundry.utils.getProperty(this.object, "img");
+    const { img } =
+      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
+      {};
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      redirectToRoot: img ? [img] : [],
+      callback: (path) => {
+        target.src = path;
+        if (this.options.submitOnChange) return this._onSubmit(event);
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10,
+    });
+    return fp.browse();
   }
 }

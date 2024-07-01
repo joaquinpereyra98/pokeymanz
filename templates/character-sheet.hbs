@@ -1,6 +1,6 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
     <header class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
+        <img class="profile-img" src="{{actor.img}}" data-action="setImg" title="{{actor.name}}" height="200" width="200" />
         <div class="header-fields sheet-box">
             <input class="charname" name="name" type="text" value="{{actor.name}}"
                 placeholder={{localize "POKEYMANZ.Name" }} />
@@ -44,21 +44,23 @@
             </div>
         </div>
     </header>
+
     <body class="sheet-body">
         <div class="attribute-div sheet-box">
             <div class="attributes attr-sections">
                 <div class="attribute-grid">
-                {{#each actor.system.attributes as |attribute attributeKey|}}
-                <div class="attr-box flexcol attr-{{attributeKey}}">
-                    <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
-                    <button type="button" class="attribute-value" data-action="roll" data-roll="attribute" data-attribute="{{attributeKey}}">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
-                        <span class="modifier">
-                            {{numberFormat attribute.die.modifier sign=true}}
-                        </span>
-                    </button>
-                </div>
-                {{/each}}
+                    {{#each actor.system.attributes as |attribute attributeKey|}}
+                    <div class="attr-box flexcol attr-{{attributeKey}}">
+                        <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
+                        <button type="button" class="attribute-value" data-action="roll" data-roll="attribute"
+                            data-attribute="{{attributeKey}}">
+                            <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
+                            <span class="modifier">
+                                {{numberFormat attribute.die.modifier sign=true}}
+                            </span>
+                        </button>
+                    </div>
+                    {{/each}}
                 </div>
                 <div class="config-box">
                     <a class="config-button" data-action='openConfigMenu' data-menu="attribute">
@@ -100,14 +102,14 @@
             <div class="wounds attr-sections flexcol">
                 <label>Wounds</label>
                 <div class="wounds-box">
-                    <button class="wounds-button" data-action="wounds-minus" type="button">-</button>
+                    <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-minus" type="button">-</button>
                     <div class="wounds-values">
                         <input data-dtype="Number" type="text" class="wounds-input"
                             value="{{actor.system.stats.wounds.value}}" step="1" min="0"
                             max="{{actor.system.stats.wounds.max}}">
                         <span class="max-value">{{actor.system.stats.wounds.max}}</span>
                     </div>
-                    <button class="wounds-button" data-action="wounds-plus" type="button">+</button>
+                    <button class="wounds-button" data-action="modifyWounds" data-operation="wounds-plus" type="button">+</button>
                 </div>
             </div>
         </div>
