@@ -2,8 +2,8 @@
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
         <div class="header-fields sheet-box">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
-                    placeholder={{localize "POKEYMANZ.Name" }} /></h1>
+            <input class="charname" name="name" type="text" value="{{actor.name}}"
+                placeholder={{localize "POKEYMANZ.Name" }} />
             <div class="calling-box">
                 <div class="labelbox">
                     <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
@@ -44,65 +44,40 @@
             </div>
         </div>
     </header>
-
     <body class="sheet-body">
         <div class="attribute-div sheet-box">
-            <div class="attributes">
-                <div class="attr-box attr-heart">
-                    <label for="atrr-heart" class="attr-label">{{localize "POKEYMANZ.Heart"}}</label>
-                    <button type="button" class="attribute-value  rollable" data-attribute="heart">
-                        <img class="die"
-                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.heart.die.sides}}.svg'>
+            <div class="attributes attr-sections">
+                <div class="attribute-grid">
+                {{#each actor.system.attributes as |attribute attributeKey|}}
+                <div class="attr-box flexcol attr-{{attributeKey}}">
+                    <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
+                    <button type="button" class="attribute-value" data-action="roll" data-roll="attribute" data-attribute="{{attributeKey}}">
+                        <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
                         <span class="modifier">
-                            {{numberFormat actor.system.attributes.heart.die.modifier sign=true}}
+                            {{numberFormat attribute.die.modifier sign=true}}
                         </span>
                     </button>
                 </div>
-                <div class="attr-box attr-fitness">
-                    <label for="atrr-fitness" class="attr-label">{{localize "POKEYMANZ.Fitness"}}</label>
-                    <button type="button" class="attribute-value rollable" data-attribute="fitness">
-                        <img class="die"
-                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.fitness.die.sides}}.svg'>
-                        <span class="modifier">
-                            {{numberFormat actor.system.attributes.fitness.die.modifier sign=true}}</span>
-                    </button>
+                {{/each}}
                 </div>
                 <div class="config-box">
-                    <button class="config-button attribute" type="button">
+                    <a class="config-button" data-action='openConfigMenu' data-menu="attribute">
                         <i class="fa-solid fa-gear"></i>
-                    </button>
+                    </a>
                 </div>
-                <div class="attr-box attr-research">
-                    <label for="atrr-research" class="attr-label">{{localize "POKEYMANZ.Research"}}</label>
-                    <button type="button" class="attribute-value rollable" data-attribute="research">
-                        <img class="die"
-                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.research.die.sides}}.svg'>
-                        <span class="modifier">
-                            {{numberFormat actor.system.attributes.research.die.modifier sign=true}}</span>
-                    </button>
-                </div>
-                <div class="attr-box attr-tatics">
-                    <label for="atrr-tatics" class="attr-label">{{localize "POKEYMANZ.Tatics"}}</label>
-                    <button type="button" class="attribute-value rollable" data-attribute="tatics">
-                        <img class="die"
-                            src='systems/pokeymanz/assets/dice/d{{actor.system.attributes.tatics.die.sides}}.svg'>
-                        <span class="modifier">
-                            {{numberFormat actor.system.attributes.tatics.die.modifier sign=true}}</span>
-                    </button>
-                </div>
-
             </div>
-            <div class="stats">
+            <div class="stats attr-sections">
                 <div class="config-box">
-                    <button class="config-button toughness" type="button">
+                    <a class="config-button" data-action='openConfigMenu' data-menu="stat">
                         <i class="fa-solid fa-gear"></i>
+                    </a>
                     </button>
                 </div>
-                <div class="toughness">
+                <div class="toughness flexcol">
                     <label class="toughness-label" for="actor.system.stat.toughness">{{localize
                         "POKEYMANZ.Toughness"}}</label>
                     <button type="button" class="toughness-value rollable" data-stat="toughness">
-                        <img class="shield" src="systems/pokeymanz/assets/icon-ui/shield.svg">
+                        <i class="fa-solid fa-shield fa-2xl"></i>
                         <span class="value">
                             {{actor.system.stats.toughness.sum}}
                         </span>
@@ -122,14 +97,13 @@
                     </div>
                 </div>
             </div>
-            <div class="wounds">
+            <div class="wounds attr-sections flexcol">
                 <label>Wounds</label>
                 <div class="wounds-box">
                     <button class="wounds-button" data-action="wounds-minus" type="button">-</button>
                     <div class="wounds-values">
                         <input data-dtype="Number" type="text" class="wounds-input"
-                            value="{{actor.system.stats.wounds.value}}" 
-                            step="1" min="0"
+                            value="{{actor.system.stats.wounds.value}}" step="1" min="0"
                             max="{{actor.system.stats.wounds.max}}">
                         <span class="max-value">{{actor.system.stats.wounds.max}}</span>
                     </div>

@@ -1,3 +1,4 @@
+import { POKEYMANZ } from '../config.mjs';
 export default class PokeymanzItemSheet extends ItemSheet {
     static get defaultOptions() {
       return mergeObject(super.defaultOptions, {

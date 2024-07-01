@@ -3,99 +3,111 @@
     --main-div-border: #737373;
 }
 
-button:hover,
-button:focus,
-select:focus {
-    box-shadow: 0 0 5px #000;
-}
-
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
-    accent-color: var(--color-text-dark-primary);
-}
-
-.window-app .window-content {
+.window-app .window-content,
+.application .window-content {
     padding: 0;
 }
 
-.sheet-box{
+.pokeymanz button:hover,
+.pokeymanz button:focus,
+.pokeymanz select:focus,
+.pokeymanz input:focus {
+    box-shadow: 0 0 5px #000;
+}
+
+.pokeymanz input[type="checkbox"]:checked,
+.pokeymanz input[type="radio"]:checked {
+    accent-color: var(--color-text-dark-primary);
+    --checkbox-checked-color: var(--color-text-dark-primary);
+}
+
+.pokeymanz input[type="text"] {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    padding: 1px 8px;
+}
+
+.pokeymanz .select-dice {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    padding: 1px 8px;
+    width: 95%;
+    font-size: medium;
+    color: var(--color-border-dark-primary);
+}
+
+.pokeymanz .config-box {
+    width: 0;
+}
+
+.sheet-box {
     background-color: var(--main-div-color);
     border: solid 15px var(--main-div-border);
 }
 
-
-.sheet header.sheet-header .profile-img {
+.pokeymanz header.sheet-header .profile-img {
     flex: 0 0 100px;
-    height: 100px;
+    height: 130px;
     margin: 0 10px;
     border-radius: 10px;
 }
 
-.sheet header.sheet-header .header-fields {
+.pokeymanz header.sheet-header .header-fields {
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-left-radius: 25px;
 }
 
-.sheet header.sheet-header .header-fields .charname input {
-    width: 100%;
-    margin: 2px 0;
+.pokeymanz header.sheet-header .header-fields .charname {
+    font-size: var(--font-h1-size);
+    font-family: var(--font-h1);
+    height: var(--font-h1-size);
 }
 
-.sheet header.sheet-header .header-fields .details-fields {
+.pokeymanz header.sheet-header .header-fields .details-fields {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 3px;
 }
 
-.sheet header.sheet-header .header-fields .details-fields .detail-field {
-    width: 31.9%;
+.pokeymanz header.sheet-header .header-fields .details-fields .detail-field {
+    width: 32%;
 }
 
-.sheet input[type="text"] {
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 0px;
-    padding: 1px 8px;
-}
-.sheet select{
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 0px;
-    padding: 1px 8px;
-    width: 95%;
-    font-weight: bold;
-    font-size: medium;
-    color: var(--color-border-dark-primary);
-}
-.sheet header label {
+.pokeymanz header label {
     padding: 0 3px;
-    font-weight: bold;
     font-size: 15px;
 }
 
-.sheet .attribute-div {
+.pokeymanz .attribute-div {
+    padding: 0 2em;
     border-left-width: 0;
-    margin: 20px 30px 0 0;
+    margin: 1rem 1rem 0 0;
     border-radius: 0 25px 25px 0;
     display: flex;
     justify-content: space-evenly;
 }
-.sheet .attribute-div .attributes {
-    display: grid;
-    grid-template-columns: repeat(2, 70px) 20px;
-    grid-gap: 10px;
+
+.pokeymanz .attribute-div .attr-sections {
     margin: 5px 0;
+    min-width: 30%;
+}
+.pokeymanz .attribute-div .attributes {
+    display: flex;
+}
+.pokeymanz .attribute-div .attributes .attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    padding: 0;
 }
 
-.sheet .attribute-div .attributes .attr-box {
-    display: flex;
-    flex-direction: column;
+.pokeymanz .attribute-div .attributes .attr-box {
     align-items: center;
 }
 
-.sheet .attribute-div .attributes .attr-box .attr-label {
-    font-weight: bold;
-}
 
-.sheet .attribute-div .attributes .attr-box .attribute-value {
+.pokeymanz .attribute-div .attributes .attr-box .attribute-value {
     --height: 28px;
     border: none;
     border-radius: 4px;
@@ -104,22 +116,28 @@ input[type="radio"]:checked {
     display: flex;
 }
 
-.sheet .attribute-div .attributes .attr-box .die {
+.pokeymanz .attribute-div .attributes .attr-box .die {
     border: none;
     height: var(--height)
 }
 
-.sheet .attribute-div .attributes .attr-box .modifier {
+.pokeymanz .attribute-div .attributes .attr-box:hover .die {
+    filter: invert(88%) sepia(17%) saturate(361%) hue-rotate(324deg) brightness(112%) contrast(94%);
+}
+
+.pokeymanz .attribute-div .attributes .attr-box .modifier {
     font-size: 1.25em;
     line-height: var(--height);
     margin: 0;
     width: 100%
 }
-.sheet .attribute-div .attributes:hover .config-button {
+
+.pokeymanz .attributes:hover .config-button,
+.pokeymanz .stats:hover .config-button {
     visibility: visible;
 }
 
-.sheet .config-button {
+.pokeymanz .config-button {
     visibility: collapse;
     background: rgba(0, 0, 0, 0);
     border: 0;
@@ -141,7 +159,6 @@ input[type="radio"]:checked {
     grid-template-columns: repeat(3, 30%);
     justify-content: space-evenly;
     font-size: 18px;
-    font-weight: bold;
     align-items: center;
     margin: 2.5px 0;
 }
@@ -164,222 +181,133 @@ input[type="radio"]:checked {
     margin: 5px;
 }
 
-.sheet .stats {
-    width: 30%;
+.pokeymanz .stats .config-box {
+    grid-area: a;
+}
+
+.pokeymanz .stats .toughness {
+    grid-area: b;
+    align-items: center;
+}
+
+.pokeymanz .stats .toughness .toughness-label {
+    font-size: 15px;
+}
+
+.pokeymanz .stats .toughness .toughness-value {
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: var(--height);
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    align-items: center;
+}
+
+.pokeymanz .stats .toughness .toughness-value .value {
+    font-size: 1.5em;
+}
+
+.pokeymanz .stats .types {
+    grid-area: c;
+    text-align: center;
+    font-size: 15px;
+}
+
+.pokeymanz .stats .types .types-icons {
+    display: flex;
+}
+
+.pokeymanz .stats .types .types-icons .type-box {
+    transition: 100ms all;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+
+    .type-img {
+        border: 0;
+    }
+}
+
+.pokeymanz .stats .types .types-icons .type-box:hover {
+    cursor: pointer;
+    filter: saturate(150%);
+    transform: scale(1.1);
+}
+
+.pokeymanz .stats {
     margin: 5px 0;
     display: grid;
     grid-template-areas: "b b a" "c c .";
-
-    .config-box {
-        grid-area: a;
-    }
-
-    .toughness {
-        grid-area: b;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .toughness-label {
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .toughness-value {
-            height: 32px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            line-height: var(--height);
-            display: flex;
-            justify-content: space-around;
-            width: 70%;
-            align-items: center;
-
-            .shield {
-                height: 28px;
-                border: 0px;
-            }
-
-            .value {
-                font-size: 1.5em;
-            }
-
-        }
-    }
-
-    .types {
-        grid-area: c;
-        text-align: center;
-        font-size: 15px;
-        font-weight: bold;
-
-        .types-icons {
-            display: flex;
-
-            .type-box {
-                transition: 100ms all;
-                height: 40px;
-                width: 40px;
-                margin: auto;
-
-                .type-img {
-                    border: 0;
-                }
-            }
-
-            .type-box:hover {
-                cursor: pointer;
-                filter: saturate(150%);
-                transform: scale(1.1);
-            }
-        }
-    }
-
 }
 
-.sheet .stats:hover .config-button {
-    visibility: visible;
-}
-
-.stat-menu .toughness-box {
-    border-left-width: 0;
-    margin: 20px 25px 0 0;
-    border-radius: 0 25px 25px 0;
-}
-
-.stat-menu .toughness-box .toughness-autocalc {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 5px 5px 5px;
-}
-
-.stat-menu .toughness-box .toughness-body {
-    display: flex;
-    align-items: center;
-}
-
-.stat-menu .stat-menu-label {
-    display: flex;
-    justify-content: center;
-    font-size: medium;
-    font-weight: bold;
-}
-
-.stat-menu .toughness-box .toughness-value {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.stat-menu .toughness-box .toughness-value .number-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.stat-menu .toughness-box .toughness-value input {
-    width: 20%;
-    font-size: large;
-    border: 0;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.stat-menu .toughness-box .toughness-value input:disabled {
-    color: black;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.stat-menu .type-box {
-    border-right-width: 0;
-    margin: 20px 0 0 25px;
-    border-radius: 25px 0 0 25px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    .types {
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-        margin: 0 0 10px 0;
-
-        .input-type {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-}
-
-.sheet .wounds {
-    display: flex;
-    flex-direction: column;
+.pokeymanz .wounds {
     align-items: center;
     margin: 5px 0;
     font-size: 15px;
-    font-weight: bold;
-
-    .wounds-box {
-        display: flex;
-        align-items: center;
-
-        .wounds-button {
-            width: 25px;
-            border: 0;
-            padding: 0;
-            font-weight: bold;
-            font-size: 35px;
-        }
-
-        .wounds-values {
-            border-radius: 5px;
-            width: 80px;
-            display: flex;
-            font-size: large;
-            align-items: center;
-            text-align: center;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-
-            .wounds-input {
-                width: 50%;
-                border: 0;
-                background: rgba(0, 0, 0, 0.2);
-            }
-
-            .max-value {
-                width: 50%;
-            }
-
-        }
-    }
 }
 
-.item .item-text-box{
+.pokeymanz .wounds .wounds-box {
+    display: flex;
+    align-items: center;
+}
+
+.pokeymanz .wounds .wounds-box .wounds-button {
+    width: 25px;
+    border: 0;
+    padding: 0;
+    font-size: 35px;
+}
+
+.pokeymanz .wounds .wounds-box .wounds-values {
+    border-radius: 5px;
+    width: 80px;
+    display: flex;
+    font-size: large;
+    align-items: center;
+    text-align: center;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.pokeymanz .wounds .wounds-box .wounds-values .wounds-input {
+    width: 50%;
+    border: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.pokeymanz .wounds .wounds-box .wounds-values .max-value {
+    width: 50%;
+}
+
+.item .item-text-box {
     margin: 20px 10px 0 10px;
     border-radius: 25px;
 }
-.item .item-text-box h2{
+
+.item .item-text-box h2 {
     margin: 0;
     padding-left: 10px;
 }
-.item .item-text-box .editor{
+
+.item .item-text-box .editor {
     min-height: 10vh;
     background-color: rgba(0, 0, 0, 0.1);
 }
-.item .item-text-box .editor .editor-content{
+
+.item .item-text-box .editor .editor-content {
     padding: 0 15px;
 }
-.item .item-text-box .prosemirror .editor-container{
+
+.item .item-text-box .prosemirror .editor-container {
     min-height: 100px;
 }
-.item header .item-type-value{
+
+.item header .item-type-value {
     padding: 3.5px 5px;
     font-size: medium;
-    font-weight: bold;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     margin: 0;
     border-radius: 3px;
 }
