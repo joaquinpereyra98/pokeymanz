@@ -1,51 +1,4 @@
-<header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-action="setImg" title="{{actor.name}}" height="200" width="200" />
-    <div class="header-fields sheet-box">
-        <input class="charname" name="name" type="text" value="{{actor.name}}" placeholder={{localize "POKEYMANZ.Name"
-            }} />
-        <div class="calling-box">
-            <div class="labelbox">
-                <label for="actor.system.details.calling" class="label">{{localize "POKEYMANZ.Calling"}}</label>
-            </div>
-            <div class="valuebox">
-                <input name="system.details.calling" type="text" value="{{actor.system.details.calling}}">
-            </div>
-        </div>
-        <div class="details-fields">
-            <div class="detail-field pronouns-box">
-                <div class="labelbox">
-                    <label for="actor.system.details.pronouns" class="label">{{localize
-                        "POKEYMANZ.Pronouns"}}</label>
-                </div>
-                <div class="valuebox">
-                    <input name="system.details.pronouns" type="text" value="{{actor.system.details.pronouns}}">
-                </div>
-            </div>
-            <div class="detail-field currency-box">
-                <div class="labelbox">
-                    <label for="actor.system.details.currency" class="label">{{localize
-                        "POKEYMANZ.Currency"}}</label>
-                </div>
-                <div class="valuebox">
-                    <input name="system.details.currency" type="text" data-dtype="Number"
-                        value="{{actor.system.details.currency}}">
-                </div>
-            </div>
-            <div class="detail-field age-box">
-                <div class="labelbox">
-                    <label for="actor.system.details.age" class="label">{{localize "POKEYMANZ.Age"}}</label>
-                </div>
-                <div class="valuebox">
-                    <input name="system.details.age" type="text" data-dtype="Number"
-                        value="{{actor.system.details.age}}">
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<body class="sheet-body">
-    <div class="attribute-div sheet-box">
+<div class="attribute-div sheet-box">
         <div class="attributes attr-sections">
             <div class="attribute-grid">
                 {{#each actor.system.attributes as |attribute attributeKey|}}
@@ -113,5 +66,4 @@
                     type="button">+</button>
             </div>
         </div>
-    </div>
-</body>
+</div>

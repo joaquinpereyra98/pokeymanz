@@ -24,8 +24,11 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     },
   };
   static PARTS = {
-    main: {
-      template: "systems/pokeymanz/templates/character-sheet.hbs",
+    header: {
+      template: "systems/pokeymanz/templates/actors/header.hbs",
+    },
+    attributes: {
+      template: 'systems/pokeymanz/templates/actors/attributes.hbs',
     },
   };
   async _prepareContext(options) {
