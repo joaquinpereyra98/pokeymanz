@@ -1,4 +1,12 @@
 export default class PokeymanzActor extends Actor {
+  prepareData(){
+    super.prepareData();
+    const attributes = this.system.attributes;
+    for (const [key, value] of Object.entries(CONFIG.POKEYMANZ.attributes)) {
+      attributes[key].label = value.name;
+      attributes[key].diceIcon = `systems/pokeymanz/assets/dice/d${attributes[key].die.sides}.svg`
+    }
+  }
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
@@ -12,10 +20,6 @@ export default class PokeymanzActor extends Actor {
   }
   getRollData() {
     const data = super.getRollData();
-    const attributes = foundry.utils.deepClone(this.system.attributes);
-    for(const attributeKey of Object.keys(attributes)){
-      data.attributes[attributeKey].name = game.i18n.localize(`POKEYMANZ.Attributes.${attributeKey.capitalize()}`)
-    }
     return data;
   }
   rollAttribute(attribute, option = {}) {

@@ -37,8 +37,8 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       actor: this.actor,
       system: this.actor.system,
       flags: this.actor.flags,
+      config: CONFIG.POKEYMANZ,
     };
-
     return context;
   }
   static async _openMenu(event, target) {
@@ -55,22 +55,12 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
   }
   async _renderAttributeMenu() {
     const attributesPath = "system.attributes";
-    const attributes = foundry.utils.deepClone(
-      this.actor.getRollData().attributes
-    );
-    const dieChoice = {
-      4: "d4",
-      6: "d6",
-      8: "d8",
-      10: "d10",
-      12: "d12",
-    };
     const content = await renderTemplate(
       "systems/pokeymanz/templates/apps/attribute-menu.hbs",
       {
         actor: this.actor,
-        attributes: attributes,
-        dieChoice: dieChoice,
+        attributes: this.actor.system.attributes,
+        dieChoice: CONFIG.POKEYMANZ.diceOptions,
       }
     );
     let d = new Dialog(

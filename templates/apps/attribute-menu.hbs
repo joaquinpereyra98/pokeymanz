@@ -2,11 +2,11 @@
    <ul>
         {{#each attributes as |attribute key|}} 
             <li class="element">
-                <label for="{{@key}}.name">{{attribute.name}}</label>
+                <label for="{{key}}.label">{{localize attribute.label}}</label>
                 <select class="select-dice" name="{{key}}.sides">
                     {{selectOptions ../dieChoice value=attribute.die.sides}}
                 </select>
-                <input name="{{@key}}.modifier" type="number" data-dtype="number" value="{{attribute.die.modifier}}">
+                <input name="{{key}}.modifier" type="number" data-dtype="number" value="{{attribute.die.modifier}}">
             </li> 
         {{/each}}
    </ul>

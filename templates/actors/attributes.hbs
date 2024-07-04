@@ -3,10 +3,10 @@
             <div class="attribute-grid">
                 {{#each actor.system.attributes as |attribute attributeKey|}}
                 <div class="attr-box flexcol attr-{{attributeKey}}">
-                    <label for="attr-{{attributeKey}}" class="attr-label">{{attributeKey}}</label>
+                    <label for="attr-{{attributeKey}}" class="attr-label">{{localize attribute.label}}</label>
                     <button type="button" class="attribute-value" data-action="roll" data-roll="attribute"
                         data-attribute="{{attributeKey}}">
-                        <img class="die" src='systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg'>
+                        <img class="die" src='{{attribute.diceIcon}}'>
                         <span class="modifier">
                             {{numberFormat attribute.die.modifier sign=true}}
                         </span>

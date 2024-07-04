@@ -5,6 +5,7 @@ import PokeymanzItemSheet from"./src/sheets/item-sheet.mjs"
 import { POKEYMANZ } from "./src/config.mjs";
 
 Hooks.once("init", () => {
+  CONFIG.POKEYMANZ = POKEYMANZ;
   Object.assign(CONFIG.Actor.dataModels, {
     character: data.Character,
   });
@@ -34,7 +35,4 @@ Hooks.once("init", () => {
     makeDefault: true,
     label: "POKEYMANZ.ItemSheet",
   });
-
-  CONFIG.POKEYMANZ = POKEYMANZ;
-  
 });
