@@ -1,15 +1,17 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <img class="item-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields sheet-box">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+      <h1 class="charname item-name">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Name" />
+      </h1>
       <div class="details-fields">
         <div class="detail-field item-type-field">
           <div class="labelbox">
             <label class="item-type-label">{{localize "POKEYMANZ.ItemTypeLabel"}}</label>
           </div>
           <div class="valuebox">
-            <h4 class="item-type-value">{{itemType}}</h4>
+            <input name="itemType" type="text" value="{{itemType}}" disabled>
           </div>
         </div>
         <div class="detail-field category-field">
@@ -18,12 +20,7 @@
           </div>
           <div class="valuebox">
             <select class="category-select" name="system.category" data-type="String">
-              <option value="" selected></option>
-              {{#select item.system.category}}
-              {{#each itemCategory as |category key|}}
-              <option value="{{key}}">{{localize category}}</option>
-              {{/each}}
-              {{/select}}
+              {{selectOptions itemCategory selected=system.category localize=true}}
             </select>
           </div>
         </div>
@@ -43,21 +40,24 @@
       <label class="description-label">
         <h2>{{localize "POKEYMANZ.DescriptionLabel"}}</h2>
       </label>
-      {{editor enrichedHTML.descriptionHTML target="system.enrichedTexts.description" button=true editable=editable collaborate=false
+      {{editor enrichedHTML.descriptionHTML target="system.enrichedTexts.description" button=true editable=editable
+      collaborate=false
       engine="prosemirror"}}
     </div>
     <div class="requirement-box sheet-box item-text-box">
       <label class="requirement-label">
         <h2>{{localize "POKEYMANZ.RequirementLabel"}}</h2>
       </label>
-      {{editor enrichedHTML.requirementHTML target="system.enrichedTexts.requirement" button=true editable=editable collaborate=false
+      {{editor enrichedHTML.requirementHTML target="system.enrichedTexts.requirement" button=true editable=editable
+      collaborate=false
       engine="prosemirror"}}
     </div>
     <div class="notes-box sheet-box item-text-box">
       <label class="notes-label">
         <h2>{{localize "POKEYMANZ.NotesLabel"}}</h2>
       </label>
-      {{editor enrichedHTML.notesHTML target="system.enrichedTexts.notes" button=true editable=editable collaborate=false engine="prosemirror"}}
+      {{editor enrichedHTML.notesHTML target="system.enrichedTexts.notes" button=true editable=editable
+      collaborate=false engine="prosemirror"}}
     </div>
   </section>
 </form>

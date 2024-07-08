@@ -161,13 +161,13 @@ export const POKEYMANZ = {
   ],
   itemCategories: {
     edge: {
-      battle: "POKEYMANZ.Battle",
-      social: "POKEYMANZ.Social",
-      utility: "POKEYMANZ.Utility",
+      battle: "POKEYMANZ.ItemCategories.Edge.Battle",
+      social: "POKEYMANZ.ItemCategories.Edge.Social",
+      utility: "POKEYMANZ.ItemCategories.Edge.Utility",
     },
   },
   itemTypes: {
-    edge: "POKEYMANZ.Edge",
+    edge: "POKEYMANZ.ItemTypes.Edge",
   },
   diceOptions: {
     4: "d4",

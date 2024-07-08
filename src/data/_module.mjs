@@ -1,7 +1,7 @@
 import CharacterData from "./CharacterData.mjs";
-import ItemData from "./ItemData.mjs";
+import EdgeData from "./EdgeData.mjs";
 
 export {
     CharacterData as Character,
-    ItemData as Item
+    EdgeData as Edge
 }

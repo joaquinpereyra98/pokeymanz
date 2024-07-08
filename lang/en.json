@@ -17,9 +17,18 @@
         },
         "Stats": {
             "Toughness": "Toughness",
-            "Edge": "Edge",
             "PrimaryType": "Primary Type",
             "SecondaryType": "Secondary Type"
+        },
+        "ItemTypes":{
+            "Edge": "Edge"
+        },
+        "ItemCategories": {
+            "Edge": {
+                "Battle": "Battle",
+                "Social": "Social",
+                "Utility": "Utility"
+            }
         },
         "AttributePromptTitle": "{attr} Attribute Check",
         "AttributeMenuTitle": "Attribute Menu",

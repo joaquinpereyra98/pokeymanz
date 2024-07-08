@@ -40,11 +40,20 @@
     width: 0;
 }
 
-.sheet-box {
+.pokeymanz .sheet-box {
     background-color: var(--main-div-color);
     border: solid 15px var(--main-div-border);
 }
-
+.sheet header.sheet-header {
+    align-items: flex-start;
+}
+.pokeymanz header.sheet-header .item-img {
+    flex: 0 0 100px;
+    height: 120px;
+    margin: 0 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
 .pokeymanz header.sheet-header .profile-img {
     flex: 0 0 100px;
     height: 130px;
@@ -281,34 +290,34 @@
 .pokeymanz .wounds .wounds-box .wounds-values .max-value {
     width: 50%;
 }
-
-.item .item-text-box {
+.pokeymanz.item .item-name input{
+    margin: 0;
+    width: 100%;
+}
+.pokeymanz.item .category-field .category-select {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+.pokeymanz.item .item-text-box {
     margin: 20px 10px 0 10px;
     border-radius: 25px;
 }
 
-.item .item-text-box h2 {
+.pokeymanz.item .item-text-box h2 {
     margin: 0;
     padding-left: 10px;
 }
 
-.item .item-text-box .editor {
+.pokeymanz.item .item-text-box .editor {
     min-height: 10vh;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.item .item-text-box .editor .editor-content {
+.pokeymanz.item .item-text-box .editor .editor-content {
     padding: 0 15px;
 }
 
-.item .item-text-box .prosemirror .editor-container {
+.pokeymanz.item .item-text-box .prosemirror .editor-container {
     min-height: 100px;
-}
-
-.item header .item-type-value {
-    padding: 3.5px 5px;
-    font-size: medium;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin: 0;
-    border-radius: 3px;
 }

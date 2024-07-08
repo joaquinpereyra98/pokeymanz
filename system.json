@@ -41,6 +41,11 @@
       "thumbnail": "systems/pokeymanz/assets/logo/HighResLogo_1.webp"
     }
   ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "js", "hbs", "json"]
+    }
+  },
   "manifest": "",
   "download": "#{DOWNLOAD}#"
 }
