@@ -165,9 +165,14 @@ export const POKEYMANZ = {
       social: "POKEYMANZ.ItemCategories.Edge.Social",
       utility: "POKEYMANZ.ItemCategories.Edge.Utility",
     },
+    hindrance: {
+      minor: "POKEYMANZ.ItemCategories.Hindrance.Minor",
+      major: "POKEYMANZ.ItemCategories.Hindrance.Major"
+    }
   },
   itemTypes: {
     edge: "POKEYMANZ.ItemTypes.Edge",
+    hindrance: "POKEYMANZ.ItemTypes.Hindrance"
   },
   diceOptions: {
     4: "d4",

@@ -7,7 +7,7 @@
         ]
     },
     "Item":{
-        "types": ["edge"],
+        "types": ["edge", "hindrance"],
         "htmlFields":["enrichedTexts.description","enrichedTexts.requirement","enrichedTexts.notes"]
     }
 }

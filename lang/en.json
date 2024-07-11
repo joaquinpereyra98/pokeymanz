@@ -21,13 +21,18 @@
             "SecondaryType": "Secondary Type"
         },
         "ItemTypes":{
-            "Edge": "Edge"
+            "Edge": "Edge",
+            "Hindrance": "Hindrance"
         },
         "ItemCategories": {
             "Edge": {
                 "Battle": "Battle",
                 "Social": "Social",
                 "Utility": "Utility"
+            },
+            "Hindrance": {
+                "Minor": "Minor",
+                "Major": "Major"
             }
         },
         "AttributePromptTitle": "{attr} Attribute Check",

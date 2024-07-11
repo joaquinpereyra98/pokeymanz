@@ -1,4 +1,3 @@
-import { POKEYMANZ } from '../config.mjs';
 export default class PokeymanzItemSheet extends ItemSheet {
     static get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
@@ -20,8 +19,8 @@ export default class PokeymanzItemSheet extends ItemSheet {
   
         system: itemData.system,
         flags: itemData.flags,
-        itemCategory: POKEYMANZ.itemCategories[this.item.type],
-        itemType: game.i18n.localize(POKEYMANZ.itemTypes[this.item.type]),
+        itemCategory: CONFIG.POKEYMANZ.itemCategories[this.item.type],
+        itemType: game.i18n.localize(CONFIG.POKEYMANZ.itemTypes[this.item.type]),
         enrichedHTML: Object.fromEntries(
           await Promise.all(
             Object.entries(this.item.system.enrichedTexts).map(
