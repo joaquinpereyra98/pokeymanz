@@ -1,8 +1,7 @@
 {
     "POKEYMANZ": {
-        "Modifier": "Modifier",
-        "Value": "Value",
-        "Name": "Name",
+        "DieSizes": "Die Sizes",
+        "AttributeMod": "Attribute Modifier",
         "Calling": "Calling",
         "Pronouns": "Pronouns",
         "Age": "Age",
@@ -33,6 +32,11 @@
             "Hindrance": {
                 "Minor": "Minor",
                 "Major": "Major"
+            }
+        },
+        "Actor": {
+            "SECTIONS": {
+                "Summary": "Summary"
             }
         },
         "AttributePromptTitle": "{attr} Attribute Check",
@@ -71,6 +75,11 @@
             "Dragon": "Dragon",
             "Dark": "Dark",
             "Fairy": "Fairy"
+        }
+    },
+    "TYPES": {
+        "Actor": {
+            "character": "Character"
         }
     }
 }

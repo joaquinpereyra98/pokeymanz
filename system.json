@@ -33,7 +33,6 @@
     "distance": 5,
     "units": "ft"
   },
-  "url": "#{URL}#",
   "media": [
     {
       "type": "setup",
@@ -43,9 +42,10 @@
   ],
   "flags": {
     "hotReload": {
-      "extensions": ["css", "js", "hbs", "json"]
+      "extensions": ["css", "hbs", "json"]
     }
   },
+  "url": "#{URL}#",
   "manifest": "",
   "download": "#{DOWNLOAD}#"
 }

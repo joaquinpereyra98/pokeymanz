@@ -1,0 +1,35 @@
+<section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
+    <div class="character-card">
+        <div class="portrait actor-portrait">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="image" alt="{{actor.name}}"
+                title="{{actor.name}}" />
+            <div class="stats-container flexrow">
+                <div class="type-container">
+
+                </div>
+                <div class="toughness-container">
+                    <i class="fa-solid fa-shield"></i>
+                    <span>
+                        {{numberFormat system.stats.toughness.value}}
+                    </span>
+                </div>
+                <div class="type-container">
+
+                </div>
+            </div>
+        </div>
+        <div class="attributes-container">
+            {{#each system.attributes as |attribute key|}}
+            <a class="attribute-container {{key}} flexcol">
+                <label>
+                    {{localize attribute.name}}
+                </label>
+                <div class="attribute-roll">
+                    <img src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg" alt="{{attribute.die.sides}}">
+                    {{numberFormat attribute.die.modifier sign=true}}
+                </div>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</section>

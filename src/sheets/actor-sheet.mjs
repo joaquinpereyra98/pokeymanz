@@ -1,18 +1,24 @@
 const { api, sheets } = foundry.applications;
+
+/**
+ * The AmbientLight configuration application.
+ * @extends sheets.ActorSheetV2
+ * @mixes HandlebarsApplication
+ * @alias PokeymanzActorSheet
+ */
 export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
   sheets.ActorSheetV2
 ) {
+  /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
     position: {
-      width: 600,
-      height: 600,
+      width: 800,
+      height: 700,
     },
     actions: {
-      openConfigMenu: this._openMenu,
-      modifyWounds: this._modifyWounds,
-      roll: this._onRoll,
-      setImg: this._setImg,
+      roll: PokeymanzActorSheet._onRoll,
+      image: PokeymanzActorSheet._setImg,
     },
     window: {
       resizable: true,
@@ -23,207 +29,111 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       submitOnChange: true,
     },
   };
+
+  /** @override */
   static PARTS = {
     header: {
-      template: "systems/pokeymanz/templates/actors/header.hbs",
+      template: "systems/pokeymanz/templates/actors/parts/header.hbs",
     },
-    attributes: {
-      template: 'systems/pokeymanz/templates/actors/attributes.hbs',
+    summary: {
+      template: "systems/pokeymanz/templates/actors/parts/summary-party.hbs",
     },
   };
+
+  /** @override */
+  tabGroups = {
+    primary: "summary",
+  };
+
+  /* -------------------------------------------- */
+  /*  Context Preparation                         */
+  /* -------------------------------------------- */
+
+  /** @override */
   async _prepareContext(options) {
-    const context = {
+    const actor = this.actor;
+    const system = actor.system;
+    const { primaryType, secondaryType } = actor;
+    return {
       editable: this.isEditable,
-      actor: this.actor,
-      system: this.actor.system,
-      flags: this.actor.flags,
+      actor,
+      system,
+      types: {
+        primaryType,
+        secondaryType,
+      },
+      flags: actor.flags,
       config: CONFIG.POKEYMANZ,
+      tabs: this._getTabs(),
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _preparePartContext(partId, context) {
+    switch (partId) {
+      case "summary":
+        context.tab = context.tabs[partId];
+        break;
+    }
     return context;
   }
-  static async _openMenu(event, target) {
-    switch (target.dataset.menu) {
-      case "attribute":
-        await this._renderAttributeMenu();
-        break;
-      case "stat":
-        await this._renderStatMenu();
-        break;
-      default:
-        break;
+
+  /**
+   * Prepare an array of sheet tabs.
+   * @returns {Record<string, Partial<ApplicationTab>>}
+   */
+  _getTabs() {
+    const tabs = Object.fromEntries(["summary"].map((id) => (
+      [id, {
+      id,
+      group: "primary",
+      icon: CONFIG.POKEYMANZ.tabsIcons.actor[id],
+      label: `POKEYMANZ.Actor.SECTIONS.${id.capitalize()}`,
+    }]
+  )));
+
+    for (const v of Object.values(tabs)) {
+      v.active = this.tabGroups[v.group] === v.id;
+      v.cssClass = v.active ? "active" : "";
     }
+    return tabs;
   }
-  async _renderAttributeMenu() {
-    const attributesPath = "system.attributes";
-    const content = await renderTemplate(
-      "systems/pokeymanz/templates/apps/attribute-menu.hbs",
-      {
-        actor: this.actor,
-        attributes: this.actor.system.attributes,
-        dieChoice: CONFIG.POKEYMANZ.diceOptions,
-      }
-    );
-    let d = new Dialog(
-      {
-        title: game.i18n.format("POKEYMANZ.AttributeMenuTitle"),
-        content: content,
-        buttons: {
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.format("POKEYMANZ.CancelButton"),
-          },
-          accept: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.format("POKEYMANZ.ApplyButton"),
-            callback: (html) => {
-              const newData = Object.keys(attributes).reduce((data, att) => {
-                data[`${attributesPath}.${att}.die.modifier`] = parseInt(
-                  html.find(`input[name="${att}.modifier"]`).val() || 0
-                );
-                data[`${attributesPath}.${att}.die.sides`] = html
-                  .find(`select[name="${att}.sides"]`)
-                  .val();
-                return data;
-              }, {});
-              this.actor.update(newData);
-            },
-          },
-        },
-        default: "cancel",
-      },
-      {
-        classes: ["pokeymanz", "dialog"],
-        height: 255,
-      }
-    ).render(true);
-  }
-  async _renderStatMenu() {
-    const { system: systemData } = this.actor;
-    const { fields } = foundry.data;
-    const pokemonTypesChoices = CONFIG.POKEYMANZ.pokemonTypesList.reduce(
-      (choices, type) => {
-        choices[type.id] = type.name;
-        return choices;
-      },
-      {}
-    );
 
-    const renderData = {
-      systemData,
-      toughnessBoleanField: new fields.BooleanField({
-        label: "POKEYMANZ.ToughnessBooleanLabel",
-        hint: "POKEYMANZ.ToughnessBooleanText",
-        value: systemData.setting.autoCalcToughness,
-      }),
-      toughnessValueField: new fields.NumberField({
-        value: systemData.stats.toughness.value,
-        label: "POKEYMANZ.Value",
-        step: 1,
-        integer: true,
-        min: 0,
-      }),
-      toughnessModField: new fields.NumberField({
-        value: systemData.stats.toughness.modifier,
-        label: "POKEYMANZ.Modifier",
-        step: 1,
-      }),
-      primaryTypeField: new fields.StringField({
-        value: systemData.stats.types.primary,
-        label: "POKEYMANZ.Stats.PrimaryType",
-        choices: pokemonTypesChoices,
-      }),
-      secondaryTypeField: new fields.StringField({
-        value: systemData.stats.types.secondary,
-        label: "POKEYMANZ.Stats.SecondaryType",
-        choices: pokemonTypesChoices,
-      }),
-    };
-    const content = await renderTemplate(
-      "systems/pokeymanz/templates/apps/stat-menu.hbs",
-      renderData
-    );
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
 
-    const dialog = new foundry.applications.api.DialogV2({
-      title: game.i18n.format("POKEYMANZ.StatMenuTitle"),
-      content: content,
-      classes: ["pokeymanz", "dialog"],
-      buttons: [
-        {
-          action: "cancel",
-          default: true,
-          icon: "fas fa-times",
-          label: game.i18n.format("POKEYMANZ.CancelButton"),
-        },
-        {
-          action: "accept",
-          icon: "fas fa-check",
-          label: game.i18n.format("POKEYMANZ.ApplyButton"),
-          callback: (event, button, dialog) => {
-            const formData = new FormDataExtended(button.form).object;
-            this.actor.update({
-              system: {
-                "setting.autoCalcToughness": formData.toughnessBolean,
-                stats: {
-                  toughness: {
-                    value: formData.toughnessValue,
-                    modifier: formData.toughnessMod,
-                  },
-                  types: {
-                    primary: formData.primaryType,
-                    secondary: formData.secondaryType,
-                  },
-                },
-              },
-            });
-          },
-        },
-      ],
-    });
-    dialog.addEventListener("render", () => {
-      const checkbox = dialog.element.querySelector(
-        "input[name='toughnessBolean']"
-      );
-      const input = dialog.element.querySelector(
-        "input[name='toughnessValue']"
-      );
-
-      const updateInput = () => (input.readOnly = checkbox.checked);
-
-      updateInput();
-      checkbox.addEventListener("change", updateInput);
-    });
-    dialog.render(true);
-  }
-  static _modifyWounds(event, target) {
-    const action = target.dataset.operation;
-    const wounds = this.actor.system.stats.wounds;
-    switch (action) {
-      case "wounds-plus":
-        this.actor.update({
-          "system.stats.wounds.value": Math.min(wounds.max, wounds.value + 1),
-        });
-        break;
-      case "wounds-minus":
-        this.actor.update({
-          "system.stats.wounds.value": Math.max(0, wounds.value - 1),
-        });
-        break;
-      default:
-        break;
-    }
-  }
+  /**
+   * Handler for make rolls
+   *
+   * @this PokeymanzActorSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @private
+   */
   static _onRoll(event, target) {
+    const { rollAttribute } = this.actor;
     const roll = target.dataset.roll;
     switch (roll) {
       case "attribute":
         const { attribute } = target.dataset;
-        this.actor.rollAttribute(attribute);
+        rollAttribute(attribute);
         break;
 
       default:
         break;
     }
   }
+  /**
+   * Handle changing a Document's image
+   *
+   * @this PokeymanzActorSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
   static _setImg(event, target) {
     const current = foundry.utils.getProperty(this.object, "img");
     const { img } =

@@ -1,20 +1,23 @@
 export default class PokeymanzActor extends Actor {
-  prepareData(){
-    super.prepareData();
-    const attributes = this.system.attributes;
-    for (const [key, value] of Object.entries(CONFIG.POKEYMANZ.attributes)) {
-      attributes[key].label = value.name;
-      attributes[key].diceIcon = `systems/pokeymanz/assets/dice/d${attributes[key].die.sides}.svg`
-    }
+  get primaryType() {
+    const id = this.system.stats.types.primary;
+    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
+    const type = pokemonTypesList.find((type) => type.id === id);
+    return type;
+  }
+  get secondaryType() {
+    const id = this.system.stats.types.secondary;
+    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
+    const type = pokemonTypesList.find((type) => type.id === id);
+    return type;
   }
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
     const flags = actorData.flags.pokeymanz || {};
-    if (systemData.setting.autoCalcToughness) {
-      systemData.stats.toughness.value =
-        systemData.attributes.fitness.die.sides / 2;
-    }
+    systemData.stats.toughness.value =
+      systemData.attributes.fitness.die.sides / 2;
+
     systemData.stats.toughness.sum =
       systemData.stats.toughness.value + systemData.stats.toughness.modifier;
   }
@@ -41,7 +44,6 @@ export default class PokeymanzActor extends Actor {
     });
     return roll;
   }
-
   calcWoundPenalties() {
     const wounds = foundry.utils.getProperty(this, "system.stats.wounds");
     return Math.clamp(wounds.value, 0, wounds.max) * -1;
