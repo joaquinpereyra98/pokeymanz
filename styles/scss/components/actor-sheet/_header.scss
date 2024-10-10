@@ -1,0 +1,68 @@
+header.window-header {
+    border: 0;
+    background-color: $pokeymanz-c-red;
+}
+
+.sheet-header {
+    background-color: $pokeymanz-c-red;
+
+    .tab-div {
+        display: flex;
+        align-items: end;
+        flex: 2;
+
+        .charname {
+            font: bold xxx-large $pokeymanz-font-title;
+            color: $pokeymanz-c-white;
+
+            margin: 0.1em 0;
+            background-color: black-opacity(0.08);
+            border: 0;
+            height: auto;
+
+            &:focus {
+                outline: none;
+                background-color: black-opacity(0.2);
+            }
+        }
+
+        .img-logo {
+            height: 5em;
+            border: 0;
+            opacity: 0.2;
+            transform: rotate(20deg);
+            filter: invert(1);
+        }
+    }
+
+    .sheet-tabs {
+        margin: 0;
+        border: 0;
+        height: 80%;
+        align-items: flex-end;
+        flex: 1;
+
+        .tab-icon-button {
+            padding: 0;
+
+            &.active {
+                text-shadow: none;
+            }
+        }
+
+        a.tab-icon-button {
+            i.fa-solid {
+                font-size: 21px;
+                color: $pokeymanz-c-white;
+                opacity: 0.7;
+                transition: 1s;
+            }
+
+            &.active i.fa-solid {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+    }
+}

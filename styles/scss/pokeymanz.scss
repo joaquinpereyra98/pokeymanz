@@ -1,0 +1,22 @@
+@import 'globals/colors';
+@import 'globals/fonts';
+
+.pokeymanz {
+    &.sheet {
+        .theme-light & {
+            background-color: $pokeymanz-c-white;
+        }
+
+        .theme-dark & {
+            background-color: $pokeymanz-c-black;
+        }
+
+        section.window-content {
+            padding: 0;
+        }
+
+        @import 'components/actor-sheet/header';
+        @import 'components/actor-sheet/summary-tab';
+
+    }
+}

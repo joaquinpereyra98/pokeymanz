@@ -1,0 +1,23 @@
+.pokeymanz {
+    --pokeymanz-color-ui-red: #C6242C;
+    --pokeymanz-color-ui-white: #fbfbfb !important;
+    --pokeymanz-color-ui-black: #383939 !important;
+
+    --pokeymanz-color-research: #2c94bb;
+    --pokeymanz-color-heart: #ff3750;
+    --pokeymanz-color-tatics: #087608;
+    --pokeymanz-color-fitness: #f86522;
+}
+
+@function black-opacity($opacity){
+    @return rgba(0, 0, 0, $opacity);
+}
+
+$pokeymanz-c-black: var(--pokeymanz-color-ui-black);
+$pokeymanz-c-white: var(--pokeymanz-color-ui-white);
+$pokeymanz-c-red: var(--pokeymanz-color-ui-red);
+
+$pokeymanz-c-research: var(--pokeymanz-color-research);
+$pokeymanz-c-heart: var(--pokeymanz-color-heart);
+$pokeymanz-c-tatics: var(--pokeymanz-color-tatics);
+$pokeymanz-c-fitness: var(--pokeymanz-color-fitness);

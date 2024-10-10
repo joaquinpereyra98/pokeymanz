@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
+
+.pokeymanz {
+    --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+    --pokeymanz-font-label: "Sigmar One", sans-serif;
+}
+
+$pokeymanz-font-title: var(--pokeymanz-font-title);
+$pokeymanz-font-label: var(--pokeymanz-font-label);
