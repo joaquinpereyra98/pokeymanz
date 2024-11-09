@@ -145,7 +145,7 @@ export const POKEYMANZ = {
     img:
       type.id === "none"
         ? ""
-        : `systems/pokeymanz/assets/icon-type/${type.id}.svg`,
+        : `systems/pokeymanz/assets/icons/types/${type.id.capitalize()}_icon.png`,
   })),
   itemCategories: {
     edge: {
@@ -169,9 +169,4 @@ export const POKEYMANZ = {
     { value: 10, label: "d10" },
     { value: 12, label: "d12" },
   ],
-  tabsIcons: {
-    actor: {
-      summary: "fa-solid fa-address-card",
-    },
-  },
 };

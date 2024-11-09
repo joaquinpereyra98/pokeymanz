@@ -5,10 +5,12 @@
     &.sheet {
         .theme-light & {
             background-color: $pokeymanz-c-white;
+            --card-color: var(--pokeymanz-color-card-light);
         }
 
         .theme-dark & {
             background-color: $pokeymanz-c-black;
+            --card-color: var(--pokeymanz-color-card-dark);
         }
 
         section.window-content {

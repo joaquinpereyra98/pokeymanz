@@ -9,6 +9,10 @@ const { api, sheets } = foundry.applications;
 export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
   sheets.ActorSheetV2
 ) {
+  /* -------------------------------------------- */
+  /*  Static Methods                              */
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
@@ -19,6 +23,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     actions: {
       roll: PokeymanzActorSheet._onRoll,
       image: PokeymanzActorSheet._setImg,
+      renderDialog: PokeymanzActorSheet._renderDialog
     },
     window: {
       resizable: true,
@@ -40,6 +45,42 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     },
   };
 
+  /**
+   * Available tabs for the sheet.
+   * @type {Array<{id: string, group: string, icon: string}>}
+   */
+  static TABS = [
+    {
+      id: "summary",
+      group: "primary",
+      icon: "fa-solid fa-address-card",
+      label: "POKEYMANZ.Actor.TABS.Summary",
+    },
+    {
+      id: "inventory",
+      group: "primary",
+      icon: "fa-solid fa-backpack",
+      label: "POKEYMANZ.Actor.TABS.Inventory",
+    },
+    {
+      id: "pokemons",
+      group: "primary",
+      icon: "fa-solid fa-paw",
+      label: "POKEYMANZ.Actor.TABS.Pokemons",
+    },
+    {
+      id: "effects",
+      group: "primary",
+      icon: "fa-solid fa-bolt",
+      label: "POKEYMANZ.Actor.TABS.Effects",
+    },
+  ];
+
+
+  /* -------------------------------------------- */
+  /*  Application States                          */
+  /* -------------------------------------------- */
+
   /** @override */
   tabGroups = {
     primary: "summary",
@@ -58,6 +99,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       editable: this.isEditable,
       actor,
       system,
+      systemSource: this.actor.system._source,
       types: {
         primaryType,
         secondaryType,
@@ -82,23 +124,17 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
 
   /**
    * Prepare an array of sheet tabs.
-   * @returns {Record<string, Partial<ApplicationTab>>}
+   * @returns {Record<string, Partial<import("../../v12/resources/app/client-esm/applications/_types.mjs").ApplicationTab>>}
    */
   _getTabs() {
-    const tabs = Object.fromEntries(["summary"].map((id) => (
-      [id, {
-      id,
-      group: "primary",
-      icon: CONFIG.POKEYMANZ.tabsIcons.actor[id],
-      label: `POKEYMANZ.Actor.SECTIONS.${id.capitalize()}`,
-    }]
-  )));
-
-    for (const v of Object.values(tabs)) {
-      v.active = this.tabGroups[v.group] === v.id;
-      v.cssClass = v.active ? "active" : "";
-    }
-    return tabs;
+    return this.constructor.TABS.reduce((acc, tab) => {
+      acc[tab.id] = {
+        ...tab,
+        active: this.tabGroups[tab.group] === tab.id,
+        cssClass: this.tabGroups[tab.group] === tab.id ? "active" : "",
+      };
+      return acc;
+    }, {});
   }
 
   /* -------------------------------------------- */
@@ -109,8 +145,8 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
    * Handler for make rolls
    *
    * @this PokeymanzActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
    * @private
    */
   static _onRoll(event, target) {
@@ -151,5 +187,17 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       left: this.position.left + 10,
     });
     return fp.browse();
+  }
+
+  /**
+   * Handle opened a Dialog application
+   * 
+   * @this PokeymanzActorSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _renderDialog(event, target) {
+    event.preventDefault();
   }
 }

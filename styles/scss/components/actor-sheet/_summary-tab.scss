@@ -8,14 +8,15 @@ section.summary.tab {
         flex-direction: column;
         align-items: center;
         border-radius: 15px;
-        margin: 1em;
-        background-color: rgba(0, 0, 0, 0.4);
+        margin: 2em 1em;
+        background-color: var(--card-color);
         box-shadow: 0 0 0.4em;
-
+        
         .portrait {
             .profile-img {
                 border-radius: 10px;
                 margin-bottom: -1em;
+                border: 0.3em solid;
             }
 
             .stats-container {
@@ -96,7 +97,7 @@ section.summary.tab {
             // Apply colors for each attribute
             @each $attribute, $color in $attributes-list {
                 &.#{$attribute} {
-                    border-color: $color;
+                    border-color: transparent;
                     box-shadow: 0px 0px 5px $color;
                     background-color: $color;
                 }

@@ -3,6 +3,8 @@
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
+  --pokeymanz-color-card-light: #818078;
+  --pokeymanz-color-card-dark: #222222;
   --pokeymanz-color-research: #2c94bb;
   --pokeymanz-color-heart: #ff3750;
   --pokeymanz-color-tatics: #087608;
@@ -16,9 +18,11 @@
 
 .theme-light .pokeymanz.sheet {
   background-color: var(--pokeymanz-color-ui-white);
+  --card-color: var(--pokeymanz-color-card-light);
 }
 .theme-dark .pokeymanz.sheet {
   background-color: var(--pokeymanz-color-ui-black);
+  --card-color: var(--pokeymanz-color-card-dark);
 }
 .pokeymanz.sheet section.window-content {
   padding: 0;
@@ -70,12 +74,12 @@
 .pokeymanz.sheet .sheet-header .sheet-tabs a.tab-icon-button i.fa-solid {
   font-size: 21px;
   color: var(--pokeymanz-color-ui-white);
-  opacity: 0.7;
-  transition: 1s;
+  opacity: 0.6;
+  transition: 500ms;
 }
 .pokeymanz.sheet .sheet-header .sheet-tabs a.tab-icon-button.active i.fa-solid {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.3);
 }
 .pokeymanz.sheet section.summary.tab {
   display: flex !important;
@@ -87,16 +91,21 @@
   flex-direction: column;
   align-items: center;
   border-radius: 15px;
-  margin: 1em;
-  background-color: rgba(0, 0, 0, 0.4);
+  margin: 2em 1em;
+  background-color: var(--card-color);
   box-shadow: 0 0 0.4em;
+}
+.pokeymanz.sheet section.summary.tab .character-card .setting-container {
+  background: var(--card-color);
 }
 .pokeymanz.sheet section.summary.tab .character-card .portrait .profile-img {
   border-radius: 10px;
+  margin-bottom: -1em;
 }
 .pokeymanz.sheet section.summary.tab .character-card .portrait .stats-container {
   position: relative;
   height: 2em;
+  margin-bottom: 1em;
 }
 .pokeymanz.sheet section.summary.tab .character-card .portrait .stats-container .type-container {
   display: flex;
@@ -112,6 +121,10 @@
   position: absolute;
   top: -100%;
   left: calc(50% - 2em);
+  transition: 200ms;
+}
+.pokeymanz.sheet section.summary.tab .character-card .portrait .stats-container .toughness-container:hover {
+  transform: scale(1.1);
 }
 .pokeymanz.sheet section.summary.tab .character-card .portrait .stats-container .toughness-container i {
   font-size: 4em;
@@ -149,22 +162,22 @@
   transform: scale(1.1);
 }
 .pokeymanz.sheet section.summary.tab .character-card .attributes-container .attribute-container.heart {
-  border-color: var(--pokeymanz-color-heart);
+  border-color: transparent;
   box-shadow: 0px 0px 5px var(--pokeymanz-color-heart);
   background-color: var(--pokeymanz-color-heart);
 }
 .pokeymanz.sheet section.summary.tab .character-card .attributes-container .attribute-container.research {
-  border-color: var(--pokeymanz-color-research);
+  border-color: transparent;
   box-shadow: 0px 0px 5px var(--pokeymanz-color-research);
   background-color: var(--pokeymanz-color-research);
 }
 .pokeymanz.sheet section.summary.tab .character-card .attributes-container .attribute-container.fitness {
-  border-color: var(--pokeymanz-color-fitness);
+  border-color: transparent;
   box-shadow: 0px 0px 5px var(--pokeymanz-color-fitness);
   background-color: var(--pokeymanz-color-fitness);
 }
 .pokeymanz.sheet section.summary.tab .character-card .attributes-container .attribute-container.tatics {
-  border-color: var(--pokeymanz-color-tatics);
+  border-color: transparent;
   box-shadow: 0px 0px 5px var(--pokeymanz-color-tatics);
   background-color: var(--pokeymanz-color-tatics);
 }
