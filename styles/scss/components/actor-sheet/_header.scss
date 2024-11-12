@@ -4,63 +4,55 @@ header.window-header {
 }
 
 .sheet-header {
-    background-color: $pokeymanz-c-red;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
 
-    .tab-div {
+    .edit-switch-contianer {
+        position: absolute;
+        top: calc(50% - 0.45rem);
+        left: 0.5rem;
         display: flex;
-        align-items: end;
-        flex: 2;
+        align-items: center;
+        color: $pokeymanz-c-red;
 
-        .charname {
-            font: bold xxx-large $pokeymanz-font-title;
-            color: $pokeymanz-c-white;
+        .switch-icon {
+            font-size: 0.7rem;
+            transition: 500ms;
+            opacity: 0.7;
 
-            margin: 0.1em 0;
-            background-color: black-opacity(0.08);
-            border: 0;
-            height: auto;
-
-            &:focus {
-                outline: none;
-                background-color: black-opacity(0.2);
+            &.active {
+                transform: scale(1.2);
+                opacity: 1;
             }
         }
 
-        .img-logo {
-            height: 5em;
-            border: 0;
-            opacity: 0.2;
-            transform: rotate(20deg);
-            filter: invert(1);
+        .switch-btn {
+            height: 1.4rem;
+            font-size: 1.4rem;
+            margin: 0 4px;
         }
     }
 
     .sheet-tabs {
+        background-color: $pokeymanz-c-red;
+        clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
+        width: 40%;
         margin: 0;
         border: 0;
-        height: 80%;
-        align-items: flex-end;
-        flex: 1;
+        padding-left: 1rem;
 
         .tab-icon-button {
-            padding: 0;
+            font-size: 1.3rem;
+            color: $pokeymanz-c-white;
+            opacity: 0.6;
+            transition: 800ms;
 
             &.active {
                 text-shadow: none;
-            }
-        }
-
-        a.tab-icon-button {
-            i.fa-solid {
-                font-size: 21px;
-                color: $pokeymanz-c-white;
-                opacity: 0.6;
-                transition: 500ms;
-            }
-
-            &.active i.fa-solid {
-                opacity: 1;
                 transform: scale(1.3);
+                opacity: 1;
             }
         }
 

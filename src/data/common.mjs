@@ -1,9 +1,9 @@
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
 export function attributeDiceFields() {
-  const { SchemaField, NumberField} = foundry.data.fields;
+  const { SchemaField, NumberField } = foundry.data.fields;
   return {
     die: new SchemaField({
       sides: new NumberField({
@@ -11,13 +11,13 @@ export function attributeDiceFields() {
         min: 0,
         integer: true,
         positive: true,
-        label: 'POKEYMANZ.DieSides'
+        label: "POKEYMANZ.DieSides",
       }),
       modifier: new NumberField({
         initial: 0,
         integer: true,
         required: false,
-        label: 'POKEYMANZ.AttributeMod'
+        label: "POKEYMANZ.AttributeMod",
       }),
     }),
   };
@@ -49,10 +49,13 @@ export function boundTraitDie(die) {
 }
 export function pokemonTypeFields() {
   const fields = foundry.data.fields;
-  const choices = CONFIG.POKEYMANZ.pokemonTypesList.map(type => ({
-    [type.id]: type.name
-}))
+  const choices = CONFIG.POKEYMANZ.pokemonTypesList.reduce((acc, v) => {
+    acc[v.id] = v.name;
+    return acc;
+  }, {});
+
   return new fields.StringField({
-    choices
-  })
+    choices,
+    blank: true,
+  });
 }

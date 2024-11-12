@@ -1,6 +1,5 @@
 @import 'globals/colors';
 @import 'globals/fonts';
-
 .pokeymanz {
     &.sheet {
         .theme-light & {
@@ -19,6 +18,6 @@
 
         @import 'components/actor-sheet/header';
         @import 'components/actor-sheet/summary-tab';
-
+        @import 'components/commons/commons';
     }
 }

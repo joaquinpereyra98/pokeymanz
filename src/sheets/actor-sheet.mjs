@@ -23,7 +23,8 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     actions: {
       roll: PokeymanzActorSheet._onRoll,
       image: PokeymanzActorSheet._setImg,
-      renderDialog: PokeymanzActorSheet._renderDialog
+      toggleMode: PokeymanzActorSheet._toggleMode,
+      renderDialog: PokeymanzActorSheet._renderDialog,
     },
     window: {
       resizable: true,
@@ -44,6 +45,25 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       template: "systems/pokeymanz/templates/actors/parts/summary-party.hbs",
     },
   };
+
+  /**
+   * Available sheet modes.
+   * @enum {number}
+   */
+  static MODES = {
+    PLAY: 1,
+    EDIT: 2,
+  };
+
+  _mode = PokeymanzActorSheet.MODES.PLAY;
+
+  /**
+   * Is this sheet in Play Mode?
+   * @returns {boolean}
+   */
+  get isPlayMode() {
+    return this._mode === PokeymanzActorSheet.MODES.PLAY;
+  }
 
   /**
    * Available tabs for the sheet.
@@ -76,7 +96,6 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     },
   ];
 
-
   /* -------------------------------------------- */
   /*  Application States                          */
   /* -------------------------------------------- */
@@ -99,7 +118,6 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       editable: this.isEditable,
       actor,
       system,
-      systemSource: this.actor.system._source,
       types: {
         primaryType,
         secondaryType,
@@ -107,6 +125,9 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       flags: actor.flags,
       config: CONFIG.POKEYMANZ,
       tabs: this._getTabs(),
+      isPlayMode: this.isPlayMode,
+      systemSource: this.actor.system._source,
+      systemFields: this.document.system.schema.fields,
     };
   }
 
@@ -191,7 +212,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
 
   /**
    * Handle opened a Dialog application
-   * 
+   *
    * @this PokeymanzActorSheet
    * @param {PointerEvent} event - The originating click event
    * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
@@ -199,5 +220,18 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
    */
   static _renderDialog(event, target) {
     event.preventDefault();
+  }
+
+  static _toggleMode(event, target) {
+    event.preventDefault();
+    if (!this.isEditable) {
+      console.error("You can't switch to Edit mode if the sheet is uneditable");
+      return;
+    }
+    this._mode = this.isPlayMode
+      ? PokeymanzActorSheet.MODES.EDIT
+      : PokeymanzActorSheet.MODES.PLAY;
+
+    this.render();
   }
 }

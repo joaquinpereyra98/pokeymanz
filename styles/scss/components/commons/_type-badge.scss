@@ -1,0 +1,30 @@
+.type-badge {
+    $type-color: var(--type-color);
+    background-color: $type-color;
+    border-radius: 25px;
+    border: 3px solid white;
+    box-shadow: 0 0 0.2rem;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    padding-right: 0.8rem;
+    color: white;
+    transition: 500ms;
+    filter: saturate(0.7);
+
+    & img {
+        border: 0;
+        height: 1.5rem;
+    }
+
+    & span {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    &:hover {
+        box-shadow: 0 0 0.4rem;
+        transform: scale(1.1);
+        filter: saturate(1.1);
+    }
+}

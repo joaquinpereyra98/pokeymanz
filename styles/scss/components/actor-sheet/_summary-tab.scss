@@ -2,129 +2,125 @@ section.summary.tab {
     display: flex !important;
 
     .character-card {
-        width: 30%;
         padding: 15px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
         border-radius: 15px;
         margin: 2em 1em;
         background-color: var(--card-color);
         box-shadow: 0 0 0.4em;
-        
-        .portrait {
-            .profile-img {
-                border-radius: 10px;
-                margin-bottom: -1em;
-                border: 0.3em solid;
+        overflow-x: auto;
+        width: 100%;
+
+        .sidebar-card {
+            width: max(30%, 200px);
+
+            .portrait {
+                .profile-img {
+                    border-radius: 10px;
+                    border: 0.3em solid;
+                    object-fit: cover;
+                    object-position: top center;
+                    min-height: 200px;
+                    max-height: 280px;
+                    width: 100%;
+                }
             }
 
-            .stats-container {
-                position: relative;
-                height: 2em;
-                margin-bottom: 1em;
+            .attributes-container {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(90px, 1fr));
+                grid-template-rows: repeat(2, 1fr);
+                margin: 5px 0;
+                gap: 15px;
 
-                .type-container {
-                    display: flex;
+                .attribute-container {
                     align-items: center;
-                    justify-content: center;
-                    height: 2em;
-                }
-
-                .toughness-container {
-                    margin: 5px 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: absolute;
-                    top: -100%;
-                    left: calc(50% - 2em);
+                    border: 2px groove;
+                    border-radius: 5px;
                     transition: 200ms;
+                    color: white;
+                    filter: saturate(0.5);
 
                     &:hover {
+                        text-shadow: none;
+                        filter: saturate(1.1);
                         transform: scale(1.1);
                     }
 
-                    i {
-                        font-size: 4em;
-                        background: linear-gradient(147deg, #d7d7d7 0%, #3e3e3e 100%);
-                        background-clip: border-box;
-                        background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-                    }
+                    // Attribute colors list
+                    $attributes-list: (
+                        "heart": $pokeymanz-c-heart,
+                        "research": $pokeymanz-c-research,
+                        "fitness": $pokeymanz-c-fitness,
+                        "tatics": $pokeymanz-c-tatics
+                    );
 
-                    span {
-                        position: absolute;
-                        font-size: 30px;
-                        font-weight: bold;
-                        color: white;
-                        text-shadow: 0px 0px 7px black;
+                // Apply colors for each attribute
+                @each $attribute, $color in $attributes-list {
+                    &.#{$attribute} {
+                        border-color: transparent;
+                        box-shadow: 0px 0px 5px $color;
+                        background-color: $color;
+                    }
+                }
+
+                label {
+                    font-family: var(--pokeymanz-font-label);
+                    height: 1rem;
+                    font-size: 1rem;
+                    cursor: inherit;
+                }
+
+                .attribute-roll {
+                    font-family: var(--pokeymanz-font-title);
+                    font-size: 2.5rem;
+                    width: 90%;
+                    display: flex;
+                    justify-content: center;
+                    border-radius: 3px;
+                    font-weight: bold;
+
+                    img {
+                        border: 0;
+                        width: 2rem;
+                        transition: 200ms;
+                        filter: invert(1);
                     }
                 }
             }
         }
+    }
 
-        .attributes-container {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(90px, 1fr));
-            grid-template-rows: repeat(2, 1fr);
-            margin: 5px 0;
-            gap: 15px;
+    .body-card {
+        min-width: 450px;
+        margin-left: 15px;
+        gap: 5px;
 
-            .attribute-container {
-                align-items: center;
-                border: 2px groove;
-                border-radius: 5px;
-                transition: 200ms;
-                color: white;
-                filter: saturate(0.5);
+        .charname {
+            font-weight: bold;
+            font-family: $pokeymanz-font-title;
+            font-size: 3.5rem;
+            color: $pokeymanz-c-white;
+            margin: 0.1em 0;
+            background-color: black-opacity(0.1);
+            border: 2px solid;
+            height: auto;
 
-                &:hover {
-                    text-shadow: none;
-                    filter: saturate(1.1);
-                    transform: scale(1.1);
-                }
-
-                // Attribute colors list
-                $attributes-list: (
-                    "heart": $pokeymanz-c-heart,
-                    "research": $pokeymanz-c-research,
-                    "fitness": $pokeymanz-c-fitness,
-                    "tatics": $pokeymanz-c-tatics
-                );
-
-            // Apply colors for each attribute
-            @each $attribute, $color in $attributes-list {
-                &.#{$attribute} {
-                    border-color: transparent;
-                    box-shadow: 0px 0px 5px $color;
-                    background-color: $color;
-                }
+            &:disabled {
+                border: 0;
+                background-color: transparent;
             }
 
-            label {
-                font-family: var(--pokeymanz-font-label);
-                height: 16px;
-                cursor: inherit;
+            &:focus {
+                outline: none;
+                background-color: black-opacity(0.2);
             }
+        }
 
-            .attribute-roll {
-                font-family: var(--pokeymanz-font-title);
-                font-size: xx-large;
-                width: 90%;
-                display: flex;
-                justify-content: center;
-                border-radius: 3px;
-                font-weight: bold;
-
-                img {
-                    border: 0;
-                    width: 2rem;
-                    transition: 200ms;
-                    filter: invert(1);
-                }
-            }
+        .types-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
         }
     }
 }

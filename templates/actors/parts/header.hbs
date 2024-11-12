@@ -1,13 +1,13 @@
 <header class="sheet-header">
-    <div class="tab-div">
-        <img class="img-logo" src="systems/pokeymanz/assets/icons/pokeball.svg" alt="pokeball icon">
-        <input class="charname" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}"
-            data-tooltip="{{actor.name}}" />
-    </div>
+        <div class="edit-switch-contianer">
+            <i class="switch-icon fa-solid fa-wrench-simple {{ifThen isPlayMode "" "active"}}"></i>
+            <a class="switch-btn" data-action="toggleMode"><i class="fa-solid fa-toggle-{{ifThen isPlayMode "on" "off"}}"></i></a>
+            <i class=" switch-icon fa-solid fa-gamepad-modern {{ifThen isPlayMode "active" ""}}"></i>
+        </div>
     <nav class="sheet-tabs tabs" aria-role="{{localize 'SHEETS.FormNavLabel'}}">
         {{#each tabs as |tab|}}
-        <a class="tab-icon-button {{tab.cssClass}}" data-action="tab" data-group="{{tab.group}}" data-tab="{{tab.id}}">
-            <i class="{{tab.icon}}"></i>
+        <a class="tab-icon-button {{tab.cssClass}} {{tab.icon}}" data-action="tab" data-group="{{tab.group}}"
+            data-tab="{{tab.id}}">
         </a>
         {{/each}}
     </nav>
