@@ -5,12 +5,11 @@
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="image" alt="{{actor.name}}"
                     title="{{actor.name}}" />
             </div>
+            {{#if isPlayMode}}
             <div class="attributes-container">
                 {{#each system.attributes as |attribute key|}}
                 <a class="attribute-container {{key}} flexcol">
-                    <label>
-                        {{localize attribute.name}}
-                    </label>
+                    <label class="attribute-label">{{localize attribute.name}}</label>
                     <div class="attribute-roll">
                         <img src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg"
                             alt="{{attribute.die.sides}}">
@@ -19,6 +18,22 @@
                 </a>
                 {{/each}}
             </div>
+            {{else}}
+            <div class="attributes-container-edit">
+                {{#each system.attributes as |attribute key|}}
+                <div class="attributes-container {{key}}">
+                    <label class="attribute-label">{{localize attribute.name}}</label>
+                    <div class="attributes-inputs flexrow">
+                        <select class="attribute-side" name="system.attributes.{{key}}.die.sides">
+                            {{selectOptions @root.config.diceOptions selected=attribute.die.sides}}
+                        </select>
+                        <input class="attribute-mod" type="number" name="system.attributes.{{key}}.die.modifier" ,
+                            value="{{attribute.die.modifier}}">
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
         </div>
         <div class="body-card flexcol">
             <input class="charname" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}"
@@ -26,24 +41,26 @@
             <div class="types-container">
                 {{#if isPlayMode}}
                 {{#if types.primaryType}}
-                    <div class="type-badge" style="--type-color: {{types.primaryType.color}}">
-                        <img src="{{types.primaryType.img}}" alt="{{types.primaryType.id}}">
-                        <span>{{localize types.primaryType.name}}</span>
-                    </div>
+                <div class="type-badge" style="--type-color: {{types.primaryType.color}}">
+                    <img src="{{types.primaryType.img}}" alt="{{types.primaryType.id}}">
+                    <span>{{localize types.primaryType.name}}</span>
+                </div>
                 {{/if}}
                 {{#if types.secondaryType}}
-                    <div class="type-badge" style="--type-color: {{types.secondaryType.color}}">
-                        <img src="{{types.secondaryType.img}}" alt="{{types.secondaryType.id}}">
-                        <span>{{localize types.secondaryType.name}}</span>
-                    </div>
+                <div class="type-badge" style="--type-color: {{types.secondaryType.color}}">
+                    <img src="{{types.secondaryType.img}}" alt="{{types.secondaryType.id}}">
+                    <span>{{localize types.secondaryType.name}}</span>
+                </div>
                 {{/if}}
                 {{else}}
-                Types:  
+                Types:
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.primary value=system.stats.types.primary localize=true}}
+                    {{formInput systemFields.stats.fields.types.fields.primary value=system.stats.types.primary
+                    localize=true}}
                 </div>
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.secondary value=system.stats.types.secondary  localize=true}}
+                    {{formInput systemFields.stats.fields.types.fields.secondary value=system.stats.types.secondary
+                    localize=true}}
                 </div>
                 {{/if}}
             </div>

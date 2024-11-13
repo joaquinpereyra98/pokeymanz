@@ -1,28 +1,45 @@
 section.summary.tab {
     display: flex !important;
+    overflow-y: auto;
 
     .character-card {
+        overflow-y: auto;
         padding: 15px;
         display: flex;
         border-radius: 15px;
         margin: 2em 1em;
         background-color: var(--card-color);
         box-shadow: 0 0 0.4em;
-        overflow-x: auto;
         width: 100%;
 
         .sidebar-card {
             width: max(30%, 200px);
 
-            .portrait {
-                .profile-img {
-                    border-radius: 10px;
-                    border: 0.3em solid;
-                    object-fit: cover;
-                    object-position: top center;
-                    min-height: 200px;
-                    max-height: 280px;
-                    width: 100%;
+            .portrait .profile-img {
+                border-radius: 10px;
+                border: 0.3em solid;
+                object-fit: cover;
+                object-position: top center;
+                min-height: 200px;
+                max-height: 280px;
+                width: 100%;
+            }
+
+            .attributes-container,
+            .attributes-container-edit {
+                // Attribute colors list
+                $attributes-list: (
+                    "heart": $pokeymanz-c-heart,
+                    "research": $pokeymanz-c-research,
+                    "fitness": $pokeymanz-c-fitness,
+                    "tactics": $pokeymanz-c-tactics
+                );
+
+                // Apply colors for each attribute
+                @each $attribute, $color in $attributes-list {
+                    .#{$attribute} {
+                        --attribute-color: #{$color};
+                    }
                 }
             }
 
@@ -30,98 +47,127 @@ section.summary.tab {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(90px, 1fr));
                 grid-template-rows: repeat(2, 1fr);
-                margin: 5px 0;
                 gap: 15px;
+                margin: 5px 0;
+
+                .attribute-label {
+                    font-family: var(--pokeymanz-font-label);
+                    height: 1.2rem;
+                    font-size: 0.9rem;
+                    cursor: inherit;
+                }
 
                 .attribute-container {
                     align-items: center;
-                    border: 2px groove;
                     border-radius: 5px;
                     transition: 200ms;
                     color: white;
-                    filter: saturate(0.5);
+                    filter: saturate(0.8);
+                    box-shadow: 0 0 5px var(--attribute-color);
+                    background-color: var(--attribute-color);
 
                     &:hover {
-                        text-shadow: none;
                         filter: saturate(1.1);
                         transform: scale(1.1);
                     }
 
-                    // Attribute colors list
-                    $attributes-list: (
-                        "heart": $pokeymanz-c-heart,
-                        "research": $pokeymanz-c-research,
-                        "fitness": $pokeymanz-c-fitness,
-                        "tatics": $pokeymanz-c-tatics
-                    );
+                    .attribute-roll {
+                        font-family: var(--pokeymanz-font-title);
+                        font-size: 2rem;
+                        width: 90%;
+                        display: flex;
+                        justify-content: center;
+                        font-weight: bold;
 
-                // Apply colors for each attribute
-                @each $attribute, $color in $attributes-list {
-                    &.#{$attribute} {
-                        border-color: transparent;
-                        box-shadow: 0px 0px 5px $color;
-                        background-color: $color;
+                        img {
+                            width: 2rem;
+                            filter: invert(1);
+                            transition: 200ms;
+                            border: 0;
+                        }
                     }
                 }
+            }
 
-                label {
-                    font-family: var(--pokeymanz-font-label);
-                    height: 1rem;
-                    font-size: 1rem;
-                    cursor: inherit;
-                }
+            .attributes-container-edit {
+                width: 100%;
+                min-width: 200px;
+                margin: 5px 0;
 
-                .attribute-roll {
-                    font-family: var(--pokeymanz-font-title);
-                    font-size: 2.5rem;
-                    width: 90%;
+                .attributes-container {
                     display: flex;
-                    justify-content: center;
-                    border-radius: 3px;
-                    font-weight: bold;
+                    flex-direction: column;
+                    gap: 5px;
+                    border: 4px solid var(--attribute-color);
+                    background-color: var(--attribute-color);
+                    color: white;
+                    border-radius: 10px;
+                    padding: 5px;
 
-                    img {
-                        border: 0;
-                        width: 2rem;
-                        transition: 200ms;
-                        filter: invert(1);
+                    .attribute-label {
+                        font-size: 1rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .attributes-inputs {
+                        gap: 15px;
+                        display: flex;
+
+                        select.attribute-side,
+                        input.attribute-mod {
+                            text-align: center;
+                            font-size: 1.4rem;
+                            color: white;
+                            background-color: rgba(0, 0, 0, 0.2);
+                            border: 0;
+                            padding: 0 0.5ch;
+
+                            &.attribute-side {
+                                width: 5.3ch;
+                            }
+
+                            &.attribute-mod {
+                                width: 3.3ch;
+                            }
+                        }
                     }
                 }
             }
         }
-    }
 
-    .body-card {
-        min-width: 450px;
-        margin-left: 15px;
-        gap: 5px;
+        .body-card {
+            min-width: 450px;
+            margin-left: 15px;
+            gap: 5px;
 
-        .charname {
-            font-weight: bold;
-            font-family: $pokeymanz-font-title;
-            font-size: 3.5rem;
-            color: $pokeymanz-c-white;
-            margin: 0.1em 0;
-            background-color: black-opacity(0.1);
-            border: 2px solid;
-            height: auto;
+            .charname {
+                font-weight: bold;
+                font-family: var(--pokeymanz-font-title);
+                font-size: 3.5rem;
+                color: var(--pokeymanz-c-white);
+                margin: 0.1em 0;
+                background-color: rgba(0, 0, 0, 0.1);
+                border: 2px solid;
+                height: auto;
 
-            &:disabled {
-                border: 0;
-                background-color: transparent;
+                &:disabled {
+                    background-color: transparent;
+                    border: 0;
+                }
+
+                &:focus {
+                    outline: none;
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
             }
 
-            &:focus {
-                outline: none;
-                background-color: black-opacity(0.2);
+            .types-container {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
             }
         }
-
-        .types-container {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
     }
-}
 }

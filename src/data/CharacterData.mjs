@@ -20,8 +20,8 @@ export default class CharacterData extends foundry.abstract.TypeDataModel {
           research: new fields.SchemaField(attributeDiceFields(), {
             label: "POKEYMANZ.Attributes.Research",
           }),
-          tatics: new fields.SchemaField(attributeDiceFields(), {
-            label: "POKEYMANZ.Attributes.Tatics",
+          tactics: new fields.SchemaField(attributeDiceFields(), {
+            label: "POKEYMANZ.Attributes.Tactics",
           }),
         },
         { label: "POKEYMANZ.Attributes.Label" }

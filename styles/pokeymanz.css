@@ -7,7 +7,7 @@
   --pokeymanz-color-card-dark: #222222;
   --pokeymanz-color-research: #2c94bb;
   --pokeymanz-color-heart: #ff3750;
-  --pokeymanz-color-tatics: #087608;
+  --pokeymanz-color-tactics: #087608;
   --pokeymanz-color-fitness: #f86522;
 }
 
@@ -80,15 +80,16 @@
 }
 .pokeymanz.sheet section.summary.tab {
   display: flex !important;
+  overflow-y: auto;
 }
 .pokeymanz.sheet section.summary.tab .character-card {
+  overflow-y: auto;
   padding: 15px;
   display: flex;
   border-radius: 15px;
   margin: 2em 1em;
   background-color: var(--card-color);
   box-shadow: 0 0 0.4em;
-  overflow-x: auto;
   width: 100%;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card {
@@ -103,66 +104,103 @@
   max-height: 280px;
   width: 100%;
 }
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .heart,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .heart {
+  --attribute-color: var(--pokeymanz-color-heart);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .research,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .research {
+  --attribute-color: var(--pokeymanz-color-research);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .fitness,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .fitness {
+  --attribute-color: var(--pokeymanz-color-fitness);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .tactics,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .tactics {
+  --attribute-color: var(--pokeymanz-color-tactics);
+}
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(90px, 1fr));
   grid-template-rows: repeat(2, 1fr);
-  margin: 5px 0;
   gap: 15px;
+  margin: 5px 0;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-label {
+  font-family: var(--pokeymanz-font-label);
+  height: 1.2rem;
+  font-size: 0.9rem;
+  cursor: inherit;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container {
   align-items: center;
-  border: 2px groove;
   border-radius: 5px;
   transition: 200ms;
   color: white;
-  filter: saturate(0.5);
+  filter: saturate(0.8);
+  box-shadow: 0 0 5px var(--attribute-color);
+  background-color: var(--attribute-color);
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container:hover {
-  text-shadow: none;
   filter: saturate(1.1);
   transform: scale(1.1);
 }
-.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container.heart {
-  border-color: transparent;
-  box-shadow: 0px 0px 5px var(--pokeymanz-color-heart);
-  background-color: var(--pokeymanz-color-heart);
-}
-.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container.research {
-  border-color: transparent;
-  box-shadow: 0px 0px 5px var(--pokeymanz-color-research);
-  background-color: var(--pokeymanz-color-research);
-}
-.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container.fitness {
-  border-color: transparent;
-  box-shadow: 0px 0px 5px var(--pokeymanz-color-fitness);
-  background-color: var(--pokeymanz-color-fitness);
-}
-.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container.tatics {
-  border-color: transparent;
-  box-shadow: 0px 0px 5px var(--pokeymanz-color-tatics);
-  background-color: var(--pokeymanz-color-tatics);
-}
-.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container label {
-  font-family: var(--pokeymanz-font-label);
-  height: 1rem;
-  font-size: 1rem;
-  cursor: inherit;
-}
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container .attribute-roll {
   font-family: var(--pokeymanz-font-title);
-  font-size: 2.5rem;
+  font-size: 2rem;
   width: 90%;
   display: flex;
   justify-content: center;
-  border-radius: 3px;
   font-weight: bold;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container .attribute-roll img {
-  border: 0;
   width: 2rem;
-  transition: 200ms;
   filter: invert(1);
+  transition: 200ms;
+  border: 0;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit {
+  width: 100%;
+  min-width: 200px;
+  margin: 5px 0;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 4px solid var(--attribute-color);
+  background-color: var(--attribute-color);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attribute-label {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs {
+  gap: 15px;
+  display: flex;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs select.attribute-side,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs input.attribute-mod {
+  text-align: center;
+  font-size: 1.4rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 0;
+  padding: 0 0.5ch;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs select.attribute-side.attribute-side,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs input.attribute-mod.attribute-side {
+  width: 5.3ch;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs select.attribute-side.attribute-mod,
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .attributes-container .attributes-inputs input.attribute-mod.attribute-mod {
+  width: 3.3ch;
 }
 .pokeymanz.sheet section.summary.tab .character-card .body-card {
   min-width: 450px;
@@ -173,15 +211,15 @@
   font-weight: bold;
   font-family: var(--pokeymanz-font-title);
   font-size: 3.5rem;
-  color: var(--pokeymanz-color-ui-white);
+  color: var(--pokeymanz-c-white);
   margin: 0.1em 0;
   background-color: rgba(0, 0, 0, 0.1);
   border: 2px solid;
   height: auto;
 }
 .pokeymanz.sheet section.summary.tab .character-card .body-card .charname:disabled {
-  border: 0;
   background-color: transparent;
+  border: 0;
 }
 .pokeymanz.sheet section.summary.tab .character-card .body-card .charname:focus {
   outline: none;
