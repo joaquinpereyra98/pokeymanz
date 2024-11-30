@@ -86,7 +86,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       id: "pokemons",
       group: "primary",
       icon: "fa-solid fa-paw",
-      label: "POKEYMANZ.Actor.TABS.Pokemons",
+      label: "POKEYMANZ.Actor.TABS.Pokemon",
     },
     {
       id: "effects",

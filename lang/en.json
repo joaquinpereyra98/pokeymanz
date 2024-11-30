@@ -29,7 +29,10 @@
         },
         "Actor": {
             "TABS": {
-                "Summary": "Summary"
+                "Summary": "Summary",
+                "Inventory": "Inventory" ,
+                "Pokemon": "Pokemon" ,
+                "Effects": "Effects"
             }
         },
         "Types": {
