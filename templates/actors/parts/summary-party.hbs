@@ -4,6 +4,20 @@
             <div class="portrait actor-portrait">
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="image" alt="{{actor.name}}"
                     title="{{actor.name}}" />
+            <div class="stat-bar">
+                <div class="toughtness-container stat-container">
+                    <i class="stat-icon fa-solid fa-shield"></i>
+                    <input class="stat-input" type="number" name="system.stats.toughness.value" value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
+                </div>
+                <div class="wounds-container stat-container">
+                    <i class="stat-icon fa-solid fa-heart"></i>
+                    <div class="wound-input-container">
+                        <input class="stat-input" type="number" name="system.stats.wounds.value" value="{{system.stats.wounds.value}}">
+                        <span>/</span>
+                        <input class="stat-input" type="number" name="system.stats.wounds.max" value="{{system.stats.wounds.max}}" {{disabled isPlayMode }}>
+                    </div>
+                </div>
+            </div>
             </div>
             {{#if isPlayMode}}
             <div class="attributes-container">

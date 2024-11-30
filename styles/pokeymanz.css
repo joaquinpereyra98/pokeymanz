@@ -9,6 +9,10 @@
   --pokeymanz-color-heart: #ff3750;
   --pokeymanz-color-tactics: #087608;
   --pokeymanz-color-fitness: #f86522;
+  --pokeymanz-color-toughness-primmary: #002b77;
+  --pokeymanz-color-toughness-secondary: #3f6ab8;
+  --pokeymanz-color-wounds-primmary: #941100;
+  --pokeymanz-color-wounds-secondary: #ce3922;
 }
 
 .pokeymanz {
@@ -79,7 +83,6 @@
   opacity: 1;
 }
 .pokeymanz.sheet section.summary.tab {
-  display: flex !important;
   overflow-y: auto;
 }
 .pokeymanz.sheet section.summary.tab .character-card {
@@ -90,7 +93,6 @@
   margin: 2em 1em;
   background-color: var(--card-color);
   box-shadow: 0 0 0.4em;
-  width: 100%;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card {
   width: max(30%, 200px);
@@ -103,6 +105,66 @@
   min-height: 200px;
   max-height: 280px;
   width: 100%;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0.4rem 0;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container {
+  display: flex;
+  align-items: center;
+  border-radius: 0.3rem;
+  border: 3px solid;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container .stat-input {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 2.5ch;
+  border: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container .stat-input:focus, .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container .stat-input:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  outline: none;
+  box-shadow: none;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container .stat-input:disabled {
+  background-color: transparent;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container .stat-icon {
+  font-size: 1.3rem;
+  margin: 0 0.2rem;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.toughtness-container {
+  border-color: var(--pokeymanz-color-toughness-primmary);
+  background-color: var(--pokeymanz-color-toughness-secondary);
+  box-shadow: 0 0 5px var(--pokeymanz-color-toughness-secondary);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.toughtness-container .stat-icon {
+  color: var(--pokeymanz-color-toughness-primmary);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.wounds-container {
+  border-color: var(--pokeymanz-color-wounds-primmary);
+  background-color: var(--pokeymanz-color-wounds-secondary);
+  box-shadow: 0 0 5px var(--pokeymanz-color-wounds-secondary);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.wounds-container .stat-icon {
+  color: var(--pokeymanz-color-wounds-primmary);
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.wounds-container .wound-input-container {
+  display: flex;
+}
+.pokeymanz.sheet section.summary.tab .character-card .sidebar-card .portrait .stat-bar .stat-container.wounds-container span {
+  font-size: 1.51rem;
+  height: 1.5rem;
+  color: var(--pokeymanz-color-wounds-primmary);
+  font-weight: bold;
+  line-height: 1;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .heart,
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container-edit .heart {
@@ -145,6 +207,7 @@
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container:hover {
   filter: saturate(1.1);
   transform: scale(1.1);
+  text-shadow: none;
 }
 .pokeymanz.sheet section.summary.tab .character-card .sidebar-card .attributes-container .attribute-container .attribute-roll {
   font-family: var(--pokeymanz-font-title);

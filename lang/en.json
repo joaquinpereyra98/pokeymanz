@@ -1,23 +1,16 @@
 {
+    "TYPES": {
+        "Actor": {
+            "character": "Character"
+        }
+    },
     "POKEYMANZ": {
-        "DieSizes": "Die Sizes",
-        "AttributeMod": "Attribute Modifier",
-        "Calling": "Calling",
-        "Pronouns": "Pronouns",
-        "Age": "Age",
-        "Currency": "Currency",
-        "PokemonType": "Pokemon Type",
         "Attributes": {
             "Label": "Attributes",
             "Heart": "Heart",
             "Fitness": "Fitness",
             "Research": "Research",
             "Tactics": "Tactics"
-        },
-        "Stats": {
-            "Toughness": "Toughness",
-            "PrimaryType": "Primary Type",
-            "SecondaryType": "Secondary Type"
         },
         "ItemTypes":{
             "Edge": "Edge",
@@ -39,22 +32,6 @@
                 "Summary": "Summary"
             }
         },
-        "AttributePromptTitle": "{attr} Attribute Check",
-        "AttributeMenuTitle": "Attribute Menu",
-        "StatMenuTitle": "Stats Menu",
-        "ApplyButton": "Apply Changes",
-        "CancelButton": "Cancel Changes",
-        "ToughnessBooleanLabel": "Auto-Calc Toughness",
-        "ToughnessBooleanText": "Activated the Trainer's Toughness value will be its Fitness die type halved.",
-        "SourceLabel": "Source",
-        "DescriptionLabel": "Description",
-        "RequirementLabel": "Requirement",
-        "ItemTypeLabel": "Item Type",
-        "NotesLabel": "Notes",
-        "Battle": "Battle",
-        "Social": "Social",
-        "Utility": "Utility",
-        "CategoryLabel": "Category",
         "Types": {
             "None": "No Type",
             "Normal": "Normal",
@@ -75,11 +52,6 @@
             "Dragon": "Dragon",
             "Dark": "Dark",
             "Fairy": "Fairy"
-        }
-    },
-    "TYPES": {
-        "Actor": {
-            "character": "Character"
         }
     }
 }

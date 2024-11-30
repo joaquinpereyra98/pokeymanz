@@ -10,6 +10,11 @@
     --pokeymanz-color-heart: #ff3750;
     --pokeymanz-color-tactics: #087608;
     --pokeymanz-color-fitness: #f86522;
+
+    --pokeymanz-color-toughness-primmary: #002b77;
+    --pokeymanz-color-toughness-secondary: #3f6ab8;
+    --pokeymanz-color-wounds-primmary: #941100;
+    --pokeymanz-color-wounds-secondary: #ce3922;
 }
 
 @function black-opacity($opacity){
@@ -24,3 +29,9 @@ $pokeymanz-c-research: var(--pokeymanz-color-research);
 $pokeymanz-c-heart: var(--pokeymanz-color-heart);
 $pokeymanz-c-tactics: var(--pokeymanz-color-tactics);
 $pokeymanz-c-fitness: var(--pokeymanz-color-fitness);
+
+$pokeymanz-c-toughness-1: var(--pokeymanz-color-toughness-primmary);
+$pokeymanz-c-toughness-2: var(--pokeymanz-color-toughness-secondary);
+
+$pokeymanz-c-wounds-1: var(--pokeymanz-color-wounds-primmary);
+$pokeymanz-c-wounds-2: var(--pokeymanz-color-wounds-secondary);

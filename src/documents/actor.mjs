@@ -11,16 +11,6 @@ export default class PokeymanzActor extends Actor {
     const type = pokemonTypesList.find((type) => type.id === id);
     return type;
   }
-  prepareDerivedData() {
-    const actorData = this;
-    const systemData = actorData.system;
-    const flags = actorData.flags.pokeymanz || {};
-    systemData.stats.toughness.value =
-      systemData.attributes.fitness.die.sides / 2;
-
-    systemData.stats.toughness.sum =
-      systemData.stats.toughness.value + systemData.stats.toughness.modifier;
-  }
   getRollData() {
     const data = super.getRollData();
     return data;

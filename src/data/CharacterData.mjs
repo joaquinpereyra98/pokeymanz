@@ -29,12 +29,6 @@ export default class CharacterData extends foundry.abstract.TypeDataModel {
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
           value: new fields.NumberField({ initial: 0, integer: true }),
-          modifier: new fields.NumberField({
-            initial: 0,
-            integer: true,
-            required: false,
-          }),
-          sum: new fields.NumberField({ integer: true }),
         }),
         types: new fields.SchemaField({
           primary: pokemonTypeFields(),
