@@ -10,8 +10,7 @@ Hooks.once("init", () => {
     character: data.Character,
   });
   Object.assign(CONFIG.Item.dataModels, {
-    edge: data.Edge,
-    hindrance: data.Hindrance,
+    feat: data.Feat,
   });
   game.pokeymanz = {
     sheets: {

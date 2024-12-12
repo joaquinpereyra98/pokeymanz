@@ -1,9 +1,7 @@
-import CharacterData from "./CharacterData.mjs";
-import EdgeData from "./EdgeData.mjs";
-import HindrancesData from "./hindrances-data.mjs";
+import CharacterData from "./character-data.mjs";
+import FeatData from "./feat-data.mjs";
 
 export {
     CharacterData as Character,
-    EdgeData as Edge,
-    HindrancesData as Hindrance
+    FeatData as Feat,
 }

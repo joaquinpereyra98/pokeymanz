@@ -3,6 +3,7 @@ import {
   ensureCurrencyIsNumeric,
   boundTraitDie,
   pokemonTypeFields,
+  descriptionsFields,
 } from "./common.mjs";
 
 export default class CharacterData extends foundry.abstract.TypeDataModel {
@@ -45,6 +46,7 @@ export default class CharacterData extends foundry.abstract.TypeDataModel {
         pronouns: new fields.StringField({ initial: "" }),
         age: new fields.NumberField({ integer: true }),
       }),
+      description: descriptionsFields(),
     };
   }
   static migrateData(source) {

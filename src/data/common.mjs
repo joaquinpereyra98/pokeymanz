@@ -1,9 +1,6 @@
-/**
- *
- * @returns
- */
+const { SchemaField, NumberField, StringField, HTMLField } = foundry.data.fields;
+
 export function attributeDiceFields() {
-  const { SchemaField, NumberField } = foundry.data.fields;
   return {
     die: new SchemaField({
       sides: new NumberField({
@@ -48,14 +45,20 @@ export function boundTraitDie(die) {
   return die;
 }
 export function pokemonTypeFields() {
-  const fields = foundry.data.fields;
   const choices = CONFIG.POKEYMANZ.pokemonTypesList.reduce((acc, v) => {
     acc[v.id] = v.name;
     return acc;
   }, {});
 
-  return new fields.StringField({
+  return new StringField({
     choices,
     blank: true,
+  });
+}
+
+export function descriptionsFields() {
+  return  new SchemaField({
+    value: new HTMLField({initial: ""}),
+    gmNotes: new HTMLField({initial: ""}),
   });
 }

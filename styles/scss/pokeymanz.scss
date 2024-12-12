@@ -1,5 +1,6 @@
 @import 'globals/colors';
 @import 'globals/fonts';
+
 .pokeymanz {
     &.sheet {
         .theme-light & {
@@ -16,8 +17,15 @@
             padding: 0;
         }
 
-        @import 'components/actor-sheet/header';
-        @import 'components/actor-sheet/summary-tab';
         @import 'components/commons/commons';
+        @import 'components/header';
+
+        section.summary.tab {
+            overflow-y: auto;
+            margin: 2em 1em;
+            @import 'components/actor-sheet/character-card';
+            @import 'components/item-sheet/summary-header';
+        }
+
     }
 }

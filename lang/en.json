@@ -2,6 +2,9 @@
     "TYPES": {
         "Actor": {
             "character": "Character"
+        },
+        "Item": {
+            "feat": "Feat"
         }
     },
     "POKEYMANZ": {
@@ -16,7 +19,7 @@
             "Edge": "Edge",
             "Hindrance": "Hindrance"
         },
-        "ItemCategories": {
+        "ItemSubtypes": {
             "Edge": {
                 "Battle": "Battle",
                 "Social": "Social",

@@ -1,8 +1,8 @@
 const { api, sheets } = foundry.applications;
 
 /**
- * The AmbientLight configuration application.
- * @extends sheets.ActorSheetV2
+ * The Pokeymanz Actor application.
+ * @extends ActorSheetV2
  * @mixes HandlebarsApplication
  * @alias PokeymanzActorSheet
  */
@@ -42,7 +42,7 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
       template: "systems/pokeymanz/templates/actors/parts/header.hbs",
     },
     summary: {
-      template: "systems/pokeymanz/templates/actors/parts/summary-party.hbs",
+      template: "systems/pokeymanz/templates/actors/parts/summary.hbs",
     },
   };
 

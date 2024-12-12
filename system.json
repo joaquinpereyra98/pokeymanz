@@ -45,6 +45,18 @@
       "extensions": ["css", "hbs", "json"]
     }
   },
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": ["description.value", "description.gmNotes"]
+      }
+    },
+    "Item": {
+      "feat": {
+        "htmlFields": ["description.value", "description.gmNotes"]
+      }
+    }
+  },
   "url": "#{URL}#",
   "manifest": "",
   "download": "#{DOWNLOAD}#"
