@@ -1,3 +1,5 @@
+import Accordion from "../applications/accordion.mjs";
+
 const { api, sheets } = foundry.applications;
 
 /**
@@ -9,6 +11,21 @@ const { api, sheets } = foundry.applications;
 export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
   sheets.ActorSheetV2
 ) {
+  constructor(...args) {
+    super(...args);
+
+    this._accordions = this._createAccordions();
+  }
+
+  /**
+   * Instantiate accordion widgets.
+   * @returns {Accordion[]}
+   * @protected
+   */
+  _createAccordions() {
+    return this.options.accordions.map((config) => new Accordion(config));
+  }
+
   /* -------------------------------------------- */
   /*  Static Methods                              */
   /* -------------------------------------------- */
@@ -34,6 +51,12 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     form: {
       submitOnChange: true,
     },
+    accordions: [
+      {
+        headingSelector: ".description-header",
+        contentSelector: ".description-content",
+      },
+    ],
   };
 
   /** @override */
@@ -222,6 +245,14 @@ export default class PokeymanzActorSheet extends api.HandlebarsApplicationMixin(
     event.preventDefault();
   }
 
+  /**
+   * Handle to toggle the Sheet Mode.
+   *
+   * @this PokeymanzActorSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
   static _toggleMode(event, target) {
     event.preventDefault();
     if (!this.isEditable) {

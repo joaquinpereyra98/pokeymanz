@@ -15,16 +15,18 @@
 
         section.window-content {
             padding: 0;
+            overflow-y: auto;
+            scrollbar-color: $pokeymanz-c-red rgba($color: #000000, $alpha: 0.3);
         }
 
         @import 'components/commons/commons';
         @import 'components/header';
 
         section.summary.tab {
-            overflow-y: auto;
             margin: 2em 1em;
             @import 'components/actor-sheet/character-card';
             @import 'components/item-sheet/summary-header';
+            @import 'components/description';
         }
 
     }

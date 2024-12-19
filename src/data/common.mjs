@@ -58,7 +58,7 @@ export function pokemonTypeFields() {
 
 export function descriptionsFields() {
   return  new SchemaField({
-    value: new HTMLField({initial: ""}),
-    gmNotes: new HTMLField({initial: ""}),
+    value: new HTMLField({initial: "", label: "POKEYMANZ.Description"}),
+    gmNotes: new HTMLField({initial: "", label: "POKEYMANZ.GMNotes"}),
   });
 }

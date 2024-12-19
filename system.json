@@ -16,7 +16,8 @@
     }
   ],
   "esmodules": [
-    "pokeymanz.mjs"
+    "pokeymanz.mjs",
+    "greensock/esm/all.js"
   ],
   "styles": [
     "styles/pokeymanz.css"

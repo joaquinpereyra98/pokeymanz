@@ -58,6 +58,8 @@
             "Dragon": "Dragon",
             "Dark": "Dark",
             "Fairy": "Fairy"
-        }
+        },
+        "Description": "Description",
+        "GMNotes": "GM Notes"
     }
 }

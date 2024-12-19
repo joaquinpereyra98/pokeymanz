@@ -1,3 +1,4 @@
+import Accordion from "../applications/accordion.mjs";
 const { api, sheets } = foundry.applications;
 
 /**
@@ -9,6 +10,19 @@ const { api, sheets } = foundry.applications;
 export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
   sheets.ItemSheetV2
 ) {
+  constructor(...args) {
+    super(...args);
+
+    this._accordions = this._createAccordions();
+  }
+  /**
+   * Instantiate accordion widgets.
+   * @returns {Accordion[]}
+   * @protected
+   */
+  _createAccordions() {
+    return this.options.accordions.map((config) => new Accordion(config));
+  }
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -23,6 +37,10 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
         break;
     }
     return options;
+  }
+
+  _onRender(context, options) {
+    this._accordions.forEach((accordion) => accordion.bind(this.element));
   }
   /* -------------------------------------------- */
   /*  Static Methods                              */
@@ -46,6 +64,12 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
     form: {
       submitOnChange: true,
     },
+    accordions: [
+      {
+        headingSelector: ".description-header",
+        contentSelector: ".description-content",
+      },
+    ],
   };
 
   /** @override */
@@ -116,7 +140,26 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
       isPlayMode: this.isPlayMode,
       fields: item.system.schema.fields,
       choices: this._getChoices(),
+      descriptionFields: await this._prepareDescription(),
     };
+  }
+
+  async _prepareDescription() {
+    const { description: desctipionSystem, schema } = this.document.system;
+    const descriptionFields = schema.getField("description").fields;
+    const descriptions = {};
+    for (const [key, value] of Object.entries(desctipionSystem)) {
+      descriptions[key] = {
+        field: descriptionFields[key],
+        label: game.i18n.localize(descriptionFields[key].label),
+        value,
+        enriched: await TextEditor.enrichHTML(value, {
+          rollData: this.document.getRollData(),
+          relativeTo: this.document,
+        }),
+      };
+    }
+    return descriptions;
   }
 
   _getChoices() {
@@ -158,10 +201,14 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
       return acc;
     }, {});
   }
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
 
   /**
-   *
-   * @param {Event} event
+   *Handle to toggle the Sheet Mode
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
    * @param {HTMLElement} target
    * @returns
    */

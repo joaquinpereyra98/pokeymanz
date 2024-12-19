@@ -30,4 +30,20 @@
                 data-tooltip="{{item.name}}" {{disabled isPlayMode }} />
         </div>
     </div>
+    <div class="summary-body">
+        {{#each descriptionFields as |description|}}
+        <div class="description-container">
+            <div class="description-header">
+                {{description.label}}
+            </div>
+            <div class="description-content">
+                {{formInput description.field
+                value=description.value
+                enriched=description.enriched
+                toggled=true}}
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
 </section>
