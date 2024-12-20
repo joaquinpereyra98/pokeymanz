@@ -12,7 +12,6 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
 ) {
   constructor(...args) {
     super(...args);
-
     this._accordions = this._createAccordions();
   }
   /**
@@ -28,17 +27,13 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
   /** @inheritDoc */
   _initializeApplicationOptions(options) {
     options = super._initializeApplicationOptions(options);
-    switch (options.document.type) {
-      case "feat":
-        options.window.icon = "fa-solid fa-star";
-        break;
 
-      default:
-        break;
-    }
+    options.window.icon =
+      CONFIG.POKEYMANZ.items[options.document.type]?.icon ?? "fas fa-suitcase";
     return options;
   }
 
+  /** @inheritDoc */
   _onRender(context, options) {
     this._accordions.forEach((accordion) => accordion.bind(this.element));
   }

@@ -6,12 +6,14 @@ import gsap from "/scripts/greensock/esm/all.js";
  * @property {string} contentSelector    The CSS selector that identifies accordion content in the given markup. This
  *                                       can match content within the heading element, or sibling to the heading
  *                                       element, with priority given to the former.
- * @property {boolean} [collapseOthers]  Automatically collapses the other headings in this group when one heading is
+ * @property {boolean} [collapseOthers]  Au tomatically collapses the other headings in this group when one heading is
  *                                       clicked.
+ * @property {boolean} [startCollapsed]  If `true`, all sections start collapsed.
+ * @property {boolean} [startExpanded]   If `true`, all sections start expanded. Overrides `startCollapsed`.
  */
 
 /**
- * A class responsible for augmenting markup with an accordion effect.
+ * A class responsible for augmenting markup with an accordion effect based on the Accordion Class used on DnD5e FoundryVTT system.
  * @param {AccordionConfiguration} config  Configuration options.
  */
 export default class Accordion {
@@ -47,23 +49,31 @@ export default class Accordion {
     const firstBind = this.#sections.size < 1;
     if (firstBind) this.#collapsed = [];
     this.#sections = new Map();
-    const { headingSelector, contentSelector } = this.#config;
-    let collapsedIndex = 0;
+    const { headingSelector, contentSelector, startCollapsed, startExpanded } =
+      this.#config;
 
     for (const heading of root.querySelectorAll(headingSelector)) {
       const content =
         heading.querySelector(contentSelector) ??
         heading.parentElement.querySelector(contentSelector);
       if (!content) continue;
+
       this.#sections.set(heading, content);
-      gsap.set(content, { height: 0 });
-      if (firstBind) this.#collapsed.push(this.#collapsed.length > 0);
-      else if (this.#collapsed[collapsedIndex])
-        heading.classList.add("collapsed");
+
+      const isCollapsed = startExpanded ? false : startCollapsed || firstBind;
+
+      this.#collapsed.push(isCollapsed);
       heading.classList.add("accordion-heading");
       content.classList.add("accordion-content");
+
+      if (isCollapsed) {
+        heading.classList.add("collapsed");
+        gsap.set(content, { height: 0 });
+      } else {
+        gsap.set(content, { height: "auto" });
+      }
+
       heading.addEventListener("click", this._onClickHeading.bind(this));
-      collapsedIndex++;
     }
 
     this._restoreCollapsedState();
@@ -137,7 +147,6 @@ export default class Accordion {
     for (let i = 0; i < entries.length; i++) {
       const collapsed = this.#collapsed[i];
       const [heading, content] = entries[i];
-      console.log(heading, collapsed);
       if (collapsed) this._onCollapseSection(heading, content);
       else this._onExpandSection(heading, content);
     }

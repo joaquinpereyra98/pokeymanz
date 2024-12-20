@@ -147,6 +147,7 @@ export const POKEYMANZ = {
   items: {
     feat: {
       img: "systems/pokeymanz/assets/icons/items/round-star.svg",
+      icon: "fa-solid fa-star",
       types: {
         edge: {
           label: "POKEYMANZ.ItemTypes.Edge",
