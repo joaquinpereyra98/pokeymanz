@@ -1,4 +1,6 @@
-.item-type-fields {
+@use '../abstracts' as *;
+
+.pokeymanz .item-type-fields {
     display: flex;
     gap: 0.5rem;
     margin: 0.3rem 0;
@@ -12,7 +14,7 @@
         -webkit-box-shadow: 0 0 2px;
         box-shadow: 0 0 2px;
         font-size: 0.9rem;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+        font-family: $pokeymanz-font-itemtype;
         text-shadow: 0 0 2px;
         font-weight: bold;
     }

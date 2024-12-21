@@ -1,0 +1,23 @@
+@use '../abstracts' as *;
+
+.pokeymanz .accordion-container {
+    margin: 0.5rem 0;
+    &.collapsed {
+        overflow-y: hidden;
+    }
+
+    .accordion-heading {
+        padding: 0.4rem 1rem;
+        font-size: large;
+        background-color: $pokeymanz-c-red;
+        border-radius: 0.4rem 0.4rem 0 0;
+        color: white;
+        font-weight: bold;
+    }
+
+    .accordion-content {
+        background-color: rgba($color: black, $alpha: 0.3);
+        padding: 0 0.4rem;
+    }
+
+}

@@ -1,9 +1,6 @@
-header.window-header {
-    border: 0;
-    background-color: $pokeymanz-c-red;
-}
+@use '../abstracts' as *;
 
-.sheet-header {
+.sheet header.sheet-header {
     display: flex;
     flex-direction: column;
     align-items: flex-end;

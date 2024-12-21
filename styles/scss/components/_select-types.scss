@@ -1,4 +1,6 @@
-.type-select-container select {
+@use '../abstracts' as *;
+
+.pokeymanz .type-select-container select {
     border-radius: 25px;
     border: 2px solid;
     box-shadow: 0 0 0.4em;
@@ -7,8 +9,5 @@
     font-size: 1.1rem;
     text-align: center;
     font-weight: bold;
-
-    .theme-light & {
-        color: black;
-    }
+    color: var(--text-color);
 }

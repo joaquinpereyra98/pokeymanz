@@ -3,7 +3,9 @@
 .pokeymanz {
     --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
     --pokeymanz-font-label: "Sigmar One", sans-serif;
+    --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 
 $pokeymanz-font-title: var(--pokeymanz-font-title);
 $pokeymanz-font-label: var(--pokeymanz-font-label);
+$pokeymanz-font-itemtype: var(--pokeymanz-font-itemtype);

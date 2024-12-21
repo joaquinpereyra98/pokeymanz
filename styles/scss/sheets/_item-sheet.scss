@@ -1,0 +1,32 @@
+@use '../abstracts/' as *;
+
+.pokeymanz.sheet.item {
+    .summary-header {
+        display: flex;
+        --profile-img-width: max(20%, 130px);
+
+        .portrait {
+            width: calc(var(--profile-img-width) + 1rem);
+            padding: 0 0.5rem;
+
+            .profile-img {
+                border-radius: 10px;
+                border: 0.3em solid;
+                object-fit: cover;
+                object-position: top center;
+                width: var(--profile-img-width);
+                height: var(--profile-img-width);
+                max-height: 200px;
+            }
+        }
+
+        .summary-inputs {
+            width: calc(100% - var(--profile-img-width) - 1rem);
+
+            input.document-name {
+                font-size: 3rem;
+            }
+        }
+
+    }
+}
