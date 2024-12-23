@@ -1,4 +1,4 @@
-import Accordion from "../applications/accordion.mjs";
+import Accordion from "../accordion.mjs";
 const { api, sheets } = foundry.applications;
 
 /**

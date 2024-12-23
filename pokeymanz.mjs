@@ -1,7 +1,6 @@
 import * as data from "./src/data/_module.mjs";
 import * as documentClass from "./src/documents/_module.mjs";
-import PokeymanzActorSheet  from "./src/sheets/actor-sheet.mjs"
-import PokeymanzItemSheet from"./src/sheets/item-sheet.mjs"
+import * as apps from "./src/applications/_module.mjs";
 import { POKEYMANZ } from "./src/config.mjs";
 
 Hooks.once("init", () => {
@@ -14,9 +13,9 @@ Hooks.once("init", () => {
   });
   game.pokeymanz = {
     sheets: {
-      PokeymanzActorSheet,
-      PokeymanzItemSheet
-    }
+      actor: apps.ActorSheet,
+      item: apps.ItemSheet,
+    },
   };
 
   /*Registering ActorDocumments*/
@@ -25,13 +24,13 @@ Hooks.once("init", () => {
 
   /*Registering ActorSheets*/
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("Character Sheet", PokeymanzActorSheet, {
+  Actors.registerSheet("Character Sheet", apps.ActorSheet, {
     types: ["character"],
     makeDefault: true,
     label: "POKEYMANZ.CharacterSheet",
   });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("Item Sheet", PokeymanzItemSheet, {
+  Items.registerSheet("Item Sheet", apps.ItemSheet, {
     makeDefault: true,
     label: "POKEYMANZ.ItemSheet",
   });
