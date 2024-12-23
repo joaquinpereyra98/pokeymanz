@@ -13,7 +13,8 @@ import gsap from "/scripts/greensock/esm/all.js";
  */
 
 /**
- * A class responsible for augmenting markup with an accordion effect based on the Accordion Class used on DnD5e FoundryVTT system.
+ * A class responsible for augmenting markup with an accordion effect 
+ * based on the Accordion Class used on DnD5e FoundryVTT system.
  * @param {AccordionConfiguration} config  Configuration options.
  */
 export default class Accordion {
@@ -52,6 +53,10 @@ export default class Accordion {
     const { headingSelector, contentSelector, startCollapsed, startExpanded } =
       this.#config;
 
+    const forceExpand = startExpanded === true;
+    const forceCollapse = startCollapsed === true && !forceExpand;
+
+    let collapsedIndex = 0;
     for (const heading of root.querySelectorAll(headingSelector)) {
       const content =
         heading.querySelector(contentSelector) ??
@@ -60,20 +65,29 @@ export default class Accordion {
 
       this.#sections.set(heading, content);
 
-      const isCollapsed = startExpanded ? false : startCollapsed || firstBind;
+      if (firstBind) {
+        const isCollapsed = forceExpand
+          ? false
+          : forceCollapse || this.#collapsed.length > 0;
 
-      this.#collapsed.push(isCollapsed);
+        this.#collapsed.push(isCollapsed);
+
+        if (isCollapsed) {
+          heading.classList.add("collapsed");
+          gsap.set(content, { height: 0 });
+        } else {
+          gsap.set(content, { height: "auto" });
+        }
+      } else if (this.#collapsed[collapsedIndex]) {
+        heading.classList.add("collapsed");
+        gsap.set(content, { height: 0 });
+      }
+
       heading.classList.add("accordion-heading");
       content.classList.add("accordion-content");
 
-      if (isCollapsed) {
-        heading.classList.add("collapsed");
-        gsap.set(content, { height: 0 });
-      } else {
-        gsap.set(content, { height: "auto" });
-      }
-
       heading.addEventListener("click", this._onClickHeading.bind(this));
+      collapsedIndex++;
     }
 
     this._restoreCollapsedState();
@@ -149,6 +163,19 @@ export default class Accordion {
       const [heading, content] = entries[i];
       if (collapsed) this._onCollapseSection(heading, content);
       else this._onExpandSection(heading, content);
+    }
+  }
+
+  /**
+   * Save the accordion state.
+   * @protected
+   */
+  _saveCollapsedState() {
+    this.#collapsed = [];
+    for (const heading of this.#sections.keys()) {
+      this.#collapsed.push(
+        heading.parentElement.classList.contains("collapsed")
+      );
     }
   }
 }

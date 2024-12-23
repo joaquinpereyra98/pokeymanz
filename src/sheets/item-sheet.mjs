@@ -35,7 +35,10 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
 
   /** @inheritDoc */
   _onRender(context, options) {
-    this._accordions.forEach((accordion) => accordion.bind(this.element));
+    this._accordions.forEach((accordion) => {
+      accordion._saveCollapsedState();
+      accordion.bind(this.element);
+    });
   }
   /* -------------------------------------------- */
   /*  Static Methods                              */
