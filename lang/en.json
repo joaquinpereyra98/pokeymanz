@@ -59,6 +59,14 @@
             "Dark": "Dark",
             "Fairy": "Fairy"
         },
+        "Effect": {
+            "Applied": "Applied",
+            "Inactive":"Inactive",
+            "Source": "Source",
+            "Passive":"Passive",
+            "Temporary":"Temporary",
+            "Toggle":"Toggle Effect"
+        },
         "Description": "Description",
         "GMNotes": "GM Notes"
     }

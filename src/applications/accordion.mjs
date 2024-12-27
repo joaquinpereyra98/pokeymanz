@@ -13,7 +13,7 @@ import gsap from "/scripts/greensock/esm/all.js";
  */
 
 /**
- * A class responsible for augmenting markup with an accordion effect 
+ * A class responsible for augmenting markup with an accordion effect
  * based on the Accordion Class used on DnD5e FoundryVTT system.
  * @param {AccordionConfiguration} config  Configuration options.
  */
@@ -135,6 +135,9 @@ export default class Accordion {
 
     heading.parentElement.classList.remove("collapsed");
     gsap.to(content, { height: "auto", duration: 0.5 });
+    const icon = heading.querySelector(".accordion-icon");
+    if (icon)
+      gsap.to(icon, { rotation: "0", opacity: 1, scale: 1.2, duration: 0.5 });
   }
 
   /* -------------------------------------------- */
@@ -150,6 +153,14 @@ export default class Accordion {
   _onCollapseSection(heading, content) {
     heading.parentElement.classList.add("collapsed");
     gsap.to(content, { height: 0, duration: 0.5 });
+    const icon = heading.querySelector(".accordion-icon");
+    if (icon)
+      gsap.to(icon, {
+        rotation: "-=90",
+        opacity: 0.5,
+        scale: 1,
+        duration: 0.5,
+      });
   }
 
   /**

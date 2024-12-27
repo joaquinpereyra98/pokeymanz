@@ -1,3 +1,4 @@
+import gsap from "/scripts/greensock/esm/all.js";
 import Accordion from "../accordion.mjs";
 const { api, sheets } = foundry.applications;
 
@@ -53,6 +54,12 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
     },
     actions: {
       toggleMode: PokeymanzItemSheet._toggleMode,
+      createEffect: PokeymanzItemSheet._createEffect,
+      toggleEffect: PokeymanzItemSheet._toggleEffect,
+      viewDoc: PokeymanzItemSheet._viewDoc,
+      deleteDoc: PokeymanzItemSheet._deleteDoc,
+      setImg: PokeymanzItemSheet._setImg,
+      renderIP: PokeymanzItemSheet._renderIP,
     },
     window: {
       resizable: true,
@@ -67,6 +74,11 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
         headingSelector: ".description-header",
         contentSelector: ".description-content",
       },
+      {
+        headingSelector: ".effects-header",
+        contentSelector: ".effect-list",
+        startExpanded: true,
+      },
     ],
   };
 
@@ -77,6 +89,9 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
     },
     summary: {
       template: "systems/pokeymanz/templates/items/parts/summary.hbs",
+    },
+    effects: {
+      template: "systems/pokeymanz/templates/items/parts/effects.hbs",
     },
   };
 
@@ -178,13 +193,48 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
 
   /** @override */
   async _preparePartContext(partId, context) {
+    if (this.constructor.TABS.some((tab) => tab.id === partId))
+      context.tab = context.tabs[partId];
+
     switch (partId) {
-      case "summary":
-        context.tab = context.tabs[partId];
+      case "effects":
+        context.effects = this._prepareEffects();
         break;
     }
     return context;
   }
+
+  _prepareEffects() {
+    const categories = {
+      temporary: {
+        type: "temporary",
+        label: game.i18n.localize("POKEYMANZ.Effect.Temporary"),
+        effects: [],
+      },
+      passive: {
+        type: "passive",
+        label: game.i18n.localize("POKEYMANZ.Effect.Passive"),
+        effects: [],
+      },
+      inactive: {
+        type: "inactive",
+        label: game.i18n.localize("POKEYMANZ.Effect.Inactive"),
+        effects: [],
+      },
+    };
+
+    for (const e of this.item.effects) {
+      if (!e.active) categories.inactive.effects.push(e);
+      else if (e.isTemporary) categories.temporary.effects.push(e);
+      else categories.passive.effects.push(e);
+    }
+
+    for (const c of Object.values(categories)) {
+      c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    }
+    return categories;
+  }
+
   /**
    * Prepare an array of sheet tabs.
    * @returns {Record<string, Partial<import("../../v12/resources/app/client-esm/applications/_types.mjs").ApplicationTab>>}
@@ -198,6 +248,30 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
       };
       return acc;
     }, {});
+  }
+
+  /**
+   * Handles the animation and DOM manipulation for moving items/effects between a list.
+   *
+   * @param {HTMLElement} li - The list item representing the item/effect.
+   * @param {HTMLElement|null} insertAfter - The element to insert after, or null to append.
+   * @param {HTMLElement} itemList - The container element for the items/effects.
+   * @private
+   */
+  async _animateItemList(li, insertAfter, itemList) {
+    gsap.to(li, {
+      duration: 0.2,
+      opacity: 0,
+      onComplete: () => {
+        if (insertAfter) {
+          insertAfter.after(li); // Insert after the specified element
+        } else {
+          itemList.insertBefore(li, itemList.firstChild); // Append to the start if no insertAfter
+        }
+        gsap.fromTo(li, { opacity: 0 }, { opacity: 1, duration: 0.2 }); // Animate fade-in
+      },
+    });
+    await new Promise((resolve) => setTimeout(resolve, 410));
   }
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
@@ -221,5 +295,157 @@ export default class PokeymanzItemSheet extends api.HandlebarsApplicationMixin(
       : PokeymanzItemSheet.MODES.PLAY;
 
     this.render();
+  }
+
+  /**
+   *Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
+   */
+  static _createEffect(event, target) {
+    event.preventDefault();
+    const cls = getDocumentClass("ActiveEffect");
+
+    const data = {
+      name: game.i18n.format("DOCUMENT.New", { type: "Effect" }),
+      disabled: target.dataset.type === "inactive",
+      transfer: true,
+      origin: this.document.uuid,
+      img: "icons/svg/aura.svg",
+      duration: target.dataset.type === "temporary" ? { rounds: 1 } : null,
+    };
+
+    cls.create(data, { parent: this.document });
+  }
+
+  /**
+   * Handle to toggle a ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
+   */
+  static async _toggleEffect(event, target) {
+    event.preventDefault();
+    const li = target.closest(".item");
+    const { documentClass, docId, effectType } = li.dataset;
+    const doc = this.document.getEmbeddedDocument(documentClass, docId);
+
+    const effects = Array.from(this.document.effects).sort(
+      (a, b) => (a.sort || 0) - (b.sort || 0)
+    );
+
+    const previousEffect = effects
+      .slice(
+        0,
+        effects.findIndex((ef) => ef.id === doc.id)
+      )
+      .findLast((effect) =>
+        effectType === "inactive"
+          ? doc.isTemporary === effect.isTemporary && effect.active
+          : !effect.active
+      );
+
+    const newCategory =
+      effectType === "inactive"
+        ? doc.isTemporary
+          ? "temporary"
+          : "passive"
+        : "inactive";
+    const ol = li.closest(".effects-list");
+    const effectList = ol?.querySelector(
+      `.effect-list[data-effect-type="${newCategory}"]`
+    );
+
+    if (!effectList) return await doc?.update({ disabled: !doc.disabled });
+
+    const previousEffectId = previousEffect?.id || null;
+    const prevLi = previousEffectId
+      ? effectList.querySelector(`[data-doc-id="${previousEffectId}"]`)
+      : null;
+    await this._animateItemList(li, prevLi, effectList);
+
+    return await doc?.update({ disabled: !doc.disabled });
+  }
+
+  /**
+   *Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
+   */
+  static _viewDoc(event, target) {
+    event.preventDefault();
+    const li = target.closest(".item");
+    const effect = this.document.effects.get(li.dataset.effectId);
+    effect.sheet.render(true);
+  }
+
+  /**
+   *Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
+   */
+  static async _deleteDoc(event, target) {
+    event.preventDefault();
+    const li = target.closest(".item");
+    const effect = this.document.effects.get(li.dataset.effectId);
+    gsap.to(li, { height: 0, opacity: 0, duration: 0.5 });
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    await effect.delete();
+  }
+
+  /**
+   * Handle changing a Document's image
+   *
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _setImg(event, target) {
+    event.preventDefault();
+    const current = foundry.utils.getProperty(this.object, "img");
+    const { img } =
+      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
+      {};
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      redirectToRoot: img ? [img] : [],
+      callback: (path) => {
+        target.src = path;
+        if (this.options.submitOnChange) return this._onSubmit(event);
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10,
+    });
+    return fp.browse();
+  }
+
+  /**
+   * Handle render ImagePopout of a image
+   *
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _renderIP(event, target) {
+    event.preventDefault();
+    const src = target.src ?? target.querySelector("img")?.src;
+    if (!src) return;
+
+    const ip = new ImagePopout(src, {
+      title: this.document.name,
+      uuid: this.document.uuid,
+    });
+
+    ip.render(true);
   }
 }

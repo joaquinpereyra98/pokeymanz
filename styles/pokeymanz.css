@@ -28,12 +28,16 @@
   overflow-y: hidden;
 }
 .pokeymanz .accordion-container .accordion-heading {
-  padding: 0.4rem 1rem;
+  align-content: center;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
   font-size: large;
   background-color: var(--pokeymanz-color-ui-red);
   border-radius: 0.4rem 0.4rem 0 0;
   color: white;
   font-weight: bold;
+}
+.pokeymanz .accordion-container .accordion-heading .accordion-icon {
+  margin: 0 0.2rem;
 }
 .pokeymanz .accordion-container .accordion-content {
   background-color: rgba(0, 0, 0, 0.3);
@@ -57,6 +61,82 @@
 .pokeymanz input.document-name:focus {
   outline: none;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+ol.effects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+ol.effects-list .effect-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ol.effects-list .effect-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  text-align: left;
+  align-items: center;
+  display: flex;
+}
+ol.effects-list .effect-controls {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: flex-end;
+}
+ol.effects-list .effect-controls a {
+  text-align: center;
+  margin: 0 6px;
+}
+ol.effects-list .effect {
+  align-items: center;
+  padding: 1px 2px;
+  border-bottom: 1px solid;
+}
+ol.effects-list .effect:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+ol.effects-list .effect:last-child {
+  border-bottom: none;
+}
+ol.effects-list .effect .effect-name .effect-image {
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+ol.effects-list .effect .effect-source,
+ol.effects-list .effect .effect-duration,
+ol.effects-list .effect .effect-controls {
+  font-size: 0.9rem;
+  height: 1rem;
+  text-align: center;
+  border-left: 3px solid #c9c7b8;
+  border-right: 3px solid #c9c7b8;
+}
+ol.effects-list .effect .effect-controls {
+  border: none;
+}
+ol.effects-list .effects-header {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  font-weight: bold;
+}
+ol.effects-list .effects-header > * {
+  text-align: center;
+}
+ol.effects-list .effects-header .accordion-icon {
+  flex: 0;
+}
+ol.effects-list .effects-header .effect-name {
+  padding-left: 5px;
+  text-align: left;
 }
 
 .pokeymanz .item-type-fields {
@@ -117,13 +197,13 @@
   filter: saturate(1.1);
 }
 
-.sheet header.sheet-header {
+.pokeymanz.sheet header.sheet-header {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   position: relative;
 }
-.sheet header.sheet-header .edit-switch-contianer {
+.pokeymanz.sheet header.sheet-header .edit-switch-contianer {
   position: absolute;
   top: calc(50% - 0.45rem);
   left: 0.5rem;
@@ -131,21 +211,21 @@
   align-items: center;
   color: var(--pokeymanz-color-ui-red);
 }
-.sheet header.sheet-header .edit-switch-contianer .switch-icon {
+.pokeymanz.sheet header.sheet-header .edit-switch-contianer .switch-icon {
   font-size: 0.7rem;
   transition: 500ms;
   opacity: 0.7;
 }
-.sheet header.sheet-header .edit-switch-contianer .switch-icon.active {
+.pokeymanz.sheet header.sheet-header .edit-switch-contianer .switch-icon.active {
   transform: scale(1.2);
   opacity: 1;
 }
-.sheet header.sheet-header .edit-switch-contianer .switch-btn {
+.pokeymanz.sheet header.sheet-header .edit-switch-contianer .switch-btn {
   height: 1.4rem;
   font-size: 1.4rem;
   margin: 0 4px;
 }
-.sheet header.sheet-header .sheet-tabs {
+.pokeymanz.sheet header.sheet-header .sheet-tabs {
   background-color: var(--pokeymanz-color-ui-red);
   clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
   width: 40%;
@@ -153,13 +233,13 @@
   border: 0;
   padding-left: 1rem;
 }
-.sheet header.sheet-header .sheet-tabs .tab-icon-button {
+.pokeymanz.sheet header.sheet-header .sheet-tabs .tab-icon-button {
   font-size: 1.3rem;
   color: var(--pokeymanz-color-ui-white);
   opacity: 0.6;
   transition: 800ms;
 }
-.sheet header.sheet-header .sheet-tabs .tab-icon-button.active {
+.pokeymanz.sheet header.sheet-header .sheet-tabs .tab-icon-button.active {
   text-shadow: none;
   transform: scale(1.3);
   opacity: 1;

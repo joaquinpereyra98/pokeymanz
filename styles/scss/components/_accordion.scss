@@ -2,17 +2,23 @@
 
 .pokeymanz .accordion-container {
     margin: 0.5rem 0;
+
     &.collapsed {
         overflow-y: hidden;
     }
 
     .accordion-heading {
-        padding: 0.4rem 1rem;
+        align-content: center;
+        padding: 0.4rem 1rem 0.4rem 0.6rem;
         font-size: large;
         background-color: $pokeymanz-c-red;
         border-radius: 0.4rem 0.4rem 0 0;
         color: white;
         font-weight: bold;
+
+        .accordion-icon {
+            margin: 0 0.2rem;
+        }
     }
 
     .accordion-content {

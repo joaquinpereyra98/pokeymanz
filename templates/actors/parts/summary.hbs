@@ -2,8 +2,8 @@
     <div class="character-card">
         <div class="sidebar-card flexcol">
             <div class="portrait actor-portrait">
-                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="image" alt="{{actor.name}}"
-                    title="{{actor.name}}" />
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "setImg" }}
+                    alt="{{actor.name}}" title="{{actor.name}}" />
             <div class="stat-bar">
                 <div class="toughtness-container stat-container">
                     <i class="stat-icon fa-solid fa-shield"></i>
