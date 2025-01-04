@@ -10,4 +10,32 @@ export default class PokeymanzItem extends Item {
     rollData.item = foundry.utils.deepClone(this.system);
     return rollData;
   }
+
+  /**
+   * An array of ActiveEffect instances which are present on
+   * the Actor which are active and dont have limited duration.
+   * @returns {ActiveEffect[]}
+   */
+  get passiveEffects() {
+    const effects = Array.from(this.effects);
+    return effects.filter((ef) => !ef.isTemporary && ef.active);
+  }
+
+  /**
+   * An array of ActiveEffect instances which are present on the Actor Actor which are active and have a limited duration.
+   * @returns {ActiveEffect[]}
+   */
+  get temporaryEffectsActive() {
+    const effects = Array.from(this.effects);
+    return effects.filter((ef) => ef.isTemporary && ef.active);
+  }
+
+  /**
+   * An array of ActiveEffect instances which are present on the Actor Actor which are inactive
+   * @returns {ActiveEffect[]}
+   */
+  get inactiveEffects() {
+    const effects = Array.from(this.effects);
+    return effects.filter((ef) => !ef.active);
+  }
 }

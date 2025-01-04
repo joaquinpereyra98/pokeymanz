@@ -7,19 +7,19 @@ import { POKEYMANZ } from "./src/config.mjs";
 Hooks.once("init", () => {
   /* Exposing classes and variables */
   CONFIG.POKEYMANZ = POKEYMANZ;
-  
+
   game.pokeymanz = {
     apps,
     document,
-    data
+    data,
   };
 
   /*Registering data models*/
   Object.assign(CONFIG.Actor.dataModels, {
-    trainer: data.Trainer,
+    trainer: data.TrainerData,
   });
   Object.assign(CONFIG.Item.dataModels, {
-    feat: data.Feat,
+    feat: data.FeatData,
   });
 
   /*Registering document class*/
@@ -30,10 +30,10 @@ Hooks.once("init", () => {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("Trainer Sheet", apps.actor.TrainerSheet, {
     types: ["trainer"],
-    label: "POKEYMANZ.Trainer Sheet",
+    label: "POKEYMANZ.TrainerSheet",
   });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("Item Sheet", apps.ItemSheet, {
+  Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {
     makeDefault: true,
     label: "POKEYMANZ.ItemSheet",
   });

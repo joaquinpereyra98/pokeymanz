@@ -36,5 +36,4 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
       }
     }
   }
-  
 }

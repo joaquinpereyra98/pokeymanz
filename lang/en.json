@@ -15,7 +15,7 @@
             "Research": "Research",
             "Tactics": "Tactics"
         },
-        "ItemTypes":{
+        "ItemTypes": {
             "Edge": "Edge",
             "Hindrance": "Hindrance"
         },
@@ -33,8 +33,8 @@
         "Actor": {
             "TABS": {
                 "Summary": "Summary",
-                "Inventory": "Inventory" ,
-                "Pokemon": "Pokemon" ,
+                "Inventory": "Inventory",
+                "Pokemon": "Pokemon",
                 "Effects": "Effects"
             }
         },
@@ -61,11 +61,11 @@
         },
         "Effect": {
             "Applied": "Applied",
-            "Inactive":"Inactive",
+            "Inactive": "Inactive",
             "Source": "Source",
-            "Passive":"Passive",
-            "Temporary":"Temporary",
-            "Toggle":"Toggle Effect"
+            "Passive": "Passive",
+            "Temporary": "Temporary",
+            "Toggle": "Toggle Effect"
         },
         "Description": "Description",
         "GMNotes": "GM Notes"

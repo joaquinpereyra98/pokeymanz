@@ -1,4 +1,5 @@
-const { SchemaField, NumberField, StringField, HTMLField } = foundry.data.fields;
+const { SchemaField, NumberField, StringField, HTMLField } =
+  foundry.data.fields;
 
 export function attributeDiceFields() {
   return {
@@ -57,8 +58,8 @@ export function pokemonTypeFields() {
 }
 
 export function descriptionsFields() {
-  return  new SchemaField({
-    value: new HTMLField({initial: "", label: "POKEYMANZ.Description"}),
-    gmNotes: new HTMLField({initial: "", label: "POKEYMANZ.GMNotes"}),
+  return new SchemaField({
+    value: new HTMLField({ initial: "", label: "POKEYMANZ.Description" }),
+    gmNotes: new HTMLField({ initial: "", label: "POKEYMANZ.GMNotes" }),
   });
 }

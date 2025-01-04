@@ -2,7 +2,7 @@
     <ol class="effects-list">
         {{#each effects as |section sid|}}
         <div class="accordion-container">
-            <li class="effects-header flexrow" data-effect-type="{{section.type}}">
+            <li class="effects-header flexrow">
                 <i class="accordion-icon fa-solid fa-caret-down"></i>
                 <div class="effect-name flexrow">
                     {{localize section.label}}
@@ -10,41 +10,45 @@
                 <div class="effect-data">
                     {{localize "POKEYMANZ.Effect.Source"}}
                 </div>
-                {{#if (eq section.type "temporary")}}
-                <div class="effect-data">{{localize "EFFECT.TabDuration"}}</div>
-                {{/if}}
+                <div class="effect-data">
+                    {{#if (ne section.type "passive")}}
+                    {{localize "EFFECT.TabDuration"}}
+                    {{/if}}
+                </div>
                 <div class="effect-controls flexrow">
-                    <a class="effect-control" data-action="createEffect" data-type="{{section.type}}"   
-                        data-tooltip="{{localize "DOCUMENT.New" type="Effect" }}">
+                    <a class="effect-control" data-action="createEffect" data-type="{{section.type}}"
+                        data-tooltip="{{localize " DOCUMENT.New" type="Effect" }}">
                         <i class="fas fa-plus"></i>
                     </a>
                 </div>
             </li>
-            <ol class="effect-list">
+            <ol class="effect-list" data-effect-type="{{section.type}}">
                 {{#each section.effects as |effect|}}
-                <li class="item effect flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}"
-                    data-drag="true">
+                <li class="item effect flexrow" data-doc-id="{{effect.id}}" data-document-class="ActiveEffect"
+                    data-drag="true" data-effect-type="{{section.type}}">
                     <div class="effect-name effect-name flexrow">
                         <img class="effect-image" src="{{effect.img}}" height="24" width="24" alt="{{effect.name}}">
                         <div>{{effect.name}}</div>
                     </div>
                     <div class="effect-source">{{effect.sourceName}}</div>
-                    {{#if (eq section.type "temporary")}}
-                    <div class="effect-duration" style="border-left:0">{{effect.duration.label}}</div>
-                    {{/if}}
+                    <div class="effect-duration" style="border-left:0">
+                        {{#if effect.isTemporary }}
+                        {{effect.duration.label}}
+                        {{/if}}
+                    </div>
                     <div class="effect-controls flexrow">
                         {{#if @root.editable}}
                         <a class="effect-control" data-action="toggleEffect" data-tooltip="POKEYMANZ.Effect.Toggle">
-                            <i class="fas fa-lightbulb{{ifThen effect.disabled "" "-on" }}"></i>
+                            <i class="fas fa-lightbulb{{ifThen effect.disabled "" " -on" }}"></i>
                         </a>
                         {{/if}}
                         <a class="effect-control" data-action="viewDoc" data-document-class="ActiveEffect"
-                            data-tooltip="{{localize "DOCUMENT.Update" type="Effect" }}">
+                            data-tooltip="{{localize " DOCUMENT.Update" type="Effect" }}">
                             <i class="fas fa-edit"></i>
                         </a>
                         {{#if @root.editable}}
                         <a class="effect-control" data-action="deleteDoc" data-document-class="ActiveEffect"
-                            data-tooltip="{{localize "DOCUMENT.Delete" type="Effect" }}">
+                            data-tooltip="{{localize " DOCUMENT.Delete" type="Effect" }}">
                             <i class="fas fa-trash"></i>
                         </a>
                         {{/if}}

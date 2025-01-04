@@ -1,51 +1,69 @@
 import gsap from "/scripts/greensock/esm/all.js";
+const { ItemSheetV2 } = foundry.applications.sheets;
 
-const { ActorSheetV2 } = foundry.applications.sheets;
-
-export default class BaseActorSheet extends ActorSheetV2 {
+export default class BaseItemSheet extends ItemSheetV2 {
   static DEFAULT_OPTIONS = {
-    classes: ["pokeymanz", "sheet", "actor"],
+    classes: ["pokeymanz", "sheet", "item"],
     actions: {
-      setImg: BaseActorSheet._setImg,
-      renderIP: BaseActorSheet._renderIP,
-      toggleEffect: BaseActorSheet._toggleEffect,
-      createDoc: BaseActorSheet._createDoc,
-      deleteDoc: BaseActorSheet._deleteDoc,
-      viewDoc: BaseActorSheet._viewDoc,
+      createEffect: BaseItemSheet._createEffect,
+      toggleEffect: BaseItemSheet._toggleEffect,
+      viewDoc: BaseItemSheet._viewDoc,
+      deleteDoc: BaseItemSheet._deleteDoc,
+      setImg: BaseItemSheet._setImg,
+      renderIP: BaseItemSheet._renderIP,
     },
     window: {
       resizable: true,
       minizable: true,
-      icon: "fa-solid fa-user",
+      icon: "fa-solid fa-briefcase",
     },
     form: {
       submitOnChange: true,
     },
   };
 
-  /* -------------------------------------------- */
-  /*  Context Preparation                         */
-  /* -------------------------------------------- */
+  /** @inheritDoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+
+    foundry.utils.setProperty(
+      options,
+      "window.icon",
+      CONFIG.POKEYMANZ.items[options.document.type]?.icon ?? "fas fa-suitcase"
+    );
+
+    return options;
+  }
 
   async _prepareContext(options) {
     return {
-      actor: this.document,
-      config: CONFIG.POKEYMANZ,
       editable: this.isEditable,
-      effects: this._prepareEffects(),
-      flags: this.document.flags,
+      item: this.document,
+      actor: this.document.parent,
       system: this.document.system,
-      systemSource: this.document.system._source,
-      systemFields: this.document.system.schema.fields,
+      fields: this.document.system.schema.fields,
+      effects: this._prepareEffects(),
+      descriptionFields: await this._prepareDescription(),
     };
   }
 
-  /**
-   * @typedef {Object} EffectCategories
-   * @property {string} type - The category effect type ("temporary", "passive" or "inactive").
-   * @property {string} label - The localized label for the category..
-   * @property {ActiveEffect[]} effects - A sorted list of effects belonging to the category.
-   */
+  async _prepareDescription() {
+    const { description: desctipionSystem, schema } = this.document.system;
+    const descriptionFields = schema.getField("description").fields;
+    const descriptions = {};
+    for (const [key, value] of Object.entries(desctipionSystem)) {
+      descriptions[key] = {
+        field: descriptionFields[key],
+        label: game.i18n.localize(descriptionFields[key].label),
+        value,
+        enriched: await TextEditor.enrichHTML(value, {
+          rollData: this.document.getRollData(),
+          relativeTo: this.document,
+        }),
+      };
+    }
+    return descriptions;
+  }
 
   /**
    * Prepares and categorizes the effects associated with the actor into
@@ -77,7 +95,6 @@ export default class BaseActorSheet extends ActorSheetV2 {
     }
     return categories;
   }
-
   /* -------------------------------------------- */
   /*  Animations Handlers                         */
   /* -------------------------------------------- */
@@ -102,51 +119,26 @@ export default class BaseActorSheet extends ActorSheetV2 {
   /* -------------------------------------------- */
 
   /**
-   * Handle changing a Document's image
-   *
-   * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
+   * Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
    */
-  static _setImg(event, target) {
-    const current = foundry.utils.getProperty(this.object, "img");
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new FilePicker({
-      current,
-      type: "image",
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        target.src = path;
-        if (this.options.submitOnChange) return this._onSubmit(event);
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
-  }
-
-  /**
-   * Handle render ImagePopout of a image
-   *
-   * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
-   */
-  static _renderIP(event, target) {
+  static _createEffect(event, target) {
     event.preventDefault();
-    const src = target.src ?? target.querySelector("img")?.src;
-    if (!src) return;
+    const cls = getDocumentClass("ActiveEffect");
 
-    const ip = new ImagePopout(src, {
-      title: this.document.name,
-      uuid: this.document.uuid,
-    });
+    const data = {
+      name: game.i18n.format("DOCUMENT.New", { type: "Effect" }),
+      disabled: target.dataset.type === "inactive",
+      transfer: true,
+      origin: this.document.uuid,
+      img: "icons/svg/aura.svg",
+      duration: target.dataset.type === "temporary" ? { rounds: 1 } : null,
+    };
 
-    ip.render(true);
+    cls.create(data, { parent: this.document });
   }
 
   /**
@@ -195,81 +187,90 @@ export default class BaseActorSheet extends ActorSheetV2 {
     const prevLi = previousEffectId
       ? effectList.querySelector(`[data-doc-id="${previousEffectId}"]`)
       : null;
-    await this._movingItemList(li, prevLi, effectList);
 
+    await this._movingItemList(li, prevLi, effectList);
     return await doc?.update({ disabled: !doc.disabled });
   }
 
   /**
-   * Handle to create a new embedded document.
-   * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
+   *Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns
    */
-  static _createDoc(event, target) {
+  static _viewDoc(event, target) {
     event.preventDefault();
-    const { type, documentClass } = target.dataset;
-
-    const cls = getDocumentClass(documentClass);
-    if (!cls) return;
-
-    const data = {};
-
-    switch (documentClass) {
-      case "ActiveEffect":
-        Object.assign(data, {
-          name: game.i18n.format("DOCUMENT.New", { type: "Effect" }),
-          disabled: type === "inactive",
-          transfer: true,
-          origin: this.document.uuid,
-          img: "icons/svg/aura.svg",
-          duration: type === "temporary" ? { rounds: 1 } : null,
-        });
-        break;
-
-      default:
-        break;
-    }
-
-    const doc = cls.create(data, { parent: this.document });
-    doc.sheet?.render(true);
+    const li = target.closest(".item");
+    const effect = this.document.effects.get(li.dataset.effectId);
+    effect.sheet.render(true);
   }
+
   /**
-   * Handle to delete a embedded document.
-   * @this BaseActorSheet
+   *Handle to create a new ActiveEffect
+   * @this PokeymanzItemSheet
    * @param {PointerEvent} event
    * @param {HTMLElement} target
    * @returns
    */
   static async _deleteDoc(event, target) {
     event.preventDefault();
-    const li = target.closest(".item");
 
+    const li = target.closest(".item");
     const { documentClass, docId } = li.dataset;
     const doc = this.document.getEmbeddedDocument(documentClass, docId);
 
-    gsap.to(li, {
-      height: 0,
-      opacity: 0,
-      duration: 0.5,
-      onComplete: () => doc?.delete(),
+    gsap.to(li, { height: 0, opacity: 0, duration: 0.5 }).then(() => {
+      doc?.delete();
     });
   }
 
   /**
-   * Handle to open a embedded document sheet.
-   * @this BaseActorSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * Handle changing a Document's image
+   *
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
    */
-  static _viewDoc(event, target) {
+  static _setImg(event, target) {
     event.preventDefault();
-    const li = target.closest(".item");
+    const current = foundry.utils.getProperty(this.object, "img");
+    const { img } =
+      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
+      {};
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      redirectToRoot: img ? [img] : [],
+      callback: (path) => {
+        target.src = path;
+        if (this.options.submitOnChange) return this._onSubmit(event);
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10,
+    });
+    return fp.browse();
+  }
 
-    const { documentClass, docId } = li.dataset;
-    const doc = this.document.getEmbeddedDocument(documentClass, docId);
+  /**
+   * Handle render ImagePopout of a image
+   *
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _renderIP(event, target) {
+    event.preventDefault();
+    const src = target.src ?? target.querySelector("img")?.src;
+    if (!src) return;
 
-    doc?.sheet?.render(true);
+    const ip = new ImagePopout(src, {
+      title: this.document.name,
+      uuid: this.document.uuid,
+    });
+
+    ip.render(true);
   }
 }
