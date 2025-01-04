@@ -48,7 +48,7 @@
   },
   "documentTypes": {
     "Actor": {
-      "character": {
+      "trainer": {
         "htmlFields": ["description.value", "description.gmNotes"]
       }
     },

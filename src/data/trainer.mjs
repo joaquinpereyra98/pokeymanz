@@ -6,7 +6,7 @@ import {
   descriptionsFields,
 } from "./common.mjs";
 
-export default class CharacterData extends foundry.abstract.TypeDataModel {
+export default class TrainerData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
