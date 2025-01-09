@@ -67,8 +67,6 @@ ol.effects-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
 }
 ol.effects-list .effect-list {
   list-style: none;
@@ -116,8 +114,11 @@ ol.effects-list .effect .effect-controls {
   font-size: 0.9rem;
   height: 1rem;
   text-align: center;
-  border-left: 3px solid #c9c7b8;
   border-right: 3px solid #c9c7b8;
+}
+ol.effects-list .effect .effect-source,
+ol.effects-list .effect .effect-controls {
+  border-left: 3px solid #c9c7b8;
 }
 ol.effects-list .effect .effect-controls {
   border: none;
@@ -228,10 +229,10 @@ ol.effects-list .effects-header .effect-name {
 .pokeymanz.sheet header.sheet-header .sheet-tabs {
   background-color: var(--pokeymanz-color-ui-red);
   clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
-  width: 40%;
+  min-width: max(40%, 320px);
   margin: 0;
   border: 0;
-  padding-left: 1rem;
+  padding-left: 2rem;
 }
 .pokeymanz.sheet header.sheet-header .sheet-tabs .tab-icon-button {
   font-size: 1.3rem;
@@ -243,6 +244,86 @@ ol.effects-list .effects-header .effect-name {
   text-shadow: none;
   transform: scale(1.3);
   opacity: 1;
+}
+
+ol.items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ol.items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  min-height: 30px;
+}
+ol.items-list .item-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  text-align: left;
+  align-items: center;
+  display: flex;
+}
+ol.items-list .item-controls {
+  display: flex;
+  flex: 0 0 70px;
+  justify-content: flex-end;
+}
+ol.items-list .item-controls a {
+  text-align: center;
+  margin: 0 6px;
+}
+ol.items-list .item {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 0.4rem;
+  align-items: center;
+  border-bottom: 1px solid;
+}
+ol.items-list .item:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+ol.items-list .item:last-child {
+  border-bottom: none;
+}
+ol.items-list .item .item-name .item-image {
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+ol.items-list .item .item-subtype,
+ol.items-list .item .item-controls {
+  font-size: 0.9rem;
+  height: 1rem;
+  text-align: center;
+  border-left: 3px solid #c9c7b8;
+  border-right: 3px solid #c9c7b8;
+}
+ol.items-list .item .item-controls {
+  border: none;
+}
+ol.items-list .items-header {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  font-weight: bold;
+  align-content: center;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  font-size: large;
+  background-color: var(--pokeymanz-color-ui-red);
+  border-radius: 0.4rem 0.4rem 0 0;
+  color: white;
+  font-weight: bold;
+}
+ol.items-list .items-header > * {
+  text-align: center;
+}
+ol.items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
 }
 
 .pokeymanz.sheet.actor .character-card {

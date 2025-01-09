@@ -1,7 +1,10 @@
 import gsap from "/scripts/greensock/esm/all.js";
 const { ItemSheetV2 } = foundry.applications.sheets;
+const { HandlebarsApplicationMixin } = foundry.applications.api;
 
-export default class BaseItemSheet extends ItemSheetV2 {
+export default class BaseItemSheet extends HandlebarsApplicationMixin(
+  ItemSheetV2
+) {
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "item"],
     actions: {
@@ -19,6 +22,36 @@ export default class BaseItemSheet extends ItemSheetV2 {
     },
     form: {
       submitOnChange: true,
+    },
+    accordions: [
+      {
+        headingSelector: ".description-header",
+        contentSelector: ".description-content",
+      },
+      {
+        headingSelector: ".effects-header",
+        contentSelector: ".effect-list",
+        startExpanded: true,
+      },
+    ],
+  };
+
+  /**
+   * This getter dynamically retrieves and merges `_PARTS` from the current class and the parent class
+   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   */
+  static get PARTS() {
+    return [...this.inheritanceChain()].reverse().reduce((combined, cls) => {
+      return { ...combined, ...cls._PARTS };
+    }, {});
+  }
+
+  static _PARTS = {
+    header: {
+      template: "systems/pokeymanz/templates/items/parts/header.hbs",
+    },
+    effects: {
+      template: "systems/pokeymanz/templates/items/parts/effects.hbs",
     },
   };
 
@@ -45,6 +78,14 @@ export default class BaseItemSheet extends ItemSheetV2 {
       effects: this._prepareEffects(),
       descriptionFields: await this._prepareDescription(),
     };
+  }
+
+  /** @override */
+  async _preparePartContext(partId, context, options) {
+    if (partId === "header") {
+      context.tabWidth = this.constructor.TABS.length * 64;
+    }
+    return await super._preparePartContext(partId, context, options);;
   }
 
   async _prepareDescription() {

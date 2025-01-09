@@ -5,7 +5,7 @@
             <i class="fa-solid fa-toggle-{{ifThen isPlayMode "on" "off" }}"></i></a>
         <i class=" switch-icon fa-solid fa-gamepad-modern {{ifThen isPlayMode " active" "" }}"></i>
     </div>
-    <nav class="sheet-tabs tabs" aria-role="{{localize 'SHEETS.FormNavLabel'}}">
+    <nav class="sheet-tabs tabs" aria-role="{{localize 'SHEETS.FormNavLabel'}}" style="min-width: {{tabWidth}}px;">
         {{#each tabs as |tab|}}
         <a class="tab-icon-button {{tab.cssClass}} {{tab.icon}}" data-action="tab" data-group="{{tab.group}}"
             data-tab="{{tab.id}}" data-tooltip="{{tab.label}}">

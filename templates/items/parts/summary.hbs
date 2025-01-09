@@ -19,10 +19,10 @@
                 {{/if}}
                 {{else}}
                 <select name="system.type.value">
-                    {{selectOptions choices.typeChoices selected=system.type.value localize=true}}
+                    {{selectOptions system.type.choices selected=system.type.value localize=true}}
                 </select>
                 <select name="system.subtype.value">
-                    {{selectOptions choices.subtypeChoices selected=system.subtype.value localize=true}}
+                    {{selectOptions system.subtype.choices selected=system.subtype.value localize=true}}
                 </select>
                 {{/if}}
             </div>

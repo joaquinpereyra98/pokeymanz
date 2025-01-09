@@ -11,7 +11,7 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
  * @alias TrainerSheet
  */
 export default class TrainerSheet extends InteractiveUIFeaturesMixin(
-  HandlebarsApplicationMixin(BaseActorSheet)
+  BaseActorSheet
 ) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -22,29 +22,12 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     actions: {
       roll: TrainerSheet._onRoll,
     },
-    accordions: [
-      {
-        headingSelector: ".description-header",
-        contentSelector: ".description-content",
-      },
-      {
-        headingSelector: ".effects-header",
-        contentSelector: ".effect-list",
-        startExpanded: true,
-      },
-    ],
   };
 
   /** @override */
-  static PARTS = {
-    header: {
-      template: "systems/pokeymanz/templates/actors/parts/header.hbs",
-    },
+  static _PARTS = {
     summary: {
       template: "systems/pokeymanz/templates/actors/parts/summary.hbs",
-    },
-    effects: {
-      template: "systems/pokeymanz/templates/actors/parts/effects.hbs",
     },
   };
 
@@ -64,13 +47,19 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
       label: "POKEYMANZ.Actor.TABS.Summary",
     },
     {
+      id: "features",
+      group: "primary",
+      icon: "fa-solid fa-list",
+      label: "POKEYMANZ.Actor.TABS.Features",
+    },
+    {
       id: "inventory",
       group: "primary",
       icon: "fa-solid fa-backpack",
       label: "POKEYMANZ.Actor.TABS.Inventory",
     },
     {
-      id: "pokemons",
+      id: "pokemon",
       group: "primary",
       icon: "fa-solid fa-paw",
       label: "POKEYMANZ.Actor.TABS.Pokemon",

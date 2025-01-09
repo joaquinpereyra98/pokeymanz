@@ -1,8 +1,11 @@
 import gsap from "/scripts/greensock/esm/all.js";
 
 const { ActorSheetV2 } = foundry.applications.sheets;
+const { HandlebarsApplicationMixin } = foundry.applications.api;
 
-export default class BaseActorSheet extends ActorSheetV2 {
+export default class BaseActorSheet extends HandlebarsApplicationMixin(
+  ActorSheetV2
+) {
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
     actions: {
@@ -21,6 +24,39 @@ export default class BaseActorSheet extends ActorSheetV2 {
     form: {
       submitOnChange: true,
     },
+    accordions: [
+      {
+        headingSelector: ".effects-header",
+        contentSelector: ".effect-list",
+        startExpanded: true,
+      },
+    ],
+  };
+
+  /**
+   * This getter dynamically retrieves and merges `_PARTS` from the current class and the parent class
+   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   */
+  static get PARTS() {
+    return [...this.inheritanceChain()].reverse().reduce((combined, cls) => {
+      return { ...combined, ...cls._PARTS };
+    }, {});
+  }
+
+  /**
+   * Defines the specific parts for the current class.
+   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   */
+  static _PARTS = {
+    header: {
+      template: "systems/pokeymanz/templates/actors/parts/header.hbs",
+    },
+    effects: {
+      template: "systems/pokeymanz/templates/actors/parts/effects.hbs",
+    },
+    features: {
+      template: "systems/pokeymanz/templates/actors/parts/features.hbs",
+    },
   };
 
   /* -------------------------------------------- */
@@ -32,12 +68,29 @@ export default class BaseActorSheet extends ActorSheetV2 {
       actor: this.document,
       config: CONFIG.POKEYMANZ,
       editable: this.isEditable,
-      effects: this._prepareEffects(),
       flags: this.document.flags,
       system: this.document.system,
       systemSource: this.document.system._source,
       systemFields: this.document.system.schema.fields,
     };
+  }
+
+  async _preparePartContext(partId, context, options) {
+    switch (partId) {
+      case "header":
+        context.tabWidth = this.constructor.TABS.length * 64;
+        break;
+      case "effects":
+        context.effects = this._prepareEffects();
+        break;
+      case "features":
+        context.feats = this._prepareFeats();
+        break;
+
+      default:
+        break;
+    }
+    return await super._preparePartContext(partId, context, options);
   }
 
   /**
@@ -76,6 +129,35 @@ export default class BaseActorSheet extends ActorSheetV2 {
       c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     }
     return categories;
+  }
+
+  /**
+   * @typedef {Object} FeatCategories
+   * @property {string} label - The localized label for the category..
+   * @property {ActiveEffect[]} effects - A sorted list of feats belonging to the category.
+   */
+
+  /**
+   * Prepares and categorizes the feats of the actor
+   * @returns {FeatCategories}
+   */
+  _prepareFeats() {
+    const {
+      feat: { types },
+    } = CONFIG.POKEYMANZ.items;
+
+    const feats = Object.fromEntries(
+      Object.entries(types).map(([key, { label }]) => [
+        key,
+        {
+          label: game.i18n.localize(label),
+          items: this.document.itemTypes.feat
+            .filter((i) => i.system.type.value === key)
+            .sort((a, b) => (a.sort || 0) - (b.sort || 0)),
+        },
+      ])
+    );
+    return feats;
   }
 
   /* -------------------------------------------- */
@@ -209,7 +291,7 @@ export default class BaseActorSheet extends ActorSheetV2 {
    */
   static _createDoc(event, target) {
     event.preventDefault();
-    const { type, documentClass } = target.dataset;
+    const { type, documentClass, systemType } = target.dataset;
 
     const cls = getDocumentClass(documentClass);
     if (!cls) return;
@@ -227,9 +309,15 @@ export default class BaseActorSheet extends ActorSheetV2 {
           duration: type === "temporary" ? { rounds: 1 } : null,
         });
         break;
-
-      default:
+      case "Item":
+        Object.assign(data, {
+          name: game.i18n.format("DOCUMENT.New", { type }),
+          type,
+          "system.type": systemType,
+        });
         break;
+      default:
+        return;
     }
 
     const doc = cls.create(data, { parent: this.document });

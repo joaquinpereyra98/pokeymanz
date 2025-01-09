@@ -27,13 +27,18 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
   /** @inheritDoc */
   prepareDerivedData() {
     super.prepareDerivedData();
+    const config = CONFIG.POKEYMANZ.items.feat;
 
+    this.type.choices = Object.fromEntries(
+      Object.entries(config.types).map(([key, { label }]) => [key, label])
+    );
+    
     if (this.type.value) {
-      const config = CONFIG.POKEYMANZ.items.feat.types[this.type.value];
-      if (config) {
-        this.type.label = config.label ?? null;
-        this.subtype.label = config.subtypes?.[this.subtype.value] ?? null;
-      }
+      const typeConfig = config.types[this.type.value] || {};
+      this.subtype.choices = { "": "", ...typeConfig.subtypes };
+      this.type.label = typeConfig.label ?? null;
+      this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
+    
   }
 }

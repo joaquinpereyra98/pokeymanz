@@ -35,10 +35,10 @@
     .sheet-tabs {
         background-color: $pokeymanz-c-red;
         clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
-        width: 40%;
         margin: 0;
         border: 0;
-        padding-left: 1rem;
+        padding-left: 2rem;
+        padding-right: 0.7rem;
 
         .tab-icon-button {
             font-size: 1.3rem;

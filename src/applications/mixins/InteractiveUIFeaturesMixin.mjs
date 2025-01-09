@@ -84,11 +84,11 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     }
 
     /** @override */
-    async _preparePartContext(partId, context) {
+    async _preparePartContext(partId, context, options) {
       if (this.constructor.TABS.some((tab) => tab.id === partId))
         context.tab = context.tabs[partId];
 
-      return await super._preparePartContext(partId, context);
+      return await super._preparePartContext(partId, context, options);
     }
 
     /* -------------------------------------------- */

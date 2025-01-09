@@ -9,32 +9,15 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 600,
-      height: 400,
+      width: 510,
+      height: 510,
     },
-    accordions: [
-      {
-        headingSelector: ".description-header",
-        contentSelector: ".description-content",
-      },
-      {
-        headingSelector: ".effects-header",
-        contentSelector: ".effect-list",
-        startExpanded: true,
-      },
-    ],
   };
 
   /** @override */
-  static PARTS = {
-    header: {
-      template: "systems/pokeymanz/templates/items/parts/header.hbs",
-    },
+  static _PARTS = {
     summary: {
       template: "systems/pokeymanz/templates/items/parts/summary.hbs",
-    },
-    effects: {
-      template: "systems/pokeymanz/templates/items/parts/effects.hbs",
     },
   };
 
@@ -69,23 +52,6 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(
     const baseContext = await super._prepareContext(options);
     return {
       ...baseContext,
-      choices: this._getChoices(),
-      descriptionFields: await this._prepareDescription(),
-    };
-  }
-
-  _getChoices() {
-    const config = CONFIG.POKEYMANZ.items.feat.types;
-    const itemType = this.document.system.type.value;
-    const typeChoices = Object.fromEntries(
-      Object.entries(config).map(([key, value]) => [key, value.label])
-    );
-    const subtypeChoices = itemType
-      ? { "": "", ...config[itemType].subtypes }
-      : { "": "" };
-    return {
-      typeChoices,
-      subtypeChoices,
     };
   }
 }

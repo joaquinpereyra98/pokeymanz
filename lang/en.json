@@ -33,6 +33,7 @@
         "Actor": {
             "TABS": {
                 "Summary": "Summary",
+                "Features": "Features",
                 "Inventory": "Inventory",
                 "Pokemon": "Pokemon",
                 "Effects": "Effects"
