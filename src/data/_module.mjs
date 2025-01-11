@@ -1,2 +1,3 @@
+export * as item from "./items/_module.mjs";
+
 export { default as TrainerData } from "./trainer.mjs";
-export { default as FeatData } from "./feat-data.mjs";

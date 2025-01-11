@@ -4,7 +4,8 @@
             "trainer": "Trainer"
         },
         "Item": {
-            "feat": "Feat"
+            "feat": "Feat",
+            "gear": "Gear"
         }
     },
     "POKEYMANZ": {
@@ -17,7 +18,13 @@
         },
         "ItemTypes": {
             "Edge": "Edge",
-            "Hindrance": "Hindrance"
+            "Hindrance": "Hindrance",
+            "Curative": "Curative",
+            "Pokeball": "Pokeball",
+            "HeldItem": "Held Item",
+            "RareItems": "Rare Items",
+            "Supplies": "Supplies",
+            "KeyItems": "Key Items"
         },
         "ItemSubtypes": {
             "Edge": {
@@ -28,6 +35,18 @@
             "Hindrance": {
                 "Minor": "Minor",
                 "Major": "Major"
+            },
+            "Curative": {
+                "Simple": "Simple",
+                "Greater": "Greater"
+            },
+            "Pokeball": {
+                "Specialty": "Specialty",
+                "Stronger": "Stronger"
+            },
+            "HeldItem": {
+                "Disposable": "Disposable",
+                "Persistent": "Persistent"
             }
         },
         "Actor": {

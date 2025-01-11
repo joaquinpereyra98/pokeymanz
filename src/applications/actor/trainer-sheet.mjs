@@ -1,8 +1,6 @@
 import BaseActorSheet from "./base-actor-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
 
-const { HandlebarsApplicationMixin } = foundry.applications.api;
-
 /**
  * The Pokeymanz Actor application.
  * @extends BaseActorSheet

@@ -68,6 +68,11 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     return options;
   }
 
+  /* -------------------------------------------- */
+  /*  Context Preparation                         */
+  /* -------------------------------------------- */
+
+  /** @override */
   async _prepareContext(options) {
     return {
       editable: this.isEditable,
@@ -77,15 +82,21 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
       fields: this.document.system.schema.fields,
       effects: this._prepareEffects(),
       descriptionFields: await this._prepareDescription(),
+      havePrice: this.document.havePrice,
     };
   }
 
   /** @override */
   async _preparePartContext(partId, context, options) {
-    if (partId === "header") {
-      context.tabWidth = this.constructor.TABS.length * 64;
+    switch (partId) {
+      case "header":
+        context.tabWidth = this.constructor.TABS.length * 64;
+        break;
+
+      default:
+        break;
     }
-    return await super._preparePartContext(partId, context, options);;
+    return await super._preparePartContext(partId, context, options);
   }
 
   async _prepareDescription() {
@@ -101,6 +112,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
           rollData: this.document.getRollData(),
           relativeTo: this.document,
         }),
+        hidden: key === "gmNotes" && !game.user.isGM,
       };
     }
     return descriptions;
@@ -243,8 +255,11 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   static _viewDoc(event, target) {
     event.preventDefault();
     const li = target.closest(".item");
-    const effect = this.document.effects.get(li.dataset.effectId);
-    effect.sheet.render(true);
+
+    const { documentClass, docId } = li.dataset;
+    const doc = this.document.getEmbeddedDocument(documentClass, docId);
+
+    doc?.sheet?.render(true);
   }
 
   /**

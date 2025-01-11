@@ -19,7 +19,8 @@ Hooks.once("init", () => {
     trainer: data.TrainerData,
   });
   Object.assign(CONFIG.Item.dataModels, {
-    feat: data.FeatData,
+    feat: data.item.FeatData,
+    gear: data.item.GearData,
   });
 
   /*Registering document class*/
@@ -34,7 +35,13 @@ Hooks.once("init", () => {
   });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {
+    types: ["feat"],
     makeDefault: true,
-    label: "POKEYMANZ.ItemSheet",
+    label: "POKEYMANZ.FeatSheet",
+  });
+  Items.registerSheet("Gear Sheet", apps.item.GearSheet, {
+    types: ["gear"],
+    makeDefault: true,
+    label: "POKEYMANZ.GearSheet",
   });
 });

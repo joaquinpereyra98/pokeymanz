@@ -146,17 +146,22 @@ ol.effects-list .effects-header .effect-name {
   margin: 0.3rem 0;
 }
 .pokeymanz .item-type-fields .item-type-badge {
+  width: auto;
   white-space: nowrap;
-  line-height: 24px;
-  padding: 0 10px 0 12px;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
+  padding: 5px 0;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
   -webkit-box-shadow: 0 0 2px;
   box-shadow: 0 0 2px;
-  font-size: 0.9rem;
+  line-height: inherit;
+  font-size: 1rem;
   font-family: var(--pokeymanz-font-itemtype);
-  text-shadow: 0 0 2px;
   font-weight: bold;
+}
+.pokeymanz .item-type-fields .item-type-badge:disabled {
+  appearance: none;
+  padding: 5px;
 }
 
 .pokeymanz .type-select-container select {
@@ -229,10 +234,10 @@ ol.effects-list .effects-header .effect-name {
 .pokeymanz.sheet header.sheet-header .sheet-tabs {
   background-color: var(--pokeymanz-color-ui-red);
   clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
-  min-width: max(40%, 320px);
   margin: 0;
   border: 0;
   padding-left: 2rem;
+  padding-right: 0.7rem;
 }
 .pokeymanz.sheet header.sheet-header .sheet-tabs .tab-icon-button {
   font-size: 1.3rem;
@@ -326,6 +331,31 @@ ol.items-list .items-header .item-name {
   text-align: left;
 }
 
+.input-icon-badge {
+  display: flex;
+  align-items: center;
+  width: 5rem;
+  background: var(--pokeymanz-color-ui-red);
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--pokeymanz-color-ui-white);
+}
+.input-icon-badge input.badge-input {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  border-radius: 0;
+  color: var(--pokeymanz-color-ui-white);
+  border: 0;
+}
+.input-icon-badge input.badge-input:disabled {
+  background-color: transparent;
+}
+.input-icon-badge .badge-icon {
+  font-size: 1.2rem;
+  padding: 0 0.4rem;
+}
+
 .pokeymanz.sheet.actor .character-card {
   overflow-y: auto;
   padding: 15px;
@@ -342,7 +372,7 @@ ol.items-list .items-header .item-name {
 }
 .pokeymanz.sheet.actor .character-card .sidebar-card .portrait .profile-img {
   border-radius: 10px;
-  border: 0.3em solid;
+  border: 0.3em solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
   object-position: top center;
   min-height: 200px;
@@ -532,7 +562,7 @@ ol.items-list .items-header .item-name {
 }
 .pokeymanz.sheet.item .summary-header .portrait .profile-img {
   border-radius: 10px;
-  border: 0.3em solid;
+  border: 0.3em solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
   object-position: top center;
   width: var(--profile-img-width);
@@ -544,6 +574,7 @@ ol.items-list .items-header .item-name {
 }
 .pokeymanz.sheet.item .summary-header .summary-inputs input.document-name {
   font-size: 3rem;
+  height: 3rem;
 }
 
 .pokeymanz.sheet {

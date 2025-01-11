@@ -1,12 +1,12 @@
-import { descriptionsFields } from "./common.mjs";
+import { descriptionsFields } from "../common.mjs";
 
-export default class FeatData extends foundry.abstract.TypeDataModel {
+export default class GearData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
       type: new fields.SchemaField({
         value: new fields.StringField({
-          initial: "edge",
+          initial: "curative",
           required: true,
           textSearch: true,
         }),
@@ -18,8 +18,13 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
         }),
       }),
       description: descriptionsFields(),
+      price: new fields.NumberField({
+        initial: 0,
+        integer: true,
+      }),
     };
   }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -27,18 +32,21 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
   /** @inheritDoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    const config = CONFIG.POKEYMANZ.items.feat;
+    const config = CONFIG.POKEYMANZ.items.gear;
 
     this.type.choices = Object.fromEntries(
       Object.entries(config.types).map(([key, { label }]) => [key, label])
     );
-    
+
     if (this.type.value) {
       const typeConfig = config.types[this.type.value] || {};
       this.subtype.choices = { "": "", ...typeConfig.subtypes };
       this.type.label = typeConfig.label ?? null;
       this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
-    
+  }
+
+  get hasSubtypes() {
+    return !["rareItems", "supplies", "keyItems"].includes(this.type.value);
   }
 }

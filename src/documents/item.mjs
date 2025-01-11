@@ -11,6 +11,10 @@ export default class PokeymanzItem extends Item {
     return rollData;
   }
 
+  get havePrice() {
+    return ["gear"].includes(this.type);
+  }
+
   /**
    * An array of ActiveEffect instances which are present on
    * the Actor which are active and dont have limited duration.

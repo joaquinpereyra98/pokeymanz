@@ -166,6 +166,42 @@ export const POKEYMANZ = {
         },
       },
     },
+    gear: {
+      img: "systems/pokeymanz/assets/icons/items/backpack.svg",
+      icon: "fa-solid fa-backpack",
+      types: {
+        curative: {
+          label: "POKEYMANZ.ItemTypes.Curative",
+          subtypes: {
+            simple: "POKEYMANZ.ItemSubtypes.Curative.Simple",
+            greater: "POKEYMANZ.ItemSubtypes.Curative.Greater",
+          },
+        },
+        pokeball: {
+          label: "POKEYMANZ.ItemTypes.Pokeball",
+          subtypes: {
+            specialty: "POKEYMANZ.ItemSubtypes.Pokeball.Specialty",
+            stronger: "POKEYMANZ.ItemSubtypes.Pokeball.Stronger",
+          },
+        },
+        heldItem: {
+          label: "POKEYMANZ.ItemTypes.HeldItem",
+          subtypes: {
+            disposable: "POKEYMANZ.ItemSubtypes.HeldItem.Disposable",
+            persistent: "POKEYMANZ.ItemSubtypes.HeldItem.Persistent",
+          },
+        },
+        rareItems: {
+          label: "POKEYMANZ.ItemTypes.RareItems",
+        },
+        supplies: {
+          label: "POKEYMANZ.ItemTypes.Supplies",
+        },
+        keyItems: {
+          label: "POKEYMANZ.ItemTypes.KeyItems",
+        },
+      },
+    },
   },
   diceOptions: [
     { value: 4, label: "d4" },

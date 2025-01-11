@@ -1,7 +1,16 @@
 import BaseItemSheet from "./base-item-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
 
-export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
+/**
+ * The Pokeymanz Gear application.
+ * @extends BaseItemSheet
+ * @mixes InteractiveApplication
+ * @mixes HandlebarsApplication
+ * @alias GearSheet
+ */
+export default class GearSheet extends InteractiveUIFeaturesMixin(
+  BaseItemSheet
+) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -16,10 +25,6 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet)
       template: "systems/pokeymanz/templates/items/parts/summary.hbs",
     },
   };
-
-  /* -------------------------------------------- */
-  /*  TABS                                        */
-  /* -------------------------------------------- */
 
   /**
    * Available tabs for the sheet.
@@ -39,6 +44,7 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet)
       label: "POKEYMANZ.Actor.TABS.Effects",
     },
   ];
+  
   /** @override */
   tabGroups = {
     primary: "summary",

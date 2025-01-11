@@ -55,6 +55,9 @@
     "Item": {
       "feat": {
         "htmlFields": ["description.value", "description.gmNotes"]
+      },
+      "gear": {
+        "htmlFields": ["description.value", "description.gmNotes"]
       }
     }
   },

@@ -11,6 +11,7 @@
     padding-right: 0.8rem;
     color: white;
     transition: 500ms;
+    margin: 0 2px;
     filter: saturate(0.7);
 
     & img {
@@ -24,7 +25,6 @@
     }
 
     &:hover {
-        box-shadow: 0 0 0.4rem;
         transform: scale(1.1);
         filter: saturate(1.1);
     }

@@ -1,6 +1,5 @@
 import {
   attributeDiceFields,
-  ensureCurrencyIsNumeric,
   boundTraitDie,
   pokemonTypeFields,
   descriptionsFields,
@@ -36,7 +35,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
           secondary: pokemonTypeFields(),
         }),
         wounds: new fields.SchemaField({
-          value: new fields.NumberField({ initial: 0 }),
+          value: new fields.NumberField({ initial: 3 }),
           max: new fields.NumberField({ initial: 3 }),
         }),
       }),
@@ -48,10 +47,6 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
       }),
       description: descriptionsFields(),
     };
-  }
-  static migrateData(source) {
-    ensureCurrencyIsNumeric(source);
-    return super.migrateData(source);
   }
   prepareBaseData() {
     for (const key in this.attributes) {

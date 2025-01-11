@@ -20,20 +20,7 @@ export function attributeDiceFields() {
     }),
   };
 }
-export function ensureCurrencyIsNumeric(source) {
-  if (!source.details || !Object.hasOwn(source.details, "currency")) return; // return early in case of update
-  if (
-    source.details.currency === null ||
-    typeof source.details.currency === "number"
-  )
-    return;
-  if (typeof source.details.currency === "string") {
-    // remove all symbols that aren't numeric or a decimal point
-    source.details.currency = Number(
-      source.details.currency.replaceAll(/[^0-9.]/g, "")
-    );
-  }
-}
+
 export function boundTraitDie(die) {
   const sides = die.sides;
   if (sides < 4 && sides !== 1) {
