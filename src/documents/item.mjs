@@ -15,6 +15,10 @@ export default class PokeymanzItem extends Item {
     return ["gear"].includes(this.type);
   }
 
+  get isEquipable() {
+    return this.type === "gear";
+  }
+
   /**
    * An array of ActiveEffect instances which are present on
    * the Actor which are active and dont have limited duration.

@@ -53,6 +53,8 @@ ol.items-list {
             margin-right: 5px;
         }
 
+        .item-type,
+        .item-price,
         .item-subtype,
         .item-controls {
             font-size: 0.9rem;
@@ -62,7 +64,9 @@ ol.items-list {
             border-right: 3px solid #c9c7b8;
         }
 
+        .item-type,
         .item-controls {
+            flex-wrap: nowrap;
             border: none;
         }
 

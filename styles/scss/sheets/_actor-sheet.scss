@@ -230,4 +230,11 @@
         }
     }
 }
+    .tab.inventory {
+        .currency-container {
+            display: flex;
+            justify-content: end;
+            margin: 0.5rem;
+        }
+    }
 }

@@ -187,6 +187,7 @@ ol.effects-list .effects-header .effect-name {
   padding-right: 0.8rem;
   color: white;
   transition: 500ms;
+  margin: 0 2px;
   filter: saturate(0.7);
 }
 .pokeymanz .type-badge img {
@@ -198,7 +199,6 @@ ol.effects-list .effects-header .effect-name {
   font-weight: bold;
 }
 .pokeymanz .type-badge:hover {
-  box-shadow: 0 0 0.4rem;
   transform: scale(1.1);
   filter: saturate(1.1);
 }
@@ -299,6 +299,8 @@ ol.items-list .item .item-name .item-image {
   border: none;
   margin-right: 5px;
 }
+ol.items-list .item .item-type,
+ol.items-list .item .item-price,
 ol.items-list .item .item-subtype,
 ol.items-list .item .item-controls {
   font-size: 0.9rem;
@@ -307,7 +309,9 @@ ol.items-list .item .item-controls {
   border-left: 3px solid #c9c7b8;
   border-right: 3px solid #c9c7b8;
 }
+ol.items-list .item .item-type,
 ol.items-list .item .item-controls {
+  flex-wrap: nowrap;
   border: none;
 }
 ol.items-list .items-header {
@@ -331,24 +335,40 @@ ol.items-list .items-header .item-name {
   text-align: left;
 }
 
+.system-fields {
+  display: flex;
+  align-items: center;
+}
+
 .input-icon-badge {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 5rem;
+  height: 2rem;
   background: var(--pokeymanz-color-ui-red);
   border-radius: 10px;
   overflow: hidden;
   color: var(--pokeymanz-color-ui-white);
+  margin: 0 0.2rem;
 }
 .input-icon-badge input.badge-input {
   font-size: 1.5rem;
   text-align: center;
   padding: 0;
   border-radius: 0;
-  color: var(--pokeymanz-color-ui-white);
   border: 0;
 }
-.input-icon-badge input.badge-input:disabled {
+.input-icon-badge input.badge-input[type=checkbox] {
+  --checkbox-size: 1.5rem;
+  height: 1.5rem;
+  width: auto;
+  font-size: inherit;
+}
+.input-icon-badge input.badge-input[type=number] {
+  color: var(--pokeymanz-color-ui-white);
+}
+.input-icon-badge input.badge-input[type=number]:disabled {
   background-color: transparent;
 }
 .input-icon-badge .badge-icon {
@@ -550,6 +570,11 @@ ol.items-list .items-header .item-name {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+}
+.pokeymanz.sheet.actor .tab.inventory .currency-container {
+  display: flex;
+  justify-content: end;
+  margin: 0.5rem;
 }
 
 .pokeymanz.sheet.item .summary-header {

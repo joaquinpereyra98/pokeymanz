@@ -22,6 +22,9 @@ export default class GearData extends foundry.abstract.TypeDataModel {
         initial: 0,
         integer: true,
       }),
+      equipped: new fields.BooleanField({
+        initial: false,
+      }),
     };
   }
 
@@ -44,6 +47,9 @@ export default class GearData extends foundry.abstract.TypeDataModel {
       this.type.label = typeConfig.label ?? null;
       this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
+
+    if(!this.parent.parent instanceof Actor) this.equipped = false;
+
   }
 
   get hasSubtypes() {

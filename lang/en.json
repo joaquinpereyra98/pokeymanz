@@ -87,6 +87,11 @@
             "Temporary": "Temporary",
             "Toggle": "Toggle Effect"
         },
+        "Item": {
+            "Backpack": "BackPack",
+            "Computer": "PC",
+            "ToggleEquip": "Equip/Unquip"
+        },
         "Description": "Description",
         "GMNotes": "GM Notes"
     }

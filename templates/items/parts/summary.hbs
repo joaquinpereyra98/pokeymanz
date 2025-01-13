@@ -1,8 +1,7 @@
 <section
   class="tab summary {{tab.cssClass}}"
   data-group="primary"
-  data-tab="summary"
->
+  data-tab="summary">
   <div class="summary-header">
     <div class="portrait">
       <img
@@ -11,34 +10,31 @@
         data-edit="img"
         data-action={{ifThen isPlayMode "renderIP" "setImg"}}
         alt="{{item.name}}"
-        title="{{item.name}}"
-      />
+        title="{{item.name}}" />
     </div>
     <div class="summary-inputs">
       <div class="item-type-fields">
         <select
           class="item-type-badge"
           name="system.type.value"
-          {{disabled isPlayMode}}
-        >
+          {{disabled isPlayMode}}>
           {{selectOptions
-            system.type.choices
-            selected=system.type.value
-            localize=true
+          system.type.choices
+          selected=system.type.value
+          localize=true
           }}
         </select>
         {{#if (or (not isPlayMode) (and isPlayMode system.subtype.label)) }}
-          <select
-            class="item-type-badge"
-            name="system.subtype.value"
-            {{disabled isPlayMode}}
-          >
-            {{selectOptions
-              system.subtype.choices
-              selected=system.subtype.value
-              localize=true
-            }}
-          </select>
+        <select
+          class="item-type-badge"
+          name="system.subtype.value"
+          {{disabled isPlayMode}}>
+          {{selectOptions
+          system.subtype.choices
+          selected=system.subtype.value
+          localize=true
+          }}
+        </select>
         {{/if}}
       </div>
       <input
@@ -48,42 +44,66 @@
         value="{{item.name}}"
         placeholder="{{localize "Name"}}"
         data-tooltip="{{item.name}}"
-        {{disabled isPlayMode}}
-      />
-      {{#if havePrice}}
-        <div class="price-fields">
-          <div class="price-bagde input-icon-badge">
-            <input
-              class="badge-input"
-              type="number"
-              name="system.price"
-              value="{{system.price}}"
-              {{disabled isPlayMode}}
-            />
-            <i class="badge-icon fa-solid fa-coin"></i>
-          </div>
+        {{disabled isPlayMode}} />
+      <div class="system-fields">
+        {{#if havePrice}}
+        <div class="price-bagde input-icon-badge">
+          <input
+            class="badge-input"
+            type="number"
+            name="system.price"
+            value="{{system.price}}"
+            {{disabled isPlayMode}} />
+          <i class="badge-icon fa-solid fa-coin"></i>
         </div>
-      {{/if}}
+        {{/if}}
+        {{#if (and item.isEquipable item.parent)}}
+        <div class="equipped-bagde input-icon-badge">
+          {{#if (not isPlayMode)}}
+          <a data-action="toggleEquip">
+            <i
+              class="fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
+            <i
+              class="badge-icon
+              {{ifThen
+                system.equipped
+                ' fa-solid fa-backpack'
+                'fa-solid fa-computer-classic'
+              }}">
+            </i>
+          </a>
+          {{else}}
+          <i class="badge-icon
+          {{ifThen
+            system.equipped
+            ' fa-solid fa-backpack'
+            'fa-solid fa-computer-classic'
+          }}">
+          </i>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
     </div>
   </div>
   <div class="summary-body">
     {{#each descriptionFields as |description key|}}
-      {{#unless description.hidden}}
-        <div class="description-container accordion-container">
-          <div class="description-header">
-            <i class="accordion-icon fa-solid fa-caret-down"></i>
-            {{description.label}}
-          </div>
-          <div class="description-content">
-            {{formInput
-              description.field
-              value=description.value
-              enriched=description.enriched
-              toggled=true
-            }}
-          </div>
-        </div>
-      {{/unless}}
+    {{#unless description.hidden}}
+    <div class="description-container accordion-container">
+      <div class="description-header">
+        <i class="accordion-icon fa-solid fa-caret-down"></i>
+        {{description.label}}
+      </div>
+      <div class="description-content">
+        {{formInput
+        description.field
+        value=description.value
+        enriched=description.enriched
+        toggled=true
+        }}
+      </div>
+    </div>
+    {{/unless}}
     {{/each}}
   </div>
 </section>

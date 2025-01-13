@@ -44,7 +44,7 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
       label: "POKEYMANZ.Actor.TABS.Effects",
     },
   ];
-  
+
   /** @override */
   tabGroups = {
     primary: "summary",

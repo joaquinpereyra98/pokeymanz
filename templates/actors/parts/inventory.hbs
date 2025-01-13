@@ -1,16 +1,103 @@
-<section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="inventory">
-    <div class="inventory-table">
-        <ol class="items-list inventory-list">
-            <li class="items-header flexrow">
-                <h3 class="item-name flexrow">Names</h3>
-                <div class="item-detail item-action">Use</div>
-                <div class="item-controls flexrow"></div>
-            </li>
-            <ol class="item-list">
-                <li class="item flexrow">
-
-                </li>
-            </ol>
-        </ol>
+<section
+  class="tab inventory {{tab.cssClass}}"
+  data-group="primary"
+  data-tab="inventory">
+  <div class="currency-container">
+    <div class="input-icon-badge">
+      <input
+        class="badge-input"
+        type="number"
+        name="system.details.currency"
+        value="{{system.details.currency}}" />
+      <i class="badge-icon fa-solid fa-coin"></i>
     </div>
+  </div>
+  <ol class="items-list">
+    {{#each inventory as |section sid|}}
+    <li class="items-header flexrow">
+      <div class="item-name flexrow">
+        <span>
+          <i class="{{section.icon}}"></i>
+          {{section.label}}
+        </span>
+      </div>
+      <div class="item-data">
+        Price
+      </div>
+      <div class="item-data">
+        Type
+      </div>
+      <div class="item-data">
+        Subtype
+      </div>
+      <div class="item-controls">
+        <a
+          class="item-control"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="gear"
+          data-equipped="{{eq sid "backpack"}}"
+          data-tooltip="{{localize "DOCUMENT.New" type="Gear"}}">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    <ol class="item-list" data-category="{{sid}}">
+      {{#each section.items as |item|}}
+      <li
+        class="item feat flexrow"
+        data-doc-id="{{item.id}}"
+        data-document-class="Item"
+        data-drag="true">
+        <div class="item-name item-name flexrow">
+          <img
+            class="item-image"
+            src="{{item.img}}"
+            height="24"
+            width="24"
+            alt="{{item.name}}" />
+          <div>
+            {{item.name}}
+          </div>
+        </div>
+        <div class="item-price">
+          {{localize item.system.price}}
+        </div>
+        <div class="item-type">
+          {{localize item.system.type.label}}
+        </div>
+        <div class="item-subtype">
+          {{localize item.system.subtype.label}}
+        </div>
+        <div class="item-controls flexrow">
+          {{#if @root.editable}}
+          <a
+            class="item-control"
+            data-action="toggleGear"
+            data-tooltip="POKEYMANZ.Item.ToggleEquip">
+            <i class="{{ifThen item.system.equipped "fa-solid" "fa-regular"}}
+              fa-backpack">
+            </i>
+          </a>
+          {{/if}}
+          <a
+            class="item-control"
+            data-action="viewDoc"
+            data-tooltip="{{localize "DOCUMENT.Update" type="Gear"}}">
+            <i class="fas fa-edit"></i>
+          </a>
+          {{#if @root.editable}}
+          <a
+            class="item-control"
+            data-action="deleteDoc"
+            data-tooltip="{{localize "DOCUMENT.Delete" type="Gear"}}">
+            <i class="fas fa-trash"></i>
+          </a>
+          {{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+    {{/each}}
+  </ol>
 </section>

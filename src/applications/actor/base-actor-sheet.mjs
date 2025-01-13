@@ -15,6 +15,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       createDoc: BaseActorSheet._createDoc,
       deleteDoc: BaseActorSheet._deleteDoc,
       viewDoc: BaseActorSheet._viewDoc,
+      toggleGear: BaseActorSheet._toggleGear,
     },
     window: {
       resizable: true,
@@ -57,6 +58,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     features: {
       template: "systems/pokeymanz/templates/actors/parts/features.hbs",
     },
+    inventory: {
+      template: "systems/pokeymanz/templates/actors/parts/inventory.hbs",
+    },
   };
 
   /* -------------------------------------------- */
@@ -86,7 +90,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       case "features":
         context.feats = this._prepareFeats();
         break;
-
+      case "inventory":
+        context.inventory = this._prepareInventory(context);
+        break;
       default:
         break;
     }
@@ -158,6 +164,26 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       ])
     );
     return feats;
+  }
+
+  _prepareInventory() {
+    const items = this.document.items.filter((i) => i.isEquipable);
+
+    const categories = {
+      backpack: {
+        type: "backpack",
+        icon: "fa-solid fa-backpack",
+        label: game.i18n.localize("POKEYMANZ.Item.Backpack"),
+        items: items.filter((i) => i.system.equipped),
+      },
+      computer: {
+        type: "computer",
+        icon: "fa-solid fa-computer-classic",
+        label: game.i18n.localize("POKEYMANZ.Item.Computer"),
+        items: items.filter((i) => !i.system.equipped),
+      },
+    };
+    return categories;
   }
 
   /* -------------------------------------------- */
@@ -282,6 +308,43 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     return await doc?.update({ disabled: !doc.disabled });
   }
 
+  static async _toggleGear(event, target) {
+    event.preventDefault();
+
+    const li = target.closest(".item");
+    const { documentClass, docId } = li.dataset;
+    const doc = this.document.getEmbeddedDocument(documentClass, docId);
+
+    const items = this.document.items
+      .filter((i) => i.isEquipable)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
+
+    const previousItem = items
+      .slice(
+        0,
+        items.findIndex((i) => i.id === doc.id)
+      )
+      .findLast((i) => doc.system.equipped !== i.system.equipped);
+
+    const newCategory = doc.system.equipped ? "computer" : "backpack";
+    const ol = li.closest(".items-list");
+    const itemList = ol?.querySelector(
+      `.item-list[data-category="${newCategory}"]`
+    );
+
+    if (!itemList)
+      return await doc?.update({ "system.equipped": !doc.system.equipped });
+
+    const previousItemId = previousItem?.id || null;
+    const prevLi = previousItemId
+      ? itemList.querySelector(`[data-doc-id="${previousItemId}"]`)
+      : null;
+
+    await this._movingItemList(li, prevLi, itemList);
+
+    return await doc?.update({ "system.equipped": !doc.system.equipped });
+  }
+
   /**
    * Handle to create a new embedded document.
    * @this BaseActorSheet
@@ -291,7 +354,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    */
   static _createDoc(event, target) {
     event.preventDefault();
-    const { type, documentClass, systemType } = target.dataset;
+    const { type, documentClass, systemType, equipped } = target.dataset;
 
     const cls = getDocumentClass(documentClass);
     if (!cls) return;
@@ -314,6 +377,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
           name: game.i18n.format("DOCUMENT.New", { type }),
           type,
           "system.type": systemType,
+          equipped: equipped === "true",
         });
         break;
       default:

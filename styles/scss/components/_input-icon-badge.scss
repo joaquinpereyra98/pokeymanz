@@ -1,25 +1,43 @@
 @use '../abstracts' as *;
 
+.system-fields {
+    display: flex;
+    align-items: center;
+}
+
 .input-icon-badge {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 5rem;
+    height: 2rem;
     background: $pokeymanz-c-red;
     border-radius: 10px;
     overflow: hidden;
     color: $pokeymanz-c-white;
+    margin: 0 0.2rem;
 
     input.badge-input {
         font-size: 1.5rem;
         text-align: center;
         padding: 0;
         border-radius: 0;
-        color: $pokeymanz-c-white;
         border: 0;
 
-        &:disabled {
-            background-color: transparent;
+        &[type="checkbox"] {
+            --checkbox-size: 1.5rem;
+            height: 1.5rem;
+            width: auto;
+            font-size: inherit;
         }
+
+        &[type="number"] {
+            color: $pokeymanz-c-white;
+            &:disabled {
+                background-color: transparent;
+            }
+        }
+        
     }
 
     .badge-icon {

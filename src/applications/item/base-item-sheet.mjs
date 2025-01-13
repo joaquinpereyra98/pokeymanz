@@ -14,6 +14,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
       deleteDoc: BaseItemSheet._deleteDoc,
       setImg: BaseItemSheet._setImg,
       renderIP: BaseItemSheet._renderIP,
+      toggleEquip: BaseItemSheet._toggleEquip,
     },
     window: {
       resizable: true,
@@ -328,5 +329,19 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     });
 
     ip.render(true);
+  }
+
+  /**
+   * Handle to equip/unquip the item;
+   *
+   * @this PokeymanzItemSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _toggleEquip(event, target) {
+    event.preventDefault();
+    const doc = this.document;
+    doc.update({ "system.equipped": !doc.system.equipped });
   }
 }
