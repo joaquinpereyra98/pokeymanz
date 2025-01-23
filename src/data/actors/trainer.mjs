@@ -3,7 +3,7 @@ import {
   boundTraitDie,
   pokemonTypeFields,
   descriptionsFields,
-} from "./common.mjs";
+} from "../common.mjs";
 
 export default class TrainerData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -11,20 +11,11 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
     return {
       attributes: new fields.SchemaField(
         {
-          heart: new fields.SchemaField(attributeDiceFields(), {
-            label: "POKEYMANZ.Attributes.Heart",
-          }),
-          fitness: new fields.SchemaField(attributeDiceFields(), {
-            label: "POKEYMANZ.Attributes.Fitness",
-          }),
-          research: new fields.SchemaField(attributeDiceFields(), {
-            label: "POKEYMANZ.Attributes.Research",
-          }),
-          tactics: new fields.SchemaField(attributeDiceFields(), {
-            label: "POKEYMANZ.Attributes.Tactics",
-          }),
-        },
-        { label: "POKEYMANZ.Attributes.Label" }
+          heart: new fields.SchemaField(attributeDiceFields()),
+          fitness: new fields.SchemaField(attributeDiceFields()),
+          research: new fields.SchemaField(attributeDiceFields()),
+          tactics: new fields.SchemaField(attributeDiceFields()),
+        }
       ),
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
@@ -51,7 +42,6 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
   prepareBaseData() {
     for (const key in this.attributes) {
       const attribute = this.attributes[key];
-      attribute.effects = new Array();
       attribute.name = `POKEYMANZ.Attributes.${key.capitalize()}`;
     }
   }

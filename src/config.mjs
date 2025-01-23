@@ -202,6 +202,24 @@ export const POKEYMANZ = {
         },
       },
     },
+    moves: {
+      img: "systems/pokeymanz/assets/icons/items/backpack.svg",
+      icon: "fa-solid fa-backpack",
+      categories: {
+        physical:{
+          label: "POKEYMANZ.Moves.Categories.Physical",
+          img: "",
+        },
+        special:{
+          label: "POKEYMANZ.Moves.Categories.Special",
+          img: "",
+        },
+        status:{
+          label: "POKEYMANZ.Moves.Categories.Status",
+          img: "",
+        },
+      }
+    }
   },
   diceOptions: [
     { value: 4, label: "d4" },

@@ -16,7 +16,8 @@ Hooks.once("init", () => {
 
   /*Registering data models*/
   Object.assign(CONFIG.Actor.dataModels, {
-    trainer: data.TrainerData,
+    trainer: data.actor.TrainerData,
+    pokemon: data.actor.PokemonData,
   });
   Object.assign(CONFIG.Item.dataModels, {
     feat: data.item.FeatData,
@@ -32,6 +33,10 @@ Hooks.once("init", () => {
   Actors.registerSheet("Trainer Sheet", apps.actor.TrainerSheet, {
     types: ["trainer"],
     label: "POKEYMANZ.TrainerSheet",
+  });
+  Actors.registerSheet("Pokemon Sheet", apps.actor.PokemonSheet, {
+    types: ["pokemon"],
+    label: "POKEYMANZ.PokemonSheet",
   });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {

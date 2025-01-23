@@ -50,6 +50,9 @@
     "Actor": {
       "trainer": {
         "htmlFields": ["description.value", "description.gmNotes"]
+      },
+      "pokemon": {
+        "htmlFields": ["description.value", "description.gmNotes","stats.ability"]
       }
     },
     "Item": {

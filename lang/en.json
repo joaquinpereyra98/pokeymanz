@@ -1,7 +1,8 @@
 {
     "TYPES": {
         "Actor": {
-            "trainer": "Trainer"
+            "trainer": "Trainer",
+            "pokemon": "Pokemon"
         },
         "Item": {
             "feat": "Feat",
