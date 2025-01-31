@@ -12,11 +12,11 @@ export default class PokeymanzItem extends Item {
   }
 
   get havePrice() {
-    return ["gear"].includes(this.type);
+    return foundry.utils.hasProperty(this, "system.price");
   }
 
   get isEquipable() {
-    return this.type === "gear";
+    return foundry.utils.hasProperty(this, "system.equipped");
   }
 
   /**

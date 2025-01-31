@@ -3,6 +3,7 @@ import * as document from "./src/documents/_module.mjs";
 import * as apps from "./src/applications/_module.mjs";
 
 import { POKEYMANZ } from "./src/config.mjs";
+import utils from "./src/utils/_module.mjs";
 
 Hooks.once("init", () => {
   /* Exposing classes and variables */
@@ -49,4 +50,6 @@ Hooks.once("init", () => {
     makeDefault: true,
     label: "POKEYMANZ.GearSheet",
   });
+
+  utils.renderTemplates();
 });

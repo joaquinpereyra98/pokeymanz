@@ -23,7 +23,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: "systems/pokeymanz/templates/actors/parts/pokemon-summary.hbs",
+      template: "systems/pokeymanz/templates/actors/parts/summary.hbs",
     },
   };
 

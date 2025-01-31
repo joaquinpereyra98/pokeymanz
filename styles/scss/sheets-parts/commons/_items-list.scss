@@ -5,10 +5,7 @@ ol.items-list {
 
     .item-list {
         list-style: none;
-        margin: 0;
-        padding: 0;
-        margin-bottom: 0.5rem;
-        min-height: 30px;
+        background-color: rgba($color: black, $alpha: 0.3);
     }
 
     .item-name {
@@ -32,7 +29,6 @@ ol.items-list {
     }
 
     .item {
-        background-color: rgba(0, 0, 0, 0.3);
         padding: 1px 0.4rem;
         align-items: center;
         border-bottom: 1px solid;
@@ -56,7 +52,9 @@ ol.items-list {
         .item-type,
         .item-price,
         .item-subtype,
-        .item-controls {
+        .item-controls,
+        .effect-source,
+        .effect-duration {
             font-size: 0.9rem;
             height: 1rem;
             text-align: center;
@@ -65,7 +63,8 @@ ol.items-list {
         }
 
         .item-type,
-        .item-controls {
+        .item-controls,
+        .effect-source {
             flex-wrap: nowrap;
             border: none;
         }
@@ -73,10 +72,7 @@ ol.items-list {
     }
 
     .items-header {
-        margin: 0;
-        padding: 0;
         align-items: center;
-        font-weight: bold;
         align-content: center;
         padding: 0.4rem 1rem 0.4rem 0.6rem;
         font-size: large;
@@ -84,9 +80,15 @@ ol.items-list {
         border-radius: 0.4rem 0.4rem 0 0;
         color: white;
         font-weight: bold;
+        margin: 0;
+        margin-top: 0.5rem;
 
         >* {
             text-align: center;
+        }
+
+        .accordion-icon {
+            flex: 0;
         }
 
         .item-name {

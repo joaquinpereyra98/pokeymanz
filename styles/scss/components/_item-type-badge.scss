@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-.pokeymanz .item-type-fields {
-    display: flex;
+.item-type-fields {
     gap: 0.5rem;
     margin: 0.3rem 0;
 
@@ -21,7 +20,7 @@
 
         &:disabled {
             appearance: none;
-            padding: 5px;
+            padding: 0 0.5rem;
         }
     }
 }

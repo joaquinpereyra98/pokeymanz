@@ -74,13 +74,13 @@ export default class Accordion {
 
         if (isCollapsed) {
           heading.classList.add("collapsed");
-          gsap.set(content, { height: 0 });
+          gsap.set(content, { height: 0, overflow: "hidden" });
         } else {
           gsap.set(content, { height: "auto" });
         }
       } else if (this.#collapsed[collapsedIndex]) {
         heading.classList.add("collapsed");
-        gsap.set(content, { height: 0 });
+        gsap.set(content, { height: 0, overflow: "hidden" });
       }
 
       heading.classList.add("accordion-heading");
@@ -134,7 +134,7 @@ export default class Accordion {
     }
 
     heading.parentElement.classList.remove("collapsed");
-    gsap.to(content, { height: "auto", duration: 0.5 });
+    gsap.to(content, { height: "auto", duration: 0.5, overflow: "inherit" });
     const icon = heading.querySelector(".accordion-icon");
     if (icon)
       gsap.to(icon, { rotation: "0", opacity: 1, scale: 1.2, duration: 0.5 });
@@ -152,7 +152,7 @@ export default class Accordion {
    */
   _onCollapseSection(heading, content) {
     heading.parentElement.classList.add("collapsed");
-    gsap.to(content, { height: 0, duration: 0.5 });
+    gsap.to(content, { height: 0, overflow: "hidden", duration: 0.5 });
     const icon = heading.querySelector(".accordion-icon");
     if (icon)
       gsap.to(icon, {

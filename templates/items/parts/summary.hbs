@@ -2,7 +2,7 @@
   class="tab summary {{tab.cssClass}}"
   data-group="primary"
   data-tab="summary">
-  <div class="summary-header">
+  <div class="summary-header display--flex">
     <div class="portrait">
       <img
         class="profile-img"
@@ -13,7 +13,7 @@
         title="{{item.name}}" />
     </div>
     <div class="summary-inputs">
-      <div class="item-type-fields">
+      <div class="item-type-fields display--flex">
         <select
           class="item-type-badge"
           name="system.type.value"
@@ -45,26 +45,26 @@
         placeholder="{{localize "Name"}}"
         data-tooltip="{{item.name}}"
         {{disabled isPlayMode}} />
-      <div class="system-fields">
+      <div class="display--flex">
         {{#if havePrice}}
-        <div class="price-bagde input-icon-badge">
+        <div class="input-group display--flex--center">
           <input
-            class="badge-input"
+            class="input-group-field spacing--p-0"
             type="number"
             name="system.price"
             value="{{system.price}}"
             {{disabled isPlayMode}} />
-          <i class="badge-icon fa-solid fa-coin"></i>
+          <i class="input-group-icon fa-solid fa-coin"></i>
         </div>
         {{/if}}
         {{#if (and item.isEquipable item.parent)}}
-        <div class="equipped-bagde input-icon-badge">
+        <div class="input-group display--flex--center">
           {{#if (not isPlayMode)}}
           <a data-action="toggleEquip">
             <i
               class="fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
             <i
-              class="badge-icon
+              class="input-group-icon
               {{ifThen
                 system.equipped
                 ' fa-solid fa-backpack'
@@ -73,7 +73,7 @@
             </i>
           </a>
           {{else}}
-          <i class="badge-icon
+          <i class="input-group-icon
           {{ifThen
             system.equipped
             ' fa-solid fa-backpack'

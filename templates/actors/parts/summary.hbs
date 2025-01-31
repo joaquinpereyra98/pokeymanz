@@ -1,84 +1,76 @@
-<section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
-    <div class="character-card">
+<section class="tab summary {{tab.cssClass}}" data-group="primary"
+    data-tab="summary">
+    <div class="display--flex">
         <div class="sidebar-card flexcol">
             <div class="portrait actor-portrait">
-                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "setImg" }}
+                <img class="profile-img" src="{{actor.img}}" data-edit="img"
+                    data-action={{ifThen isPlayMode "renderIP" "setImg" }}
                     alt="{{actor.name}}" title="{{actor.name}}" />
-            <div class="stat-bar">
-                <div class="toughtness-container stat-container">
+            </div>
+            <div class="stat-bar display--flex--space-evenly">
+                <div
+                    class="toughtness-container stat-container display--flex--center">
                     <i class="stat-icon fa-solid fa-shield"></i>
-                    <input class="stat-input" type="number" name="system.stats.toughness.value" value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
+                    <input class="stat-input spacing--p-0" type="number"
+                        name="system.stats.toughness.value"
+                        value="{{system.stats.toughness.value}}" {{disabled
+                        isPlayMode }}>
                 </div>
-                <div class="wounds-container stat-container">
+                <div
+                    class="wounds-container stat-container display--flex--center">
                     <i class="stat-icon fa-solid fa-heart"></i>
-                    <div class="wound-input-container">
-                        <input class="stat-input" type="number" name="system.stats.wounds.value" value="{{system.stats.wounds.value}}">
+                    <div class="wound-input-container display--flex">
+                        <input class="stat-input spacing--p-0" type="number"
+                            name="system.stats.wounds.value"
+                            value="{{system.stats.wounds.value}}">
                         <span>/</span>
-                        <input class="stat-input" type="number" name="system.stats.wounds.max" value="{{system.stats.wounds.max}}" {{disabled isPlayMode }}>
+                        <input class="stat-input spacing--p-0" type="number"
+                            name="system.stats.wounds.max"
+                            value="{{system.stats.wounds.max}}" {{disabled
+                            isPlayMode }}>
                     </div>
                 </div>
             </div>
-            </div>
-            {{#if isPlayMode}}
-            <div class="attributes-container">
-                {{#each system.attributes as |attribute key|}}
-                <a class="attribute-container {{key}} flexcol">
-                    <label class="attribute-label">{{localize attribute.name}}</label>
-                    <div class="attribute-roll">
-                        <img src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg"
-                            alt="{{attribute.die.sides}}">
-                        {{numberFormat attribute.die.modifier sign=true}}
-                    </div>
-                </a>
-                {{/each}}
-            </div>
-            {{else}}
-            <div class="attributes-container-edit">
-                {{#each system.attributes as |attribute key|}}
-                <div class="attributes-container {{key}}">
-                    <label class="attribute-label">{{localize attribute.name}}</label>
-                    <div class="attributes-inputs flexrow">
-                        <select class="attribute-side" name="system.attributes.{{key}}.die.sides">
-                            {{selectOptions @root.config.diceOptions selected=attribute.die.sides}}
-                        </select>
-                        <input class="attribute-mod" type="number" name="system.attributes.{{key}}.die.modifier" ,
-                            value="{{attribute.die.modifier}}">
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-            {{/if}}
-        </div>
-        <div class="body-card flexcol">
-            <input class="document-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}"
-                data-tooltip="{{actor.name}}" {{disabled isPlayMode }} />
-            <div class="types-container">
+            <div class="types-container display--flex">
                 {{#if isPlayMode}}
                 {{#if types.primaryType}}
-                <div class="type-badge" style="--type-color: {{types.primaryType.color}}">
-                    <img src="{{types.primaryType.img}}" alt="{{types.primaryType.id}}">
+                <div class="type-badge display--flex--center size--small"
+                    style="--type-color: {{types.primaryType.color}}">
+                    <img src="{{types.primaryType.img}}"
+                        alt="{{types.primaryType.id}}">
                     <span>{{localize types.primaryType.name}}</span>
                 </div>
                 {{/if}}
                 {{#if types.secondaryType}}
-                <div class="type-badge" style="--type-color: {{types.secondaryType.color}}">
-                    <img src="{{types.secondaryType.img}}" alt="{{types.secondaryType.id}}">
+                <div class="type-badge display--flex--center size--small"
+                    style="--type-color: {{types.secondaryType.color}}">
+                    <img src="{{types.secondaryType.img}}"
+                        alt="{{types.secondaryType.id}}">
                     <span>{{localize types.secondaryType.name}}</span>
                 </div>
                 {{/if}}
                 {{else}}
-                Types:
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.primary value=system.stats.types.primary
+                    {{formInput systemFields.stats.fields.types.fields.primary
+                    value=system.stats.types.primary
                     localize=true}}
                 </div>
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.secondary value=system.stats.types.secondary
+                    {{formInput systemFields.stats.fields.types.fields.secondary
+                    value=system.stats.types.secondary
                     localize=true}}
                 </div>
                 {{/if}}
             </div>
+            {{#if actor.haveAttributes}}
+            {{> pokeymanz.attributes-container isPlayMode=isPlayMode
+            system=system }}
+            {{/if}}
+        </div>
+        <div class="body-card flexcol">
+            <input class="document-name" name="name" type="text"
+                value="{{actor.name}}" placeholder="{{localize 'Name'}}"
+                data-tooltip="{{actor.name}}" {{disabled isPlayMode }} />
         </div>
     </div>
-
 </section>

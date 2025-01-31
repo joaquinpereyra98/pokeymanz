@@ -23,6 +23,10 @@ export default class PokeymanzActor extends Actor {
     const type = pokemonTypesList.find((type) => type.id === id);
     return type;
   }
+  
+  get haveAttributes() {
+    return foundry.utils.hasProperty(this, "system.attributes");
+  }
 
   /**
    * @inheritDoc

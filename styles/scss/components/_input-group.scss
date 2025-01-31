@@ -1,14 +1,6 @@
 @use '../abstracts' as *;
 
-.system-fields {
-    display: flex;
-    align-items: center;
-}
-
-.input-icon-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+div.input-group {
     width: 5rem;
     height: 2rem;
     background: $pokeymanz-c-red;
@@ -17,10 +9,9 @@
     color: $pokeymanz-c-white;
     margin: 0 0.2rem;
 
-    input.badge-input {
+    input.input-group-field {
         font-size: 1.5rem;
         text-align: center;
-        padding: 0;
         border-radius: 0;
         border: 0;
 
@@ -40,7 +31,7 @@
         
     }
 
-    .badge-icon {
+    i.input-group-icon {
         font-size: 1.2rem;
         padding: 0 0.4rem;
     }

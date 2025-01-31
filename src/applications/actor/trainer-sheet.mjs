@@ -27,6 +27,12 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     summary: {
       template: "systems/pokeymanz/templates/actors/parts/summary.hbs",
     },
+    inventory: {
+      template: "systems/pokeymanz/templates/actors/parts/inventory.hbs",
+    },
+    features: {
+      template: "systems/pokeymanz/templates/actors/parts/features.hbs",
+    },
   };
 
   /* -------------------------------------------- */

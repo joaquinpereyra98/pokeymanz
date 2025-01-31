@@ -8,7 +8,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "item"],
     actions: {
-      createEffect: BaseItemSheet._createEffect,
+      createDoc: BaseItemSheet._createDoc,
       toggleEffect: BaseItemSheet._toggleEffect,
       viewDoc: BaseItemSheet._viewDoc,
       deleteDoc: BaseItemSheet._deleteDoc,
@@ -179,20 +179,25 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
    * @param {HTMLElement} target
    * @returns
    */
-  static _createEffect(event, target) {
+  static _createDoc(event, target) {
     event.preventDefault();
-    const cls = getDocumentClass("ActiveEffect");
+    const { type, documentClass } = target.dataset;
+
+    const cls = getDocumentClass(documentClass);
+    if (!cls) return;
 
     const data = {
       name: game.i18n.format("DOCUMENT.New", { type: "Effect" }),
-      disabled: target.dataset.type === "inactive",
+      disabled: type === "inactive",
       transfer: true,
       origin: this.document.uuid,
       img: "icons/svg/aura.svg",
-      duration: target.dataset.type === "temporary" ? { rounds: 1 } : null,
+      duration: type === "temporary" ? { rounds: 1 } : null,
     };
 
-    cls.create(data, { parent: this.document });
+    cls.create(data, { parent: this.document }).then((v) => {
+      v.sheet?.render(true);
+    });
   }
 
   /**

@@ -1,10 +1,11 @@
-@use 'components';
-@use 'sheets';
+@use 'sheets-parts';
 @use 'abstracts';
 @use 'abstracts/colors' as color;
 @use 'abstracts/themes';
 
 .pokeymanz.sheet {
+    @import 'utilities';
+    @import 'components';
     background-color: var(--background-color);
 
     header.window-header {

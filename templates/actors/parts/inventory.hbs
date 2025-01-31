@@ -2,14 +2,14 @@
   class="tab inventory {{tab.cssClass}}"
   data-group="primary"
   data-tab="inventory">
-  <div class="currency-container">
-    <div class="input-icon-badge">
+  <div class="currency-container display--flex--end spacing--m-sm">
+    <div class="input-group display--flex--center">
       <input
-        class="badge-input"
+        class="input-group-field spacing--p-0"
         type="number"
         name="system.details.currency"
         value="{{system.details.currency}}" />
-      <i class="badge-icon fa-solid fa-coin"></i>
+      <i class="input-group-icon fa-solid fa-coin"></i>
     </div>
   </div>
   <ol class="items-list">
@@ -42,7 +42,7 @@
         </a>
       </div>
     </li>
-    <ol class="item-list" data-category="{{sid}}">
+    <ol class="item-list spacing--p-0 spacing--m-0" data-category="{{sid}}">
       {{#each section.items as |item|}}
       <li
         class="item feat flexrow"

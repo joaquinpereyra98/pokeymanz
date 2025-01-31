@@ -55,12 +55,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     effects: {
       template: "systems/pokeymanz/templates/actors/parts/effects.hbs",
     },
-    features: {
-      template: "systems/pokeymanz/templates/actors/parts/features.hbs",
-    },
-    inventory: {
-      template: "systems/pokeymanz/templates/actors/parts/inventory.hbs",
-    },
   };
 
   /* -------------------------------------------- */
