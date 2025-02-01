@@ -1,34 +1,50 @@
 @use '../abstracts' as *;
 
 div.input-group {
-    width: 5rem;
     height: 2rem;
     background: $pokeymanz-c-red;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     color: $pokeymanz-c-white;
     margin: 0 0.2rem;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    &.size {
+        &--xsmall {
+            max-width: 5rem;
+        }
+
+        &--small {
+            max-width: 8rem;
+        }
+
+        &--medium {
+            max-width: 12rem;
+        }
+
+        &--large {
+            flex-basis: 100%;
+        }
+    }
 
     input.input-group-field {
         font-size: 1.5rem;
         text-align: center;
         border-radius: 0;
         border: 0;
+        color: $pokeymanz-c-white;
+        text-overflow: ellipsis;
 
-        &[type="checkbox"] {
-            --checkbox-size: 1.5rem;
-            height: 1.5rem;
-            width: auto;
-            font-size: inherit;
+        &:disabled {
+            pointer-events: all;
+            cursor: text;
         }
+    }
 
-        &[type="number"] {
-            color: $pokeymanz-c-white;
-            &:disabled {
-                background-color: transparent;
-            }
-        }
-        
+    label.input-group-label {
+        padding: 0 0.5rem;
+        font-weight: bold;
     }
 
     i.input-group-icon {

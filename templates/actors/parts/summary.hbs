@@ -69,8 +69,21 @@
         </div>
         <div class="body-card flexcol">
             <input class="document-name" name="name" type="text"
-                value="{{actor.name}}" placeholder="{{localize 'Name'}}"
+                value="{{actor.name}}"
                 data-tooltip="{{actor.name}}" {{disabled isPlayMode }} />
+            <div class="display--flex details-container">
+                {{#each detailsFields as |field|}}
+                <div class="input-group display--flex--center size--{{field.size}}" data-tooltip="{{field.value}}">
+                    <label class="input-group-label">{{field.label}}</label>
+                    <input class="input-group-field" type="{{field.type}}"
+                        name="{{field.name}}"
+                        value="{{field.value}}"
+                         {{disabled
+                        ../isPlayMode
+                        }}>
+                </div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </section>

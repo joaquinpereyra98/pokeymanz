@@ -57,6 +57,13 @@
                 "Inventory": "Inventory",
                 "Pokemon": "Pokemon",
                 "Effects": "Effects"
+            },
+            "Details": {
+                "Species": "Species",
+                "Gender": "Gender",
+                "Calling": "Calling",
+                "Pronouns": "Pronouns",
+                "Age": "Age"
             }
         },
         "Types": {

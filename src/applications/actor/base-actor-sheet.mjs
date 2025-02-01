@@ -70,6 +70,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       system: this.document.system,
       systemSource: this.document.system._source,
       systemFields: this.document.system.schema.fields,
+      detailsFields: this._prepareDetails(),
     };
   }
 
@@ -180,6 +181,51 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     return categories;
   }
 
+  /**
+   * A point on a two dimensional plane.
+   * @typedef {Object} DetailsFields
+   * @property {String} key - key of the field details
+   * @property {String|Number} value - original value from of the details
+   * @property {String} name -  Representation of the field path within the system schema.
+   * @property {String} label - Localized label for the detail field
+   * @property {String} type - The type of the field, either "text" or "number".
+   */
+
+  /**
+   * Prepares the details fields.
+   * Each detail is enriched with a key, value, name, label, and type.
+   *
+   * @returns {DetailsFields} 
+   */
+  _prepareDetails() {
+    const details = this.document.system.details;
+    const schemaFields = this.document.system.schema.get("details").fields;
+
+    const fieldSize = {
+      calling: "large",
+      pronouns: "medium",
+      age: "xsmall",
+      gender: "small",
+      species: "medium"
+    }
+
+    return Object.fromEntries(
+      Object.entries(details).map(([key, value]) => [
+        key,
+        {
+          key,
+          value,
+          name: `system.details.${key}`,
+          label: game.i18n.localize(
+            `POKEYMANZ.Actor.Details.${key.capitalize()}`
+          ),
+          type: typeof value === "string" ? "text" : "number",
+          size: schemaFields[key].options?.size ?? "medium",
+        },
+      ])
+    );
+  }
+
   /* -------------------------------------------- */
   /*  Animations Handlers                         */
   /* -------------------------------------------- */
@@ -254,8 +300,8 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to toggle a ActiveEffect
    * @this BaseActorSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
    * @returns
    */
   static async _toggleEffect(event, target) {
@@ -302,6 +348,12 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     return await doc?.update({ disabled: !doc.disabled });
   }
 
+  /**
+   * Handle to toggle a Item
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @returns
+   */
   static async _toggleGear(event, target) {
     event.preventDefault();
 

@@ -243,14 +243,20 @@
   line-height: 1;
 }
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card .types-container {
+  justify-content: center;
   margin: 0.3rem 0;
 }
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card .types-container .type-badge {
   flex: 1;
+  max-width: 50%;
 }
 .pokeymanz.sheet.actor section.summary.tab .body-card {
   min-width: 450px;
   margin-left: 15px;
+  gap: 5px;
+}
+.pokeymanz.sheet.actor section.summary.tab .body-card .details-container {
+  flex-wrap: wrap;
   gap: 5px;
 }
 .pokeymanz.sheet.actor .pokeymanz {
@@ -346,8 +352,6 @@
 .pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs input.attribute-mod {
   text-align: center;
   font-size: 1.1rem;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
   border: 0;
   padding: 0 0.5ch;
 }
@@ -626,31 +630,38 @@
   font-size: 1.7em;
 }
 .pokeymanz.sheet div.input-group {
-  width: 5rem;
   height: 2rem;
   background: var(--pokeymanz-color-ui-red);
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   color: var(--pokeymanz-color-ui-white);
   margin: 0 0.2rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.pokeymanz.sheet div.input-group.size--xsmall {
+  max-width: 5rem;
+}
+.pokeymanz.sheet div.input-group.size--small {
+  max-width: 8rem;
+}
+.pokeymanz.sheet div.input-group.size--medium {
+  max-width: 12rem;
+}
+.pokeymanz.sheet div.input-group.size--large {
+  flex-basis: 100%;
 }
 .pokeymanz.sheet div.input-group input.input-group-field {
   font-size: 1.5rem;
   text-align: center;
   border-radius: 0;
   border: 0;
-}
-.pokeymanz.sheet div.input-group input.input-group-field[type=checkbox] {
-  --checkbox-size: 1.5rem;
-  height: 1.5rem;
-  width: auto;
-  font-size: inherit;
-}
-.pokeymanz.sheet div.input-group input.input-group-field[type=number] {
   color: var(--pokeymanz-color-ui-white);
+  text-overflow: ellipsis;
 }
-.pokeymanz.sheet div.input-group input.input-group-field[type=number]:disabled {
-  background-color: transparent;
+.pokeymanz.sheet div.input-group label.input-group-label {
+  padding: 0 0.5rem;
+  font-weight: bold;
 }
 .pokeymanz.sheet div.input-group i.input-group-icon {
   font-size: 1.2rem;

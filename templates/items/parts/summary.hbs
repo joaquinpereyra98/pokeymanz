@@ -47,7 +47,7 @@
         {{disabled isPlayMode}} />
       <div class="display--flex">
         {{#if havePrice}}
-        <div class="input-group display--flex--center">
+        <div class="input-group display--flex--center size--xsmall">
           <input
             class="input-group-field spacing--p-0"
             type="number"
@@ -58,17 +58,17 @@
         </div>
         {{/if}}
         {{#if (and item.isEquipable item.parent)}}
-        <div class="input-group display--flex--center">
+        <div class="input-group display--flex--center size--xsmall">
           {{#if (not isPlayMode)}}
           <a data-action="toggleEquip">
             <i
-              class="fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
+              class=" input-group-icon fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
             <i
-              class="input-group-icon
+              class="input-group-icon fa-solid
               {{ifThen
                 system.equipped
-                ' fa-solid fa-backpack'
-                'fa-solid fa-computer-classic'
+                'fa-backpack'
+                'fa-computer-classic'
               }}">
             </i>
           </a>

@@ -86,10 +86,12 @@ section.summary.tab {
     }
 
     .types-container {
+      justify-content: center;
       margin: 0.3rem 0;
 
       .type-badge {
         flex: 1;
+        max-width: 50%;
       }
     }
 
@@ -99,5 +101,10 @@ section.summary.tab {
     min-width: 450px;
     margin-left: 15px;
     gap: 5px;
+
+    .details-container {
+      flex-wrap: wrap;
+      gap: 5px;
+    }
   }
 }
