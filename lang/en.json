@@ -6,7 +6,8 @@
         },
         "Item": {
             "feat": "Feat",
-            "gear": "Gear"
+            "gear": "Gear",
+            "move": "Move"
         }
     },
     "POKEYMANZ": {
@@ -50,20 +51,30 @@
                 "Persistent": "Persistent"
             }
         },
+        "Moves":{
+            "Categories": {
+                "Physical": "Physical",
+                "Special": "Special",
+                "Status": "Status"
+            }
+        },
         "Actor": {
-            "TABS": {
-                "Summary": "Summary",
-                "Features": "Features",
-                "Inventory": "Inventory",
-                "Pokemon": "Pokemon",
-                "Effects": "Effects"
-            },
             "Details": {
                 "Species": "Species",
                 "Gender": "Gender",
                 "Calling": "Calling",
                 "Pronouns": "Pronouns",
                 "Age": "Age"
+            }
+        },
+        "Sheets": {
+            "TABS": {
+                "Summary": "Summary",
+                "Features": "Features",
+                "Inventory": "Inventory",
+                "Pokemon": "Pokemon",
+                "Effects": "Effects",
+                "Stats": "Statistics"
             }
         },
         "Types": {
@@ -96,11 +107,13 @@
             "Toggle": "Toggle Effect"
         },
         "Item": {
-            "Backpack": "BackPack",
+            "Backpack": "Backpack",
             "Computer": "PC",
             "ToggleEquip": "Equip/Unquip"
         },
         "Description": "Description",
-        "GMNotes": "GM Notes"
+        "GMNotes": "GM Notes",
+        "Category": "Category",
+        "Type": "Type"
     }
 }

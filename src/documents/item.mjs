@@ -1,9 +1,15 @@
 export default class PokeymanzItem extends Item {
+  /**
+   * @inheritDoc
+   */
   static getDefaultArtwork(itemData) {
     const img = CONFIG.POKEYMANZ.items[itemData.type].img ?? this.DEFAULT_ICON;
     return { img };
   }
 
+  /**
+   * @inheritDoc
+   */
   getRollData() {
     if (!this.actor) return null;
     const rollData = this.actor.getRollData();
@@ -17,6 +23,20 @@ export default class PokeymanzItem extends Item {
 
   get isEquipable() {
     return foundry.utils.hasProperty(this, "system.equipped");
+  }
+
+  /**
+   * Gets the Pokémon type for this item.
+   * @returns {Object|null} The primary type object from the Pokémon types list, or null if not found.
+   */
+  get moveType() {
+    if (!foundry.utils.hasProperty(this, "system.type")) return null;
+
+    const id = foundry.utils.getProperty(this, "system.type");
+    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
+    const type = pokemonTypesList.find((type) => type.id === id);
+
+    return type;
   }
 
   /**

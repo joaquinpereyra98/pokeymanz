@@ -43,24 +43,47 @@
   ],
   "flags": {
     "hotReload": {
-      "extensions": ["css", "hbs", "json"]
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ]
     }
   },
   "documentTypes": {
     "Actor": {
       "trainer": {
-        "htmlFields": ["description.value", "description.gmNotes"]
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
       },
       "pokemon": {
-        "htmlFields": ["description.value", "description.gmNotes","stats.ability"]
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes",
+          "stats.ability"
+        ]
       }
     },
     "Item": {
       "feat": {
-        "htmlFields": ["description.value", "description.gmNotes"]
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
       },
       "gear": {
-        "htmlFields": ["description.value", "description.gmNotes"]
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
+      },
+      "move": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
       }
     }
   },

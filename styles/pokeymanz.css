@@ -659,6 +659,10 @@
   color: var(--pokeymanz-color-ui-white);
   text-overflow: ellipsis;
 }
+.pokeymanz.sheet div.input-group input.input-group-field:disabled {
+  pointer-events: all;
+  cursor: text;
+}
 .pokeymanz.sheet div.input-group label.input-group-label {
   padding: 0 0.5rem;
   font-weight: bold;
@@ -666,6 +670,13 @@
 .pokeymanz.sheet div.input-group i.input-group-icon {
   font-size: 1.2rem;
   padding: 0 0.4rem;
+}
+.pokeymanz.sheet div.input-group img.input-group-img {
+  margin: auto;
+  border: 0;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.3rem;
+  height: inherit;
 }
 .pokeymanz.sheet header.window-header {
   border: 0;

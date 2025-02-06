@@ -1,0 +1,83 @@
+<section
+    class="tab summary {{tab.cssClass}}"
+    data-group="primary"
+    data-tab="summary">
+    <div class="summary-header display--flex">
+        <div class="portrait">
+            <img
+                class="profile-img"
+                src="{{item.img}}"
+                data-edit="img"
+                data-action={{ifThen isPlayMode "renderIP" "setImg"}}
+                alt="{{item.name}}"
+                title="{{item.name}}" />
+        </div>
+        <div class="summary-inputs">
+            <div class="display--flex">
+                {{#if isPlayMode}}
+                {{!-- TYPE BADGE --}}
+                {{#if pokemonType.primary.value}}
+                <div class="type-badge display--flex--center size--medium"
+                    style="--type-color: {{pokemonType.primary.color}}">
+                    <img src="{{pokemonType.primary.img}}"
+                        alt="{{pokemonType.primary.id}}">
+                    <span>{{localize pokemonType.primary.name}}</span>
+                </div>
+                {{/if}}
+                {{else}}
+                {{formInput pokemonType.primary.field
+                value=pokemonType.primary.value
+                localize=true}}
+                {{/if}}
+            </div>
+            <input
+                class="document-name"
+                name="name"
+                type="text"
+                value="{{item.name}}"
+                placeholder="{{localize "Name"}}"
+                data-tooltip="{{item.name}}"
+                {{disabled isPlayMode}} />
+            <div class="display--flex">
+                <div class="input-group display--flex--center size--small">
+                    {{#if isPlayMode}}
+                    <label class="input-group-label">{{localize
+                        "POKEYMANZ.Category"}}</label>
+                    {{#if categoryField.img}}
+                    <img class="input-group-img" src="{{categoryField.img}}"
+                        alt="{{categoryField.value}}">
+                    {{else}}
+                    <label class="input-group-label">None</label>
+                    {{/if}}
+                    {{else}}
+                    {{formInput
+                    categoryField.field
+                    value=categoryField.value
+                    localize=true
+                    }}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="summary-body">
+        {{#each descriptionFields as |description key|}}
+        {{#unless description.hidden}}
+        <div class="description-container accordion-container">
+            <div class="description-header">
+                <i class="accordion-icon fa-solid fa-caret-down"></i>
+                {{description.label}}
+            </div>
+            <div class="description-content">
+                {{formInput
+                description.field
+                value=description.value
+                enriched=description.enriched
+                toggled=true
+                }}
+            </div>
+        </div>
+        {{/unless}}
+        {{/each}}
+    </div>
+</section>

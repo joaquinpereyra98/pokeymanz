@@ -30,13 +30,13 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet)
       id: "summary",
       group: "primary",
       icon: "fa-solid fa-address-card",
-      label: "POKEYMANZ.Actor.TABS.Summary",
+      label: "POKEYMANZ.Sheets.TABS.Summary",
     },
     {
       id: "effects",
       group: "primary",
       icon: "fa-solid fa-bolt",
-      label: "POKEYMANZ.Actor.TABS.Effects",
+      label: "POKEYMANZ.Sheets.TABS.Effects",
     },
   ];
   /** @override */

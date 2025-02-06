@@ -2,27 +2,6 @@
  * Extend the base Actor class to implement additional system-specific logic.
  */
 export default class PokeymanzActor extends Actor {
-  /**
-   * Gets the primary Pokémon type for this actor.
-   * @returns {Object|null} The primary type object from the Pokémon types list, or null if not found.
-   */
-  get primaryType() {
-    const id = this.system.stats.types.primary;
-    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
-    const type = pokemonTypesList.find((type) => type.id === id);
-    return type;
-  }
-  /**
-   *
-   * Gets the secondary Pokémon type for this actor.
-   * @returns {Object|null} The secondary type object from the Pokémon types list, or null if not found.
-   */
-  get secondaryType() {
-    const id = this.system.stats.types.secondary;
-    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
-    const type = pokemonTypesList.find((type) => type.id === id);
-    return type;
-  }
 
   get haveAttributes() {
     return foundry.utils.hasProperty(this, "system.attributes");

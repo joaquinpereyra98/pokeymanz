@@ -48,31 +48,31 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
       id: "summary",
       group: "primary",
       icon: "fa-solid fa-address-card",
-      label: "POKEYMANZ.Actor.TABS.Summary",
+      label: "POKEYMANZ.Sheets.TABS.Summary",
     },
     {
       id: "features",
       group: "primary",
       icon: "fa-solid fa-list",
-      label: "POKEYMANZ.Actor.TABS.Features",
+      label: "POKEYMANZ.Sheets.TABS.Features",
     },
     {
       id: "inventory",
       group: "primary",
       icon: "fa-solid fa-backpack",
-      label: "POKEYMANZ.Actor.TABS.Inventory",
+      label: "POKEYMANZ.Sheets.TABS.Inventory",
     },
     {
       id: "pokemon",
       group: "primary",
       icon: "fa-solid fa-paw",
-      label: "POKEYMANZ.Actor.TABS.Pokemon",
+      label: "POKEYMANZ.Sheets.TABS.Pokemon",
     },
     {
       id: "effects",
       group: "primary",
       icon: "fa-solid fa-bolt",
-      label: "POKEYMANZ.Actor.TABS.Effects",
+      label: "POKEYMANZ.Sheets.TABS.Effects",
     },
   ];
 
@@ -88,11 +88,18 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   async _prepareContext(options) {
     const baseContext = await super._prepareContext(options);
+    const { stats, schema } = this.document.system;
     return {
       ...baseContext,
-      types: {
-        primaryType: this.document.primaryType,
-        secondaryType: this.document.secondaryType,
+      pokemonType: {
+        primary: {
+          ...stats.pokemonTypes.primary,
+          field: schema.getField("stats.pokemonTypes.primary.value"),
+        },
+        secondary: {
+          ...stats.pokemonTypes.secondary,
+          field: schema.getField("stats.pokemonTypes.secondary.value"),
+        },
       },
     };
   }

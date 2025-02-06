@@ -202,21 +202,21 @@ export const POKEYMANZ = {
         },
       },
     },
-    moves: {
-      img: "systems/pokeymanz/assets/icons/items/backpack.svg",
-      icon: "fa-solid fa-backpack",
+    move: {
+      img: "systems/pokeymanz/assets/icons/items/comet-spark.svg",
+      icon: "fa-solid fa-meteor",
       categories: {
         physical:{
           label: "POKEYMANZ.Moves.Categories.Physical",
-          img: "",
+          img: "systems/pokeymanz/assets/icons/moves/physical-move-icon.png",
         },
         special:{
           label: "POKEYMANZ.Moves.Categories.Special",
-          img: "",
+          img: "systems/pokeymanz/assets/icons/moves/special-move-icon.png",
         },
         status:{
           label: "POKEYMANZ.Moves.Categories.Status",
-          img: "",
+          img: "systems/pokeymanz/assets/icons/moves/status-move-icon.png",
         },
       }
     }

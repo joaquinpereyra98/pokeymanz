@@ -33,31 +33,31 @@
             </div>
             <div class="types-container display--flex">
                 {{#if isPlayMode}}
-                {{#if types.primaryType}}
+                {{#if pokemonType.primary.value}}
                 <div class="type-badge display--flex--center size--small"
-                    style="--type-color: {{types.primaryType.color}}">
-                    <img src="{{types.primaryType.img}}"
-                        alt="{{types.primaryType.id}}">
-                    <span>{{localize types.primaryType.name}}</span>
+                    style="--type-color: {{pokemonType.primary.color}}">
+                    <img src="{{pokemonType.primary.img}}"
+                        alt="{{pokemonType.primary.id}}">
+                    <span>{{localize pokemonType.primary.name}}</span>
                 </div>
                 {{/if}}
-                {{#if types.secondaryType}}
+                {{#if pokemonType.secondary.value}}
                 <div class="type-badge display--flex--center size--small"
-                    style="--type-color: {{types.secondaryType.color}}">
-                    <img src="{{types.secondaryType.img}}"
-                        alt="{{types.secondaryType.id}}">
-                    <span>{{localize types.secondaryType.name}}</span>
+                    style="--type-color: {{pokemonType.secondary.color}}">
+                    <img src="{{pokemonType.secondary.img}}"
+                        alt="{{pokemonType.secondary.id}}">
+                    <span>{{localize pokemonType.secondary.name}}</span>
                 </div>
                 {{/if}}
                 {{else}}
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.primary
-                    value=system.stats.types.primary
+                    {{formInput pokemonType.primary.field
+                    value=pokemonType.primary.value
                     localize=true}}
                 </div>
                 <div class="type-select-container">
-                    {{formInput systemFields.stats.fields.types.fields.secondary
-                    value=system.stats.types.secondary
+                    {{formInput pokemonType.secondary.field
+                    value=pokemonType.secondary.value
                     localize=true}}
                 </div>
                 {{/if}}

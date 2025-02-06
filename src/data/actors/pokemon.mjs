@@ -1,8 +1,4 @@
-import {
-  attributeDiceFields,
-  pokemonTypeFields,
-  descriptionsFields,
-} from "../common.mjs";
+import { pokemonTypeFields, descriptionsFields } from "../common.mjs";
 
 export default class PokemonData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -20,9 +16,13 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
         toughness: new fields.SchemaField({
           value: new fields.NumberField({ initial: 4, integer: true }),
         }),
-        types: new fields.SchemaField({
-          primary: pokemonTypeFields(),
-          secondary: pokemonTypeFields(),
+        pokemonTypes: new fields.SchemaField({
+          primary: new fields.SchemaField({
+            value: pokemonTypeFields(),
+          }),
+          secondary: new fields.SchemaField({
+            value: pokemonTypeFields(),
+          }),
         }),
         wounds: new fields.SchemaField({
           value: new fields.NumberField({ initial: 3 }),
@@ -39,5 +39,16 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
       }),
       description: descriptionsFields(),
     };
+  }
+
+  prepareBaseData() {
+    for (const key in this.stats.pokemonTypes) {
+      const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
+      const type = this.stats.pokemonTypes[key];
+      this.stats.pokemonTypes[key] = {
+        ...type,
+        ...pokemonTypesList.find((t) => t.id === type.value),
+      };
+    }
   }
 }

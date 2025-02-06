@@ -21,17 +21,6 @@ export function attributeDiceFields() {
   };
 }
 
-export function boundTraitDie(die) {
-  const sides = die.sides;
-  if (sides < 4 && sides !== 1) {
-    die.sides = 4;
-  } else if (sides > 12) {
-    const difference = sides - 12;
-    die.sides = 12;
-    die.modifier += difference / 2;
-  }
-  return die;
-}
 export function pokemonTypeFields() {
   const choices = CONFIG.POKEYMANZ.pokemonTypesList.reduce((acc, v) => {
     acc[v.id] = v.name;

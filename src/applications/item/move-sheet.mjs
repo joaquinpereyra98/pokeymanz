@@ -2,13 +2,13 @@ import BaseItemSheet from "./base-item-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
 
 /**
- * The Pokeymanz Gear application.
+ * The Pokeymanz Move application.
  * @extends BaseItemSheet
  * @mixes InteractiveApplication
  * @mixes HandlebarsApplication
- * @alias GearSheet
+ * @alias MoveSheet
  */
-export default class GearSheet extends InteractiveUIFeaturesMixin(
+export default class MoveSheet extends InteractiveUIFeaturesMixin(
   BaseItemSheet
 ) {
   /** @inheritDoc */
@@ -22,7 +22,10 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: "systems/pokeymanz/templates/items/parts/summary.hbs",
+      template: "systems/pokeymanz/templates/items/parts/move-summary.hbs",
+    },
+    stats: {
+      template: "systems/pokeymanz/templates/items/parts/stats.hbs",
     },
   };
 
@@ -36,6 +39,12 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
       group: "primary",
       icon: "fa-solid fa-address-card",
       label: "POKEYMANZ.Sheets.TABS.Summary",
+    },
+    {
+      id: "stats",
+      group: "primary",
+      icon: "fa-solid fa-list",
+      label: "POKEYMANZ.Sheets.TABS.Stats",
     },
     {
       id: "effects",
@@ -59,6 +68,27 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
     const baseContext = await super._prepareContext(options);
     return {
       ...baseContext,
+      categoryField: this._prepareCategory(),
+      pokemonType: this._preparePokemonType(),
+    };
+  }
+
+  _prepareCategory() {
+    const { system } = this.document;
+    return {
+      field: system.schema.getField("category"),
+      value: system.category,
+      img: CONFIG.POKEYMANZ.items.move.categories[system.category]?.img ?? "",
+    };
+  }
+
+  _preparePokemonType() {
+    const { pokemonTypes, schema } = this.document.system;
+    return {
+      primary: {
+        ...pokemonTypes.primary,
+        field: schema.getField("pokemonTypes.primary.value"),
+      },
     };
   }
 }

@@ -195,19 +195,11 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    * Prepares the details fields.
    * Each detail is enriched with a key, value, name, label, and type.
    *
-   * @returns {DetailsFields} 
+   * @returns {DetailsFields}
    */
   _prepareDetails() {
     const details = this.document.system.details;
     const schemaFields = this.document.system.schema.get("details").fields;
-
-    const fieldSize = {
-      calling: "large",
-      pronouns: "medium",
-      age: "xsmall",
-      gender: "small",
-      species: "medium"
-    }
 
     return Object.fromEntries(
       Object.entries(details).map(([key, value]) => [

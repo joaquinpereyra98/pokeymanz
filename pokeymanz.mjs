@@ -23,6 +23,7 @@ Hooks.once("init", () => {
   Object.assign(CONFIG.Item.dataModels, {
     feat: data.item.FeatData,
     gear: data.item.GearData,
+    move: data.item.MoveData,
   });
 
   /*Registering document class*/
@@ -49,6 +50,11 @@ Hooks.once("init", () => {
     types: ["gear"],
     makeDefault: true,
     label: "POKEYMANZ.GearSheet",
+  });
+  Items.registerSheet("Move Sheet", apps.item.MoveSheet, {
+    types: ["move"],
+    makeDefault: true,
+    label: "POKEYMANZ.MoveSheet",
   });
 
   utils.renderTemplates();
