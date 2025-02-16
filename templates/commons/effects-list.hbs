@@ -44,7 +44,13 @@
                 <div class="item-controls flexrow">
                     {{#if @root.editable}}
                     <a class="item-control" data-action="toggleEffect"
-                        data-tooltip="POKEYMANZ.Effect.Toggle">
+                        {{#if effect.disabled}}
+                        data-tooltip="{{localize "POKEYMANZ.Effect.InactiveEffect"
+                        effect=effect.name}}"
+                        {{else}}
+                        data-tooltip="{{localize "POKEYMANZ.Effect.ActiveEffect"
+                        effect=effect.name}}"
+                        {{/if}}>
                         <i
                             class="fas fa-lightbulb{{ifThen effect.disabled "" "-on"
                             }}"></i>
@@ -52,13 +58,13 @@
                     {{/if}}
                     <a class="item-control" data-action="viewDoc"
                         data-tooltip="{{localize "DOCUMENT.Update"
-                        type="Effect" }}">
+                        type=effect.name }}">
                         <i class="fas fa-edit"></i>
                     </a>
                     {{#if @root.editable}}
                     <a class="item-control" data-action="deleteDoc"
                         data-tooltip="{{localize "DOCUMENT.Delete"
-                        type="Effect" }}">
+                        type=effect.name }}">
                         <i class="fas fa-trash"></i>
                     </a>
                     {{/if}}

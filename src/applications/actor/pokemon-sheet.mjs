@@ -18,6 +18,22 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       height: 700,
     },
     actions: {},
+    contextMenus: [
+      {
+        selector: ".move-menu",
+        menuItems: PokemonSheet._getMoveMenuItems(),
+        options: {
+          eventName: "click",
+        },
+      },
+    ],
+    accordions: [
+      {
+        headingSelector: ".move-header",
+        contentSelector: ".move-content",
+        startCollapsed: true,
+      },
+    ],
   };
 
   /** @override */
@@ -56,6 +72,31 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   };
 
   /* -------------------------------------------- */
+  /*  Drop-Down Menus                             */
+  /* -------------------------------------------- */
+
+  static _getMoveMenuItems() {
+    return [
+      {
+        name: "POKEYMANZ.Item.EditItem",
+        icon: '<i class="fas fa-edit"></i>',
+        callback: ([html]) => {
+          const uuid = html.dataset.itemUuid;
+          fromUuidSync(uuid)?.sheet?.render({ force: true });
+        },
+      },
+      {
+        name: "Delete",
+        icon: '<i class="fas fa-trash"></i>',
+        callback: ([html]) => {
+          const uuid = html.dataset.itemUuid;
+          fromUuidSync(uuid)?.delete();
+        },
+      },
+    ];
+  }
+
+  /* -------------------------------------------- */
   /*  Context Preparation                         */
   /* -------------------------------------------- */
 
@@ -75,7 +116,35 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
       },
+      moves: await this._prepareMoves(),
     };
+  }
+
+  async _prepareMoves() {
+    const moves = [];
+
+    for (const move of this.document.itemTypes.move) {
+      moves.push({
+        ...move.toObject(),
+        uuid: move.uuid,
+        moveType: move.system.pokemonTypes.primary,
+        enrichDescription: await TextEditor.enrichHTML(
+          move.system.description.value,
+          {
+            secrets: move.isOwner,
+            rollData: move.getRollData(),
+            relativeTo: move,
+          }
+        ),
+      });
+    }
+    moves.sort((a, b) => a.sort - b.sort);
+
+    while (moves.length < 4) {
+      moves.push(null);
+    }
+
+    return moves;
   }
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */

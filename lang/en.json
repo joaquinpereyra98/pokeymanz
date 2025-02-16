@@ -104,12 +104,16 @@
             "Source": "Source",
             "Passive": "Passive",
             "Temporary": "Temporary",
-            "Toggle": "Toggle Effect"
+            "ActiveEffect": "Active {effect}",
+            "InactiveEffect": "Inactive {effect}"
         },
         "Item": {
             "Backpack": "Backpack",
             "Computer": "PC",
-            "ToggleEquip": "Equip/Unquip"
+            "EquipItem": "Equip {item}",
+            "UnquipItem" : "Unquip {item}",
+            "EditItem": "Edit Item",
+            "UseItem" : "Use {item}"
         },
         "Description": "Description",
         "GMNotes": "GM Notes",

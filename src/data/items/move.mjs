@@ -10,7 +10,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
     return {
       pokemonTypes: new fields.SchemaField({
         primary: new fields.SchemaField({
-          value: pokemonTypeFields(),
+          value: pokemonTypeFields({ blank: false, required: true }),
         }),
       }),
       category: new fields.StringField({
@@ -31,6 +31,8 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
     };
   }
 
+  /* -------------------------------------------- */
+
   prepareBaseData() {
     for (const key in this.pokemonTypes) {
       const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
@@ -40,5 +42,22 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
         ...pokemonTypesList.find((t) => t.id === type.value),
       };
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    if ((await super._preCreate(data, options, user)) === false) return false;
+
+    const { actor } = this.parent;
+
+    const isItemInvalidForActor =
+      actor?.system?.constructor?.metadata?.invalidItemTypes?.includes(
+        this.parent.type
+      );
+    const hasReachedMaxMoves = actor?.itemTypes?.move?.length >= 4;
+
+    if (isItemInvalidForActor || hasReachedMaxMoves) return false;
   }
 }

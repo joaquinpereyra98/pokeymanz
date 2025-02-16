@@ -5,6 +5,13 @@ import {
 } from "../common.mjs";
 
 export default class TrainerData extends foundry.abstract.TypeDataModel {
+  /**
+   * Key information about this Actor subtype
+   */
+  static metadata = Object.freeze({
+    invalidItemTypes: ["move"]
+  });
+
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -44,6 +51,10 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
       }),
     };
   }
+
+  /* -------------------------------------------- */
+
+
   prepareBaseData() {
     for (const key in this.stats.pokemonTypes) {
       const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
@@ -59,6 +70,8 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
       attribute.name = `POKEYMANZ.Attributes.${key.capitalize()}`;
     }
   }
+
+  /* -------------------------------------------- */
 
   /** @override */
   async _preCreate(data, options, user) {

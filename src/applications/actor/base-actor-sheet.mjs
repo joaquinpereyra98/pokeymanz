@@ -16,6 +16,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       deleteDoc: BaseActorSheet._deleteDoc,
       viewDoc: BaseActorSheet._viewDoc,
       toggleGear: BaseActorSheet._toggleGear,
+      useItem: BaseActorSheet._useItem,
     },
     window: {
       resizable: true,
@@ -32,6 +33,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
         startExpanded: true,
       },
     ],
+    contextMenus: [],
   };
 
   /**
@@ -250,7 +252,8 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    * @private
    */
   static _setImg(event, target) {
-    const current = foundry.utils.getProperty(this.object, "img");
+    const attr = target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document._source, attr);
     const { img } =
       this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
       {};
@@ -260,7 +263,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       redirectToRoot: img ? [img] : [],
       callback: (path) => {
         target.src = path;
-        if (this.options.submitOnChange) return this._onSubmit(event);
+        if (this.options.form.submitOnChange) {
+          this.document.update({ [attr]: path });
+        }
       },
       top: this.position.top + 40,
       left: this.position.left + 10,
@@ -390,7 +395,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
    * @private
    */
-  static _createDoc(event, target) {
+  static async _createDoc(event, target) {
     event.preventDefault();
     const { type, documentClass, systemType, equipped } = target.dataset;
 
@@ -422,8 +427,8 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
         return;
     }
 
-    const doc = cls.create(data, { parent: this.document });
-    doc.sheet?.render(true);
+    const doc = await cls.create(data, { parent: this.document });
+    doc.sheet?.render({ force: true });
   }
   /**
    * Handle to delete a embedded document.
@@ -462,4 +467,12 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
     doc?.sheet?.render(true);
   }
+
+  /**
+   * Handle to use a item.
+   * @this PokemonSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async _useItem(event, target) {}
 }

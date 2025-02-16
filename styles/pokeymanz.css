@@ -178,6 +178,7 @@
   border-radius: 15px;
   background-color: var(--card-color);
   margin: 0.4rem;
+  margin-bottom: auto;
   box-shadow: 0 0 0.4em;
   -moz-box-shadow: 0 0 0.4em;
   -webkit-box-shadow: 0 0 0.4em;
@@ -362,6 +363,106 @@
 .pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs select.attribute-side.attribute-mod,
 .pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs input.attribute-mod.attribute-mod {
   width: 3.3ch;
+}
+.pokeymanz.sheet.actor .move-list {
+  gap: 1rem;
+}
+.pokeymanz.sheet.actor .move-container {
+  align-items: flex-start;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.4rem 0rem 0.4rem 0.4rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.1rem;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .drag-line {
+  cursor: all-scroll;
+  display: flex;
+  justify-content: center;
+  width: 0.3rem;
+  height: 4rem;
+  padding: 0 0.5rem;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .drag-line i {
+  padding: 0 0.1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 1rem;
+  transition: 500ms;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .drag-line:hover i {
+  background-color: white;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .img-portrait {
+  cursor: pointer;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .img-portrait img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  object-fit: cover;
+  transition: opacity 300ms ease;
+  border-radius: 0.4rem;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .img-portrait .roll-icon {
+  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+}
+.pokeymanz.sheet.actor .move-container .move-portrait .img-portrait:hover .roll-icon {
+  opacity: 1;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion {
+  flex: 1;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-header {
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-header .move-name {
+  font-size: 1.6rem;
+  flex-grow: 1;
+  height: 1.8rem;
+  color: white;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-header .move-type {
+  margin: auto 1.5rem;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-header .move-menu {
+  font-size: 1.2rem;
+  margin: auto;
+  padding: 0 0.2rem;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-content {
+  margin-right: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-content .description-content {
+  min-height: 3rem;
+}
+.pokeymanz.sheet.actor .move-container.empty-move {
+  cursor: pointer;
+  align-items: center;
+  font-size: 2.5rem;
+  border: 0.4rem dashed rgba(0, 0, 0, 0.4);
+  transition: border-color 700ms;
+}
+.pokeymanz.sheet.actor .move-container.empty-move .create-doc-icon {
+  margin: 0.5rem 0;
+  transition: color 500ms, transform 500ms;
+  color: rgba(0, 0, 0, 0.4);
+}
+.pokeymanz.sheet.actor .move-container.empty-move:hover {
+  border-color: rgba(0, 0, 0, 0.7);
+}
+.pokeymanz.sheet.actor .move-container.empty-move:hover .create-doc-icon {
+  color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
 }
 .pokeymanz.sheet.item {
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
@@ -674,9 +775,24 @@
 .pokeymanz.sheet div.input-group img.input-group-img {
   margin: auto;
   border: 0;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 0.3rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.4rem;
   height: inherit;
+}
+.pokeymanz.sheet .fix-context-menu #context-menu {
+  font-size: 0.9rem;
+  text-shadow: none;
+  min-width: 120px;
+}
+.pokeymanz.sheet .fix-context-menu #context-menu li.context-item {
+  line-height: 1rem;
+  margin: 0;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.pokeymanz.sheet .fix-context-menu.aling--right #context-menu {
+  right: 0;
+  left: auto;
 }
 .pokeymanz.sheet header.window-header {
   border: 0;

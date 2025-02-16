@@ -73,15 +73,74 @@
                 data-tooltip="{{actor.name}}" {{disabled isPlayMode }} />
             <div class="display--flex details-container">
                 {{#each detailsFields as |field|}}
-                <div class="input-group display--flex--center size--{{field.size}}" data-tooltip="{{field.value}}">
+                <div
+                    class="input-group display--flex--center size--{{field.size}}"
+                    data-tooltip="{{field.value}}">
                     <label class="input-group-label">{{field.label}}</label>
                     <input class="input-group-field" type="{{field.type}}"
                         name="{{field.name}}"
                         value="{{field.value}}"
-                         {{disabled
+                        {{disabled
                         ../isPlayMode
                         }}>
                 </div>
+                {{/each}}
+            </div>
+            <div class="move-list display--flex--col">
+                {{#each moves as |move|}}
+                {{#if move}}
+                <div class="move-container display--flex">
+                    <div class="move-portrait display--flex--center">
+                        <div class="drag-line">
+                            <i></i>
+                        </div>
+                        <div class="img-portrait" data-action="useItem"
+                            data-item-uuid="{{move.uuid}}"
+                            data-tooltip="{{localize "POKEYMANZ.Item.UseItem"
+                            item=move.name}}">
+                            <img class="move-icon" src="{{move.img}}"
+                                alt="{{move.name}}">
+                            <img class="roll-icon" src="icons/svg/d20-black.svg"
+                                alt="roll-dice">
+                        </div>
+                    </div>
+                    <div class="move-accordion">
+                        <div class="move-header display--flex">
+                            <div class="move-name">
+                                {{move.name}}
+                            </div>
+                            <div class="move-type">
+                                <div
+                                    class="type-badge display--flex--center size--medium"
+                                    style="--type-color: {{move.moveType.color}}">
+                                    <img
+                                        src="{{move.moveType.img}}"
+                                        alt="{{move.moveType.id}}">
+                                    <span>{{localize
+                                        move.moveType.name}}</span>
+                                </div>
+                            </div>
+                            <a class="move-menu fix-context-menu aling--right"
+                                data-item-uuid="{{move.uuid}}">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </a>
+                        </div>
+                        <div class="move-content">
+                            <div class="description-content">
+                                {{{move.enrichDescription}}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div class="move-container empty-move display--flex--center"
+                    data-action="createDoc"
+                    data-document-class="Item"
+                    data-type="move" data-tooltip="{{localize "DOCUMENT.New"
+                    type="Move"}}">
+                    <i class="create-doc-icon fa-solid fa-square-plus"></i>
+                </div>
+                {{/if}}
                 {{/each}}
             </div>
         </div>

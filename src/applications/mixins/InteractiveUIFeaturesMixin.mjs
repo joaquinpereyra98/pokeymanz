@@ -6,6 +6,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       actions: {
         toggleMode: InteractiveApplication._toggleMode,
       },
+      contextMenus: [],
     };
 
     _accordions = this._createAccordions();
@@ -25,6 +26,8 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
         return [];
       }
     }
+
+    _contextMenus;
 
     /**
      * @type {Array<Partial<import("../../../v12/resources/app/client-esm/applications/_types.mjs").ApplicationTab>>}
@@ -55,6 +58,35 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       for (const accordion of this._accordions) {
         accordion._saveCollapsedState();
         accordion.bind(this.element);
+      }
+    }
+    /** @inheritDoc */
+    _onFirstRender(context, options) {
+      super._onFirstRender(context, options);
+      this._contextMenus = this._createContextMenus();
+    }
+
+    /**
+     * @returns {ContextMenu[]}
+     */
+    _createContextMenus() {
+      if (Array.isArray(this.options.contextMenus))
+        return this.options.contextMenus.map(
+          ({ selector, menuItems, options }) => {
+            return ContextMenu.create(
+              this,
+              this.element,
+              selector,
+              menuItems,
+              options
+            );
+          }
+        );
+      else {
+        console.error(
+          "Pokeymanz | Error _createContextMenus | this.options.contextMenus should be a Array"
+        );
+        return [];
       }
     }
 

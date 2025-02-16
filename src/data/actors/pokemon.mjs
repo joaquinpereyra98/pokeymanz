@@ -1,6 +1,13 @@
 import { pokemonTypeFields, descriptionsFields } from "../common.mjs";
 
 export default class PokemonData extends foundry.abstract.TypeDataModel {
+  /**
+   * Key information about this Actor subtype
+   */
+  static metadata = Object.freeze({
+    invalidItemTypes: ["feat", "gear"],
+  });
+
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -41,6 +48,8 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
     };
   }
 
+  /* -------------------------------------------- */
+
   prepareBaseData() {
     for (const key in this.stats.pokemonTypes) {
       const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
@@ -51,4 +60,6 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
       };
     }
   }
+
+  /* -------------------------------------------- */
 }

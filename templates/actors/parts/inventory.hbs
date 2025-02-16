@@ -74,7 +74,13 @@
           <a
             class="item-control"
             data-action="toggleGear"
-            data-tooltip="POKEYMANZ.Item.ToggleEquip">
+            {{#if item.system.equipped}}
+            data-tooltip="{{localize "POKEYMANZ.Item.UnquipItem"
+            item=item.name}}"
+            {{else}}
+            data-tooltip="{{localize "POKEYMANZ.Item.EquipItem"
+            item=item.name}}"
+            {{/if}}>
             <i class="{{ifThen item.system.equipped "fa-solid" "fa-regular"}}
               fa-backpack">
             </i>
@@ -83,14 +89,14 @@
           <a
             class="item-control"
             data-action="viewDoc"
-            data-tooltip="{{localize "DOCUMENT.Update" type="Gear"}}">
+            data-tooltip="{{localize "DOCUMENT.Update" type=item.name}}">
             <i class="fas fa-edit"></i>
           </a>
           {{#if @root.editable}}
           <a
             class="item-control"
             data-action="deleteDoc"
-            data-tooltip="{{localize "DOCUMENT.Delete" type="Gear"}}">
+            data-tooltip="{{localize "DOCUMENT.Delete" type=item.name}}">
             <i class="fas fa-trash"></i>
           </a>
           {{/if}}

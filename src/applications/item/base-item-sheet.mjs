@@ -35,6 +35,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
         startExpanded: true,
       },
     ],
+    contextMenus: [],
   };
 
   /**
@@ -296,8 +297,8 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
    * @private
    */
   static _setImg(event, target) {
-    event.preventDefault();
-    const current = foundry.utils.getProperty(this.object, "img");
+    const attr = target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document._source, attr);
     const { img } =
       this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
       {};
@@ -307,7 +308,9 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
       redirectToRoot: img ? [img] : [],
       callback: (path) => {
         target.src = path;
-        if (this.options.submitOnChange) return this._onSubmit(event);
+        if (this.options.form.submitOnChange) {
+          this.document.update({ [attr]: path });
+        }
       },
       top: this.position.top + 40,
       left: this.position.left + 10,
