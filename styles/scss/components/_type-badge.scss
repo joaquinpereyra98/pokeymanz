@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+
+.type-badge {
+
+    // Define size variants for the type badge
+    $type-badge-sizes: (
+        small: (icon: 1.4em, font: 1.3em, pad-l: 0.3em, pad-r: 0.5em, radius: 20px),
+        medium: (icon: 1.5em, font: 1.5em, pad-l: 0.4em, pad-r: 0.6em, radius: 25px),
+        large: (icon: 1.8em, font: 1.7em, pad-l: 0.6em, pad-r: 0.8em, radius: 30px),
+    );
+
+    color: white;
+    min-width: max-content;
+
+    // Background and border styles
+
+    padding-left: map-get($type-badge-sizes, medium, pad-l);
+    padding-right: map-get($type-badge-sizes, medium, pad-r);
+
+    background-color: var(--type-color);
+    border: 3px solid white;
+    box-shadow: 0 0 0.2rem;
+    border-radius: map-get($type-badge-sizes, medium, radius);
+
+    // TANSFORMATIONS
+    transition: transform 300ms ease, filter 300ms ease, box-shadow 300ms ease;
+    filter: saturate(0.7);
+    transform: scale(0.9);
+
+    &:hover {
+        filter: saturate(1.1);
+        transform: scale(1);
+    }
+
+    & img {
+        border: 0;
+        height: map-get($type-badge-sizes, medium, icon);
+    }
+
+    & span {
+        font-size: map-get($type-badge-sizes, medium, font);
+        font-weight: bold;
+    }
+
+    // Generate size-specific variants
+    @each $size, $settings in $type-badge-sizes {
+        &.size--#{$size} {
+            padding-left: map-get($settings, pad-l); // Dynamic padding based on size
+            padding-right: map-get($settings, pad-r);
+            border-radius: map-get($settings, radius); // Adjust border radius
+
+            & img {
+                height: map-get($settings, icon); // Adjust icon size
+            }
+
+            & span {
+                font-size: map-get($settings, font); // Adjust font size
+            }
+        }
+    }
+
+}

@@ -1,0 +1,11 @@
+.pokeymanz.sheet {
+    @import 'commons';
+
+    &.actor {
+        @import 'actor-sheet';
+    }
+
+    &.item {
+        @import 'item-sheet';
+    }
+}

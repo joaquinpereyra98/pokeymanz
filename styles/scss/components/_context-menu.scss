@@ -1,0 +1,19 @@
+.fix-context-menu {
+    #context-menu {
+        font-size: 0.9rem;
+        text-shadow: none;
+        min-width: 120px;
+
+        li.context-item {
+            line-height: 1rem;
+            margin: 0;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &.aling--right #context-menu {
+        right: 0;
+        left: auto;
+    }
+}

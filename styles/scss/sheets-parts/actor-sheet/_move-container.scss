@@ -1,0 +1,121 @@
+.move-list {
+    gap: 1rem;
+}
+
+.move-container {
+    align-items: flex-start;
+
+    .move-portrait {
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        border-radius: 0.4rem 0rem 0.4rem 0.4rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.1rem;
+
+        .drag-line {
+            cursor: all-scroll;
+            display: flex;
+            justify-content: center;
+            width: 0.3rem;
+            height: 4rem;
+            padding: 0 0.5rem;
+
+            i {
+                padding: 0 0.1rem;
+                background-color: rgba($color: white, $alpha: 0.4);
+                border-radius: 1rem;
+                transition: 500ms;
+            }
+
+            &:hover i {
+                background-color: white;
+            }
+        }
+
+        .img-portrait {
+            cursor: pointer;
+            position: relative;
+            width: 4rem;
+            height: 4rem;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: 0;
+                object-fit: cover;
+                transition: opacity 300ms ease;
+                border-radius: 0.4rem;
+            }
+
+            .roll-icon {
+                background-color: rgba(white, 0.2);
+                opacity: 0;
+            }
+
+            &:hover .roll-icon {
+                opacity: 1;
+            }
+
+        }
+    }
+
+    .move-accordion {
+        flex: 1;
+
+        .move-header {
+            padding: 0.5rem;
+            background-color: rgba($color: #000000, $alpha: 0.5);
+            border-radius: 0 0.4rem 0.4rem 0;
+
+            .move-name {
+                font-size: 1.6rem;
+                flex-grow: 1;
+                height: 1.8rem;
+                color: white;
+            }
+
+            .move-type {
+                margin: auto 1.5rem;
+            }
+
+            .move-menu {
+                font-size: 1.2rem;
+                margin: auto;
+                padding: 0 0.2rem;
+            }
+        }
+
+        .move-content {
+            margin-right: 1rem;
+            background-color: rgba($color: #000000, $alpha: 0.3);
+            padding: 0.1rem 0.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+
+            .description-content {
+                min-height: 3rem;
+            }
+        }
+    }
+
+    &.empty-move {
+        cursor: pointer;
+        align-items: center;
+        font-size: 2.5rem;
+        border: 0.4rem dashed rgba(black, 0.4);
+        transition: border-color 700ms;
+
+        .create-doc-icon {
+            margin: 0.5rem 0;
+            transition: color 500ms, transform 500ms;
+            color: rgba(black, 0.4);
+        }
+
+        &:hover {
+            border-color: rgba(black, 0.7);
+
+            .create-doc-icon {
+                color: rgba(black, 0.7);
+                transform: scale(1.1);
+            }
+        }
+    }
+}

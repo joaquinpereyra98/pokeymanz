@@ -1,0 +1,25 @@
+@use "../abstracts" as *;
+
+input.document-name {
+  font-size: 2.5rem;
+  .body-card & {
+    font-size: 3.5rem;
+  }
+  font-weight: bold;
+  font-family: $pokeymanz-font-title;
+  margin: 0.1em 0;
+  background-color: rgba($color: black, $alpha: 0.1);
+  border: 2px solid;
+  height: auto;
+  color: var(--text-color);
+
+  &:disabled {
+    background-color: transparent;
+    border: 0;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: rgba($color: black, $alpha: 0.2);
+  }
+}

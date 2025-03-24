@@ -20,8 +20,6 @@ Pokemon Type Icons - Vector desing by [Lugia-Sea](https://www.deviantart.com/lug
 
 Vector-dice vector desing by [Amaruuk](https://ko-fi.com/amaruuk/)
 
-Savage Worlds, all unique characters, creatures, and locations, artwork, logos, and the Pinnacle logo are © 2020 Great White Games, LLC; DBA Pinnacle Entertainment Group. Distributed by Studio 2 Publishing, Inc.
-
 Foundry Virtual Tabletop © Copyright 2023, [Foundry Gaming](https://foundryvtt.com/), LLC. All rights reserved
 
 Pokémon © 2002-2024 Pokémon. © 1995-2024 Nintendo/Creatures Inc./GAME FREAK inc. TM, ® and Pokémon character names are trademarks of Nintendo.

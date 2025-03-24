@@ -1,56 +1,128 @@
 {
+    "TYPES": {
+        "Actor": {
+            "trainer": "Trainer",
+            "pokemon": "Pokemon"
+        },
+        "Item": {
+            "feat": "Feat",
+            "gear": "Gear",
+            "move": "Move"
+        }
+    },
     "POKEYMANZ": {
-        "Modifier": "Modifier",
-        "Value": "Value",
-        "Name": "Name",
-        "Calling": "Calling",
-        "Pronouns": "Pronouns",
-        "Age": "Age",
-        "Currency": "Currency",
-        "Heart": "Heart",
-        "Fitness": "Fitness",
-        "Research": "Research",
-        "Tatics": "Tatics",
-        "Attributes": "Attributes",
-        "Toughness": "Toughness",
-        "Types": "Types",
-        "Edge": "Edge",
-        "PrimaryType": "Primary Type",
-        "SecondaryType": "Secondary Type",
-        "AttributePromptTitle": "{attr} Attribute Check",
-        "AttributeMenuTitle": "Attribute Menu",
-        "StatMenuTitle": "Stats Menu",
-        "ApplyButton": "Apply Changes",
-        "CancelButton": "Cancel Changes",
-        "ToughnessBooleanLabel": "Auto-Calc Toughness",
-        "ToughnessBooleanText": "Activated the Trainer's Toughness value will be its Fitness die type halved.",
-        "SourceLabel": "Source",
-        "DescriptionLabel": "Description",
-        "RequirementLabel": "Requirement",
-        "ItemTypeLabel": "Item Type",
-        "NotesLabel": "Notes",
-        "Battle": "Battle",
-        "Social": "Social",
-        "Utility": "Utility",
-        "CategoryLabel": "Category",
-        "None": "No Type",
-        "Normal": "Normal",
-        "Fire": "Fire",
-        "Water": "Water",
-        "Grass": "Grass",
-        "Flying": "Flying",
-        "Fighting": "Fighting",
-        "Poison": "Poison",
-        "Electric": "Electric",
-        "Ground": "Ground",
-        "Rock": "Rock",
-        "Psychic": "Psychic",
-        "Ice": "Ice",
-        "Bug": "Bug",
-        "Ghost": "Ghost",
-        "Steel": "Steel",
-        "Dragon": "Dragon",
-        "Dark": "Dark",
-        "Fairy": "Fairy"
+        "Attributes": {
+            "Label": "Attributes",
+            "Heart": "Heart",
+            "Fitness": "Fitness",
+            "Research": "Research",
+            "Tactics": "Tactics"
+        },
+        "ItemTypes": {
+            "Edge": "Edge",
+            "Hindrance": "Hindrance",
+            "Curative": "Curative",
+            "Pokeball": "Pokeball",
+            "HeldItem": "Held Item",
+            "RareItems": "Rare Items",
+            "Supplies": "Supplies",
+            "KeyItems": "Key Items"
+        },
+        "ItemSubtypes": {
+            "Edge": {
+                "Battle": "Battle",
+                "Social": "Social",
+                "Utility": "Utility"
+            },
+            "Hindrance": {
+                "Minor": "Minor",
+                "Major": "Major"
+            },
+            "Curative": {
+                "Simple": "Simple",
+                "Greater": "Greater"
+            },
+            "Pokeball": {
+                "Specialty": "Specialty",
+                "Stronger": "Stronger"
+            },
+            "HeldItem": {
+                "Disposable": "Disposable",
+                "Persistent": "Persistent"
+            }
+        },
+        "Moves":{
+            "Categories": {
+                "Physical": "Physical",
+                "Special": "Special",
+                "Status": "Status"
+            }
+        },
+        "Actor": {
+            "Details": {
+                "Species": "Species",
+                "Gender": "Gender",
+                "Calling": "Calling",
+                "Pronouns": "Pronouns",
+                "Age": "Age"
+            }
+        },
+        "Sheets": {
+            "TABS": {
+                "Summary": "Summary",
+                "Features": "Features",
+                "Inventory": "Inventory",
+                "Pokemon": "Pokemon",
+                "Effects": "Effects"
+            }
+        },
+        "Types": {
+            "None": "No Type",
+            "Normal": "Normal",
+            "Fire": "Fire",
+            "Water": "Water",
+            "Grass": "Grass",
+            "Flying": "Flying",
+            "Fighting": "Fighting",
+            "Poison": "Poison",
+            "Electric": "Electric",
+            "Ground": "Ground",
+            "Rock": "Rock",
+            "Psychic": "Psychic",
+            "Ice": "Ice",
+            "Bug": "Bug",
+            "Ghost": "Ghost",
+            "Steel": "Steel",
+            "Dragon": "Dragon",
+            "Dark": "Dark",
+            "Fairy": "Fairy"
+        },
+        "Effect": {
+            "Applied": "Applied",
+            "Inactive": "Inactive",
+            "Source": "Source",
+            "Passive": "Passive",
+            "Temporary": "Temporary",
+            "ActiveEffect": "Active {effect}",
+            "InactiveEffect": "Inactive {effect}"
+        },
+        "Item": {
+            "Backpack": "Backpack",
+            "Computer": "PC",
+            "EquipItem": "Equip {item}",
+            "UnquipItem" : "Unquip {item}",
+            "EditItem": "Edit Item",
+            "UseItem" : "Use {item}",
+            "StatusesLabel" : "Status Effects",
+            "StatusesHint": "Select one or more status effects that this move can apply to the target",
+            "EffectsLabel": "Active Effects",
+            "EffectsHint": "Select one or more active effects that this movement possesses and that this move can apply to the target.",
+            "TargetLabel": "Target",
+            "TargetHint": "Choose how the effects are applied—whether to the targeted actors, yourself, or a specific actor set by UUID"
+        },
+        "Description": "Description",
+        "GMNotes": "GM Notes",
+        "Category": "Category",
+        "Type": "Type"
     }
 }

@@ -1,0 +1,77 @@
+<ol class="items-list effects-list">
+    {{#each effects as |section sid|}}
+    <div class="accordion-container">
+        <li class="items-header effects-header flexrow">
+            <i class="accordion-icon fa-solid fa-caret-down"></i>
+            <div class="item-name flexrow">
+                {{localize section.label}}
+            </div>
+            <div class="effect-data">
+                {{localize "POKEYMANZ.Effect.Source"}}
+            </div>
+            <div class="effect-data">
+                {{#if (ne section.type "passive")}}
+                {{localize "EFFECT.TabDuration"}}
+                {{/if}}
+            </div>
+            <div class="item-controls">
+                <a class="item-control" data-action="createDoc"
+                    data-document-class="ActiveEffect"
+                    data-type="{{section.type}}"
+                    data-tooltip="{{localize "DOCUMENT.New" type="Effect"
+                    }}">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </li>
+        <ol class="item-list effect-list spacing--p-0 spacing--m-0"
+            data-effect-type="{{section.type}}">
+            {{#each section.effects as |effect|}}
+            <li class="item effect flexrow" data-doc-id="{{effect.id}}"
+                data-document-class="ActiveEffect"
+                data-drag="true" data-effect-type="{{section.type}}">
+                <div class="item-name flexrow">
+                    <img class="item-image" src="{{effect.img}}"
+                        height="24" width="24" alt="{{effect.name}}">
+                    <div>{{effect.name}}</div>
+                </div>
+                <div class="effect-source">{{effect.sourceName}}</div>
+                <div class="effect-duration">
+                    {{#if effect.isTemporary }}
+                    {{effect.duration.label}}
+                    {{/if}}
+                </div>
+                <div class="item-controls flexrow">
+                    {{#if @root.editable}}
+                    <a class="item-control" data-action="toggleEffect"
+                        {{#if effect.disabled}}
+                        data-tooltip="{{localize "POKEYMANZ.Effect.InactiveEffect"
+                        effect=effect.name}}"
+                        {{else}}
+                        data-tooltip="{{localize "POKEYMANZ.Effect.ActiveEffect"
+                        effect=effect.name}}"
+                        {{/if}}>
+                        <i
+                            class="fas fa-lightbulb{{ifThen effect.disabled "" "-on"
+                            }}"></i>
+                    </a>
+                    {{/if}}
+                    <a class="item-control" data-action="viewDoc"
+                        data-tooltip="{{localize "DOCUMENT.Update"
+                        type=effect.name }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{#if @root.editable}}
+                    <a class="item-control" data-action="deleteDoc"
+                        data-tooltip="{{localize "DOCUMENT.Delete"
+                        type=effect.name }}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
+</ol>

@@ -1,0 +1,50 @@
+@use '../abstracts/' as *;
+
+
+.summary-header {
+    --profile-img-width: max(20%, 130px);
+
+    .portrait {
+        width: calc(var(--profile-img-width) + 1rem);
+        padding: 0 0.5rem;
+
+        .profile-img {
+            border-radius: 10px;
+            border: 0.3em solid $pokeymanz-c-red;
+            object-fit: cover;
+            object-position: top center;
+            width: var(--profile-img-width);
+            height: var(--profile-img-width);
+            max-height: 200px;
+        }
+    }
+
+    .summary-inputs {
+        width: calc(100% - var(--profile-img-width) - 1rem);
+
+        input.document-name {
+            font-size: 3rem;
+            height: 3rem;
+        }
+    }
+}
+
+.description-container {
+
+    .description-header {
+        align-items: center;
+        align-content: center;
+        padding: 0.4rem 1rem 0.4rem 0.6rem;
+        font-size: large;
+        background-color: var(--pokeymanz-color-ui-red);
+        border-radius: 0.4rem 0.4rem 0 0;
+        color: white;
+        font-weight: bold;
+        margin: 0;
+        margin-top: 0.5rem;
+    }
+
+    .description-content {
+        background-color: rgba($color: black, $alpha: 0.3);
+    }
+}

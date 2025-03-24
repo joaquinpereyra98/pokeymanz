@@ -1,0 +1,33 @@
+<div class="attributes-container-{{ifThen isPlayMode "play" "edit"}}
+    display--flex--col">
+    {{#each system.attributes as |attribute key|}}
+    {{#if ../isPlayMode}}
+    <a class="attribute-container {{key}} display--flex--col">
+        <label
+            class="attribute-label display--flex--center">{{localize
+            attribute.name}}</label>
+        <div class="attribute-roll display--flex--center">
+            <img
+                src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg"
+                alt="{{attribute.die.sides}}">
+            {{numberFormat attribute.die.modifier sign=true}}
+        </div>
+    </a>
+    {{else}}
+    <div class="attribute-container {{key}} display--flex--col">
+        <label class="attribute-label display--flex--center">{{localize
+            attribute.name}}</label>
+        <div class="attributes-inputs display--flex--center">
+            <select class="attribute-side"
+                name="system.attributes.{{key}}.die.sides">
+                {{selectOptions @root.config.diceOptions
+                selected=attribute.die.sides}}
+            </select>
+            <input class="attribute-mod" type="number"
+                name="system.attributes.{{key}}.die.modifier" ,
+                value="{{attribute.die.modifier}}">
+        </div>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>

@@ -1,0 +1,109 @@
+<section
+  class="tab summary {{tab.cssClass}}"
+  data-group="primary"
+  data-tab="summary">
+  <div class="summary-header display--flex">
+    <div class="portrait">
+      <img
+        class="profile-img"
+        src="{{item.img}}"
+        data-edit="img"
+        data-action={{ifThen isPlayMode "renderIP" "setImg"}}
+        alt="{{item.name}}"
+        title="{{item.name}}" />
+    </div>
+    <div class="summary-inputs">
+      <div class="item-type-fields display--flex">
+        <select
+          class="item-type-badge"
+          name="system.type.value"
+          {{disabled isPlayMode}}>
+          {{selectOptions
+          system.type.choices
+          selected=system.type.value
+          localize=true
+          }}
+        </select>
+        {{#if (or (not isPlayMode) (and isPlayMode system.subtype.label)) }}
+        <select
+          class="item-type-badge"
+          name="system.subtype.value"
+          {{disabled isPlayMode}}>
+          {{selectOptions
+          system.subtype.choices
+          selected=system.subtype.value
+          localize=true
+          }}
+        </select>
+        {{/if}}
+      </div>
+      <input
+        class="document-name"
+        name="name"
+        type="text"
+        value="{{item.name}}"
+        placeholder="{{localize "Name"}}"
+        data-tooltip="{{item.name}}"
+        {{disabled isPlayMode}} />
+      <div class="display--flex">
+        {{#if havePrice}}
+        <div class="input-group display--flex--center size--xsmall">
+          <input
+            class="input-group-field spacing--p-0"
+            type="number"
+            name="system.price"
+            value="{{system.price}}"
+            {{disabled isPlayMode}} />
+          <i class="input-group-icon fa-solid fa-coin"></i>
+        </div>
+        {{/if}}
+        {{#if (and item.isEquipable item.parent)}}
+        <div class="input-group display--flex--center size--xsmall">
+          {{#if (not isPlayMode)}}
+          <a data-action="toggleEquip">
+            <i
+              class=" input-group-icon fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
+            <i
+              class="input-group-icon fa-solid
+              {{ifThen
+                system.equipped
+                'fa-backpack'
+                'fa-computer-classic'
+              }}">
+            </i>
+          </a>
+          {{else}}
+          <i class="input-group-icon
+          {{ifThen
+            system.equipped
+            ' fa-solid fa-backpack'
+            'fa-solid fa-computer-classic'
+          }}">
+          </i>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="summary-body">
+    {{#each descriptionFields as |description key|}}
+    {{#unless description.hidden}}
+    <div class="description-container accordion-container">
+      <div class="description-header">
+        <i class="accordion-icon fa-solid fa-caret-down"></i>
+        {{description.label}}
+      </div>
+      <div class="description-content">
+        {{formInput
+        description.field
+        value=description.value
+        enriched=description.enriched
+        toggled=true
+        }}
+      </div>
+    </div>
+    {{/unless}}
+    {{/each}}
+  </div>
+</section>

@@ -2,10 +2,10 @@
   "id": "pokeymanz",
   "title": "Pokeymanz TTRPG",
   "description": "A FoundryVTT system for PokeymanzTTRPG, pokemon fan-made tabletop RPG",
-  "version": "0.0.1",
+  "version": "#{VERSION}#",
   "compatibility": {
-    "minimum": "11",
-    "verified": "11.315"
+    "minimum": "12",
+    "verified": "12"
   },
   "authors": [
     {
@@ -16,23 +16,24 @@
     }
   ],
   "esmodules": [
-    "pokeymanz.mjs"
+    "pokeymanz.mjs",
+    "greensock/esm/all.js"
   ],
   "styles": [
-    "styles/pokestyle.css"
+    "styles/pokeymanz.css"
   ],
   "packs": [],
   "languages": [
     {
-      "lang":"en",
+      "lang": "en",
       "name": "English",
       "path": "lang/en.json"
     }
-
   ],
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "url": "",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
   "media": [
     {
       "type": "setup",
@@ -40,6 +41,53 @@
       "thumbnail": "systems/pokeymanz/assets/logo/HighResLogo_1.webp"
     }
   ],
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ]
+    }
+  },
+  "documentTypes": {
+    "Actor": {
+      "trainer": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
+      },
+      "pokemon": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes",
+          "stats.ability"
+        ]
+      }
+    },
+    "Item": {
+      "feat": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
+      },
+      "move": {
+        "htmlFields": [
+          "description.value",
+          "description.gmNotes"
+        ]
+      }
+    }
+  },
+  "url": "#{URL}#",
   "manifest": "",
-  "download": ""
+  "download": "#{DOWNLOAD}#"
 }
