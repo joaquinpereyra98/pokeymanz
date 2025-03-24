@@ -73,8 +73,7 @@
                 "Features": "Features",
                 "Inventory": "Inventory",
                 "Pokemon": "Pokemon",
-                "Effects": "Effects",
-                "Stats": "Statistics"
+                "Effects": "Effects"
             }
         },
         "Types": {
@@ -113,7 +112,13 @@
             "EquipItem": "Equip {item}",
             "UnquipItem" : "Unquip {item}",
             "EditItem": "Edit Item",
-            "UseItem" : "Use {item}"
+            "UseItem" : "Use {item}",
+            "StatusesLabel" : "Status Effects",
+            "StatusesHint": "Select one or more status effects that this move can apply to the target",
+            "EffectsLabel": "Active Effects",
+            "EffectsHint": "Select one or more active effects that this movement possesses and that this move can apply to the target.",
+            "TargetLabel": "Target",
+            "TargetHint": "Choose how the effects are applied—whether to the targeted actors, yourself, or a specific actor set by UUID"
         },
         "Description": "Description",
         "GMNotes": "GM Notes",

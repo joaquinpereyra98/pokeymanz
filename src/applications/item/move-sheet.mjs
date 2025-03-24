@@ -24,9 +24,6 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
     summary: {
       template: "systems/pokeymanz/templates/items/parts/move-summary.hbs",
     },
-    stats: {
-      template: "systems/pokeymanz/templates/items/parts/stats.hbs",
-    },
   };
 
   /**
@@ -39,12 +36,6 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
       group: "primary",
       icon: "fa-solid fa-address-card",
       label: "POKEYMANZ.Sheets.TABS.Summary",
-    },
-    {
-      id: "stats",
-      group: "primary",
-      icon: "fa-solid fa-list",
-      label: "POKEYMANZ.Sheets.TABS.Stats",
     },
     {
       id: "effects",
@@ -70,6 +61,7 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
       ...baseContext,
       categoryField: this._prepareCategory(),
       pokemonType: this._preparePokemonType(),
+      diceOptions: CONFIG.POKEYMANZ.diceOptions,
     };
   }
 

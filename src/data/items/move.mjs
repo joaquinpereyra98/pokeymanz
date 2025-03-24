@@ -25,9 +25,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
         ),
       }),
       description: descriptionsFields(),
-      stats: new fields.SchemaField({
-        ...attributeDiceFields(),
-      }),
+      ...attributeDiceFields(),
     };
   }
 

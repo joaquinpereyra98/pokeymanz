@@ -206,20 +206,20 @@ export const POKEYMANZ = {
       img: "systems/pokeymanz/assets/icons/items/comet-spark.svg",
       icon: "fa-solid fa-meteor",
       categories: {
-        physical:{
+        physical: {
           label: "POKEYMANZ.Moves.Categories.Physical",
           img: "systems/pokeymanz/assets/icons/moves/physical-move-icon.png",
         },
-        special:{
+        special: {
           label: "POKEYMANZ.Moves.Categories.Special",
           img: "systems/pokeymanz/assets/icons/moves/special-move-icon.png",
         },
-        status:{
+        status: {
           label: "POKEYMANZ.Moves.Categories.Status",
           img: "systems/pokeymanz/assets/icons/moves/status-move-icon.png",
         },
-      }
-    }
+      },
+    },
   },
   diceOptions: [
     { value: 4, label: "d4" },

@@ -13,23 +13,7 @@
                 title="{{item.name}}" />
         </div>
         <div class="summary-inputs">
-            <div class="display--flex">
-                {{#if isPlayMode}}
-                {{!-- TYPE BADGE --}}
-                {{#if pokemonType.primary.value}}
-                <div class="type-badge display--flex--center size--medium"
-                    style="--type-color: {{pokemonType.primary.color}}">
-                    <img src="{{pokemonType.primary.img}}"
-                        alt="{{pokemonType.primary.id}}">
-                    <span>{{localize pokemonType.primary.name}}</span>
-                </div>
-                {{/if}}
-                {{else}}
-                {{formInput pokemonType.primary.field
-                value=pokemonType.primary.value
-                localize=true}}
-                {{/if}}
-            </div>
+
             <input
                 class="document-name"
                 name="name"
@@ -55,6 +39,52 @@
                     value=categoryField.value
                     localize=true
                     }}
+                    {{/if}}
+                </div>
+                <div class="display--flex">
+                    {{#if isPlayMode}}
+                    {{!-- TYPE BADGE --}}
+                    {{#if pokemonType.primary.value}}
+                    <div
+                        class="type-badge display--flex--center size--medium"
+                        style="--type-color: {{pokemonType.primary.color}}">
+                        <img src="{{pokemonType.primary.img}}"
+                            alt="{{pokemonType.primary.id}}">
+                        <span>{{localize pokemonType.primary.name}}</span>
+                    </div>
+                    {{/if}}
+                    {{else}}
+                    {{formInput pokemonType.primary.field
+                    value=pokemonType.primary.value
+                    localize=true}}
+                    {{/if}}
+                </div>
+
+                <div class="input-gruop display--flex--center size--small">
+                    {{#if isPlayMode}}
+                    <a class="attribute-container display--flex--col">
+                        <label
+                            class="attribute-label display--flex--center">
+                            Dice Move
+                        </label>
+                        <div class="attribute-roll display--flex--center">
+                            <img
+                                src="systems/pokeymanz/assets/dice/d{{system.die.sides}}.svg"
+                                alt="{{system.die.sides}}">
+                            {{numberFormat system.die.modifier sign=true}}
+                        </div>
+                    </a>
+                    {{else}}
+                    <div class="attributes-inputs display--flex--center">
+                        <select class="attribute-side"
+                            name="system.die.sides">
+                            {{selectOptions diceOptions
+                            selected=system.die.sides}}
+                        </select>
+                        <input class="attribute-mod" type="number"
+                            name="system.die.modifier"
+                            value="{{system.die.modifier}}">
+                    </div>
                     {{/if}}
                 </div>
             </div>
