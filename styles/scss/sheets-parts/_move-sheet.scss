@@ -4,36 +4,19 @@ section.summary.tab {
   .sidebar-card {
     width: max(30%, 190px);
     min-width: 190px;
-
-    padding: 15px;
-    border-radius: 15px;
-    background: var(--card-color);
-    margin: 5px;
-    margin-bottom: auto;
-    box-shadow: 0 0 0.4em;
     gap: 10px;
 
     .portrait .profile-img {
-      border-radius: 10px;
-      border: 0.3em solid $pokeymanz-c-red;
-      object-fit: cover;
-      object-position: top center;
-
       min-height: 160px;
       max-height: 230px;
       width: 100%;
     }
   }
 
-  .body-card {
-    margin-left: 5px;
+  .body-container {
     width: max(70%, 200px);
     min-width: 200px;
+    margin-left: 10px;
     gap: 5px;
-
-    .details-container {
-      flex-wrap: wrap;
-      gap: 5px;
-    }
   }
 }

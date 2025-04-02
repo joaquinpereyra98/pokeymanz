@@ -4,20 +4,8 @@ section.summary.tab {
   .sidebar-card {
     width: max(30%, 230px);
     min-width: 230px;
-    padding: 15px;
-    border-radius: 15px;
-    background-color: var(--card-color);
-    margin: 0.4rem;
-    margin-bottom: auto;
-    box-shadow: 0 0 0.4em;
-    -moz-box-shadow: 0 0 0.4em;
-    -webkit-box-shadow: 0 0 0.4em;
 
     .portrait .profile-img {
-      border-radius: 10px;
-      border: 0.3em solid $pokeymanz-c-red;
-      object-fit: cover;
-      object-position: top center;
       min-height: 200px;
       max-height: 280px;
       width: 100%;
@@ -98,10 +86,10 @@ section.summary.tab {
 
   }
 
-  .body-card {
+  .body-container {
     width: max(70%, 280px);
     min-width: 280px;
-    margin-left: 15px;
+    margin-left: 10px;
     gap: 5px;
 
     .details-container {

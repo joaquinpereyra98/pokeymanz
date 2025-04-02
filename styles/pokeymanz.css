@@ -250,20 +250,8 @@
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card {
   width: max(30%, 230px);
   min-width: 230px;
-  padding: 15px;
-  border-radius: 15px;
-  background-color: var(--card-color);
-  margin: 0.4rem;
-  margin-bottom: auto;
-  box-shadow: 0 0 0.4em;
-  -moz-box-shadow: 0 0 0.4em;
-  -webkit-box-shadow: 0 0 0.4em;
 }
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card .portrait .profile-img {
-  border-radius: 10px;
-  border: 0.3em solid var(--pokeymanz-color-ui-red);
-  object-fit: cover;
-  object-position: top center;
   min-height: 200px;
   max-height: 280px;
   width: 100%;
@@ -327,13 +315,13 @@
   flex: 1;
   max-width: 50%;
 }
-.pokeymanz.sheet.actor section.summary.tab .body-card {
+.pokeymanz.sheet.actor section.summary.tab .body-container {
   width: max(70%, 280px);
   min-width: 280px;
-  margin-left: 15px;
+  margin-left: 10px;
   gap: 5px;
 }
-.pokeymanz.sheet.actor section.summary.tab .body-card .details-container {
+.pokeymanz.sheet.actor section.summary.tab .body-container .details-container {
   flex-wrap: wrap;
   gap: 5px;
 }
@@ -559,31 +547,17 @@
 .pokeymanz.sheet.item section.summary.tab .sidebar-card {
   width: max(30%, 190px);
   min-width: 190px;
-  padding: 15px;
-  border-radius: 15px;
-  background: var(--card-color);
-  margin: 5px;
-  margin-bottom: auto;
-  box-shadow: 0 0 0.4em;
   gap: 10px;
 }
 .pokeymanz.sheet.item section.summary.tab .sidebar-card .portrait .profile-img {
-  border-radius: 10px;
-  border: 0.3em solid var(--pokeymanz-color-ui-red);
-  object-fit: cover;
-  object-position: top center;
   min-height: 160px;
   max-height: 230px;
   width: 100%;
 }
-.pokeymanz.sheet.item section.summary.tab .body-card {
-  margin-left: 5px;
+.pokeymanz.sheet.item section.summary.tab .body-container {
   width: max(70%, 200px);
   min-width: 200px;
-  gap: 5px;
-}
-.pokeymanz.sheet.item section.summary.tab .body-card .details-container {
-  flex-wrap: wrap;
+  margin-left: 10px;
   gap: 5px;
 }
 
@@ -690,7 +664,7 @@
   height: auto;
   color: var(--text-color);
 }
-.pokeymanz.sheet .body-card input.document-name {
+.pokeymanz.sheet .body-container input.document-name {
   font-size: 3.5rem;
 }
 .pokeymanz.sheet input.document-name:disabled {
@@ -854,6 +828,22 @@
 .pokeymanz.sheet .fix-context-menu.aling--right #context-menu {
   right: 0;
   left: auto;
+}
+.pokeymanz.sheet .card {
+  background: var(--card-color);
+  margin: 0.4rem;
+  margin-bottom: auto;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 0.4em;
+  -moz-box-shadow: 0 0 0.4em;
+  -webkit-box-shadow: 0 0 0.4em;
+}
+.pokeymanz.sheet .card .portrait .profile-img {
+  border-radius: 10px;
+  border: 0.3em solid var(--pokeymanz-color-ui-red);
+  object-fit: cover;
+  object-position: top center;
 }
 .pokeymanz.sheet header.window-header {
   border: 0;

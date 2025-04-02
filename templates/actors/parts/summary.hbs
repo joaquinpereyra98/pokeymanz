@@ -1,6 +1,6 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
     <div class="display--flex">
-        <div class="sidebar-card flexcol">
+        <div class="sidebar-card card flexcol">
             <div class="portrait actor-portrait">
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action={{ifThen
                     isPlayMode "renderIP" "setImg" }} alt="{{actor.name}}" title="{{actor.name}}" />
@@ -56,7 +56,7 @@
             system=system }}
             {{/if}}
         </div>
-        <div class="body-card flexcol">
+        <div class="body-container flexcol">
             <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
                 {{disabled isPlayMode }} />
             <div class="display--flex details-container">

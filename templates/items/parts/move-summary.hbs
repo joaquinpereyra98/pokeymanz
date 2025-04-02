@@ -2,7 +2,7 @@
     <input class="document-name" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}"
         data-tooltip="{{item.name}}" {{disabled isPlayMode}} />
     <div class="display--flex--space-evenly">
-        <div class="sidebar-card flexcol display--flex--center">
+        <div class="sidebar-card card flexcol display--flex--center">
             <div class="portrait">
                 <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen
                     isPlayMode "renderIP" "setImg" }} alt="{{item.name}}" title="{{item.name}}" />
@@ -72,7 +72,7 @@
                 {{/if}}
             </div>
         </div>
-        <div class="body-card flexcol">
+        <div class="body-container flexcol">
             {{#each descriptionFields as |description key|}}
             {{#unless description.hidden}}
             <div class="description-container accordion-container">

@@ -1,0 +1,20 @@
+@use "../abstracts/colors" as *;
+
+.card {
+  background: var(--card-color);
+  margin: 0.4rem;
+  margin-bottom: auto;
+  padding: 15px;
+  border-radius: 15px;
+
+  box-shadow: 0 0 0.4em;
+  -moz-box-shadow: 0 0 0.4em;
+  -webkit-box-shadow: 0 0 0.4em;
+
+  .portrait .profile-img {
+    border-radius: 10px;
+    border: 0.3em solid $pokeymanz-c-red;
+    object-fit: cover;
+    object-position: top center;
+  }
+}
