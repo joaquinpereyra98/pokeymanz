@@ -30,7 +30,7 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
     const config = CONFIG.POKEYMANZ.items.feat;
 
     this.type.choices = Object.fromEntries(
-      Object.entries(config.types).map(([key, { label }]) => [key, label])
+      Object.entries(config.types).map(([key, { label }]) => [key, label]),
     );
 
     if (this.type.value) {

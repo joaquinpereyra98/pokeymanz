@@ -9,13 +9,13 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
  * @alias PokemonSheet
  */
 export default class PokemonSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet
+  BaseActorSheet,
 ) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
       width: 800,
-      height: 700,
+      height: 550,
     },
     actions: {},
     contextMenus: [
@@ -79,7 +79,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
     return [
       {
         name: "POKEYMANZ.Item.EditItem",
-        icon: '<i class="fas fa-edit"></i>',
+        icon: "<i class=\"fas fa-edit\"></i>",
         callback: ([html]) => {
           const uuid = html.dataset.itemUuid;
           fromUuidSync(uuid)?.sheet?.render({ force: true });
@@ -87,7 +87,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       },
       {
         name: "Delete",
-        icon: '<i class="fas fa-trash"></i>',
+        icon: "<i class=\"fas fa-trash\"></i>",
         callback: ([html]) => {
           const uuid = html.dataset.itemUuid;
           fromUuidSync(uuid)?.delete();
@@ -134,7 +134,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
             secrets: move.isOwner,
             rollData: move.getRollData(),
             relativeTo: move,
-          }
+          },
         ),
       });
     }

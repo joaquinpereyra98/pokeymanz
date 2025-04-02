@@ -54,7 +54,7 @@ export default class Accordion {
       this.#config;
 
     const forceExpand = startExpanded === true;
-    const forceCollapse = startCollapsed === true && !forceExpand;
+    const forceCollapse = (startCollapsed === true) && !forceExpand;
 
     let collapsedIndex = 0;
     for (const heading of root.querySelectorAll(headingSelector)) {
@@ -68,7 +68,7 @@ export default class Accordion {
       if (firstBind) {
         const isCollapsed = forceExpand
           ? false
-          : forceCollapse || this.#collapsed.length > 0;
+          : forceCollapse || (this.#collapsed.length > 0);
 
         this.#collapsed.push(isCollapsed);
 
@@ -125,7 +125,7 @@ export default class Accordion {
     if (this.#config.collapseOthers) {
       for (const [otherHeading, otherContent] of this.#sections.entries()) {
         if (
-          heading !== otherHeading &&
+          (heading !== otherHeading) &&
           !otherHeading.parentElement.classList.contains("collapsed")
         ) {
           this._onCollapseSection(otherHeading, otherContent);
@@ -185,7 +185,7 @@ export default class Accordion {
     this.#collapsed = [];
     for (const heading of this.#sections.keys()) {
       this.#collapsed.push(
-        heading.parentElement.classList.contains("collapsed")
+        heading.parentElement.classList.contains("collapsed"),
       );
     }
   }

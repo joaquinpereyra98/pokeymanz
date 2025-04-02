@@ -1,0 +1,76 @@
+@use "../../abstracts/colors" as *;
+
+.rollable-button,
+.rollable-inputs {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: white;
+  transition: 200ms;
+  filter: saturate(0.8);
+  box-shadow: 0 0 5px $pokeymanz-c-red;
+  background: $pokeymanz-c-red;
+}
+
+.rollable-label {
+  font-family: var(--pokeymanz-font-label);
+  line-height: 1rem;
+  font-size: 15px;
+  cursor: inherit;
+}
+
+.rollable-button {
+  &:hover {
+    filter: saturate(1.1);
+    transform: scale(1.1);
+    text-shadow: none;
+  }
+
+
+  .rollable-frame {
+    font-family: var(--pokeymanz-font-title);
+    font-size: 2rem;
+    width: 90%;
+    font-weight: bold;
+
+    img {
+      width: 2rem;
+      filter: invert(1);
+      transition: 200ms;
+      border: 0;
+    }
+  }
+}
+
+.rollable-inputs {
+  gap: 5px;
+  padding-bottom: 2px;
+
+  .rollable-label {
+    flex: 1 1 100%;
+    text-align: center;
+
+  }
+
+  .rollable-dice-side,
+  .rollable-dice-mod {
+    text-align: center;
+    font-size: 1.1rem;
+    border: 0;
+    padding: 0 0.5ch;
+    min-width: 0;
+  }
+
+  .rollable-dice-side {
+    width: 7ch;
+    flex: 2;
+  }
+
+  .rollable-dice-mod {
+    width: 3.3ch;
+    flex: 1;
+  }
+}

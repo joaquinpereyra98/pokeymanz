@@ -21,7 +21,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
             acc[v[0]] = v[1].label;
             return acc;
           },
-          {}
+          {},
         ),
       }),
       description: descriptionsFields(),
@@ -52,7 +52,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
 
     const isItemInvalidForActor =
       actor?.system?.constructor?.metadata?.invalidItemTypes?.includes(
-        this.parent.type
+        this.parent.type,
       );
     const hasReachedMaxMoves = actor?.itemTypes?.move?.length >= 4;
 

@@ -147,6 +147,82 @@
   padding-left: 5px;
   text-align: left;
 }
+.pokeymanz.sheet .pokeymanz {
+  --pokeymanz-color-ui-red: #C6242C;
+  --pokeymanz-color-ui-white: #fbfbfb !important;
+  --pokeymanz-color-ui-black: #383939 !important;
+  --pokeymanz-color-card-light: #818078;
+  --pokeymanz-color-card-dark: #222222;
+  --pokeymanz-color-research: #2c94bb;
+  --pokeymanz-color-heart: #ff3750;
+  --pokeymanz-color-tactics: #087608;
+  --pokeymanz-color-fitness: #f86522;
+  --pokeymanz-color-toughness-primary: #002b77;
+  --pokeymanz-color-toughness-secondary: #3f6ab8;
+  --pokeymanz-color-wounds-primary: #941100;
+  --pokeymanz-color-wounds-secondary: #ce3922;
+}
+.pokeymanz.sheet .rollable-button,
+.pokeymanz.sheet .rollable-inputs {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: white;
+  transition: 200ms;
+  filter: saturate(0.8);
+  box-shadow: 0 0 5px var(--pokeymanz-color-ui-red);
+  background: var(--pokeymanz-color-ui-red);
+}
+.pokeymanz.sheet .rollable-label {
+  font-family: var(--pokeymanz-font-label);
+  line-height: 1rem;
+  font-size: 15px;
+  cursor: inherit;
+}
+.pokeymanz.sheet .rollable-button:hover {
+  filter: saturate(1.1);
+  transform: scale(1.1);
+  text-shadow: none;
+}
+.pokeymanz.sheet .rollable-button .rollable-frame {
+  font-family: var(--pokeymanz-font-title);
+  font-size: 2rem;
+  width: 90%;
+  font-weight: bold;
+}
+.pokeymanz.sheet .rollable-button .rollable-frame img {
+  width: 2rem;
+  filter: invert(1);
+  transition: 200ms;
+  border: 0;
+}
+.pokeymanz.sheet .rollable-inputs {
+  gap: 5px;
+  padding-bottom: 2px;
+}
+.pokeymanz.sheet .rollable-inputs .rollable-label {
+  flex: 1 1 100%;
+  text-align: center;
+}
+.pokeymanz.sheet .rollable-inputs .rollable-dice-side,
+.pokeymanz.sheet .rollable-inputs .rollable-dice-mod {
+  text-align: center;
+  font-size: 1.1rem;
+  border: 0;
+  padding: 0 0.5ch;
+  min-width: 0;
+}
+.pokeymanz.sheet .rollable-inputs .rollable-dice-side {
+  width: 7ch;
+  flex: 2;
+}
+.pokeymanz.sheet .rollable-inputs .rollable-dice-mod {
+  width: 3.3ch;
+  flex: 1;
+}
 .pokeymanz.sheet.actor {
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
@@ -252,7 +328,8 @@
   max-width: 50%;
 }
 .pokeymanz.sheet.actor section.summary.tab .body-card {
-  min-width: 450px;
+  width: max(70%, 280px);
+  min-width: 280px;
   margin-left: 15px;
   gap: 5px;
 }
@@ -280,89 +357,28 @@
   --pokeymanz-font-label: "Sigmar One", sans-serif;
   --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
-.pokeymanz.sheet.actor .attributes-container-play,
-.pokeymanz.sheet.actor .attributes-container-edit {
+.pokeymanz.sheet.actor .attributes-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(90px, 1fr));
   grid-template-rows: repeat(2, 1fr);
   gap: 15px;
   margin: 5px 0;
 }
-.pokeymanz.sheet.actor .attributes-container-play .heart,
-.pokeymanz.sheet.actor .attributes-container-edit .heart {
+.pokeymanz.sheet.actor .attributes-container .heart {
   --attribute-color: var(--pokeymanz-color-heart);
 }
-.pokeymanz.sheet.actor .attributes-container-play .research,
-.pokeymanz.sheet.actor .attributes-container-edit .research {
+.pokeymanz.sheet.actor .attributes-container .research {
   --attribute-color: var(--pokeymanz-color-research);
 }
-.pokeymanz.sheet.actor .attributes-container-play .fitness,
-.pokeymanz.sheet.actor .attributes-container-edit .fitness {
+.pokeymanz.sheet.actor .attributes-container .fitness {
   --attribute-color: var(--pokeymanz-color-fitness);
 }
-.pokeymanz.sheet.actor .attributes-container-play .tactics,
-.pokeymanz.sheet.actor .attributes-container-edit .tactics {
+.pokeymanz.sheet.actor .attributes-container .tactics {
   --attribute-color: var(--pokeymanz-color-tactics);
 }
-.pokeymanz.sheet.actor .attributes-container-play .attribute-label,
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-label {
-  font-family: var(--pokeymanz-font-label);
-  height: 1rem;
-  font-size: 0.9rem;
-  cursor: inherit;
-}
-.pokeymanz.sheet.actor .attributes-container-play .attribute-container,
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container {
-  align-items: center;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: var(--attribute-color);
-  color: white;
-}
-.pokeymanz.sheet.actor .attributes-container-play .attribute-container {
-  transition: 200ms;
-  color: white;
-  filter: saturate(0.8);
-  box-shadow: 0 0 5px var(--attribute-color);
-  padding-bottom: 0;
-}
-.pokeymanz.sheet.actor .attributes-container-play .attribute-container:hover {
-  filter: saturate(1.1);
-  transform: scale(1.1);
-  text-shadow: none;
-}
-.pokeymanz.sheet.actor .attributes-container-play .attribute-container .attribute-roll {
-  font-family: var(--pokeymanz-font-title);
-  font-size: 2rem;
-  width: 90%;
-  font-weight: bold;
-}
-.pokeymanz.sheet.actor .attributes-container-play .attribute-container .attribute-roll img {
-  width: 2rem;
-  filter: invert(1);
-  transition: 200ms;
-  border: 0;
-}
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container {
-  gap: 5px;
-}
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs {
-  gap: 5px;
-}
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs select.attribute-side,
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs input.attribute-mod {
-  text-align: center;
-  font-size: 1.1rem;
-  border: 0;
-  padding: 0 0.5ch;
-}
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs select.attribute-side.attribute-side,
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs input.attribute-mod.attribute-side {
-  width: 5.3ch;
-}
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs select.attribute-side.attribute-mod,
-.pokeymanz.sheet.actor .attributes-container-edit .attribute-container .attributes-inputs input.attribute-mod.attribute-mod {
-  width: 3.3ch;
+.pokeymanz.sheet.actor .attributes-container .rollable-button,
+.pokeymanz.sheet.actor .attributes-container .rollable-inputs {
+  background: var(--attribute-color);
 }
 .pokeymanz.sheet.actor .move-list {
   gap: 1rem;
@@ -524,6 +540,51 @@
 }
 .pokeymanz.sheet.item .description-container .description-content {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.pokeymanz.sheet.item .pokeymanz {
+  --pokeymanz-color-ui-red: #C6242C;
+  --pokeymanz-color-ui-white: #fbfbfb !important;
+  --pokeymanz-color-ui-black: #383939 !important;
+  --pokeymanz-color-card-light: #818078;
+  --pokeymanz-color-card-dark: #222222;
+  --pokeymanz-color-research: #2c94bb;
+  --pokeymanz-color-heart: #ff3750;
+  --pokeymanz-color-tactics: #087608;
+  --pokeymanz-color-fitness: #f86522;
+  --pokeymanz-color-toughness-primary: #002b77;
+  --pokeymanz-color-toughness-secondary: #3f6ab8;
+  --pokeymanz-color-wounds-primary: #941100;
+  --pokeymanz-color-wounds-secondary: #ce3922;
+}
+.pokeymanz.sheet.item section.summary.tab .sidebar-card {
+  width: max(30%, 190px);
+  min-width: 190px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--card-color);
+  margin: 5px;
+  margin-bottom: auto;
+  box-shadow: 0 0 0.4em;
+  gap: 10px;
+}
+.pokeymanz.sheet.item section.summary.tab .sidebar-card .portrait .profile-img {
+  border-radius: 10px;
+  border: 0.3em solid var(--pokeymanz-color-ui-red);
+  object-fit: cover;
+  object-position: top center;
+  min-height: 160px;
+  max-height: 230px;
+  width: 100%;
+}
+.pokeymanz.sheet.item section.summary.tab .body-card {
+  margin-left: 5px;
+  width: max(70%, 200px);
+  min-width: 200px;
+  gap: 5px;
+}
+.pokeymanz.sheet.item section.summary.tab .body-card .details-container {
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .pokeymanz {
@@ -800,11 +861,11 @@
 }
 .pokeymanz.sheet section.window-content {
   padding: 0;
-  overflow-y: auto;
+  overflow: auto;
   scrollbar-color: var(--pokeymanz-color-ui-red) rgba(0, 0, 0, 0.3);
 }
 .pokeymanz.sheet section.tab {
-  margin: 2em 1em;
+  margin: 10px;
 }
 .theme-light .pokeymanz.sheet {
   --background-color: var(--pokeymanz-color-ui-white);

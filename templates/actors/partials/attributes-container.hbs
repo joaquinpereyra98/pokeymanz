@@ -1,32 +1,26 @@
-<div class="attributes-container-{{ifThen isPlayMode "play" "edit"}}
-    display--flex--col">
+<div class="attributes-container display--flex--col">
     {{#each system.attributes as |attribute key|}}
     {{#if ../isPlayMode}}
-    <a class="attribute-container {{key}} display--flex--col">
-        <label
-            class="attribute-label display--flex--center">{{localize
-            attribute.name}}</label>
-        <div class="attribute-roll display--flex--center">
-            <img
-                src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg"
-                alt="{{attribute.die.sides}}">
+    <a class="rollable-button {{key}} display--flex--col">
+        <label class="rollable-label display--flex--center">
+            {{localize attribute.name}}
+        </label>
+        <div class="rollable-frame display--flex--center">
+            <img src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg" alt="{{attribute.die.sides}}">
             {{numberFormat attribute.die.modifier sign=true}}
         </div>
     </a>
     {{else}}
-    <div class="attribute-container {{key}} display--flex--col">
-        <label class="attribute-label display--flex--center">{{localize
-            attribute.name}}</label>
-        <div class="attributes-inputs display--flex--center">
-            <select class="attribute-side"
-                name="system.attributes.{{key}}.die.sides">
+    <div class="rollable-inputs {{key}}">
+        <label class="rollable-label">
+            {{localize attribute.name}}
+        </label>
+            <select class="rollable-dice-side" name="system.attributes.{{key}}.die.sides">
                 {{selectOptions @root.config.diceOptions
                 selected=attribute.die.sides}}
             </select>
-            <input class="attribute-mod" type="number"
-                name="system.attributes.{{key}}.die.modifier" ,
+            <input class="rollable-dice-mod" type="number" name="system.attributes.{{key}}.die.modifier" ,
                 value="{{attribute.die.modifier}}">
-        </div>
     </div>
     {{/if}}
     {{/each}}

@@ -38,7 +38,7 @@ export default class GearData extends foundry.abstract.TypeDataModel {
     const config = CONFIG.POKEYMANZ.items.gear;
 
     this.type.choices = Object.fromEntries(
-      Object.entries(config.types).map(([key, { label }]) => [key, label])
+      Object.entries(config.types).map(([key, { label }]) => [key, label]),
     );
 
     if (this.type.value) {
@@ -48,7 +48,7 @@ export default class GearData extends foundry.abstract.TypeDataModel {
       this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
 
-    if(!this.parent.parent instanceof Actor) this.equipped = false;
+    if (!this.parent.parent instanceof Actor) this.equipped = false;
 
   }
 

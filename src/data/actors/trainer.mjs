@@ -9,7 +9,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
    * Key information about this Actor subtype
    */
   static metadata = Object.freeze({
-    invalidItemTypes: ["move"]
+    invalidItemTypes: ["move"],
   });
 
   static defineSchema() {
@@ -53,7 +53,6 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
-
 
   prepareBaseData() {
     for (const key in this.stats.pokemonTypes) {

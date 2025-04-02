@@ -9,13 +9,13 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
  * @alias MoveSheet
  */
 export default class MoveSheet extends InteractiveUIFeaturesMixin(
-  BaseItemSheet
+  BaseItemSheet,
 ) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 510,
-      height: 510,
+      width: 600,
+      height: 550,
     },
   };
 

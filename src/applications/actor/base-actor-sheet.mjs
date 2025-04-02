@@ -4,7 +4,7 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 export default class BaseActorSheet extends HandlebarsApplicationMixin(
-  ActorSheetV2
+  ActorSheetV2,
 ) {
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
@@ -158,7 +158,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
             .filter((i) => i.system.type.value === key)
             .sort((a, b) => (a.sort || 0) - (b.sort || 0)),
         },
-      ])
+      ]),
     );
     return feats;
   }
@@ -211,12 +211,12 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
           value,
           name: `system.details.${key}`,
           label: game.i18n.localize(
-            `POKEYMANZ.Actor.Details.${key.capitalize()}`
+            `POKEYMANZ.Actor.Details.${key.capitalize()}`,
           ),
           type: typeof value === "string" ? "text" : "number",
           size: schemaFields[key].options?.size ?? "medium",
         },
-      ])
+      ]),
     );
   }
 
@@ -309,18 +309,18 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     const doc = this.document.getEmbeddedDocument(documentClass, docId);
 
     const effects = Array.from(this.document.effects).sort(
-      (a, b) => (a.sort || 0) - (b.sort || 0)
+      (a, b) => (a.sort || 0) - (b.sort || 0),
     );
 
     const previousEffect = effects
       .slice(
         0,
-        effects.findIndex((ef) => ef.id === doc.id)
+        effects.findIndex((ef) => ef.id === doc.id),
       )
       .findLast((effect) =>
         effectType === "inactive"
-          ? doc.isTemporary === effect.isTemporary && effect.active
-          : !effect.active
+          ? (doc.isTemporary === effect.isTemporary) && effect.active
+          : !effect.active,
       );
 
     const newCategory =
@@ -331,7 +331,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
         : "inactive";
     const ol = li.closest(".effects-list");
     const effectList = ol?.querySelector(
-      `.effect-list[data-effect-type="${newCategory}"]`
+      `.effect-list[data-effect-type="${newCategory}"]`,
     );
 
     if (!effectList) return await doc?.update({ disabled: !doc.disabled });
@@ -365,14 +365,14 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     const previousItem = items
       .slice(
         0,
-        items.findIndex((i) => i.id === doc.id)
+        items.findIndex((i) => i.id === doc.id),
       )
       .findLast((i) => doc.system.equipped !== i.system.equipped);
 
     const newCategory = doc.system.equipped ? "computer" : "backpack";
     const ol = li.closest(".items-list");
     const itemList = ol?.querySelector(
-      `.item-list[data-category="${newCategory}"]`
+      `.item-list[data-category="${newCategory}"]`,
     );
 
     if (!itemList)

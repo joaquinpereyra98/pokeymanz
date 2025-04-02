@@ -99,7 +99,8 @@ section.summary.tab {
   }
 
   .body-card {
-    min-width: 450px;
+    width: max(70%, 280px);
+    min-width: 280px;
     margin-left: 15px;
     gap: 5px;
 

@@ -9,7 +9,7 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
  * @alias GearSheet
  */
 export default class GearSheet extends InteractiveUIFeaturesMixin(
-  BaseItemSheet
+  BaseItemSheet,
 ) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {

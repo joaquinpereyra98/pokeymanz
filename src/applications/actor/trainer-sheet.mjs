@@ -9,13 +9,13 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
  * @alias TrainerSheet
  */
 export default class TrainerSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet
+  BaseActorSheet,
 ) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 800,
-      height: 700,
+      width: 720,
+      height: 550,
     },
     actions: {
       roll: TrainerSheet._onRoll,

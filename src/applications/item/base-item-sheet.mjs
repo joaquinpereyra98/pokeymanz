@@ -3,7 +3,7 @@ const { ItemSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 export default class BaseItemSheet extends HandlebarsApplicationMixin(
-  ItemSheetV2
+  ItemSheetV2,
 ) {
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "item"],
@@ -64,7 +64,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     foundry.utils.setProperty(
       options,
       "window.icon",
-      CONFIG.POKEYMANZ.items[options.document.type]?.icon ?? "fas fa-suitcase"
+      CONFIG.POKEYMANZ.items[options.document.type]?.icon ?? "fas fa-suitcase",
     );
 
     return options;
@@ -114,7 +114,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
           rollData: this.document.getRollData(),
           relativeTo: this.document,
         }),
-        hidden: key === "gmNotes" && !game.user.isGM,
+        hidden: (key === "gmNotes") && !game.user.isGM,
       };
     }
     return descriptions;
@@ -216,18 +216,18 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     const doc = this.document.getEmbeddedDocument(documentClass, docId);
 
     const effects = Array.from(this.document.effects).sort(
-      (a, b) => (a.sort || 0) - (b.sort || 0)
+      (a, b) => (a.sort || 0) - (b.sort || 0),
     );
 
     const previousEffect = effects
       .slice(
         0,
-        effects.findIndex((ef) => ef.id === doc.id)
+        effects.findIndex((ef) => ef.id === doc.id),
       )
       .findLast((effect) =>
         effectType === "inactive"
-          ? doc.isTemporary === effect.isTemporary && effect.active
-          : !effect.active
+          ? (doc.isTemporary === effect.isTemporary) && effect.active
+          : !effect.active,
       );
 
     const newCategory =
@@ -238,7 +238,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
         : "inactive";
     const ol = li.closest(".effects-list");
     const effectList = ol?.querySelector(
-      `.effect-list[data-effect-type="${newCategory}"]`
+      `.effect-list[data-effect-type="${newCategory}"]`,
     );
 
     if (!effectList) return await doc?.update({ disabled: !doc.disabled });

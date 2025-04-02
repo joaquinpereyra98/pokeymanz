@@ -15,12 +15,12 @@
 
     section.window-content {
         padding: 0;
-        overflow-y: auto;
+        overflow: auto;
         scrollbar-color: color.$pokeymanz-c-red rgba(#000000, 0.3);
     }
 
     section.tab {
-        margin: 2em 1em;
+        margin: 10px;
     }
 
     .theme-light & {

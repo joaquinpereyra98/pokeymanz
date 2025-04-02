@@ -1,22 +1,18 @@
 <header class="pokeymanz-sheet-header display--flex--col display--flex--end">
     {{#if editable}}
     <div class="edit-switch-contianer display--flex--center">
-        <i class="switch-icon fa-solid fa-wrench-simple {{ifThen isPlayMode ""
-            "active"}}"></i>
+        <i class="switch-icon fa-solid fa-wrench-simple {{ifThen isPlayMode ''
+            'active'}}"></i>
         <a class="switch-btn" data-action="toggleMode">
-            <i class="fa-solid fa-toggle-{{ifThen isPlayMode "on" "off"}}"></i>
+            <i class="fa-solid fa-toggle-{{ifThen isPlayMode 'on' 'off' }}"></i>
         </a>
-        <i
-            class=" switch-icon fa-solid fa-gamepad-modern {{ifThen isPlayMode "active"
-            "" }}"></i>
+        <i class=" switch-icon fa-solid fa-gamepad-modern {{ifThen isPlayMode 'active' '' }}"></i>
     </div>
     {{/if}}
-    <nav class="sheet-tabs tabs spacing--m-0"
-        aria-role="{{localize 'SHEETS.FormNavLabel'}}"
+    <nav class="sheet-tabs tabs spacing--m-0" aria-role="{{localize 'SHEETS.FormNavLabel'}}"
         style="min-width: {{tabWidth}}px;">
         {{#each tabs as |tab|}}
-        <a class="tab-icon-button {{tab.cssClass}} {{tab.icon}}"
-            data-action="tab" data-group="{{tab.group}}"
+        <a class="tab-icon-button {{tab.cssClass}} {{tab.icon}}" data-action="tab" data-group="{{tab.group}}"
             data-tab="{{tab.id}}" data-tooltip="{{tab.label}}">
         </a>
         {{/each}}

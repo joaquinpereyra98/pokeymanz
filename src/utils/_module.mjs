@@ -1,7 +1,7 @@
 import renderTemplates from "./renderTemplates.mjs";
 
 const utils = {
-    renderTemplates
+  renderTemplates,
 };
 
 export default utils;

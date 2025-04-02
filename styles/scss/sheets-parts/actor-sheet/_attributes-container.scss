@@ -1,13 +1,12 @@
 @use "../../abstracts" as *;
 
-.attributes-container-play,
-.attributes-container-edit {
+.attributes-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(90px, 1fr));
     grid-template-rows: repeat(2, 1fr);
     gap: 15px;
-
     margin: 5px 0;
+
     // Attribute colors list
     $attributes-list: (
         "heart": $pokeymanz-c-heart,
@@ -16,79 +15,16 @@
         "tactics": $pokeymanz-c-tactics,
     );
 
-// Apply colors for each attribute
-@each $attribute, $color in $attributes-list {
-    .#{$attribute} {
-        --attribute-color: #{$color};
-    }
-}
-
-.attribute-label {
-    font-family: var(--pokeymanz-font-label);
-    height: 1rem;
-    font-size: 0.9rem;
-    cursor: inherit;
-}
-
-.attribute-container {
-    align-items: center;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: var(--attribute-color);
-    color: white;
-}
-}
-
-.attributes-container-play .attribute-container {
-    transition: 200ms;
-    color: white;
-    filter: saturate(0.8);
-    box-shadow: 0 0 5px var(--attribute-color);
-    padding-bottom: 0;
-
-
-    &:hover {
-        filter: saturate(1.1);
-        transform: scale(1.1);
-        text-shadow: none;
-    }
-
-    .attribute-roll {
-        font-family: var(--pokeymanz-font-title);
-        font-size: 2rem;
-        width: 90%;
-        font-weight: bold;
-
-        img {
-            width: 2rem;
-            filter: invert(1);
-            transition: 200ms;
-            border: 0;
+    // Apply colors for each attribute
+    @each $attribute, $color in $attributes-list {
+        .#{$attribute} {
+            --attribute-color: #{$color};
         }
     }
-}
 
-
-.attributes-container-edit .attribute-container {
-    gap: 5px;
-
-    .attributes-inputs {
-        gap: 5px;
-
-        select.attribute-side,
-        input.attribute-mod {
-            text-align: center;
-            font-size: 1.1rem;
-            border: 0;
-            padding: 0 0.5ch;
-
-            &.attribute-side {
-                width: 5.3ch;
-            }
-
-            &.attribute-mod {
-                width: 3.3ch;
-            }
-        }
+    .rollable-button,
+    .rollable-inputs {
+        background: var(--attribute-color);
     }
+
 }

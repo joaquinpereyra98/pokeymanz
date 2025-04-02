@@ -21,7 +21,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
         return this.options.accordions.map((config) => new Accordion(config));
       else {
         console.error(
-          "Pokeymanz | Error _createAccordions | this.options.accordions should be a Array"
+          "Pokeymanz | Error _createAccordions | this.options.accordions should be a Array",
         );
         return [];
       }
@@ -78,13 +78,13 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
               this.element,
               selector,
               menuItems,
-              options
+              options,
             );
-          }
+          },
         );
       else {
         console.error(
-          "Pokeymanz | Error _createContextMenus | this.options.contextMenus should be a Array"
+          "Pokeymanz | Error _createContextMenus | this.options.contextMenus should be a Array",
         );
         return [];
       }
@@ -139,7 +139,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
 
       if (!this.isEditable)
         return console.error(
-          "You can't switch to Edit mode if the sheet is uneditable"
+          "You can't switch to Edit mode if the sheet is uneditable",
         );
 
       const { EDIT, PLAY } = InteractiveApplication.MODES;
