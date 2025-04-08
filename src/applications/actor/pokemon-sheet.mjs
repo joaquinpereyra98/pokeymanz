@@ -17,7 +17,9 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       width: 800,
       height: 550,
     },
-    actions: {},
+    actions: {
+      toggleTrainerTeam: PokemonSheet._toggleTrainerTeam,
+    },
     contextMenus: [
       {
         selector: ".move-menu",
@@ -103,7 +105,8 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   async _prepareContext(options) {
     const baseContext = await super._prepareContext(options);
-    const { stats, schema } = this.document.system;
+    const { trainer, stats, schema } = this.document.system;
+
     return {
       ...baseContext,
       pokemonType: {
@@ -115,6 +118,11 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
           ...stats.pokemonTypes.secondary,
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
+      },
+      trainer: {
+        value: trainer.value?.id ?? "",
+        field: schema.getField("trainer.value"),
+        inTeam: trainer.inTeam,
       },
       moves: await this._prepareMoves(),
     };
@@ -149,4 +157,17 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
+
+  /**
+ * Handler for make rolls
+ *
+ * @this PokemonSheet
+ * @param {PointerEvent} event - The originating click event
+ * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+ * @private
+ */
+  static async _toggleTrainerTeam(event, target) {
+    event.preventDefault();
+    await this.document.update({ "system.trainer.inTeam": !this.document.system.trainer.inTeam });
+  }
 }

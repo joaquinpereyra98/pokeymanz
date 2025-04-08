@@ -460,7 +460,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    */
   static _viewDoc(event, target) {
     event.preventDefault();
-    const li = target.closest(".item");
+    const li = target.closest(".item") ?? target.closest(".pokemon");
 
     const { documentClass, docId } = li.dataset;
     const doc = this.document.getEmbeddedDocument(documentClass, docId);

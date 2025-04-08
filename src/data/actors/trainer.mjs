@@ -87,4 +87,9 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
       },
     });
   }
+
+  /* -------------------------------------------- */
+  get pokemons() {
+    return game.actors.filter(a => (a.system?.trainer?.value?.id === this.parent.id) && (a.type === "pokemon"));
+  }
 }

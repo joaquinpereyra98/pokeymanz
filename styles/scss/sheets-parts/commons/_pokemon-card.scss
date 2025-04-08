@@ -1,0 +1,17 @@
+.pokemon-card.card {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+
+  .portrait img {
+    width: 75px;
+    height: 75px;
+    border-width: 3px;
+  }
+
+  .pokemon-controls {
+    justify-content: space-around;
+    font-size: 15px;
+    margin-top: 5px;
+  }
+}

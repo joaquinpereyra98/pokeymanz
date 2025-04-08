@@ -2,7 +2,7 @@
 
 .card {
   background: var(--card-color);
-  margin: 0.4rem;
+  margin: 5px;
   margin-bottom: auto;
   padding: 15px;
   border-radius: 15px;
@@ -13,7 +13,7 @@
 
   .portrait .profile-img {
     border-radius: 10px;
-    border: 0.3em solid $pokeymanz-c-red;
+    border: 4px solid $pokeymanz-c-red;
     object-fit: cover;
     object-position: top center;
   }

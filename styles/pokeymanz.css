@@ -223,6 +223,21 @@
   width: 3.3ch;
   flex: 1;
 }
+.pokeymanz.sheet .pokemon-card.card {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.pokeymanz.sheet .pokemon-card.card .portrait img {
+  width: 75px;
+  height: 75px;
+  border-width: 3px;
+}
+.pokeymanz.sheet .pokemon-card.card .pokemon-controls {
+  justify-content: space-around;
+  font-size: 15px;
+  margin-top: 5px;
+}
 .pokeymanz.sheet.actor {
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
@@ -314,6 +329,44 @@
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card .types-container .type-badge {
   flex: 1;
   max-width: 50%;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container {
+  padding: 5px 0;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .trainer-portrait img {
+  height: 70px;
+  width: 70px;
+  border-radius: 10px 10px 0 0;
+  border: 3px solid var(--pokeymanz-color-ui-red);
+  object-fit: cover;
+  object-position: top center;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer {
+  color: var(--pokeymanz-color-ui-red);
+  background: var(--pokeymanz-color-ui-black);
+  padding: 5px;
+  border-radius: 0 0 10px 10px;
+  border: 3px solid var(--pokeymanz-color-ui-red);
+  border-top: 0px;
+  width: 70px;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer .switch-icon {
+  font-size: 12px;
+  transition: 500ms;
+  opacity: 0.7;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer .switch-icon.active {
+  transform: scale(1.2);
+  opacity: 1;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer .switch-btn {
+  height: 20px;
+  font-size: 20px;
+  margin: 0 5px;
+}
+.pokeymanz.sheet.actor section.summary.tab .sidebar-card .trainer-fields-container .tainer-container {
+  align-items: center;
+  justify-content: space-evenly;
 }
 .pokeymanz.sheet.actor section.summary.tab .body-container {
   width: max(70%, 280px);
@@ -467,6 +520,11 @@
 .pokeymanz.sheet.actor .move-container.empty-move:hover .create-doc-icon {
   color: rgba(0, 0, 0, 0.7);
   transform: scale(1.1);
+}
+.pokeymanz.sheet.actor .pokemon-list {
+  min-height: 135px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 .pokeymanz.sheet.item {
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
@@ -831,7 +889,7 @@
 }
 .pokeymanz.sheet .card {
   background: var(--card-color);
-  margin: 0.4rem;
+  margin: 5px;
   margin-bottom: auto;
   padding: 15px;
   border-radius: 15px;
@@ -841,7 +899,7 @@
 }
 .pokeymanz.sheet .card .portrait .profile-img {
   border-radius: 10px;
-  border: 0.3em solid var(--pokeymanz-color-ui-red);
+  border: 4px solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
   object-position: top center;
 }
@@ -867,3 +925,5 @@
   --card-color: var(--pokeymanz-color-card-dark);
   --text-color: white;
 }
+
+/*# sourceMappingURL=pokeymanz.css.map */

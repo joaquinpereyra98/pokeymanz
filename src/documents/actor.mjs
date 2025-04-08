@@ -7,6 +7,9 @@ export default class PokeymanzActor extends Actor {
     return foundry.utils.hasProperty(this, "system.attributes");
   }
 
+  get haveTrainer() {
+    return foundry.utils.hasProperty(this, "system.trainer");
+  }
   /**
    * @inheritDoc
    */

@@ -45,6 +45,10 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
         gender: new fields.StringField({ initial: "", size: "small" }),
       }),
       description: descriptionsFields(),
+      trainer: new fields.SchemaField({
+        value: new fields.ForeignDocumentField(foundry.documents.BaseActor),
+        inTeam: new fields.BooleanField({ initial: false }),
+      }),
     };
   }
 

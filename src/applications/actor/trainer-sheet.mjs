@@ -19,6 +19,8 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     },
     actions: {
       roll: TrainerSheet._onRoll,
+      viewExternalActor: TrainerSheet._viewExternalActor,
+      togglePokemonTeam: TrainerSheet._togglePokemonTeam,
     },
   };
 
@@ -32,6 +34,9 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     },
     features: {
       template: "systems/pokeymanz/templates/actors/parts/features.hbs",
+    },
+    pokemon: {
+      template: "systems/pokeymanz/templates/actors/parts/pokemon.hbs",
     },
   };
 
@@ -101,6 +106,16 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
       },
+      pokemons: this._preparePokemons(options),
+    };
+  }
+
+  _preparePokemons(options) {
+    const pokemons = this.document.system.pokemons ?? [];
+
+    return {
+      team: pokemons.filter(p => p.system.trainer.inTeam),
+      pc: pokemons.filter(p => !p.system.trainer.inTeam),
     };
   }
 
@@ -128,5 +143,31 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
       default:
         break;
     }
+  }
+
+  /**
+   * 
+   * @param {PointerEvent} event 
+   * @param {HTMLElement} target 
+   */
+  static _viewExternalActor(event, target) {
+    const div = target.closest(".pokemon");
+
+    const { docId } = div?.dataset;
+    if (!docId) return;
+    const pokemon = game.actors.get(docId);
+
+    pokemon?.sheet?.render({ force: true });
+  }
+
+  static async _togglePokemonTeam(event, target) {
+    const div = target.closest(".pokemon");
+
+    const { docId } = div?.dataset;
+    if (!docId) return;
+    const pokemon = game.actors.get(docId);
+
+    await pokemon?.update({ "system.trainer.inTeam": !pokemon.system.trainer.inTeam });
+    this.render({ parts: ["pokemon"] });
   }
 }

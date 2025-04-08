@@ -84,6 +84,51 @@ section.summary.tab {
       }
     }
 
+    .trainer-fields-container {
+      padding: 5px 0;
+
+      .trainer-portrait img {
+        height: 70px;
+        width: 70px;
+        border-radius: 10px 10px 0 0;
+        border: 3px solid $pokeymanz-c-red;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .edit-switch-contianer {
+        color: $pokeymanz-c-red;
+        background: $pokeymanz-c-black;
+        padding: 5px;
+        border-radius: 0 0 10px 10px;
+        border: 3px solid $pokeymanz-c-red;
+        border-top: 0px;
+        width: 70px;
+
+        .switch-icon {
+          font-size: 12px;
+          transition: 500ms;
+          opacity: 0.7;
+
+          &.active {
+            transform: scale(1.2);
+            opacity: 1;
+          }
+        }
+
+        .switch-btn {
+          height: 20px;
+          font-size: 20px;
+          margin: 0 5px;
+        }
+      }
+
+      .tainer-container {
+        align-items: center;
+        justify-content: space-evenly;
+      }
+    }
+
   }
 
   .body-container {
