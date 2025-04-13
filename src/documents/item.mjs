@@ -11,8 +11,7 @@ export default class PokeymanzItem extends Item {
    * @inheritDoc
    */
   getRollData() {
-    if (!this.actor) return null;
-    const rollData = this.actor.getRollData();
+    const rollData = this.parent?.getRollData?.() || {};
     rollData.item = foundry.utils.deepClone(this.system);
     return rollData;
   }
@@ -65,5 +64,39 @@ export default class PokeymanzItem extends Item {
   get inactiveEffects() {
     const effects = Array.from(this.effects);
     return effects.filter((ef) => !ef.active);
+  }
+
+  /**
+   * 
+   */
+  async use() {
+    const type = this.type;
+    switch (type) {
+      case "move":
+        await this._useMove();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  async _useMove() {
+    const data = this.getRollData();
+    const die = data.item.die.sides;
+    const mod = data.item.die.modifier.signedString();
+
+    const formula = `1d${die}x${mod}`;
+    const roll = await Roll.create(formula, data).evaluate();
+
+    const rollContente = await roll.render();
+
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+      flavor: this.name,
+      rollMode: game.settings.get("core", "rollMode"),
+      content: `${data.item.description.value} ${rollContente}`,
+    });
+
   }
 }

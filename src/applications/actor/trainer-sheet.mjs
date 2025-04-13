@@ -18,7 +18,6 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
       height: 550,
     },
     actions: {
-      roll: TrainerSheet._onRoll,
       viewExternalActor: TrainerSheet._viewExternalActor,
       togglePokemonTeam: TrainerSheet._togglePokemonTeam,
     },
@@ -106,11 +105,12 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
       },
-      pokemons: this._preparePokemons(options),
+      pokemons: this._preparePokemons(),
+      notes: await this._prepareBiography(),
     };
   }
 
-  _preparePokemons(options) {
+  _preparePokemons() {
     const pokemons = this.document.system.pokemons ?? [];
 
     return {
@@ -119,31 +119,37 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     };
   }
 
+  async _prepareBiography() {
+    const { biography, schema } = this.document.system;
+
+    const bioFields = schema.getField("biography").fields;
+
+    console.log(bioFields);
+    return {
+      biography: {
+        value: biography.value,
+        field: bioFields.value,
+        enriched: await TextEditor.enrichHTML(biography.value, {
+          rollData: this.document.getRollData(),
+          relativeTo: this.document,
+        }),
+        hidden: false,
+      },
+      gmNotes: {
+        value: biography.gmNotes,
+        field: bioFields.gmNotes,
+        enriched: await TextEditor.enrichHTML(biography.gmNotes, {
+          rollData: this.document.getRollData(),
+          relativeTo: this.document,
+        }),
+        hidden: true,
+      },
+    };
+  }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
-
-  /**
-   * Handler for make rolls
-   *
-   * @this TrainerSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
-   */
-  static _onRoll(event, target) {
-    const { rollAttribute } = this.actor;
-    const roll = target.dataset.roll;
-    switch (roll) {
-      case "attribute":
-        const { attribute } = target.dataset;
-        rollAttribute(attribute);
-        break;
-
-      default:
-        break;
-    }
-  }
 
   /**
    * 

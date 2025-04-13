@@ -71,6 +71,7 @@
                 flex-grow: 1;
                 height: 1.8rem;
                 color: white;
+                min-width: 200px;
             }
 
             .move-type {
@@ -92,6 +93,11 @@
 
             .description-content {
                 min-height: 3rem;
+                overflow: hidden;
+
+                * {
+                    word-break: break-word;
+                }
             }
         }
     }

@@ -17,6 +17,9 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
       width: 600,
       height: 550,
     },
+    actions: {
+      roll: MoveSheet._onRoll,
+    },
   };
 
   /** @override */
@@ -82,5 +85,16 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
         field: schema.getField("pokemonTypes.primary.value"),
       },
     };
+  }
+
+  static _onRoll(event, target) {
+    const roll = target.dataset.roll;
+    switch (roll) {
+      case "move":
+        this.document.use();
+        break;
+      default:
+        break;
+    }
   }
 }

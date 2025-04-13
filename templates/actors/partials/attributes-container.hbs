@@ -1,7 +1,7 @@
 <div class="attributes-container display--flex--col">
     {{#each system.attributes as |attribute key|}}
     {{#if ../isPlayMode}}
-    <a class="rollable-button {{key}} display--flex--col">
+    <a class="rollable-button {{key}} display--flex--col" data-action="roll" data-roll="attribute" data-attribute="{{key}}">
         <label class="rollable-label display--flex--center">
             {{localize attribute.name}}
         </label>

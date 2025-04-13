@@ -17,6 +17,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       viewDoc: BaseActorSheet._viewDoc,
       toggleGear: BaseActorSheet._toggleGear,
       useItem: BaseActorSheet._useItem,
+      roll: BaseActorSheet._onRoll,
     },
     window: {
       resizable: true,
@@ -420,7 +421,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
           name: game.i18n.format("DOCUMENT.New", { type }),
           type,
           "system.type": systemType,
-          equipped: equipped === "true",
+          "system.equipped": equipped === "true",
         });
         break;
       default:
@@ -469,10 +470,35 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   }
 
   /**
+   * Handler for make rolls
+   *
+   * @this BaseActorSheet
+   * @param {PointerEvent} event - The originating click event
+   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
+   * @private
+   */
+  static _onRoll(event, target) {
+    const roll = target.dataset.roll;
+    switch (roll) {
+      case "attribute":
+        const { attribute } = target.dataset;
+        this.actor.rollAttribute(attribute);
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
    * Handle to use a item.
    * @this PokemonSheet
    * @param {PointerEvent} event
    * @param {HTMLElement} target
    */
-  static async _useItem(event, target) {}
+  static async _useItem(event, target) {
+    const { itemUuid } = target.dataset;
+    const item = await fromUuid(itemUuid);
+
+    await item.use();
+  }
 }

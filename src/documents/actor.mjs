@@ -10,13 +10,6 @@ export default class PokeymanzActor extends Actor {
   get haveTrainer() {
     return foundry.utils.hasProperty(this, "system.trainer");
   }
-  /**
-   * @inheritDoc
-   */
-  getRollData() {
-    const data = super.getRollData();
-    return data;
-  }
 
   /**
    * Rolls an attribute for this actor.
@@ -29,7 +22,7 @@ export default class PokeymanzActor extends Actor {
    */
   rollAttribute(attribute, option = {}) {
     const data = this.getRollData();
-    const label = data.attributes[attribute].name;
+    const label = game.i18n.localize(data.attributes[attribute].name);
     const die = data.attributes[attribute].die.sides;
     const mod = data.attributes[attribute].die.modifier.signedString();
 
@@ -37,6 +30,7 @@ export default class PokeymanzActor extends Actor {
 
     const formula = `1d${die}x${mod}${wounds}[${label}]`;
     const roll = Roll.create(formula, data);
+
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: game.i18n.format("POKEYMANZ.AttributePromptTitle", {
@@ -55,7 +49,7 @@ export default class PokeymanzActor extends Actor {
    */
   calcWoundPenalties() {
     const wounds = foundry.utils.getProperty(this, "system.stats.wounds");
-    return Math.clamp(wounds.value, 0, wounds.max) * -1;
+    return (wounds.max - wounds.value) * -1;
   }
 
   /**

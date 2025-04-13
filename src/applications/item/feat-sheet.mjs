@@ -39,7 +39,8 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet)
       label: "POKEYMANZ.Sheets.TABS.Effects",
     },
   ];
-    /** @override */
+  
+  /** @override */
   tabGroups = {
     primary: "summary",
   };

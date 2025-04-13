@@ -484,6 +484,7 @@
   flex-grow: 1;
   height: 1.8rem;
   color: white;
+  min-width: 200px;
 }
 .pokeymanz.sheet.actor .move-container .move-accordion .move-header .move-type {
   margin: auto 1.5rem;
@@ -501,6 +502,10 @@
 }
 .pokeymanz.sheet.actor .move-container .move-accordion .move-content .description-content {
   min-height: 3rem;
+  overflow: hidden;
+}
+.pokeymanz.sheet.actor .move-container .move-accordion .move-content .description-content * {
+  word-break: break-word;
 }
 .pokeymanz.sheet.actor .move-container.empty-move {
   cursor: pointer;

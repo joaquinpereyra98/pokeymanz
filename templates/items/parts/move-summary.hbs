@@ -46,9 +46,10 @@
                 localize=true}}
              </div>
             {{/if}}
+            {{#if item.parent}}
             <div>
                 {{#if isPlayMode}}
-                <a class="rollable-button display--flex--col">
+                <a class="rollable-button display--flex--col" data-action="roll" data-roll="move">
                     <label class="rollable-label display--flex--center">
                         Dice Move
                     </label>
@@ -71,6 +72,7 @@
                 </div>
                 {{/if}}
             </div>
+            {{/if}}
         </div>
         <div class="body-container flexcol">
             {{#each descriptionFields as |description key|}}
