@@ -1,5 +1,6 @@
 import BaseItemSheet from "./base-item-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
+import * as SYSTEM_CONST from "../../constants.mjs";
 
 /**
  * The Pokeymanz Move application.
@@ -25,7 +26,7 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: "systems/pokeymanz/templates/items/parts/move-summary.hbs",
+      template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/move-summary.hbs`,
     },
   };
 

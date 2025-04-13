@@ -4,12 +4,13 @@ import * as apps from "./src/applications/_module.mjs";
 
 import { POKEYMANZ } from "./src/config.mjs";
 import utils from "./src/utils/_module.mjs";
+import * as SYSTEM_CONST from "./src/constants.mjs";
 
 Hooks.once("init", () => {
   /* Exposing classes and variables */
   CONFIG.POKEYMANZ = POKEYMANZ;
 
-  game.pokeymanz = {
+  game[SYSTEM_CONST.SYSTEM_ID] = {
     apps,
     document,
     data,

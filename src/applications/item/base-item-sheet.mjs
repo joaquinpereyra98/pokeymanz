@@ -1,4 +1,6 @@
 import gsap from "/scripts/greensock/esm/all.js";
+import * as SYSTEM_CONST from "../../constants.mjs";
+
 const { ItemSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -50,10 +52,10 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
 
   static _PARTS = {
     header: {
-      template: "systems/pokeymanz/templates/items/parts/header.hbs",
+      template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/header.hbs`,
     },
     effects: {
-      template: "systems/pokeymanz/templates/items/parts/effects.hbs",
+      template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/effects.hbs`,
     },
   };
 

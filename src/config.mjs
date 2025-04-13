@@ -1,3 +1,5 @@
+import * as SYSTEM_CONST from "./constants.mjs";
+
 /**
  * A configuration object for the POKEYMANZ game module.
  *
@@ -6,7 +8,7 @@
  * @property {string} name - Localized name key for the Pokémon type.
  * @property {string[]} resistances - List of type IDs that this type is resistant to.
  * @property {string[]} weaknesses - List of type IDs that this type is weak to.
- * @property {string} img - system/pokeymanz/assets/icon-type/The filename for the type's icon image.
+ * @property {string} img - The file path for the type's icon image.
  *
  *
  * @typedef {Object} DiceOption
@@ -142,11 +144,11 @@ export const POKEYMANZ = {
   ].map((type) => ({
     ...type,
     name: `POKEYMANZ.Types.${type.id.capitalize()}`,
-    img: `systems/pokeymanz/assets/icons/types/${type.id.capitalize()}_icon.png`,
+    img: `${SYSTEM_CONST.ASSETS_PATH}/icons/types/${type.id.capitalize()}_icon.png`,
   })),
   items: {
     feat: {
-      img: "systems/pokeymanz/assets/icons/items/round-star.svg",
+      img: `${SYSTEM_CONST.ASSETS_PATH}/icons/items/round-star.svg`,
       icon: "fa-solid fa-star",
       types: {
         edge: {
@@ -167,7 +169,7 @@ export const POKEYMANZ = {
       },
     },
     gear: {
-      img: "systems/pokeymanz/assets/icons/items/backpack.svg",
+      img: `${SYSTEM_CONST.ASSETS_PATH}/icons/items/backpack.svg`,
       icon: "fa-solid fa-backpack",
       types: {
         curative: {
@@ -203,20 +205,20 @@ export const POKEYMANZ = {
       },
     },
     move: {
-      img: "systems/pokeymanz/assets/icons/items/comet-spark.svg",
+      img: "${SYSTEM_CONST.ASSETS_PATH}/icons/items/comet-spark.svg",
       icon: "fa-solid fa-meteor",
       categories: {
         physical: {
           label: "POKEYMANZ.Moves.Categories.Physical",
-          img: "systems/pokeymanz/assets/icons/moves/physical-move-icon.png",
+          img: `${SYSTEM_CONST.ASSETS_PATH}/icons/moves/physical-move-icon.png`,
         },
         special: {
           label: "POKEYMANZ.Moves.Categories.Special",
-          img: "systems/pokeymanz/assets/icons/moves/special-move-icon.png",
+          img: `${SYSTEM_CONST.ASSETS_PATH}/icons/moves/special-move-icon.png`,
         },
         status: {
           label: "POKEYMANZ.Moves.Categories.Status",
-          img: "systems/pokeymanz/assets/icons/moves/status-move-icon.png",
+          img: `${SYSTEM_CONST.ASSETS_PATH}/icons/moves/status-move-icon.png`,
         },
       },
     },
@@ -228,4 +230,5 @@ export const POKEYMANZ = {
     { value: 10, label: "d10" },
     { value: 12, label: "d12" },
   ],
+  diceSteps: [4, 6, 8, 10, 12],
 };

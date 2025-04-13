@@ -1,5 +1,6 @@
 import BaseActorSheet from "./base-actor-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
+import * as SYSTEM_CONST from "../../constants.mjs";
 
 /**
  * The Pokeymanz Actor application.
@@ -41,7 +42,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: "systems/pokeymanz/templates/actors/parts/summary.hbs",
+      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/summary.hbs`,
     },
   };
 

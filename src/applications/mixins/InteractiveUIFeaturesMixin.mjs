@@ -1,4 +1,5 @@
 import Accordion from "../accordion.mjs";
+import * as SYSTEM_CONST from "../../constants.mjs";
 
 export default function InteractiveUIFeaturesMixin(BaseApplication) {
   class InteractiveApplication extends BaseApplication {
@@ -21,7 +22,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
         return this.options.accordions.map((config) => new Accordion(config));
       else {
         console.error(
-          "Pokeymanz | Error _createAccordions | this.options.accordions should be a Array",
+          `${SYSTEM_CONST.SYSTEM_NAME} | Error _createAccordions | this.options.accordions should be a Array`,
         );
         return [];
       }
@@ -84,7 +85,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
         );
       else {
         console.error(
-          "Pokeymanz | Error _createContextMenus | this.options.contextMenus should be a Array",
+          `${SYSTEM_CONST.SYSTEM_NAME} | Error _createContextMenus | this.options.contextMenus should be a Array`,
         );
         return [];
       }
