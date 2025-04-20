@@ -106,9 +106,25 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
       },
+      attributes: this._prepareAttributes(),
       pokemons: this._preparePokemons(),
-      notes: await this._prepareBiography(),
     };
+  }
+
+  _prepareAttributes() {
+    const { attributes } = this.actor.system;
+    return Object.fromEntries(
+      Object.entries(attributes).map(([key, attr]) => [
+        key,
+        {
+          faces: attr.faces,
+          modifier: attr.modifier,
+          icon: attr.getDiceIcon(),
+          label: attr.label,
+          fields: attr.schema.fields,
+        },
+      ]),
+    );
   }
 
   _preparePokemons() {
@@ -117,34 +133,6 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     return {
       team: pokemons.filter(p => p.system.trainer.inTeam),
       pc: pokemons.filter(p => !p.system.trainer.inTeam),
-    };
-  }
-
-  async _prepareBiography() {
-    const { biography, schema } = this.document.system;
-
-    const bioFields = schema.getField("biography").fields;
-
-    console.log(bioFields);
-    return {
-      biography: {
-        value: biography.value,
-        field: bioFields.value,
-        enriched: await TextEditor.enrichHTML(biography.value, {
-          rollData: this.document.getRollData(),
-          relativeTo: this.document,
-        }),
-        hidden: false,
-      },
-      gmNotes: {
-        value: biography.gmNotes,
-        field: bioFields.gmNotes,
-        enriched: await TextEditor.enrichHTML(biography.gmNotes, {
-          rollData: this.document.getRollData(),
-          relativeTo: this.document,
-        }),
-        hidden: true,
-      },
     };
   }
 

@@ -52,8 +52,7 @@
                 {{/if}}
             </div>
             {{#if actor.haveAttributes}}
-            {{> pokeymanz.attributes-container isPlayMode=isPlayMode
-            system=system }}
+            {{> pokeymanz.attributes-container isPlayMode=isPlayMode attributes=attributes }}
             {{/if}}
             {{#if actor.haveTrainer}}
             <div class="trainer-fields-container display--flex--col">

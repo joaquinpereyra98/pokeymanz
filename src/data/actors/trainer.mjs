@@ -4,6 +4,8 @@ import {
   descriptionsFields,
 } from "../common.mjs";
 
+import AttributeDiceField from "../commons/attribute-dice-field.mjs";
+
 export default class TrainerData extends foundry.abstract.TypeDataModel {
   /**
    * Key information about this Actor subtype
@@ -15,15 +17,15 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      attributes: new fields.SchemaField({
-        heart: new fields.SchemaField(attributeDiceFields()),
-        fitness: new fields.SchemaField(attributeDiceFields()),
-        research: new fields.SchemaField(attributeDiceFields()),
-        tactics: new fields.SchemaField(attributeDiceFields()),
-      }),
+      attributes: new fields.SchemaField(
+        ["heart", "fitness", "research", "tactics"].reduce((acc, v) => {
+          acc[v] = new AttributeDiceField({ label: `POKEYMANZ.Attributes.${v.capitalize()}` });
+          return acc;
+        }, {}),
+      ),
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
-          value: new fields.NumberField({ initial: 0, integer: true }),
+          value: new fields.NumberField({ initial: 0, integer: true, nullable: false, required: true }),
         }),
         pokemonTypes: new fields.SchemaField({
           primary: new fields.SchemaField({

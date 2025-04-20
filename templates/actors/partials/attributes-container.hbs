@@ -1,26 +1,26 @@
 <div class="attributes-container display--flex--col">
-    {{#each system.attributes as |attribute key|}}
+    {{#each attributes as |attribute key|}}
     {{#if ../isPlayMode}}
     <a class="rollable-button {{key}} display--flex--col" data-action="roll" data-roll="attribute" data-attribute="{{key}}">
         <label class="rollable-label display--flex--center">
-            {{localize attribute.name}}
+            {{attribute.label}}
         </label>
         <div class="rollable-frame display--flex--center">
-            <img src="systems/pokeymanz/assets/dice/d{{attribute.die.sides}}.svg" alt="{{attribute.die.sides}}">
-            {{numberFormat attribute.die.modifier sign=true}}
+            <img src="{{attribute.icon}}" alt="{{attribute.faces}}">
+            {{numberFormat attribute.modifier sign=true}}
         </div>
     </a>
     {{else}}
     <div class="rollable-inputs {{key}}">
         <label class="rollable-label">
-            {{localize attribute.name}}
+            {{attribute.label}}
         </label>
-            <select class="rollable-dice-side" name="system.attributes.{{key}}.die.sides">
-                {{selectOptions @root.config.diceOptions
-                selected=attribute.die.sides}}
-            </select>
-            <input class="rollable-dice-mod" type="number" name="system.attributes.{{key}}.die.modifier" ,
-                value="{{attribute.die.modifier}}">
+        <div class="rollable-dice-side">
+            {{formInput attribute.fields.faces value=attribute.faces}}
+        </div>
+        <div class="rollable-dice-mod">
+           {{formInput attribute.fields.modifier value=attribute.modifier}}
+        </div>
     </div>
     {{/if}}
     {{/each}}

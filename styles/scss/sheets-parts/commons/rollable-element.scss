@@ -55,8 +55,8 @@
 
   }
 
-  .rollable-dice-side,
-  .rollable-dice-mod {
+  .rollable-dice-side select,
+  .rollable-dice-mod input{
     text-align: center;
     font-size: 1.1rem;
     border: 0;
@@ -66,11 +66,9 @@
 
   .rollable-dice-side {
     width: 7ch;
-    flex: 2;
   }
 
   .rollable-dice-mod {
     width: 3.3ch;
-    flex: 1;
   }
 }

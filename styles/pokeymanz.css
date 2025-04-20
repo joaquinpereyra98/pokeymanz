@@ -207,8 +207,8 @@
   flex: 1 1 100%;
   text-align: center;
 }
-.pokeymanz.sheet .rollable-inputs .rollable-dice-side,
-.pokeymanz.sheet .rollable-inputs .rollable-dice-mod {
+.pokeymanz.sheet .rollable-inputs .rollable-dice-side select,
+.pokeymanz.sheet .rollable-inputs .rollable-dice-mod input {
   text-align: center;
   font-size: 1.1rem;
   border: 0;
@@ -217,11 +217,9 @@
 }
 .pokeymanz.sheet .rollable-inputs .rollable-dice-side {
   width: 7ch;
-  flex: 2;
 }
 .pokeymanz.sheet .rollable-inputs .rollable-dice-mod {
   width: 3.3ch;
-  flex: 1;
 }
 .pokeymanz.sheet .pokemon-card.card {
   padding: 10px;
@@ -761,14 +759,17 @@
   padding: 0 0.5rem;
 }
 .pokeymanz.sheet .type-select-container select {
-  border-radius: 25px;
-  border: 2px solid;
-  box-shadow: 0 0 0.2em;
-  font-size: 1.1rem;
-  height: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid;
+  box-shadow: 0 0 2px;
+  font-size: 18px;
+  height: 25px;
   text-align: center;
   font-weight: bold;
   color: var(--text-color);
+}
+.pokeymanz.sheet .type-select-container select option {
+  text-align: left;
 }
 .pokeymanz.sheet .type-badge {
   color: white;
