@@ -65,7 +65,13 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
       ...baseContext,
       categoryField: this._prepareCategory(),
       pokemonType: this._preparePokemonType(),
-      diceOptions: CONFIG.POKEYMANZ.diceOptions,
+      roll: {
+        faces: baseContext.system.roll.faces,
+        modifier: baseContext.system.roll.modifier,
+        icon: baseContext.system.roll.getDiceIcon(),
+        label: baseContext.system.roll.label,
+        fields: baseContext.system.roll.schema.fields,
+      },
     };
   }
 

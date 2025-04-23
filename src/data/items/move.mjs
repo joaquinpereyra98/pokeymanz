@@ -4,6 +4,8 @@ import {
   attributeDiceFields,
 } from "../common.mjs";
 
+import AttributeDiceField from "../commons/attribute-dice-field.mjs";
+
 export default class MoveData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -26,6 +28,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
       }),
       description: descriptionsFields(),
       ...attributeDiceFields(),
+      roll: new AttributeDiceField({ label: "POKEYMANZ.Moves.Dice" }),
     };
   }
 

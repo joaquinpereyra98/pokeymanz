@@ -10,15 +10,8 @@ import * as SYSTEM_CONST from "./constants.mjs";
  * @property {string[]} weaknesses - List of type IDs that this type is weak to.
  * @property {string} img - The file path for the type's icon image.
  *
- *
- * @typedef {Object} DiceOption
- * @property {number} value - The numerical value of the die.
- * @property {string} label - The label representing the die (e.g., "d4").
- *
- *
  * @type {Object}
  * @property {PokemonType[]} pokemonTypesList - List of Pokémon types with their respective resistances, weaknesses, and icons.
- * @property {DiceOption[]} diceOptions - List of dice options available for use in the game.
  */
 export const POKEYMANZ = {
   pokemonTypesList: [
@@ -205,7 +198,7 @@ export const POKEYMANZ = {
       },
     },
     move: {
-      img: "${SYSTEM_CONST.ASSETS_PATH}/icons/items/comet-spark.svg",
+      img: `${SYSTEM_CONST.ASSETS_PATH}/icons/items/comet-spark.svg`,
       icon: "fa-solid fa-meteor",
       categories: {
         physical: {
@@ -223,12 +216,5 @@ export const POKEYMANZ = {
       },
     },
   },
-  diceOptions: [
-    { value: 4, label: "d4" },
-    { value: 6, label: "d6" },
-    { value: 8, label: "d8" },
-    { value: 10, label: "d10" },
-    { value: 12, label: "d12" },
-  ],
   diceSteps: [4, 6, 8, 10, 12],
 };

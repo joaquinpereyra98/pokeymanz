@@ -3,6 +3,11 @@
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
 }
 .pokeymanz.sheet .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.pokeymanz.sheet .pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -16,11 +21,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-.pokeymanz.sheet .pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 .pokeymanz.sheet header.pokeymanz-sheet-header {
   position: relative;
@@ -173,7 +173,7 @@
   color: white;
   transition: 200ms;
   filter: saturate(0.8);
-  box-shadow: 0 0 5px var(--pokeymanz-color-ui-red);
+  box-shadow: 0 0 5px var(--attribute-color);
   background: var(--pokeymanz-color-ui-red);
 }
 .pokeymanz.sheet .rollable-label {
@@ -217,9 +217,11 @@
 }
 .pokeymanz.sheet .rollable-inputs .rollable-dice-side {
   width: 7ch;
+  flex: 2;
 }
 .pokeymanz.sheet .rollable-inputs .rollable-dice-mod {
   width: 3.3ch;
+  flex: 1;
 }
 .pokeymanz.sheet .pokemon-card.card {
   padding: 10px;
@@ -241,6 +243,11 @@
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
 }
 .pokeymanz.sheet.actor .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.pokeymanz.sheet.actor .pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -254,11 +261,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-.pokeymanz.sheet.actor .pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 .pokeymanz.sheet.actor section.summary.tab .sidebar-card {
   width: max(30%, 230px);
@@ -377,6 +379,11 @@
   gap: 5px;
 }
 .pokeymanz.sheet.actor .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.pokeymanz.sheet.actor .pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -390,11 +397,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-.pokeymanz.sheet.actor .pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 .pokeymanz.sheet.actor .attributes-container {
   display: grid;
@@ -533,6 +535,11 @@
   @import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
 }
 .pokeymanz.sheet.item .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.pokeymanz.sheet.item .pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -546,11 +553,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-.pokeymanz.sheet.item .pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 .pokeymanz.sheet.item .summary-header {
   --profile-img-width: max(20%, 130px);
@@ -623,6 +625,12 @@
 }
 
 .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+
+.pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -636,12 +644,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-
-.pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 
 .pokeymanz.sheet {
@@ -696,6 +698,11 @@
   margin: 1.5rem;
 }
 .pokeymanz.sheet .pokeymanz {
+  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
+  --pokeymanz-font-label: "Sigmar One", sans-serif;
+  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.pokeymanz.sheet .pokeymanz {
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
@@ -709,11 +716,6 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
-}
-.pokeymanz.sheet .pokeymanz {
-  --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
-  --pokeymanz-font-label: "Sigmar One", sans-serif;
-  --pokeymanz-font-itemtype: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
 }
 .pokeymanz.sheet input.document-name {
   font-size: 2.5rem;
@@ -893,7 +895,25 @@
   right: 0;
   left: auto;
 }
+.pokeymanz.sheet .pokeymanz {
+  --pokeymanz-color-ui-red: #C6242C;
+  --pokeymanz-color-ui-white: #fbfbfb !important;
+  --pokeymanz-color-ui-black: #383939 !important;
+  --pokeymanz-color-card-light: #818078;
+  --pokeymanz-color-card-dark: #222222;
+  --pokeymanz-color-research: #2c94bb;
+  --pokeymanz-color-heart: #ff3750;
+  --pokeymanz-color-tactics: #087608;
+  --pokeymanz-color-fitness: #f86522;
+  --pokeymanz-color-toughness-primary: #002b77;
+  --pokeymanz-color-toughness-secondary: #3f6ab8;
+  --pokeymanz-color-wounds-primary: #941100;
+  --pokeymanz-color-wounds-secondary: #ce3922;
+}
 .pokeymanz.sheet .card {
+  /*
+    CARD COMPONENT TEST
+  */
   background: var(--card-color);
   margin: 5px;
   margin-bottom: auto;
@@ -931,5 +951,3 @@
   --card-color: var(--pokeymanz-color-card-dark);
   --text-color: white;
 }
-
-/*# sourceMappingURL=pokeymanz.css.map */

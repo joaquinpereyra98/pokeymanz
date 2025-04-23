@@ -11,7 +11,7 @@
   color: white;
   transition: 200ms;
   filter: saturate(0.8);
-  box-shadow: 0 0 5px $pokeymanz-c-red;
+  box-shadow: 0 0 5px var(--attribute-color);
   background: $pokeymanz-c-red;
 }
 
@@ -66,9 +66,11 @@
 
   .rollable-dice-side {
     width: 7ch;
+    flex: 2;
   }
 
   .rollable-dice-mod {
     width: 3.3ch;
+    flex: 1;
   }
 }

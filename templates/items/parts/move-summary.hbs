@@ -46,33 +46,31 @@
                 localize=true}}
              </div>
             {{/if}}
-            {{#if item.parent}}
             <div>
                 {{#if isPlayMode}}
                 <a class="rollable-button display--flex--col" data-action="roll" data-roll="move">
                     <label class="rollable-label display--flex--center">
-                        Dice Move
+                        {{roll.label}}
                     </label>
                     <div class="rollable-frame display--flex--center">
-                        <img src="systems/pokeymanz/assets/dice/d{{system.die.sides}}.svg" alt="{{system.die.sides}}">
-                        {{numberFormat system.die.modifier sign=true}}
+                        <img src="systems/pokeymanz/assets/dice/d{{roll.faces}}.svg" alt="{{roll.faces.sides}}">
+                        {{numberFormat roll.modifier sign=true}}
                     </div>
                 </a>
                 {{else}}
                 <div class="rollable-inputs">
                     <label class="rollable-label">
-                        Dice Move
+                        {{roll.label}}
                     </label>
-                    <select class="rollable-dice-side" name="system.die.sides">
-                        {{selectOptions diceOptions
-                        selected=system.die.sides}}
-                    </select>
-                    <input class="rollable-dice-mod" type="number" name="system.die.modifier"
-                        value="{{system.die.modifier}}">
+                    <div class="rollable-dice-side">
+                        {{formInput roll.fields.faces value=roll.faces}}
+                    </div>
+                    <div class="rollable-dice-mod">
+                        {{formInput roll.fields.modifier value=roll.modifier}}
+                    </div>
                 </div>
                 {{/if}}
             </div>
-            {{/if}}
         </div>
         <div class="body-container flexcol">
             {{#each descriptionFields as |description key|}}

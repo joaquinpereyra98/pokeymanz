@@ -6,12 +6,6 @@ const { fields } = foundry.data;
 export default class AttributeDiceField extends fields.EmbeddedDataField {
   constructor(options) {
     super(AttributeDiceData, options);
-    //this._label = options.label ?? "";
-  }
-  initialize(value, model, options = {}) {
-    options.label = this.label;
-    const test = super.initialize(value, model, options);
-    return test;
   }
 }
 
