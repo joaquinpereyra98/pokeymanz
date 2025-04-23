@@ -1,12 +1,4 @@
-.pokeymanz.sheet {
-    @import 'commons';
-
-    &.actor {
-        @import 'actor-sheet';
-    }
-
-    &.item {
-        @import 'item-sheet';
-        @import 'move-sheet';
-    }
-}
+@forward "actor-sheet";
+@forward "move-sheet";
+@forward "item-sheet";
+@forward "commons";

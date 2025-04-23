@@ -1,4 +1,4 @@
-@import 'summary-tab';
-@import 'attributes-container';
-@import 'move-container';
-@import 'pokemon-list';
+@use "attributes-container";
+@use "./move-container";
+@use "pokemon-list";
+@use "summary-tab";

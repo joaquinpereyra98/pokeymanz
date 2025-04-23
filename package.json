@@ -4,7 +4,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "build:css": "sass styles/scss/pokeymanz.scss styles/pokeymanz.css --style=expanded --no-source-map",
-    "build:css:watch": "sass styles/scss/pokeymanz.scss styles/pokeymanz.css --style=expanded --source-map --watch"
+    "build:css:watch": "sass styles/scss/pokeymanz.scss styles/pokeymanz.css --style=expanded --no-source-map --watch"
   },
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.37.0",

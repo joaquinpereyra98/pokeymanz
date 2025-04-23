@@ -1,32 +1,5 @@
-@use 'sheets-parts';
 @use 'abstracts';
-@use 'abstracts/themes';
-
-.pokeymanz.sheet {
-    @import 'utilities';
-    @import 'components';
-    background-color: var(--background-color);
-
-    header.window-header {
-        border: 0;
-        background-color: $pokeymanz-c-red;
-    }
-
-    section.window-content {
-        padding: 0;
-        overflow: auto;
-        scrollbar-color: $pokeymanz-c-red rgba(#000000, 0.3);
-    }
-
-    section.tab {
-        margin: 10px;
-    }
-
-    .theme-light & {
-        @include themes.theme('light');
-    }
-
-    .theme-dark & {
-        @include themes.theme('dark');
-    }
-}
+@use 'utilities';
+@use 'sheets-parts';
+@use 'components';
+@use 'index';

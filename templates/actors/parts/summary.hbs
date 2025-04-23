@@ -25,14 +25,14 @@
             <div class="types-container display--flex">
                 {{#if isPlayMode}}
                 {{#if pokemonType.primary.value}}
-                <div class="type-badge display--flex--center size--small"
+                <div class="type-badge display--flex--center size--medium"
                     style="--type-color: {{pokemonType.primary.color}}">
                     <img src="{{pokemonType.primary.img}}" alt="{{pokemonType.primary.id}}">
                     <span>{{localize pokemonType.primary.name}}</span>
                 </div>
                 {{/if}}
                 {{#if pokemonType.secondary.value}}
-                <div class="type-badge display--flex--center size--small"
+                <div class="type-badge display--flex--center size--medium"
                     style="--type-color: {{pokemonType.secondary.color}}">
                     <img src="{{pokemonType.secondary.img}}" alt="{{pokemonType.secondary.id}}">
                     <span>{{localize pokemonType.secondary.name}}</span>

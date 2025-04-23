@@ -1,6 +1,6 @@
 @use "../abstracts/colors" as *;
 
-section.summary.tab {
+.item section.summary.tab {
   .sidebar-card {
     width: max(30%, 190px);
     min-width: 190px;

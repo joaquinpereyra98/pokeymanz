@@ -1,4 +1,4 @@
-@import 'sheet-header';
-@import 'items-list';
-@import './rollable-element';
-@import 'pokemon-card';
+@forward 'sheet-header';
+@forward 'items-list';
+@forward 'rollable-element';
+@forward 'pokemon-card';

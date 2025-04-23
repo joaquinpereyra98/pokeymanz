@@ -1,7 +1,6 @@
-@import "../abstracts/colors";
+@use "../abstracts" as *;
 
-
-.card {
+.pokeymanz .card {
   background: var(--card-color);
   margin: 5px;
   margin-bottom: auto;

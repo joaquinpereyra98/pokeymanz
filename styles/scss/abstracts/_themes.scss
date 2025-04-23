@@ -1,21 +1,26 @@
-
-
 @mixin theme($theme: 'light') {
-    @if $theme == 'light' {
-      --background-color: var(--pokeymanz-color-ui-white);
-      --card-color: var(--pokeymanz-color-card-light);
-      --text-color: black;
-    }
-    @else if $theme == 'dark' {
-      --background-color: var(--pokeymanz-color-ui-black);
-      --card-color: var(--pokeymanz-color-card-dark);
-      --text-color: white;
-    }
-    @else {
-      @warn "Unknown theme #{$theme}, falling back to light.";
-      --background-color: var(--pokeymanz-color-ui-white);
-      --card-color: var(--pokeymanz-color-card-light);
-      --text-color: var(--pokeymanz-color-ui-black);
-    }
+  @if $theme == 'light' {
+    --background-color: var(--pokeymanz-color-ui-white);
+    --card-color: var(--pokeymanz-color-card-light);
+    --text-color: black;
+  } @else if $theme == 'dark' {
+    --background-color: var(--pokeymanz-color-ui-black);
+    --card-color: var(--pokeymanz-color-card-dark);
+    --text-color: white;
+  } @else {
+    @warn "Unknown theme #{$theme}, falling back to light.";
+    --background-color: var(--pokeymanz-color-ui-white);
+    --card-color: var(--pokeymanz-color-card-light);
+    --text-color: var(--pokeymanz-color-ui-black);
   }
-  
+}
+
+.pokeymanz.sheet {
+  .theme-light & {
+    @include theme('light');
+  }
+
+  .theme-dark & {
+    @include theme('dark');
+  }
+}
