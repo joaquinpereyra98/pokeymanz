@@ -71,7 +71,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       id: "notes",
       group: "primary",
       icon: "fa-solid fa-notebook",
-      label: "POKEYMANZ.Sheets.TABS.notes",
+      label: "POKEYMANZ.Sheets.TABS.Notes",
     },
   ];
 

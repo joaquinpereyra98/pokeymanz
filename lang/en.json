@@ -98,7 +98,8 @@
                 "Features": "Features",
                 "Inventory": "Inventory",
                 "Pokemon": "Pokemon",
-                "Effects": "Effects"
+                "Effects": "Effects",
+                "Notes": "Notes"
             }
         },
         "Types": {
