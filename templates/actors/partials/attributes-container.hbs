@@ -1,11 +1,11 @@
-<div class="attributes-container">
+<div class="attributes-container grid grid-cols-2 gap-md">
     {{#each attributes as |attribute key|}}
     {{#if ../isPlayMode}}
-    <a class="rollable-button {{key}} display--flex--col" data-action="roll" data-roll="attribute" data-attribute="{{key}}">
-        <label class="rollable-label display--flex--center">
+    <a class="rollable-button {{key}} flex-col" data-action="roll" data-roll="attribute" data-attribute="{{key}}">
+        <label class="rollable-label">
             {{attribute.label}}
         </label>
-        <div class="rollable-frame display--flex--center">
+        <div class="rollable-frame flex justify-center">
             <img src="{{attribute.icon}}" alt="{{attribute.faces}}">
             {{numberFormat attribute.modifier sign=true}}
         </div>

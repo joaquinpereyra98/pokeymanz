@@ -28,8 +28,8 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     },
     accordions: [
       {
-        headingSelector: ".description-header",
-        contentSelector: ".description-content",
+        headingSelector: ".note-header",
+        contentSelector: ".note-content",
       },
       {
         headingSelector: ".effects-header",
@@ -85,8 +85,8 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
       system: this.document.system,
       fields: this.document.system.schema.fields,
       effects: this._prepareEffects(),
-      descriptionFields: await this._prepareDescription(),
       havePrice: this.document.havePrice,
+      notes: await this._prepareNotes(),
     };
   }
 
@@ -103,23 +103,22 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     return await super._preparePartContext(partId, context, options);
   }
 
-  async _prepareDescription() {
-    const { description: desctipionSystem, schema } = this.document.system;
-    const descriptionFields = schema.getField("description").fields;
-    const descriptions = {};
-    for (const [key, value] of Object.entries(desctipionSystem)) {
-      descriptions[key] = {
-        field: descriptionFields[key],
-        label: game.i18n.localize(descriptionFields[key].label),
+  async _prepareNotes() {
+    const { system } = this.document;
+
+    const notes = [];
+    
+    for (const [key, value] of Object.entries(system.notes)) {
+      const field = system.schema.getField(`notes.${key}`);
+      if (field.gmOnly && !game.user.isGM) continue;
+      notes.push({
+        field,
         value,
-        enriched: await TextEditor.enrichHTML(value, {
-          rollData: this.document.getRollData(),
-          relativeTo: this.document,
-        }),
-        hidden: (key === "gmNotes") && !game.user.isGM,
-      };
+        enritch: await field.enrich(value, this.document),
+      });  
     }
-    return descriptions;
+
+    return notes;
   }
 
   /**

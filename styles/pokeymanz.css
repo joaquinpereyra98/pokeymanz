@@ -32,30 +32,6 @@
   --text-color: white;
 }
 
-.pokeymanz.sheet .display--flex, .pokeymanz.sheet .display--flex--space-evenly, .pokeymanz.sheet .display--flex--space-between, .pokeymanz.sheet .display--flex--end, .pokeymanz.sheet .display--flex--center, .pokeymanz.sheet .display--flex--col, .pokeymanz.sheet .display--flex--row {
-  display: flex;
-}
-.pokeymanz.sheet .display--flex--row {
-  flex-direction: row;
-}
-.pokeymanz.sheet .display--flex--col {
-  flex-direction: column;
-}
-.pokeymanz.sheet .display--flex--center {
-  justify-content: center;
-  align-items: center;
-}
-.pokeymanz.sheet .display--flex--end {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.pokeymanz.sheet .display--flex--space-between {
-  justify-content: space-between;
-}
-.pokeymanz.sheet .display--flex--space-evenly {
-  justify-content: space-evenly;
-}
-
 .pokeymanz.sheet .spacing--p-0 {
   padding: 0;
 }
@@ -82,10 +58,6 @@
 }
 
 .attributes-container {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(90px, 1fr));
-  grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
   margin: 5px 0;
 }
 .attributes-container .heart {
@@ -103,10 +75,6 @@
 .attributes-container .rollable-button,
 .attributes-container .rollable-inputs {
   background: var(--attribute-color);
-}
-
-.move-list {
-  gap: 1rem;
 }
 
 .move-container {
@@ -241,15 +209,16 @@ section.summary.tab .sidebar-card .stat-bar .stat-container .stat-input {
   border: 0;
   text-align: center;
   color: white;
-  background-color: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+  line-height: 0;
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container .stat-input:focus, section.summary.tab .sidebar-card .stat-bar .stat-container .stat-input:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   outline: none;
   box-shadow: none;
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container .stat-input:disabled {
-  background-color: transparent;
+  background: transparent;
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container .stat-icon {
   font-size: 1.3rem;
@@ -328,17 +297,14 @@ section.summary.tab .body-container {
   width: max(70%, 280px);
   min-width: 280px;
   margin-left: 10px;
-  gap: 5px;
 }
 section.summary.tab .body-container .details-container {
   flex-wrap: wrap;
-  gap: 5px;
 }
 
 .item section.summary.tab .sidebar-card {
   width: max(30%, 190px);
   min-width: 190px;
-  gap: 10px;
 }
 .item section.summary.tab .sidebar-card .portrait .profile-img {
   min-height: 160px;
@@ -349,7 +315,6 @@ section.summary.tab .body-container .details-container {
   width: max(70%, 200px);
   min-width: 200px;
   margin-left: 10px;
-  gap: 5px;
 }
 
 .summary-header {
@@ -392,14 +357,10 @@ section.summary.tab .body-container .details-container {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-header.pokeymanz-sheet-header {
-  position: relative;
-}
 header.pokeymanz-sheet-header .edit-switch-contianer {
-  position: absolute;
-  top: calc(50% - 0.45rem);
-  left: 0.5rem;
   color: var(--pokeymanz-color-ui-red);
+  flex: 1;
+  margin: auto 15px;
 }
 header.pokeymanz-sheet-header .edit-switch-contianer .switch-icon {
   font-size: 0.7rem;
@@ -416,34 +377,39 @@ header.pokeymanz-sheet-header .edit-switch-contianer .switch-btn {
   margin: 0 4px;
 }
 header.pokeymanz-sheet-header .sheet-tabs {
-  background-color: var(--pokeymanz-color-ui-red);
+  flex: 0;
+  background: var(--pokeymanz-color-ui-red);
   clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
   border: 0;
   padding-left: 2rem;
   padding-right: 0.7rem;
 }
 header.pokeymanz-sheet-header .sheet-tabs .tab-icon-button {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: var(--pokeymanz-color-ui-white);
   opacity: 0.6;
+  transform: scale(0.8);
   transition: 800ms;
 }
 header.pokeymanz-sheet-header .sheet-tabs .tab-icon-button.active {
   text-shadow: none;
-  transform: scale(1.3);
+  transform: scale(1);
   opacity: 1;
 }
+header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
+  padding: 5px;
+}
 
-ol.items-list {
+.pokeymanz ol.items-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-ol.items-list .item-list {
+.pokeymanz ol.items-list .item-list {
   list-style: none;
   background-color: rgba(0, 0, 0, 0.3);
 }
-ol.items-list .item-name {
+.pokeymanz ol.items-list .item-name {
   flex: 2;
   margin: 0;
   overflow: hidden;
@@ -451,52 +417,52 @@ ol.items-list .item-name {
   align-items: center;
   display: flex;
 }
-ol.items-list .item-controls {
+.pokeymanz ol.items-list .item-controls {
   display: flex;
   flex: 0 0 70px;
   justify-content: flex-end;
 }
-ol.items-list .item-controls a {
+.pokeymanz ol.items-list .item-controls a {
   text-align: center;
   margin: 0 6px;
 }
-ol.items-list .item {
+.pokeymanz ol.items-list .item {
   padding: 1px 0.4rem;
   align-items: center;
   border-bottom: 1px solid;
 }
-ol.items-list .item:hover {
+.pokeymanz ol.items-list .item:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-ol.items-list .item:last-child {
+.pokeymanz ol.items-list .item:last-child {
   border-bottom: none;
 }
-ol.items-list .item .item-name .item-image {
+.pokeymanz ol.items-list .item .item-name .item-image {
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
 }
-ol.items-list .item .item-type,
-ol.items-list .item .item-price,
-ol.items-list .item .item-subtype,
-ol.items-list .item .item-controls,
-ol.items-list .item .effect-source,
-ol.items-list .item .effect-duration {
+.pokeymanz ol.items-list .item .item-type,
+.pokeymanz ol.items-list .item .item-price,
+.pokeymanz ol.items-list .item .item-subtype,
+.pokeymanz ol.items-list .item .item-controls,
+.pokeymanz ol.items-list .item .effect-source,
+.pokeymanz ol.items-list .item .effect-duration {
   font-size: 0.9rem;
   height: 1rem;
   text-align: center;
   border-left: 3px solid #c9c7b8;
   border-right: 3px solid #c9c7b8;
 }
-ol.items-list .item .item-type,
-ol.items-list .item .item-controls,
-ol.items-list .item .effect-source {
+.pokeymanz ol.items-list .item .item-type,
+.pokeymanz ol.items-list .item .item-controls,
+.pokeymanz ol.items-list .item .effect-source {
   flex-wrap: nowrap;
   border: none;
 }
-ol.items-list .items-header {
+.pokeymanz ol.items-list .items-header {
   align-items: center;
   align-content: center;
   padding: 0.4rem 1rem 0.4rem 0.6rem;
@@ -508,13 +474,13 @@ ol.items-list .items-header {
   margin: 0;
   margin-top: 0.5rem;
 }
-ol.items-list .items-header > * {
+.pokeymanz ol.items-list .items-header > * {
   text-align: center;
 }
-ol.items-list .items-header .accordion-icon {
+.pokeymanz ol.items-list .items-header .accordion-icon {
   flex: 0;
 }
-ol.items-list .items-header .item-name {
+.pokeymanz ol.items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
@@ -560,7 +526,6 @@ ol.items-list .items-header .item-name {
 }
 
 .rollable-inputs {
-  gap: 5px;
   padding-bottom: 2px;
 }
 .rollable-inputs .rollable-label {
@@ -584,17 +549,17 @@ ol.items-list .items-header .item-name {
   flex: 1;
 }
 
-.pokemon-card.card {
+.pokeymanz .pokemon-card.card {
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
 }
-.pokemon-card.card .portrait img {
+.pokeymanz .pokemon-card.card .portrait img {
   width: 75px;
   height: 75px;
   border-width: 3px;
 }
-.pokemon-card.card .pokemon-controls {
+.pokeymanz .pokemon-card.card .pokemon-controls {
   justify-content: space-around;
   font-size: 15px;
   margin-top: 5px;
@@ -604,7 +569,7 @@ ol.items-list .items-header .item-name {
   background: var(--card-color);
   margin: 5px;
   margin-bottom: auto;
-  padding: 15px;
+  padding: 10px;
   border-radius: 15px;
   box-shadow: 0 0 0.4em;
   -moz-box-shadow: 0 0 0.4em;
@@ -656,7 +621,6 @@ ol.items-list .items-header .item-name {
 }
 
 .pokeymanz .item-type-fields {
-  gap: 0.5rem;
   margin: 0.3rem 0;
 }
 .pokeymanz .item-type-fields .item-type-badge {
@@ -796,6 +760,144 @@ ol.items-list .items-header .item-name {
 }
 .pokeymanz .type-badge.size--large span {
   font-size: 1.7em;
+}
+
+.note-container .note-header {
+  align-items: center;
+  align-content: center;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  font-size: large;
+  background: var(--pokeymanz-color-ui-red);
+  border-radius: 0.4rem 0.4rem 0 0;
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+.note-container .note-header * {
+  margin: auto 5px;
+}
+.note-container .note-content {
+  background: rgba(0, 0, 0, 0.3);
+}
+.note-container .note-content prose-mirror {
+  margin: 5px 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.gap-sm {
+  gap: 0.5rem;
+}
+
+.gap-md {
+  gap: 1rem;
+}
+
+.gap-lg {
+  gap: 2rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.grid-rows-1 {
+  grid-template-rows: repeat(1, 1fr);
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.grid-rows-3 {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.place-center {
+  place-items: center;
+}
+
+.place-start {
+  place-items: start;
+}
+
+.place-end {
+  place-items: end;
 }
 
 .pokeymanz.sheet {

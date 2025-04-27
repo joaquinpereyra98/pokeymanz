@@ -1,13 +1,10 @@
 @use '../../abstracts' as *;
 
 header.pokeymanz-sheet-header {
-    position: relative;
-
     .edit-switch-contianer {
-        position: absolute;
-        top: calc(50% - 0.45rem);
-        left: 0.5rem;
         color: $pokeymanz-c-red;
+        flex: 1;
+        margin: auto 15px;
 
         .switch-icon {
             font-size: 0.7rem;
@@ -28,23 +25,29 @@ header.pokeymanz-sheet-header {
     }
 
     .sheet-tabs {
-        background-color: $pokeymanz-c-red;
+        flex: 0;
+        background: $pokeymanz-c-red;
         clip-path: polygon(100% 0, 100% 100%, 1.5rem 100%, 0 0);
         border: 0;
         padding-left: 2rem;
         padding-right: 0.7rem;
 
         .tab-icon-button {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: $pokeymanz-c-white;
             opacity: 0.6;
+            transform: scale(0.8);
             transition: 800ms;
 
             &.active {
                 text-shadow: none;
-                transform: scale(1.3);
+                transform: scale(1);
                 opacity: 1;
             }
+        }
+        
+        > [data-tab] {
+            padding: 5px;
         }
 
     }

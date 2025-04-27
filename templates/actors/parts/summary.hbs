@@ -1,19 +1,19 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
-    <div class="display--flex">
-        <div class="sidebar-card card flexcol">
+    <div class="flex">
+        <div class="sidebar-card card flex-col">
             <div class="portrait actor-portrait">
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action={{ifThen
                     isPlayMode "renderIP" "setImg" }} alt="{{actor.name}}" title="{{actor.name}}" />
             </div>
-            <div class="stat-bar display--flex--space-evenly">
-                <div class="toughtness-container stat-container display--flex--center">
+            <div class="stat-bar flex justify-around">
+                <div class="toughtness-container stat-container flex items-center">
                     <i class="stat-icon fa-solid fa-shield"></i>
                     <input class="stat-input spacing--p-0" type="number" name="system.stats.toughness.value"
                         value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
                 </div>
-                <div class="wounds-container stat-container display--flex--center">
+                <div class="wounds-container stat-container flex items-center">
                     <i class="stat-icon fa-solid fa-heart"></i>
-                    <div class="wound-input-container display--flex">
+                    <div class="wound-input-container flex">
                         <input class="stat-input spacing--p-0" type="number" name="system.stats.wounds.value"
                             value="{{system.stats.wounds.value}}">
                         <span>/</span>
@@ -22,17 +22,17 @@
                     </div>
                 </div>
             </div>
-            <div class="types-container display--flex">
+            <div class="types-container flex">
                 {{#if isPlayMode}}
                 {{#if pokemonType.primary.value}}
-                <div class="type-badge display--flex--center size--medium"
+                <div class="type-badge flex items-center size--medium"
                     style="--type-color: {{pokemonType.primary.color}}">
                     <img src="{{pokemonType.primary.img}}" alt="{{pokemonType.primary.id}}">
                     <span>{{localize pokemonType.primary.name}}</span>
                 </div>
                 {{/if}}
                 {{#if pokemonType.secondary.value}}
-                <div class="type-badge display--flex--center size--medium"
+                <div class="type-badge flex items-center size--medium"
                     style="--type-color: {{pokemonType.secondary.color}}">
                     <img src="{{pokemonType.secondary.img}}" alt="{{pokemonType.secondary.id}}">
                     <span>{{localize pokemonType.secondary.name}}</span>
@@ -55,9 +55,9 @@
             {{> pokeymanz.attributes-container isPlayMode=isPlayMode attributes=attributes }}
             {{/if}}
             {{#if actor.haveTrainer}}
-            <div class="trainer-fields-container display--flex--col">
+            <div class="trainer-fields-container flex flex-col">
                 {{#if (not isPlayMode)}}
-                <div class="input-group display--flex--center">
+                <div class="input-group flex items-center">
                     <label class="input-group-label">{{localize "TYPES.Actor.trainer"}}</label>
                     {{formInput trainer.field
                     value=trainer.value
@@ -65,13 +65,13 @@
                 </div>
                 {{/if}}
                 {{#if (and trainer.value isPlayMode)}}
-                <div class="tainer-container display--flex--col">
-                    <div class="trainer-portrait display--flex">
+                <div class="tainer-container flex flex-col">
+                    <div class="trainer-portrait flex">
                         <img class="trainer-sheet" src="{{actor.system.trainer.value.img}}"
                             alt="{{actor.system.trainer.value.name}}" data-action="openTrainerSheet">
                     </div>
 
-                    <div class="edit-switch-contianer display--flex--center">
+                    <div class="edit-switch-contianer flex items-center">
                         <i class="switch-icon fa-solid fa-backpack {{ ifThen trainer.inTeam 'active' '' }}"></i>
                         <a class="switch-btn" data-action="toggleTrainerTeam">
                             <i class="fa-solid fa-toggle-{{ifThen trainer.inTeam 'off' 'on' }}"></i>
@@ -83,12 +83,12 @@
             </div>
             {{/if}}
         </div>
-        <div class="body-container flexcol">
+        <div class="body-container gap-sm flex flex-col">
             <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
                 {{disabled isPlayMode }} />
-            <div class="display--flex details-container">
+            <div class="flex details-container gap-sm">
                 {{#each detailsFields as |field|}}
-                <div class="input-group display--flex--center size--{{field.size}}" data-tooltip="{{field.value}}">
+                <div class="input-group flex items-center size--{{field.size}}" data-tooltip="{{field.value}}">
                     <label class="input-group-label">{{field.label}}</label>
                     <input class="input-group-field" type="{{field.type}}" name="{{field.name}}" value="{{field.value}}"
                         {{disabled ../isPlayMode }}>
@@ -96,11 +96,11 @@
                 {{/each}}
             </div>
             {{#if moves}}
-            <div class="move-list display--flex--col">
+            <div class="move-list gap-md flex flex-col">
                 {{#each moves as |move|}}
                 {{#if move}}
-                <div class="move-container display--flex">
-                    <div class="move-portrait display--flex--center">
+                <div class="move-container flex">
+                    <div class="move-portrait flex">
                         <div class="drag-line">
                             <i></i>
                         </div>
@@ -111,13 +111,12 @@
                         </div>
                     </div>
                     <div class="move-accordion">
-                        <div class="move-header display--flex">
+                        <div class="move-header flex">
                             <div class="move-name">
                                 {{move.name}}
                             </div>
                             <div class="move-type">
-                                <div class="type-badge display--flex--center size--medium"
-                                    style="--type-color: {{move.moveType.color}}">
+                                <div class="type-badge flex size--medium" style="--type-color: {{move.moveType.color}}">
                                     <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}">
                                     <span>{{localize
                                         move.moveType.name}}</span>
@@ -135,7 +134,7 @@
                     </div>
                 </div>
                 {{else}}
-                <div class="move-container empty-move display--flex--center" data-action="createDoc"
+                <div class="move-container empty-move flex justify-center" data-action="createDoc"
                     data-document-class="Item" data-type="move" data-tooltip="{{localize 'DOCUMENT.New' type=" Move"
                     }}">
                     <i class="create-doc-icon fa-solid fa-square-plus"></i>

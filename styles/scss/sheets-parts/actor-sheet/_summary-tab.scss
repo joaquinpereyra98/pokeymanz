@@ -25,17 +25,18 @@ section.summary.tab {
           border: 0;
           text-align: center;
           color: white;
-          background-color: rgba($color: black, $alpha: 0.1);
+          background: rgba($color: black, $alpha: 0.1);
+          line-height: 0;
 
           &:focus,
           &:hover {
-            background-color: rgba($color: black, $alpha: 0.2);
+            background: rgba($color: black, $alpha: 0.2);
             outline: none;
             box-shadow: none;
           }
 
           &:disabled {
-            background-color: transparent;
+            background: transparent;
           }
         }
 
@@ -135,11 +136,9 @@ section.summary.tab {
     width: max(70%, 280px);
     min-width: 280px;
     margin-left: 10px;
-    gap: 5px;
 
     .details-container {
       flex-wrap: wrap;
-      gap: 5px;
     }
   }
 }

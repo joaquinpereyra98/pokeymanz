@@ -1,12 +1,15 @@
 import {
-  descriptionsFields,
   pokemonTypeFields,
-  attributeDiceFields,
 } from "../common.mjs";
+
+import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
 export default class MoveData extends foundry.abstract.TypeDataModel {
+
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
+
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -26,8 +29,10 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
           {},
         ),
       }),
-      description: descriptionsFields(),
-      ...attributeDiceFields(),
+      notes: new fields.SchemaField({
+        description: new NotesHTMLField(),
+        gmNotes: new NotesHTMLField(),
+      }),
       roll: new AttributeDiceField({ label: "POKEYMANZ.Moves.Dice" }),
     };
   }

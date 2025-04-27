@@ -1,12 +1,15 @@
 import {
-  attributeDiceFields,
   pokemonTypeFields,
-  descriptionsFields,
 } from "../common.mjs";
+
+import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
 export default class TrainerData extends foundry.abstract.TypeDataModel {
+
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
+
   /**
    * Key information about this Actor subtype
    */
@@ -45,11 +48,13 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
         pronouns: new fields.StringField({ initial: "", size: "medium" }),
         age: new fields.NumberField({ integer: true, size: "xsmall" }),
       }),
-      description: descriptionsFields(),
       currency: new fields.NumberField({
         initial: 0,
         integer: true,
         size: "xsmall",
+      }),
+      notes: new fields.SchemaField({
+        biography: new NotesHTMLField(),
       }),
     };
   }

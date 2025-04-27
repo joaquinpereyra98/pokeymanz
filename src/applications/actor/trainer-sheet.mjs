@@ -79,6 +79,12 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
       icon: "fa-solid fa-bolt",
       label: "POKEYMANZ.Sheets.TABS.Effects",
     },
+    {
+      id: "notes",
+      group: "primary",
+      icon: "fa-solid fa-notebook",
+      label: "POKEYMANZ.Sheets.TABS.notes",
+    },
   ];
 
   /** @override */

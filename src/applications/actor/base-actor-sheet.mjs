@@ -30,6 +30,10 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     },
     accordions: [
       {
+        headingSelector: ".note-header",
+        contentSelector: ".note-content",
+      },
+      {
         headingSelector: ".effects-header",
         contentSelector: ".effect-list",
         startExpanded: true,
@@ -58,6 +62,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     },
     effects: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/effects.hbs`,
+    },
+    notes: {
+      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/notes.hbs`,
     },
   };
 
@@ -92,6 +99,8 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       case "inventory":
         context.inventory = this._prepareInventory(context);
         break;
+      case "notes":
+        context.notes = await this._prepareNotes(context);
       default:
         break;
     }
@@ -222,6 +231,22 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     );
   }
 
+  async _prepareNotes() {
+    const { system } = this.document;
+
+    const notes = [];
+
+    for (const [key, value] of Object.entries(system.notes)) {
+      const field = system.schema.getField(`notes.${key}`);
+      notes.push({
+        field,
+        value,
+        enritch: await field.enrich(value, this.document),
+      });
+    }
+
+    return notes;
+  }
   /* -------------------------------------------- */
   /*  Animations Handlers                         */
   /* -------------------------------------------- */

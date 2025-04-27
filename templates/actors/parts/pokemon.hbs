@@ -7,14 +7,14 @@
           Team
         </span>
       </div>
-      <div class="item-list pokemon-list display--flex">
+      <div class="item-list pokemon-list flex">
         {{#each pokemons.team as |pokemon index|}}
-        <div class="pokemon-card card flexcol pokemon" data-doc-id="{{pokemon.id}}">
-          <div class="portrait display--flex">
+        <div class="pokemon-card card flex-col pokemon" data-doc-id="{{pokemon.id}}">
+          <div class="portrait flex">
             <img class="profile-img" src="{{pokemon.img}}" data-edit="img" data-action="renderIP" alt="{{pokemon.name}}"
               title="{{pokemon.name}}" />
           </div>
-          <div class="pokemon-controls display--flex">
+          <div class="pokemon-controls flex">
             <a class="fa-solid fa-user-pen" data-action="viewExternalActor"></a>
             <a class="fa-solid fa-computer-classic" data-action="togglePokemonTeam"></a>
           </div>
@@ -28,14 +28,14 @@
           PC
         </span>
       </div>
-      <div class="item-list pokemon-list display--flex">
+      <div class="item-list pokemon-list flex">
         {{#each pokemons.pc as |pokemon index|}}
-        <div class="pokemon-card card flexcol pokemon" data-doc-id="{{pokemon.id}}">
-          <div class="portrait display--flex">
+        <div class="pokemon-card card flex-col pokemon" data-doc-id="{{pokemon.id}}">
+          <div class="portrait flex">
             <img class="profile-img" src="{{pokemon.img}}" data-edit="img" data-action="renderIP" alt="{{pokemon.name}}"
               title="{{pokemon.name}}" />
           </div>
-          <div class="pokemon-controls display--flex">
+          <div class="pokemon-controls flex">
             <a class="fa-solid fa-user-pen" data-action="viewExternalActor"></a>
             <a class="fa-solid fa-backpack" data-action="togglePokemonTeam"></a>
           </div>

@@ -1,6 +1,10 @@
-import { pokemonTypeFields, descriptionsFields } from "../common.mjs";
+import { pokemonTypeFields } from "../common.mjs";
+import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 export default class PokemonData extends foundry.abstract.TypeDataModel {
+
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
+
   /**
    * Key information about this Actor subtype
    */
@@ -44,7 +48,9 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
         species: new fields.StringField({ initial: "", size: "medium" }),
         gender: new fields.StringField({ initial: "", size: "small" }),
       }),
-      description: descriptionsFields(),
+      notes: new fields.SchemaField({
+        pokedexEntry: new NotesHTMLField(),
+      }),
       trainer: new fields.SchemaField({
         value: new fields.ForeignDocumentField(foundry.documents.BaseActor),
         inTeam: new fields.BooleanField({ initial: false }),

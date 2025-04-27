@@ -11,6 +11,30 @@
         }
     },
     "POKEYMANZ": {
+        "BASE_ACTOR": {
+            "FIELDS": {
+                "notes": {
+                    "pokedexEntry": {
+                        "label": "Pokedex Entry"
+                    },
+                    "biography": {
+                        "label": "Biography"
+                    }
+                }
+            }
+        },
+        "BASE_ITEM": {
+            "FIELDS": {
+                "notes": {
+                    "description": {
+                        "label": "Description"
+                    },
+                    "gmNotes": {
+                        "label": "GM Notes"
+                    }
+                }
+            }
+        },
         "Attributes": {
             "Label": "Attributes",
             "Heart": "Heart",
@@ -57,7 +81,7 @@
                 "Special": "Special",
                 "Status": "Status"
             },
-            "Dice" : "Dice Move"
+            "Dice": "Dice Move"
         },
         "Actor": {
             "Details": {
@@ -111,10 +135,10 @@
             "Backpack": "Backpack",
             "Computer": "PC",
             "EquipItem": "Equip {item}",
-            "UnquipItem" : "Unquip {item}",
+            "UnquipItem": "Unquip {item}",
             "EditItem": "Edit Item",
-            "UseItem" : "Use {item}",
-            "StatusesLabel" : "Status Effects",
+            "UseItem": "Use {item}",
+            "StatusesLabel": "Status Effects",
             "StatusesHint": "Select one or more status effects that this move can apply to the target",
             "EffectsLabel": "Active Effects",
             "EffectsHint": "Select one or more active effects that this movement possesses and that this move can apply to the target.",

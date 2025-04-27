@@ -1,13 +1,13 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
     <input class="document-name" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}"
         data-tooltip="{{item.name}}" {{disabled isPlayMode}} />
-    <div class="display--flex--space-evenly">
-        <div class="sidebar-card card flexcol display--flex--center">
+    <div class="flex">
+        <div class="sidebar-card card flex flex-col items-center gap-sm">
             <div class="portrait">
                 <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen
                     isPlayMode "renderIP" "setImg" }} alt="{{item.name}}" title="{{item.name}}" />
             </div>
-            <div class="input-group display--flex--center">
+            <div class="input-group flex items-center">
                 {{#if isPlayMode}}
                 <label class="input-group-label">{{localize
                     "POKEYMANZ.Category"}}</label>
@@ -27,10 +27,10 @@
                 {{/if}}
             </div>
             {{#if isPlayMode}}
-            <div class="display--flex--center">
+            <div class="flex items-center">
                 {{!-- TYPE BADGE --}}
                 {{#if pokemonType.primary.value}}
-                <div class="type-badge display--flex--center size--medium"
+                <div class="type-badge flex items-center size--medium"
                     style="--type-color: {{pokemonType.primary.color}}">
                     <img src="{{pokemonType.primary.img}}" alt="{{pokemonType.primary.id}}">
                     <span>{{localize pokemonType.primary.name}}</span>
@@ -38,27 +38,27 @@
                 {{/if}}
             </div>
             {{else}}
-             <div class="input-group display--flex--center">
+            <div class="input-group flex items-center">
                 <label class="input-group-label">{{localize
                     "POKEYMANZ.Type"}}</label>
                 {{formInput pokemonType.primary.field
                 value=pokemonType.primary.value
                 localize=true}}
-             </div>
+            </div>
             {{/if}}
             <div>
                 {{#if isPlayMode}}
-                <a class="rollable-button display--flex--col" data-action="roll" data-roll="move">
-                    <label class="rollable-label display--flex--center">
+                <a class="rollable-button flex-col" data-action="roll" data-roll="move">
+                    <label class="rollable-label flex">
                         {{roll.label}}
                     </label>
-                    <div class="rollable-frame display--flex--center">
+                    <div class="rollable-frame flex justify-center">
                         <img src="systems/pokeymanz/assets/dice/d{{roll.faces}}.svg" alt="{{roll.faces.sides}}">
                         {{numberFormat roll.modifier sign=true}}
                     </div>
                 </a>
                 {{else}}
-                <div class="rollable-inputs">
+                <div class="rollable-inputs gap-sm">
                     <label class="rollable-label">
                         {{roll.label}}
                     </label>
@@ -72,24 +72,9 @@
                 {{/if}}
             </div>
         </div>
-        <div class="body-container flexcol">
-            {{#each descriptionFields as |description key|}}
-            {{#unless description.hidden}}
-            <div class="description-container accordion-container">
-                <div class="description-header">
-                    <i class="accordion-icon fa-solid fa-caret-down"></i>
-                    {{description.label}}
-                </div>
-                <div class="description-content">
-                    {{formInput
-                    description.field
-                    value=description.value
-                    enriched=description.enriched
-                    toggled=true
-                    }}
-                </div>
-            </div>
-            {{/unless}}
+        <div class="body-container flex gap-sm flex-col">
+            {{#each notes as |note|}}
+            {{formGroup note.field value=note.value enriched=note.enritch toggled=true accordion=true}}
             {{/each}}
         </div>
     </div>

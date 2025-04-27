@@ -67,6 +67,12 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       icon: "fa-solid fa-bolt",
       label: "POKEYMANZ.Sheets.TABS.Effects",
     },
+    {
+      id: "notes",
+      group: "primary",
+      icon: "fa-solid fa-notebook",
+      label: "POKEYMANZ.Sheets.TABS.notes",
+    },
   ];
 
   /** @override */
@@ -138,7 +144,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
         uuid: move.uuid,
         moveType: move.system.pokemonTypes.primary,
         enrichDescription: await TextEditor.enrichHTML(
-          move.system.description.value,
+          move.system.notes.description,
           {
             secrets: move.isOwner,
             rollData: move.getRollData(),

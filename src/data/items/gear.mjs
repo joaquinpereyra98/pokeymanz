@@ -1,6 +1,9 @@
-import { descriptionsFields } from "../common.mjs";
+import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 export default class GearData extends foundry.abstract.TypeDataModel {
+
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
+
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -17,13 +20,16 @@ export default class GearData extends foundry.abstract.TypeDataModel {
           textSearch: true,
         }),
       }),
-      description: descriptionsFields(),
       price: new fields.NumberField({
         initial: 0,
         integer: true,
       }),
       equipped: new fields.BooleanField({
         initial: false,
+      }),
+      notes: new fields.SchemaField({
+        description: new NotesHTMLField(),
+        gmNotes: new NotesHTMLField(),
       }),
     };
   }

@@ -54,14 +54,12 @@
     "Actor": {
       "trainer": {
         "htmlFields": [
-          "description.value",
-          "description.gmNotes"
+          "notes.biography"
         ]
       },
       "pokemon": {
         "htmlFields": [
-          "description.value",
-          "description.gmNotes",
+          "notes.pokedexEntry",
           "stats.ability"
         ]
       }
@@ -69,20 +67,23 @@
     "Item": {
       "feat": {
         "htmlFields": [
-          "description.value",
-          "description.gmNotes"
+          "notes.description",
+          "notes.gmNotes"
+        ],
+        "gmOnlyFields": [
+          "notes.gmNotes"
         ]
       },
       "gear": {
         "htmlFields": [
-          "description.value",
-          "description.gmNotes"
+          "notes.description",
+          "notes.gmNotes"
         ]
       },
       "move": {
         "htmlFields": [
-          "description.value",
-          "description.gmNotes"
+          "notes.description",
+          "notes.gmNotes"
         ]
       }
     }

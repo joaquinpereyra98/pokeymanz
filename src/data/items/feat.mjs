@@ -1,6 +1,9 @@
-import { descriptionsFields } from "../common.mjs";
+import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 export default class FeatData extends foundry.abstract.TypeDataModel {
+
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
+
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -17,7 +20,10 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
           textSearch: true,
         }),
       }),
-      description: descriptionsFields(),
+      notes: new fields.SchemaField({
+        description: new NotesHTMLField(),
+        gmNotes: new NotesHTMLField({ gmOnly: true }),
+      }),
     };
   }
   /* -------------------------------------------- */
