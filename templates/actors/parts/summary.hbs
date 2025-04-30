@@ -143,6 +143,47 @@
                 {{/each}}
             </div>
             {{/if}}
+
+            {{#if pokemons}}
+            <div class="pokemon-list gap-md flex flex-col">
+                {{#each pokemons.pc as |pokemon|}}
+                <div class="info-card pokemon-card flex">
+                    <div class="portrait-contianer">
+                        <img src="{{pokemon.img}}" alt="{{pokemon.name}}">
+                    </div>
+                    <div class="card-containter">
+                        <div class="title-container flex">
+                            <span>
+                                {{pokemon.name}}
+                            </span>
+                            <div class="types-icons flex gap-sm">
+                                {{#if pokemon.system.stats.pokemonTypes.primary}}
+                                <img style="--type-color: {{pokemon.system.stats.pokemonTypes.primary.color}};"
+                                    src="{{pokemon.system.stats.pokemonTypes.primary.img}}"
+                                    alt="{{localize pokemon.system.stats.pokemonTypes.primary.name}}">
+
+                                {{/if}}
+                                {{#if pokemon.system.stats.pokemonTypes.secondary}}
+                                <img style="--type-color: {{pokemon.system.stats.pokemonTypes.secondary.color}};"
+                                    src="{{pokemon.system.stats.pokemonTypes.secondary.img}}"
+                                    alt="{{localize pokemon.system.stats.pokemonTypes.secondary.name}}">
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card-content grid grid-rows-2">
+                            {{#each pokemon.itemTypes.move as |move|}}
+                            <a class="move-button flex items-center justify-center" style="--type-color: {{move.moveType.color}};">
+                                <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}" data-tooltip="{{move.moveType.name}}">
+                                <span>{{move.name}}</span>
+                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}" alt="">
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
         </div>
     </div>
 </section>

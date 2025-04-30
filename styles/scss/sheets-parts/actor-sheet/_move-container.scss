@@ -68,6 +68,10 @@
                 height: 1.8rem;
                 color: white;
                 min-width: 200px;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+                overflow: hidden;
+                max-width: 20ch;
             }
 
             .move-type {

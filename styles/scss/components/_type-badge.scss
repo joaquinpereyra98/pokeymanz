@@ -22,6 +22,7 @@
     border: 3px solid white;
     box-shadow: 0 0 0.2rem;
     border-radius: map-get($type-badge-sizes, medium, radius);
+    text-shadow: 0 0 3px black;
 
     // TANSFORMATIONS
     transition: transform 300ms ease, filter 300ms ease, box-shadow 300ms ease;

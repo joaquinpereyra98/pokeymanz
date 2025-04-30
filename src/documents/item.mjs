@@ -29,13 +29,9 @@ export default class PokeymanzItem extends Item {
    * @returns {Object|null} The primary type object from the Pokémon types list, or null if not found.
    */
   get moveType() {
-    if (!foundry.utils.hasProperty(this, "system.type")) return null;
+    if (!foundry.utils.hasProperty(this, "system.pokemonTypes.primary")) return null;
 
-    const id = foundry.utils.getProperty(this, "system.type");
-    const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
-    const type = pokemonTypesList.find((type) => type.id === id);
-
-    return type;
+    return foundry.utils.getProperty(this, "system.pokemonTypes.primary");
   }
 
   /**

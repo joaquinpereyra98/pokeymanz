@@ -68,7 +68,7 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
       roll: {
         faces: baseContext.system.roll.faces,
         modifier: baseContext.system.roll.modifier,
-        icon: baseContext.system.roll.getDiceIcon(),
+        icon: baseContext.system.roll.diceIcon,
         label: baseContext.system.roll.label,
         fields: baseContext.system.roll.schema.fields,
       },

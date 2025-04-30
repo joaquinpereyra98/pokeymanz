@@ -40,7 +40,7 @@ class AttributeDiceData extends DataModel {
 
   _modFormulaPart = this.modifier.signedString();
 
-  getDiceIcon() {
+  get diceIcon() {
     return `${SYSTEM_CONST.ASSETS_PATH}/dice/d${this.faces}.svg`;
   }
 

@@ -138,6 +138,10 @@
   height: 1.8rem;
   color: white;
   min-width: 200px;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+  max-width: 20ch;
 }
 .move-container .move-accordion .move-header .move-type {
   margin: auto 1.5rem;
@@ -302,6 +306,75 @@ section.summary.tab .body-container .details-container {
   flex-wrap: wrap;
 }
 
+.pokeymanz .info-card .portrait-contianer {
+  background: var(--card-color);
+  padding: 10px;
+  border-radius: 10px 0 0 10px;
+  flex: 0 0 90px;
+  height: 90px;
+}
+.pokeymanz .info-card .portrait-contianer img {
+  border: none;
+  border-radius: 10px;
+}
+.pokeymanz .info-card .card-containter {
+  flex: 1;
+}
+.pokeymanz .info-card .card-containter .title-container {
+  background: var(--card-color);
+  font: bold 25px var(--pokeymanz-font-title);
+  color: var(--text-color);
+  height: 2.5rem;
+  border-radius: 0 10px 0 0;
+  padding: 5px 10px;
+}
+.pokeymanz .info-card .card-containter .title-container span {
+  margin: auto;
+  flex-grow: 1;
+}
+.pokeymanz .info-card .card-containter .title-container .types-icons img {
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--type-color);
+}
+.pokeymanz .info-card .card-containter .card-content {
+  min-height: 50px;
+  background: rgb(from var(--card-color) r g b/0.5);
+  border-radius: 0 0 10px 10px;
+  grid-template-columns: 50% 50%;
+  padding: 5px 0;
+}
+.pokeymanz .info-card .card-containter .card-content .move-button {
+  font-size: 20px;
+  background: var(--type-color);
+  color: white;
+  border-radius: 5px;
+  border: 2px solid black;
+  filter: saturate(0.7);
+  transform: scale(0.95);
+  transition: transform 300ms ease, filter 300ms ease;
+}
+.pokeymanz .info-card .card-containter .card-content .move-button img {
+  height: 1.5em;
+  margin: 0 5px;
+  border: none;
+}
+.pokeymanz .info-card .card-containter .card-content .move-button:hover {
+  filter: saturate(1.1);
+  transform: scale(1);
+}
+.pokeymanz .info-card .card-containter .card-content .move-button .dice-icon {
+  filter: invert(1);
+}
+.pokeymanz .info-card .card-containter .card-content .move-button span {
+  flex: 1;
+  text-align: center;
+  text-shadow: 0 0 5px black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .item section.summary.tab .sidebar-card {
   width: max(30%, 190px);
   min-width: 190px;
@@ -339,22 +412,6 @@ section.summary.tab .body-container .details-container {
 .summary-header .summary-inputs input.document-name {
   font-size: 3rem;
   height: 3rem;
-}
-
-.description-container .description-header {
-  align-items: center;
-  align-content: center;
-  padding: 0.4rem 1rem 0.4rem 0.6rem;
-  font-size: large;
-  background-color: var(--pokeymanz-color-ui-red);
-  border-radius: 0.4rem 0.4rem 0 0;
-  color: white;
-  font-weight: bold;
-  margin: 0;
-  margin-top: 0.5rem;
-}
-.description-container .description-content {
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 header.pokeymanz-sheet-header .edit-switch-contianer {
@@ -712,6 +769,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   border: 3px solid white;
   box-shadow: 0 0 0.2rem;
   border-radius: 25px;
+  text-shadow: 0 0 3px black;
   transition: transform 300ms ease, filter 300ms ease, box-shadow 300ms ease;
   filter: saturate(0.7);
   transform: scale(0.9);

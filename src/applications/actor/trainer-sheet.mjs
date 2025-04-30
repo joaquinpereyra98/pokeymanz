@@ -125,7 +125,7 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
         {
           faces: attr.faces,
           modifier: attr.modifier,
-          icon: attr.getDiceIcon(),
+          icon: attr.diceIcon,
           label: attr.label,
           fields: attr.schema.fields,
         },
