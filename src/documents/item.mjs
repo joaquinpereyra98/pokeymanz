@@ -79,10 +79,7 @@ export default class PokeymanzItem extends Item {
 
   async _useMove() {
     const data = this.getRollData();
-    const die = data.item.die.sides;
-    const mod = data.item.die.modifier.signedString();
-
-    const formula = `1d${die}x${mod}`;
+    const { formula } = data.item.roll;
     const roll = await Roll.create(formula, data).evaluate();
 
     const rollContente = await roll.render();
@@ -91,7 +88,7 @@ export default class PokeymanzItem extends Item {
       speaker: ChatMessage.getSpeaker({ actor: this.parent }),
       flavor: this.name,
       rollMode: game.settings.get("core", "rollMode"),
-      content: `${data.item.description.value} ${rollContente}`,
+      content: `${this.system.notes.description} ${rollContente}`,
     });
 
   }

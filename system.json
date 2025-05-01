@@ -50,6 +50,7 @@
       ]
     }
   },
+  "initiative": "@initiativeFormula",
   "documentTypes": {
     "Actor": {
       "trainer": {

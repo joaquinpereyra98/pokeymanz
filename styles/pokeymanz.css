@@ -86,7 +86,6 @@
   padding: 0.5rem 0.5rem 0.5rem 0.1rem;
 }
 .move-container .move-portrait .drag-line {
-  cursor: all-scroll;
   display: flex;
   justify-content: center;
   width: 0.3rem;
@@ -367,12 +366,12 @@ section.summary.tab .body-container .details-container {
   filter: invert(1);
 }
 .pokeymanz .info-card .card-containter .card-content .move-button span {
-  flex: 1;
-  text-align: center;
   text-shadow: 0 0 5px black;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 100%;
+  width: min-content;
 }
 
 .item section.summary.tab .sidebar-card {
@@ -837,9 +836,6 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 .note-container .note-content {
   background: rgba(0, 0, 0, 0.3);
-}
-.note-container .note-content prose-mirror {
-  margin: 5px 10px;
 }
 
 .flex {

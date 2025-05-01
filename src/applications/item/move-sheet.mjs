@@ -85,7 +85,7 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
   }
 
   _preparePokemonType() {
-    const { pokemonTypes, schema } = this.document.system;
+    const { pokemonTypes, schema } = this.document.system;  
     return {
       primary: {
         ...pokemonTypes.primary,

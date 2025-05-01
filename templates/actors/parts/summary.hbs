@@ -146,7 +146,7 @@
 
             {{#if pokemons}}
             <div class="pokemon-list gap-md flex flex-col">
-                {{#each pokemons.pc as |pokemon|}}
+                {{#each pokemons.team as |pokemon|}}
                 <div class="info-card pokemon-card flex">
                     <div class="portrait-contianer">
                         <img src="{{pokemon.img}}" alt="{{pokemon.name}}">
@@ -172,10 +172,10 @@
                         </div>
                         <div class="card-content grid grid-rows-2">
                             {{#each pokemon.itemTypes.move as |move|}}
-                            <a class="move-button flex items-center justify-center" style="--type-color: {{move.moveType.color}};">
+                            <a class="move-button flex items-center justify-around" style="--type-color: {{move.moveType.color}};" data-action="useItem" data-item-uuid="{{move.uuid}}">
                                 <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}" data-tooltip="{{move.moveType.name}}">
-                                <span>{{move.name}}</span>
-                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}" alt="">
+                                <span data-tooltip="{{move.name}}">{{move.name}}</span>
+                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}" data-tooltip="{{move.system.roll.formula}}">
                             </a>
                             {{/each}}
                         </div>

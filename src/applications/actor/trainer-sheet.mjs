@@ -169,6 +169,6 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     const pokemon = game.actors.get(docId);
 
     await pokemon?.update({ "system.trainer.inTeam": !pokemon.system.trainer.inTeam });
-    this.render({ parts: ["pokemon"] });
+    this.render();
   }
 }

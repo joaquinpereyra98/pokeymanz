@@ -3,6 +3,20 @@
  */
 export default class PokeymanzActor extends Actor {
 
+  getRollData() {
+    const data = super.getRollData();
+
+    switch (this.type) {
+      case "trainer":
+        data.initiativeFormula = data.attributes.tactics.formula;
+        break;
+      case "pokemon":
+        data.initiativeFormula = "1d6x";
+    }
+
+    return data;
+  }
+
   get haveAttributes() {
     return foundry.utils.hasProperty(this, "system.attributes");
   }
@@ -22,14 +36,12 @@ export default class PokeymanzActor extends Actor {
    */
   rollAttribute(attribute, option = {}) {
     const data = this.getRollData();
-    const label = game.i18n.localize(data.attributes[attribute].name);
-    const die = data.attributes[attribute].die.sides;
-    const mod = data.attributes[attribute].die.modifier.signedString();
+    const { label, formula } = foundry.utils.getProperty(data, `attributes.${attribute}`);
 
     const wounds = `${this.calcWoundPenalties() || ""}`;
 
-    const formula = `1d${die}x${mod}${wounds}[${label}]`;
-    const roll = Roll.create(formula, data);
+    const rollFormula = `${formula}${wounds}[${label}]`;
+    const roll = Roll.create(rollFormula, data);
 
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
