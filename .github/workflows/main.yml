@@ -31,7 +31,7 @@ jobs:
       - name: Build JS
         run: |
           npm run build --if-present
-          mv --force public/pokeymanz.mjs pokeymanz.mjs
+          mv --force dist/pokeymanz.mjs pokeymanz.mjs
 
       - name: Create System Archive
         run: |
