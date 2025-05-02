@@ -42,6 +42,7 @@ jobs:
             pokeymanz.mjs \
             styles/pokeymanz.css \
             templates/
+            assets/
 
       - name: Update Release With Files
         id: create_version_release
