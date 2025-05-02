@@ -90,6 +90,6 @@
     }
   },
   "url": "#{URL}#",
-  "manifest": "",
+  "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#"
 }
