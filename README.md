@@ -3,17 +3,33 @@ A unofficial implementation of the PokeymanzTTPRG rules for FoundryVTT. Pokeyman
 
 The support and development of this implementation is independent of the Pokaymanz game developed by [ChronicDelusionist](https://chronicdelusionist.neocities.org/Pokeymanz/).
 
-The software component of this system is distributed under the MIT license
-
 ## How to Install
-The system is currently under development, so no versions have been released.
+Use the following manifest URL in FoundryVTT's system installer:
+```
+https://github.com/joaquinpereyra98/pokeymanz/releases/latest/download/system.json
+```
 
-If you wish to manually install the system, you should download the repository extract it into the `Data/systems/pokeymanz` folder
+## Development
+
+This system is under active development. Contributions and issue reports are welcome via the [GitHub Issues page](https://github.com/joaquinpereyra98/pokeymanz/issues).
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 ## Freatures
-WIP
+- Custom Trainer sheets with attributes, stats, and inventory management.
+- Custom Wild Pokemon sheets with stats and the ability to have Move Items.
+- Dice rolling logic built to match the game's mechanics. (in progress)
+- Visual design consistent with the game's tone.
+
+More features will be added later in development.
 
 ## Credits
+This implementation was Developed by [JoaquinP](https://github.com/joaquinpereyra98)  
+📧 joaquinpereyra98@gmail.com  
+💬 Discord: joaquinp98
+
 Pokeymanz TTRPG was created by [ChronicDelusionist](https://chronicdelusionist.neocities.org/Pokeymanz). [CC BY 4.0 Deed](https://creativecommons.org/licenses/by/4.0/).
 
 Pokemon Type Icons - Vector desing by [Lugia-Sea](https://www.deviantart.com/lugia-sea) © 2021 - 2024 Lugia-sea.
