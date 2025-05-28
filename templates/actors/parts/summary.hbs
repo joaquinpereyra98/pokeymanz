@@ -101,7 +101,7 @@
                 {{#if move}}
                 <div class="move-container flex">
                     <div class="move-portrait flex">
-                        <div class="drag-line">
+                        <div class="drag-line draggable" data-doc-id="{{move._id}}" data-document-class="Item">
                             <i></i>
                         </div>
                         <div class="img-portrait" data-action="useItem" data-item-uuid="{{move.uuid}}"
@@ -157,13 +157,13 @@
                                 {{pokemon.name}}
                             </span>
                             <div class="types-icons flex gap-sm">
-                                {{#if pokemon.system.stats.pokemonTypes.primary}}
+                                {{#if pokemon.system.stats.pokemonTypes.primary.value}}
                                 <img style="--type-color: {{pokemon.system.stats.pokemonTypes.primary.color}};"
                                     src="{{pokemon.system.stats.pokemonTypes.primary.img}}"
                                     alt="{{localize pokemon.system.stats.pokemonTypes.primary.name}}">
 
                                 {{/if}}
-                                {{#if pokemon.system.stats.pokemonTypes.secondary}}
+                                {{#if pokemon.system.stats.pokemonTypes.secondary.value}}
                                 <img style="--type-color: {{pokemon.system.stats.pokemonTypes.secondary.color}};"
                                     src="{{pokemon.system.stats.pokemonTypes.secondary.img}}"
                                     alt="{{localize pokemon.system.stats.pokemonTypes.secondary.name}}">

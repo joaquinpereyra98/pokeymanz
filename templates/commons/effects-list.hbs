@@ -23,7 +23,7 @@
         </li>
         <ol class="item-list effect-list spacing--p-0 spacing--m-0" data-effect-type="{{section.type}}">
             {{#each section.effects as |effect|}}
-            <li class="item effect flexrow" data-doc-id="{{effect.id}}" data-document-class="ActiveEffect"
+            <li class="item effect flexrow draggable" data-doc-id="{{effect.id}}" data-document-class="ActiveEffect"
                 data-drag="true" data-effect-type="{{section.type}}">
                 <div class="item-name flexrow">
                     <img class="item-image" src="{{effect.img}}" height="24" width="24" alt="{{effect.name}}">

@@ -175,7 +175,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   }
 
   _prepareInventory() {
-    const items = this.document.items.filter((i) => i.isEquipable);
+    const items = this.document.items.filter((i) => i.isEquipable).sort((a, b) => (a.sort || 0) - (b.sort || 0));
 
     const categories = {
       backpack: {
@@ -524,7 +524,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   static async _useItem(event, target) {
     const { itemUuid } = target.dataset;
     const item = await fromUuid(itemUuid);
-
     await item.use();
   }
 }
