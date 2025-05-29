@@ -1,4 +1,7 @@
 {
+    "EFFECT": {
+        "TabDuration": "Duration"
+    },
     "TYPES": {
         "Actor": {
             "trainer": "Trainer",

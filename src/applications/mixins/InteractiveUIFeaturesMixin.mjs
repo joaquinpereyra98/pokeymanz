@@ -100,13 +100,16 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       if (Array.isArray(this.options.contextMenus))
         return this.options.contextMenus.map(
           ({ selector, menuItems, options }) => {
-            return ContextMenu.create(
-              this,
-              this.element,
-              selector,
-              menuItems,
-              options,
-            );
+            if (game.release.generation >= 13)
+              return this._createContextMenu(Array.isArray(menuItems) ? () => menuItems : menuItems, selector, { ...options });
+            else
+              return ContextMenu.create(
+                this,
+                this.element,
+                selector,
+                menuItems(),
+                options,
+              );
           },
         );
       else {

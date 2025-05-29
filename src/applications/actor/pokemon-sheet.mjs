@@ -84,21 +84,29 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /*  Drop-Down Menus                             */
   /* -------------------------------------------- */
 
+  /**
+
+ * @static
+ * @returns {ContextMenuEntry[]} An array of context menu item objects.
+ */
+
   static _getMoveMenuItems() {
     return [
       {
         name: "POKEYMANZ.Item.EditItem",
         icon: "<i class=\"fas fa-edit\"></i>",
-        callback: ([html]) => {
-          const uuid = html.dataset.itemUuid;
+        callback: (html) => {
+          const element = html instanceof HTMLElement ? html : html[0];
+          const uuid = element.dataset.itemUuid;
           fromUuidSync(uuid)?.sheet?.render({ force: true });
         },
       },
       {
         name: "Delete",
         icon: "<i class=\"fas fa-trash\"></i>",
-        callback: ([html]) => {
-          const uuid = html.dataset.itemUuid;
+        callback: (html) => {
+          const element = html instanceof HTMLElement ? html : html[0];
+          const uuid = element.dataset.itemUuid;
           fromUuidSync(uuid)?.delete();
         },
       },
