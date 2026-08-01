@@ -1,20 +1,21 @@
-@use "./abstracts" as *;
+@use 'abstracts' as *;
 
 .pokeymanz.sheet {
   background-color: var(--background-color);
 
   header.window-header {
-      border: 0;
-      background-color: $pokeymanz-c-red;
-  }
+    border: 0;
+    background-color: $pokeymanz-c-red;
+}
 
-  section.window-content {
-      padding: 0;
-      overflow: auto;
-      scrollbar-color: $pokeymanz-c-red rgba(#000000, 0.3);
+section.window-content {
+    margin-top: -2px;
+    padding: 0;
+    overflow: auto;
+    scrollbar-color: $pokeymanz-c-red rgba(#000000, 0.3);
   }
 
   section.tab {
-      margin: 10px;
+    margin: 10px;
   }
 }

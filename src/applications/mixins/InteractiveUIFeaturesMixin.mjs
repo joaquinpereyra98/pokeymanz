@@ -71,9 +71,8 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       /**
        * DragDrop
        */
-      const DragDropCls = DragDrop.implementation ?? DragDrop;
 
-      new DragDropCls({
+      new foundry.applications.ux.DragDrop.implementation({
         dragSelector: ".draggable",
         permissions: {
           dragstart: this._canDragStart.bind(this),
@@ -218,8 +217,10 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
      * @protected
      */
     async _onDrop(event) {
-      const TextEditorCls = TextEditor.implementation ?? TextEditor;
-      const data = TextEditorCls.getDragEventData(event);
+      const data =
+        foundry.applications.ux.TextEditor.implementation.getDragEventData(
+          event,
+        );
       const actor = this.actor;
       const allowed = Hooks.call("pokeymanz.dropActorSheetData", actor, this, data);
       if (allowed === false) return;

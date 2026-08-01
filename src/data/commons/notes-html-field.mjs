@@ -1,20 +1,4 @@
 export default class NotesHTMLField extends foundry.data.fields.HTMLField {
-  /**
-    * Enrich the HTML content of this field value.
-    * @param {string} value - The raw HTML value to enrich.
-    * @param {Document} document 
-    * @param {EnrichmentOptions} [options] - Options passed to TextEditor.enrichHTML
-    * @returns {Promise<string>} Enriched HTML content.
-    */
-  async enrich(value, document, options) {
-    return await TextEditor.enrichHTML(value, {
-      secrets: document.isOwner,
-      relativeTo: document,
-      rollData: document.getRollData?.() ?? {},
-      ...options,
-    });
-  }
-
   /** @override */
   toFormGroup(groupConfig = {}, inputConfig = {}) {
     if (groupConfig.widget instanceof Function) return groupConfig.widget(this, groupConfig, inputConfig);

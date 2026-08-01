@@ -47,9 +47,11 @@
         font-weight: bold;
     }
 
-    i.input-group-icon {
-        font-size: 1.2rem;
-        padding: 0 0.4rem;
+    .icon-flex {
+        margin: 0 0.2rem;
+        i.input-group-icon {
+            font-size: 1.2rem;
+        }
     }
 
     img.input-group-img {

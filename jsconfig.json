@@ -1,26 +1,15 @@
-  {
-    "compilerOptions": {
-      "module": "ES6",
-      "target": "ES6",
-      "baseUrl": ".",
-      "paths": {
-        "/scripts/greensock/esm/all.js": [
-          "v12/resources/app/public/scripts/greensock/src/gsap-core"
-        ]
-      },
-    },
-    "exclude": [
-      "node_modules",
-      "**/node_modules/*"
-    ],
-    "include": [
-      "pokeymanz.mjs",
-      "v12/client/**/*.js",
-      "v12/**/*.mjs"
-    ],
-    "typeAcquisition": {
-      "include": [
-        "jquery"
-      ]
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "ES6",
+    "paths": {
+      "@client/*": ["./foundry/client/*"],
+      "@common/*": ["./foundry/common/*"],
     }
+  },
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "include": ["pokeymanz.mjs", "foundry/client/client.mjs", "global.d.ts", "src/*"],
+  "typeAcquisition": {
+    "include": ["jquery", "pixi.js"]
   }
+}

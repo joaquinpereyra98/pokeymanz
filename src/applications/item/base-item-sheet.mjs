@@ -104,18 +104,27 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   }
 
   async _prepareNotes() {
-    const { system } = this.document;
+    const doc = this.document;
 
     const notes = [];
-    
-    for (const [key, value] of Object.entries(system.notes)) {
-      const field = system.schema.getField(`notes.${key}`);
+
+    for (const [key, value] of Object.entries(doc.system.notes)) {
+      const field = doc.system.schema.getField(`notes.${key}`);
       if (field.gmOnly && !game.user.isGM) continue;
       notes.push({
         field,
         value,
-        enritch: await field.enrich(value, this.document),
-      });  
+        enritch:
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            value,
+            {
+              secrets: doc.isOwner,
+              relativeTo: doc,
+              rollData: doc.getRollData?.() ?? {},
+              ...options,
+            },
+          ),
+      });
     }
 
     return notes;

@@ -32,27 +32,25 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClass = document.Item;
 
   /*Registering Sheets*/
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("Trainer Sheet", apps.actor.TrainerSheet, {
+  foundry.documents.collections.Actors.registerSheet("Trainer Sheet", apps.actor.TrainerSheet, {
     types: ["trainer"],
     label: "POKEYMANZ.TrainerSheet",
   });
-  Actors.registerSheet("Pokemon Sheet", apps.actor.PokemonSheet, {
+  foundry.documents.collections.Actors.registerSheet("Pokemon Sheet", apps.actor.PokemonSheet, {
     types: ["pokemon"],
     label: "POKEYMANZ.PokemonSheet",
   });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {
+  foundry.documents.collections.Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {
     types: ["feat"],
     makeDefault: true,
     label: "POKEYMANZ.FeatSheet",
   });
-  Items.registerSheet("Gear Sheet", apps.item.GearSheet, {
+  foundry.documents.collections.Items.registerSheet("Gear Sheet", apps.item.GearSheet, {
     types: ["gear"],
     makeDefault: true,
     label: "POKEYMANZ.GearSheet",
   });
-  Items.registerSheet("Move Sheet", apps.item.MoveSheet, {
+  foundry.documents.collections.Items.registerSheet("Move Sheet", apps.item.MoveSheet, {
     types: ["move"],
     makeDefault: true,
     label: "POKEYMANZ.MoveSheet",

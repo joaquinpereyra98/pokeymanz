@@ -175,7 +175,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   }
 
   _prepareInventory() {
-    const items = this.document.items.filter((i) => i.isEquipable).sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const items = this.document.items
+      .filter((i) => i.isEquipable)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
 
     const categories = {
       backpack: {
@@ -238,10 +240,19 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
     for (const [key, value] of Object.entries(system.notes)) {
       const field = system.schema.getField(`notes.${key}`);
+
       notes.push({
         field,
         value,
-        enritch: await field.enrich(value, this.document),
+        enritch:
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            value,
+            {
+              secrets: this.document.isOwner,
+              relativeTo: this.document,
+              rollData: this.document.getRollData?.() ?? {},
+            },
+          ),
       });
     }
 

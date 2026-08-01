@@ -93,7 +93,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   static _getMoveMenuItems() {
     return [
       {
-        name: "POKEYMANZ.Item.EditItem",
+        label: "POKEYMANZ.Item.EditItem",
         icon: "<i class=\"fas fa-edit\"></i>",
         callback: (html) => {
           const element = html instanceof HTMLElement ? html : html[0];
@@ -102,7 +102,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
         },
       },
       {
-        name: "Delete",
+        label: "Delete",
         icon: "<i class=\"fas fa-trash\"></i>",
         callback: (html) => {
           const element = html instanceof HTMLElement ? html : html[0];
@@ -151,14 +151,15 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
         ...move.toObject(),
         uuid: move.uuid,
         moveType: move.system.pokemonTypes.primary,
-        enrichDescription: await TextEditor.enrichHTML(
-          move.system.notes.description,
-          {
-            secrets: move.isOwner,
-            rollData: move.getRollData(),
-            relativeTo: move,
-          },
-        ),
+        enrichDescription:
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            move.system.notes.description,
+            {
+              secrets: move.isOwner,
+              rollData: move.getRollData(),
+              relativeTo: move,
+            },
+          ),
       });
     }
     moves.sort((a, b) => a.sort - b.sort);

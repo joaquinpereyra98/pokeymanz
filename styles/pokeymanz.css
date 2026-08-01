@@ -733,9 +733,11 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   padding: 0 0.5rem;
   font-weight: bold;
 }
-.pokeymanz div.input-group i.input-group-icon {
+.pokeymanz div.input-group .icon-flex {
+  margin: 0 0.2rem;
+}
+.pokeymanz div.input-group .icon-flex i.input-group-icon {
   font-size: 1.2rem;
-  padding: 0 0.4rem;
 }
 .pokeymanz div.input-group img.input-group-img {
   margin: auto;
@@ -962,6 +964,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   background-color: var(--pokeymanz-color-ui-red);
 }
 .pokeymanz.sheet section.window-content {
+  margin-top: -2px;
   padding: 0;
   overflow: auto;
   scrollbar-color: var(--pokeymanz-color-ui-red) rgba(0, 0, 0, 0.3);
