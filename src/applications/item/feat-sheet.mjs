@@ -15,6 +15,7 @@ export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet)
   static _PARTS = {
     summary: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/summary.hbs`,
+      scrollable: ["tab"],
     },
   };
 

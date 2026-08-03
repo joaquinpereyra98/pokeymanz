@@ -9,9 +9,7 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias MoveSheet
  */
-export default class MoveSheet extends InteractiveUIFeaturesMixin(
-  BaseItemSheet,
-) {
+export default class MoveSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -27,6 +25,7 @@ export default class MoveSheet extends InteractiveUIFeaturesMixin(
   static _PARTS = {
     summary: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/move-summary.hbs`,
+      scrollable: ["tab"],
     },
   };
 

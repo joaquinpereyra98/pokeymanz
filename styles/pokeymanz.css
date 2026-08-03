@@ -307,8 +307,14 @@ section.summary.tab .body-container {
   gap: 0.5rem;
 }
 section.summary.tab .body-container .details-container {
+  display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+section.summary.tab .body-container .move-list-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
 }
 
 .pokeymanz .info-card .portrait-contianer {
@@ -658,22 +664,6 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   object-position: top center;
 }
 
-.pokeymanz .fix-context-menu #context-menu {
-  font-size: 0.9rem;
-  text-shadow: none;
-  min-width: 120px;
-}
-.pokeymanz .fix-context-menu #context-menu li.context-item {
-  line-height: 1rem;
-  margin: 0;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-}
-.pokeymanz .fix-context-menu.aling--right #context-menu {
-  right: 0;
-  left: auto;
-}
-
 .pokeymanz input.document-name {
   font-size: 2.5rem;
   font-weight: bold;
@@ -966,6 +956,20 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 
 .pokeymanz.sheet {
   background-color: var(--background-color);
+  scrollbar-color: var(--pokeymanz-color-ui-red) var(--color-scrollbar-track);
+}
+.pokeymanz.sheet a.button, .pokeymanz.sheet button {
+  --button-background-color: var(--pokeymanz-color-ui-red);
+  --button-text-color: var(--pokeymanz-color-ui-white);
+  --button-hover-background-color: var(--pokeymanz-color-ui-red);
+  --button-hover-text-color: var(--pokeymanz-color-ui-white);
+  --button-hover-border-color: var(--pokeymanz-color-ui-white);
+}
+.pokeymanz.sheet a.button::before, .pokeymanz.sheet button::before {
+  transition: 0.5s;
+}
+.pokeymanz.sheet a.button:hover::before, .pokeymanz.sheet button:hover::before {
+  transform: scale(1.4);
 }
 .pokeymanz.sheet header.window-header {
   border: 0;
@@ -974,9 +978,12 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 .pokeymanz.sheet section.window-content {
   margin-top: -2px;
   padding: 0;
-  overflow: auto;
-  scrollbar-color: var(--pokeymanz-color-ui-red) rgba(0, 0, 0, 0.3);
+  --color-scrollbar: $pokeymanz-c-red;
+  --color-scrollbar-track: rgba(#000000, 0.3);
 }
 .pokeymanz.sheet section.tab {
-  margin: 10px;
+  height: 100%;
+  overflow-y: auto;
+  margin: 10px 0px 15px 5px;
+  padding-right: 5px;
 }

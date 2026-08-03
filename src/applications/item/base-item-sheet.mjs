@@ -60,9 +60,11 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(ItemSheetV
   static _PARTS = {
     header: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/header.hbs`,
+      scrollable: ["tab"]
     },
     effects: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/effects.hbs`,
+      scrollable: ["tab"]
     },
   };
 

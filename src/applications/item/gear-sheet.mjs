@@ -9,9 +9,7 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias GearSheet
  */
-export default class GearSheet extends InteractiveUIFeaturesMixin(
-  BaseItemSheet,
-) {
+export default class GearSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -24,6 +22,7 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
   static _PARTS = {
     summary: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/summary.hbs`,
+      scrollable: ["tab"],
     },
   };
 

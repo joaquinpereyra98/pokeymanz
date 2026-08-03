@@ -1,21 +1,42 @@
-@use 'abstracts' as *;
+@use "abstracts" as *;
 
 .pokeymanz.sheet {
   background-color: var(--background-color);
+  scrollbar-color: $pokeymanz-c-red var(--color-scrollbar-track);
+
+  a.button, button {
+    --button-background-color: #{$pokeymanz-c-red};
+    --button-text-color: #{$pokeymanz-c-white};
+    --button-hover-background-color: #{$pokeymanz-c-red};
+    --button-hover-text-color: #{$pokeymanz-c-white};
+    --button-hover-border-color: #{$pokeymanz-c-white};
+
+    &::before {
+      transition: 0.5s;
+    }
+    &:hover::before{
+      transform: scale(1.4);
+    }
+
+
+  }
 
   header.window-header {
     border: 0;
     background-color: $pokeymanz-c-red;
-}
+  }
 
-section.window-content {
+  section.window-content {
     margin-top: -2px;
     padding: 0;
-    overflow: auto;
-    scrollbar-color: $pokeymanz-c-red rgba(#000000, 0.3);
+    --color-scrollbar: $pokeymanz-c-red;
+    --color-scrollbar-track: rgba(#000000, 0.3);
   }
 
   section.tab {
-    margin: 10px;
+    height: 100%;
+    overflow-y: auto;
+    margin: 10px 0px 15px 5px;
+    padding-right: 5px;
   }
 }

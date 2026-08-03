@@ -8,7 +8,9 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
  * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
  */
 
-export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+export default class BaseActorSheet extends HandlebarsApplicationMixin(
+  ActorSheetV2,
+) {
   /** @type {Partial<foundry.applications.types.ApplicationConfiguration>} */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
@@ -64,9 +66,11 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
     },
     effects: {
       template: `${TEMPLATES_PATH}/actors/parts/effects.hbs`,
+      scrollable: ["tab"]
     },
     notes: {
       template: `${TEMPLATES_PATH}/actors/parts/notes.hbs`,
+      scrollable: ["tab"]
     },
   };
 
@@ -222,23 +226,13 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
    */
   _prepareDetails() {
     const details = this.document.system.details;
-    const schemaFields = this.document.system.schema.get("details").fields;
+    const schemaFields = this.document.system.schema;
 
-    return Object.fromEntries(
-      Object.entries(details).map(([key, value]) => [
-        key,
-        {
-          key,
-          value,
-          name: `system.details.${key}`,
-          label: game.i18n.localize(
-            `POKEYMANZ.Actor.Details.${key.capitalize()}`,
-          ),
-          type: typeof value === "string" ? "text" : "number",
-          size: schemaFields[key].options?.size ?? "medium",
-        },
-      ]),
-    );
+    return Object.entries(details).map(([key, value]) => ({
+      value,
+      field: schemaFields.getField(`details.${key}`),
+      label: game.i18n.localize(`POKEYMANZ.Actor.Details.${key.capitalize()}`),
+    }));
   }
 
   async _prepareNotes() {

@@ -1,6 +1,21 @@
 import Accordion from "../accordion.mjs";
 import * as SYSTEM_CONST from "../../constants.mjs";
 
+/**
+ * @typedef ContextMenuConfiguration
+ * @property {() => ContextMenuEntry[]} handler  A handler function that provides initial context options
+ * @property {string} selector                   A CSS selector to which the ContextMenu will be bound
+ * @property {object} [options]                  Additional options which affect ContextMenu construction
+ * @property {HTMLElement} [options.container]   A parent HTMLElement which contains the selector target
+ * @property {string} [options.hookName]         The hook name
+ * @property {boolean} [options.parentClassHooks=true]  Whether to call hooks for the parent classes in the inheritance
+ */
+
+/**
+ *
+ * @param {foundry.applications.api.ApplicationV2} BaseApplication
+ * @returns
+ */
 export default function InteractiveUIFeaturesMixin(BaseApplication) {
   class InteractiveApplication extends BaseApplication {
     /** @inheritDoc */
@@ -90,31 +105,18 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
      * @returns {foundry.applications.ux.ContextMenu[]}
      */
     _createContextMenus() {
-      if (Array.isArray(this.options.contextMenus))
-        return this.options.contextMenus.map(
-          ({ selector, menuItems, options }) => {
-            if (game.release.generation >= 13)
-              return this._createContextMenu(
-                Array.isArray(menuItems) ? () => menuItems : menuItems,
-                selector,
-                { ...options },
-              );
-            else
-              return ContextMenu.create(
-                this,
-                this.element,
-                selector,
-                menuItems(),
-                options,
-              );
-          },
-        );
-      else {
+      const configs = this.options.contextMenus;
+
+      if (!Array.isArray(configs)) {
         console.error(
-          `${SYSTEM_CONST.SYSTEM_NAME} | Error _createContextMenus | this.options.contextMenus should be a Array`,
+          `${SYSTEM_CONST.SYSTEM_NAME} | Error _createContextMenus | ContextMenus options should be an Array`,
         );
         return [];
       }
+
+      return configs.map(({ selector, handler, options = {} }) =>
+        this._createContextMenu(handler, selector, options),
+      );
     }
 
     /** @override */

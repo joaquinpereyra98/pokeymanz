@@ -9,7 +9,9 @@ import { TRAINER_TEMPLATES_PATH, TEMPLATES_PATH } from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias TrainerSheet
  */
-export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
+export default class TrainerSheet extends InteractiveUIFeaturesMixin(
+  BaseActorSheet,
+) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -30,15 +32,19 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSh
         `${TRAINER_TEMPLATES_PATH}/parts/sidebar.hbs`,
         `${TEMPLATES_PATH}/actors/partials/attributes-container.hbs`,
       ],
+      scrollable: ["tab"],
     },
     inventory: {
       template: `${TEMPLATES_PATH}/actors/parts/inventory.hbs`,
+      scrollable: ["tab"],
     },
     features: {
       template: `${TEMPLATES_PATH}/actors/parts/features.hbs`,
+      scrollable: ["tab"],
     },
     pokemon: {
       template: `${TEMPLATES_PATH}/actors/parts/pokemon.hbs`,
+      scrollable: ["tab"],
     },
   };
 

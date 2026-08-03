@@ -3,6 +3,10 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
 import { POKEMON_TEMPLATES_PATH } from "../../constants.mjs";
 
 /**
+ * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs"
+ */
+
+/**
  * The Pokeymanz Actor application.
  * @extends BaseActorSheet
  * @mixes InteractiveApplication
@@ -18,13 +22,15 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     },
     actions: {
       toggleTrainerTeam: PokemonSheet.#toggleTrainerTeam,
+      createMove: PokemonSheet.#createMove,
     },
     contextMenus: [
       {
         selector: ".move-menu",
-        menuItems: PokemonSheet._getMoveMenuItems(),
+        handler: PokemonSheet._getMoveMenuItems,
         options: {
           eventName: "click",
+          fixed: true,
         },
       },
     ],
@@ -42,6 +48,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     summary: {
       template: `${POKEMON_TEMPLATES_PATH}/summary.hbs`,
       templates: [`${POKEMON_TEMPLATES_PATH}/parts/sidebar.hbs`],
+      scrollable: ["tab"],
     },
   };
 
@@ -83,18 +90,16 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
       {
         label: "POKEYMANZ.Item.EditItem",
         icon: '<i class="fas fa-edit"></i>',
-        callback: (html) => {
-          const element = html instanceof HTMLElement ? html : html[0];
-          const uuid = element.dataset.itemUuid;
+        onClick: (_, target) => {
+          const uuid = target.dataset.itemUuid;
           fromUuidSync(uuid)?.sheet?.render({ force: true });
         },
       },
       {
         label: "Delete",
         icon: '<i class="fas fa-trash"></i>',
-        callback: (html) => {
-          const element = html instanceof HTMLElement ? html : html[0];
-          const uuid = element.dataset.itemUuid;
+        onClick: (_, target) => {
+          const uuid = target.dataset.itemUuid;
           fromUuidSync(uuid)?.delete();
         },
       },
@@ -163,7 +168,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
   /* -------------------------------------------- */
 
   /**
-   * 
+   *
    * @this PokemonSheet
    * @type {foundry.applications.types.ApplicationClickAction}
    */
@@ -172,5 +177,22 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     await this.document.update({
       "system.trainer.inTeam": !this.document.system.trainer.inTeam,
     });
+  }
+
+  /**
+   *
+   * @this PokemonSheet
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async #createMove(event) {
+    const doc = await foundry.documents.Item.implementation.create(
+      {
+        name: game.i18n.format("DOCUMENT.New", { type: "move" }),
+        type: "move",
+      },
+      { parent: this.document },
+    );
+
+    if (!event.shiftKey) doc.sheet?.render({ force: true });
   }
 }

@@ -1,13 +1,10 @@
-import {
-  pokemonTypeFields,
-} from "../common.mjs";
+import { pokemonTypeFields } from "../common.mjs";
 
 import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
 export default class TrainerData extends foundry.abstract.TypeDataModel {
-
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
 
   /**
@@ -23,13 +20,20 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
     return {
       attributes: new fields.SchemaField(
         ["heart", "fitness", "research", "tactics"].reduce((acc, v) => {
-          acc[v] = new AttributeDiceField({ label: `POKEYMANZ.Attributes.${v.capitalize()}` });
+          acc[v] = new AttributeDiceField({
+            label: `POKEYMANZ.Attributes.${v.capitalize()}`,
+          });
           return acc;
         }, {}),
       ),
       stats: new fields.SchemaField({
         toughness: new fields.SchemaField({
-          value: new fields.NumberField({ initial: 0, integer: true, nullable: false, required: true }),
+          value: new fields.NumberField({
+            initial: 0,
+            integer: true,
+            nullable: false,
+            required: true,
+          }),
         }),
         pokemonTypes: new fields.SchemaField({
           primary: new fields.SchemaField({
@@ -45,14 +49,13 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
         }),
       }),
       details: new fields.SchemaField({
-        calling: new fields.StringField({ initial: "", size: "large" }),
-        pronouns: new fields.StringField({ initial: "", size: "medium" }),
-        age: new fields.NumberField({ integer: true, size: "xsmall" }),
+        calling: new fields.StringField({ initial: "" }),
+        pronouns: new fields.StringField({ initial: "" }),
+        age: new fields.NumberField({ integer: true }),
       }),
       currency: new fields.NumberField({
         initial: 0,
         integer: true,
-        size: "xsmall",
       }),
       notes: new fields.SchemaField({
         biography: new NotesHTMLField(),
@@ -99,6 +102,9 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   get pokemons() {
-    return game.actors.filter(a => (a.system?.trainer?.value?.id === this.parent.id) && (a.type === "pokemon"));
+    return game.actors.filter(
+      (a) =>
+        a.system?.trainer?.value?.id === this.parent.id && a.type === "pokemon",
+    );
   }
 }

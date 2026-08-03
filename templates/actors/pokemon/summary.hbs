@@ -1,19 +1,22 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
     <div class="flex">
-        
+
         {{> "systems/pokeymanz/templates/actors/pokemon/parts/sidebar.hbs"}}
 
         <div class="body-container flex flex-col">
             <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
                 {{disabled isPlayMode }} />
-            <div class="flex details-container">
-                {{#each detailsFields as |field|}}
-                <div class="input-group flex items-center size--{{field.size}}" data-tooltip="{{field.value}}">
-                    <label class="input-group-label">{{field.label}}</label>
-                    <input class="input-group-field" type="{{field.type}}" name="{{field.name}}" value="{{field.value}}"
-                        {{disabled ../isPlayMode }}>
+            <div class="details-container">
+                {{#each detailsFields}}
+                <div class="input-group flex items-center" data-tooltip="{{value}}">
+                    <label class="input-group-label">{{label}}</label>
+                    {{formInput field value=value disabled=@root.isPlayMode}}
                 </div>
                 {{/each}}
+            </div>
+            <div class="move-list-header">
+                <button type="button" class="icon fa-solid fa-add" data-action="createMove"
+                    data-tooltip="{{localize 'DOCUMENT.New' type='Move' }}"></button>
             </div>
             <div class="move-list">
                 {{#each moves as |move|}}
