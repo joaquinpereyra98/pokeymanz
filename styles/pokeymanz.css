@@ -1,4 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
+@font-face {
+  font-family: "Sigmar One";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/sigmar-one/SigmarOne-Regular.ttf) format("woff2");
+}
+@font-face {
+  font-family: "Signika Negative";
+  font-style: normal;
+  font-weight: 300 700;
+  src: url(../fonts/signika-negative/SignikaNegative-VariableFont_wght.ttf) format("woff2");
+}
 .pokeymanz {
   --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;
   --pokeymanz-font-label: "Sigmar One", sans-serif;
@@ -59,6 +70,9 @@
 
 .attributes-container {
   margin: 5px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5em;
 }
 .attributes-container .heart {
   --attribute-color: var(--pokeymanz-color-heart);
@@ -77,37 +91,42 @@
   background: var(--attribute-color);
 }
 
-.move-container {
+.move-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.move-list .move-container {
   align-items: flex-start;
 }
-.move-container .move-portrait {
+.move-list .move-container .move-portrait {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0.4rem 0rem 0.4rem 0.4rem;
   padding: 0.5rem 0.5rem 0.5rem 0.1rem;
 }
-.move-container .move-portrait .drag-line {
+.move-list .move-container .move-portrait .drag-line {
   display: flex;
   justify-content: center;
   width: 0.3rem;
   height: 4rem;
   padding: 0 0.5rem;
 }
-.move-container .move-portrait .drag-line i {
+.move-list .move-container .move-portrait .drag-line i {
   padding: 0 0.1rem;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 1rem;
   transition: 500ms;
 }
-.move-container .move-portrait .drag-line:hover i {
+.move-list .move-container .move-portrait .drag-line:hover i {
   background-color: white;
 }
-.move-container .move-portrait .img-portrait {
+.move-list .move-container .move-portrait .img-portrait {
   cursor: pointer;
   position: relative;
   width: 4rem;
   height: 4rem;
 }
-.move-container .move-portrait .img-portrait img {
+.move-list .move-container .move-portrait .img-portrait img {
   position: absolute;
   top: 0;
   left: 0;
@@ -116,22 +135,22 @@
   transition: opacity 300ms ease;
   border-radius: 0.4rem;
 }
-.move-container .move-portrait .img-portrait .roll-icon {
+.move-list .move-container .move-portrait .img-portrait .roll-icon {
   background-color: rgba(255, 255, 255, 0.2);
   opacity: 0;
 }
-.move-container .move-portrait .img-portrait:hover .roll-icon {
+.move-list .move-container .move-portrait .img-portrait:hover .roll-icon {
   opacity: 1;
 }
-.move-container .move-accordion {
+.move-list .move-container .move-accordion {
   flex: 1;
 }
-.move-container .move-accordion .move-header {
+.move-list .move-container .move-accordion .move-header {
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 0.4rem 0.4rem 0;
 }
-.move-container .move-accordion .move-header .move-name {
+.move-list .move-container .move-accordion .move-header .move-name {
   font-size: 1.6rem;
   flex-grow: 1;
   height: 1.8rem;
@@ -142,48 +161,51 @@
   overflow: hidden;
   max-width: 20ch;
 }
-.move-container .move-accordion .move-header .move-type {
+.move-list .move-container .move-accordion .move-header .move-type {
   margin: auto 1.5rem;
 }
-.move-container .move-accordion .move-header .move-menu {
+.move-list .move-container .move-accordion .move-header .move-menu {
   font-size: 1.2rem;
   margin: auto;
   padding: 0 0.2rem;
 }
-.move-container .move-accordion .move-content {
+.move-list .move-container .move-accordion .move-content {
   margin-right: 1rem;
   background-color: rgba(0, 0, 0, 0.3);
   padding: 0.1rem 0.5rem;
   border-radius: 0 0 0.5rem 0.5rem;
 }
-.move-container .move-accordion .move-content .description-content {
+.move-list .move-container .move-accordion .move-content .description-content {
   min-height: 3rem;
   overflow: hidden;
 }
-.move-container .move-accordion .move-content .description-content * {
+.move-list .move-container .move-accordion .move-content .description-content * {
   word-break: break-word;
 }
-.move-container.empty-move {
+.move-list .move-container.empty-move {
   cursor: pointer;
   align-items: center;
   font-size: 2.5rem;
   border: 0.4rem dashed rgba(0, 0, 0, 0.4);
   transition: border-color 700ms;
 }
-.move-container.empty-move .create-doc-icon {
+.move-list .move-container.empty-move .create-doc-icon {
   margin: 0.5rem 0;
   transition: color 500ms, transform 500ms;
   color: rgba(0, 0, 0, 0.4);
 }
-.move-container.empty-move:hover {
+.move-list .move-container.empty-move:hover {
   border-color: rgba(0, 0, 0, 0.7);
 }
-.move-container.empty-move:hover .create-doc-icon {
+.move-list .move-container.empty-move:hover .create-doc-icon {
   color: rgba(0, 0, 0, 0.7);
   transform: scale(1.1);
 }
 
 .pokemon-list {
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
   min-height: 135px;
   overflow-x: auto;
   flex-wrap: nowrap;
@@ -192,14 +214,14 @@
 section.summary.tab .sidebar-card {
   width: max(30%, 230px);
   min-width: 230px;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 section.summary.tab .sidebar-card .portrait .profile-img {
   min-height: 200px;
   max-height: 280px;
   width: 100%;
-}
-section.summary.tab .sidebar-card .stat-bar {
-  margin: 0.4rem 0;
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container {
   border-radius: 0.3rem;
@@ -225,7 +247,10 @@ section.summary.tab .sidebar-card .stat-bar .stat-container .stat-input:disabled
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container .stat-icon {
   font-size: 1.3rem;
-  margin: 0 0.2rem;
+  margin-top: 0.1rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2;
+  margin-bottom: 0;
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container.toughtness-container {
   border-color: var(--pokeymanz-color-toughness-primary);
@@ -251,15 +276,13 @@ section.summary.tab .sidebar-card .stat-bar .stat-container.wounds-container spa
   line-height: 1;
 }
 section.summary.tab .sidebar-card .types-container {
+  display: flex;
+  gap: 0.5rem;
   justify-content: center;
-  margin: 0.3rem 0;
 }
 section.summary.tab .sidebar-card .types-container .type-badge {
   flex: 1;
   max-width: 50%;
-}
-section.summary.tab .sidebar-card .trainer-fields-container {
-  padding: 5px 0;
 }
 section.summary.tab .sidebar-card .trainer-fields-container .trainer-portrait img {
   height: 70px;
@@ -300,8 +323,10 @@ section.summary.tab .body-container {
   width: max(70%, 280px);
   min-width: 280px;
   margin-left: 10px;
+  gap: 0.5rem;
 }
 section.summary.tab .body-container .details-container {
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -331,19 +356,24 @@ section.summary.tab .body-container .details-container {
   margin: auto;
   flex-grow: 1;
 }
+.pokeymanz .info-card .card-containter .title-container .types-icons {
+  gap: 0.5rem;
+}
 .pokeymanz .info-card .card-containter .title-container .types-icons img {
   border: 2px solid white;
   border-radius: 50%;
   background: var(--type-color);
 }
 .pokeymanz .info-card .card-containter .card-content {
-  min-height: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   background: rgb(from var(--card-color) r g b/0.5);
   border-radius: 0 0 10px 10px;
-  grid-template-columns: 50% 50%;
-  padding: 5px 0;
+  padding: 5px;
+  min-height: 5em;
 }
 .pokeymanz .info-card .card-containter .card-content .move-button {
+  height: 1.7em;
   font-size: 20px;
   background: var(--type-color);
   color: white;
@@ -375,8 +405,11 @@ section.summary.tab .body-container .details-container {
 }
 
 .item section.summary.tab .sidebar-card {
+  gap: 0.5rem;
   width: max(30%, 190px);
   min-width: 190px;
+  display: flex;
+  flex-direction: column;
 }
 .item section.summary.tab .sidebar-card .portrait .profile-img {
   min-height: 160px;
@@ -462,6 +495,9 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   padding: 0;
 }
 .pokeymanz ol.items-list .item-list {
+  margin-top: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5;
   list-style: none;
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -606,6 +642,9 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 
 .pokeymanz .pokemon-card.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
@@ -748,7 +787,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 
 .pokeymanz .type-select-container select {
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid;
   box-shadow: 0 0 2px;
   font-size: 18px;
@@ -890,18 +929,6 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 
 .items-end {
   align-items: flex-end;
-}
-
-.gap-sm {
-  gap: 0.5rem;
-}
-
-.gap-md {
-  gap: 1rem;
-}
-
-.gap-lg {
-  gap: 2rem;
 }
 
 .grid {

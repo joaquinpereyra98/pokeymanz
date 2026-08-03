@@ -4,6 +4,9 @@
     padding: 0;
 
     .item-list {
+        margin-top: 0;
+        padding-left: 0.5rem;
+        padding-right: 0.5;
         list-style: none;
         background-color: rgba($color: black, $alpha: 0.3);
     }

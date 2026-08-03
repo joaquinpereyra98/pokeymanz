@@ -1,7 +1,7 @@
 <section class="tab inventory {{tab.cssClass}}" data-group="primary" data-tab="inventory">
   <div class="currency-container flex justify-end spacing--m-sm">
     <div class="input-group flex items-center size--xsmall">
-      <input class="input-group-field spacing--p-0" type="number" name="system.currency" value="{{system.currency}}" />
+      <input class="input-group-field" type="number" name="system.currency" value="{{system.currency}}" />
       <div class="icon-flex">
         <i class="input-group-icon fa-solid fa-coin"></i>
       </div>
@@ -32,7 +32,7 @@
         </a>
       </div>
     </li>
-    <ol class="item-list spacing--p-0 spacing--m-0" data-category="{{sid}}">
+    <ol class="item-list" data-category="{{sid}}">
       {{#each section.items as |item|}}
       <li class="item feat flexrow draggable" data-doc-id="{{item.id}}" data-document-class="Item" data-drag="true">
         <div class="item-name item-name flexrow">

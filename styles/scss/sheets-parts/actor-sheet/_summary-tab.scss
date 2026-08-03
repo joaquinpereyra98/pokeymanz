@@ -4,6 +4,9 @@ section.summary.tab {
   .sidebar-card {
     width: max(30%, 230px);
     min-width: 230px;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
 
     .portrait .profile-img {
       min-height: 200px;
@@ -12,7 +15,6 @@ section.summary.tab {
     }
 
     .stat-bar {
-      margin: 0.4rem 0;
 
       .stat-container {
         border-radius: 0.3rem;
@@ -42,7 +44,10 @@ section.summary.tab {
 
         .stat-icon {
           font-size: 1.3rem;
-          margin: 0 0.2rem;
+          margin-top: 0.1rem;
+          margin-left: 0.2rem;
+          margin-right: 0.2;
+          margin-bottom: 0;
         }
 
         &.toughtness-container {
@@ -76,8 +81,9 @@ section.summary.tab {
     }
 
     .types-container {
+      display: flex;
+      gap: 0.5rem;
       justify-content: center;
-      margin: 0.3rem 0;
 
       .type-badge {
         flex: 1;
@@ -86,8 +92,6 @@ section.summary.tab {
     }
 
     .trainer-fields-container {
-      padding: 5px 0;
-
       .trainer-portrait img {
         height: 70px;
         width: 70px;
@@ -136,8 +140,10 @@ section.summary.tab {
     width: max(70%, 280px);
     min-width: 280px;
     margin-left: 10px;
+    gap: 0.5rem;
 
     .details-container {
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
   }

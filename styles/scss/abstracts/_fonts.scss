@@ -1,4 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Sigmar+One&family=Signika+Negative:wght@300..700&display=swap");
+@font-face {
+  font-family: 'Sigmar One';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/sigmar-one/SigmarOne-Regular.ttf) format('woff2');
+}
+
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 300 700;
+  src: url(../fonts/signika-negative/SignikaNegative-VariableFont_wght.ttf) format('woff2');
+}
 
 .pokeymanz {
     --pokeymanz-font-title: "Signika", "Palatino Linotype", sans-serif;

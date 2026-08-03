@@ -1,11 +1,11 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
   <div class="summary-header flex">
     <div class="portrait">
-      <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "setImg" }}
+      <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "editImage" }}
         alt="{{item.name}}" title="{{item.name}}" />
     </div>
     <div class="summary-inputs">
-      <div class="item-type-fields gap-sm flex">
+      <div class="item-type-fields flex">
         <select class="item-type-badge" name="system.type.value" {{disabled isPlayMode}}>
           {{selectOptions
           system.type.choices
@@ -28,7 +28,7 @@
       <div class="flex">
         {{#if havePrice}}
         <div class="input-group flex items-center size--xsmall">
-          <input class="input-group-field spacing--p-0" type="number" name="system.price" value="{{system.price}}"
+          <input class="input-group-field" type="number" name="system.price" value="{{system.price}}"
             {{disabled isPlayMode}} />
             <div class="icon-flex">
               <i class="input-group-icon fa-solid fa-coin"></i>

@@ -10,7 +10,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
     actions: {
-      setImg: BaseActorSheet._setImg,
       renderIP: BaseActorSheet._renderIP,
       toggleEffect: BaseActorSheet._toggleEffect,
       createDoc: BaseActorSheet._createDoc,
@@ -282,36 +281,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /* -------------------------------------------- */
 
   /**
-   * Handle changing a Document's image
-   *
-   * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
-   */
-  static _setImg(event, target) {
-    const attr = target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document._source, attr);
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new FilePicker({
-      current,
-      type: "image",
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        target.src = path;
-        if (this.options.form.submitOnChange) {
-          this.document.update({ [attr]: path });
-        }
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
-  }
-
-  /**
    * Handle render ImagePopout of a image
    *
    * @this BaseActorSheet
@@ -324,8 +293,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     const src = target.src ?? target.querySelector("img")?.src;
     if (!src) return;
 
-    const ip = new ImagePopout(src, {
-      title: this.document.name,
+    const ip = new foundry.applications.apps.ImagePopout({
+      window: { title: this.document.name },
+      src,
       uuid: this.document.uuid,
     });
 
@@ -357,7 +327,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
       )
       .findLast((effect) =>
         effectType === "inactive"
-          ? (doc.isTemporary === effect.isTemporary) && effect.active
+          ? doc.isTemporary === effect.isTemporary && effect.active
           : !effect.active,
       );
 

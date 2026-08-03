@@ -2,6 +2,9 @@
 
 .attributes-container {
     margin: 5px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5em;
 
     // Attribute colors list
     $attributes-list: (

@@ -1,4 +1,7 @@
 .pokemon-list {
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
   min-height: 135px;
   overflow-x: auto;
   flex-wrap: nowrap;

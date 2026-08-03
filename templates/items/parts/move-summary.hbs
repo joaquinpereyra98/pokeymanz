@@ -2,10 +2,10 @@
     <input class="document-name" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}"
         data-tooltip="{{item.name}}" {{disabled isPlayMode}} />
     <div class="flex">
-        <div class="sidebar-card card flex flex-col items-center gap-sm">
+        <div class="sidebar-card card items-center">
             <div class="portrait">
                 <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen
-                    isPlayMode "renderIP" "setImg" }} alt="{{item.name}}" title="{{item.name}}" />
+                    isPlayMode "renderIP" "editImage" }} alt="{{item.name}}" title="{{item.name}}" />
             </div>
             <div class="input-group flex items-center">
                 {{#if isPlayMode}}
@@ -58,7 +58,7 @@
                     </div>
                 </a>
                 {{else}}
-                <div class="rollable-inputs gap-sm">
+                <div class="rollable-inputs">
                     <label class="rollable-label">
                         {{roll.label}}
                     </label>
@@ -72,7 +72,7 @@
                 {{/if}}
             </div>
         </div>
-        <div class="body-container flex gap-sm flex-col">
+        <div class="body-container flex flex-col">
             {{#each notes as |note|}}
             {{formGroup note.field value=note.value enriched=note.enritch toggled=true accordion=true}}
             {{/each}}

@@ -2,8 +2,11 @@
 
 .item section.summary.tab {
   .sidebar-card {
+    gap: 0.5rem;
     width: max(30%, 190px);
     min-width: 190px;
+    display: flex;
+    flex-direction: column;
 
     .portrait .profile-img {
       min-height: 160px;
