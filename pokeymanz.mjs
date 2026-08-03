@@ -4,24 +4,25 @@ import * as apps from "./src/applications/_module.mjs";
 
 import { POKEYMANZ } from "./src/config.mjs";
 import utils from "./src/utils/_module.mjs";
-import * as SYSTEM_CONST from "./src/constants.mjs";
+import { SYSTEM_ID } from "./src/constants.mjs";
+
+/* Exposing classes and variables */
+CONFIG.POKEYMANZ = POKEYMANZ;
+
+game[SYSTEM_ID] = {
+  apps,
+  document,
+  data,
+};
 
 Hooks.once("init", () => {
-  /* Exposing classes and variables */
-  CONFIG.POKEYMANZ = POKEYMANZ;
-
-  game[SYSTEM_CONST.SYSTEM_ID] = {
-    apps,
-    document,
-    data,
-  };
-
   /*Registering data models*/
   Object.assign(CONFIG.Actor.dataModels, {
     trainer: data.actor.TrainerData,
     pokemon: data.actor.PokemonData,
   });
   Object.assign(CONFIG.Item.dataModels, {
+    ability: data.item.AbilityData,
     feat: data.item.FeatData,
     gear: data.item.GearData,
     move: data.item.MoveData,
@@ -32,29 +33,36 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClass = document.Item;
 
   /*Registering Sheets*/
-  foundry.documents.collections.Actors.registerSheet("Trainer Sheet", apps.actor.TrainerSheet, {
-    types: ["trainer"],
-    label: "POKEYMANZ.TrainerSheet",
-  });
-  foundry.documents.collections.Actors.registerSheet("Pokemon Sheet", apps.actor.PokemonSheet, {
-    types: ["pokemon"],
-    label: "POKEYMANZ.PokemonSheet",
-  });
-  foundry.documents.collections.Items.registerSheet("Feat Sheet", apps.item.FeatSheet, {
-    types: ["feat"],
-    makeDefault: true,
-    label: "POKEYMANZ.FeatSheet",
-  });
-  foundry.documents.collections.Items.registerSheet("Gear Sheet", apps.item.GearSheet, {
-    types: ["gear"],
-    makeDefault: true,
-    label: "POKEYMANZ.GearSheet",
-  });
-  foundry.documents.collections.Items.registerSheet("Move Sheet", apps.item.MoveSheet, {
-    types: ["move"],
-    makeDefault: true,
-    label: "POKEYMANZ.MoveSheet",
-  });
+  foundry.documents.collections.Actors.registerSheet(
+    "Trainer Sheet",
+    apps.actor.TrainerSheet,
+    {
+      types: ["trainer"],
+      label: "POKEYMANZ.TrainerSheet",
+    },
+  );
+
+  foundry.documents.collections.Actors.registerSheet(
+    "Pokemon Sheet",
+    apps.actor.PokemonSheet,
+    {
+      types: ["pokemon"],
+      label: "POKEYMANZ.PokemonSheet",
+    },
+  );
+
+  for (const sheet of Object.values(apps.item)) {
+    if (!sheet.metadata.register) continue;
+    const options = foundry.utils.duplicate(sheet.metadata);
+    delete options.register;
+
+    foundry.applications.apps.DocumentSheetConfig.registerSheet(
+      foundry.documents.Item,
+      SYSTEM_ID,
+      sheet,
+      options,
+    );
+  }
 
   utils.renderTemplates();
 });

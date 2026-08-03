@@ -1,12 +1,18 @@
-import {
-  pokemonTypeFields,
-} from "../common.mjs";
-
-import NotesHTMLField from "../commons/notes-html-field.mjs";
-
+import BaseItemData from "./base-item.mjs";
+import { pokemonTypeFields } from "../common.mjs";
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
-export default class MoveData extends foundry.abstract.TypeDataModel {
+export default class MoveData extends BaseItemData {
+  /**@inheritdoc */
+  static get metadata() {
+    return {
+      ...super.metadata,
+      icon: "fa-solid fa-meteor",
+      type: "move",
+      defaultImg: `${ITEMS_ASSETS_PATH}/comet-spark.svg`,
+      invalidActorTypes: ["trainer"],
+    };
+  }
 
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
 
@@ -14,6 +20,7 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      ...super.defineSchema(),
       pokemonTypes: new fields.SchemaField({
         primary: new fields.SchemaField({
           value: pokemonTypeFields({ blank: false, required: true }),
@@ -29,10 +36,6 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
           },
           {},
         ),
-      }),
-      notes: new fields.SchemaField({
-        description: new NotesHTMLField(),
-        gmNotes: new NotesHTMLField(),
       }),
       roll: new AttributeDiceField({ label: "POKEYMANZ.Moves.Dice" }),
     };
@@ -52,19 +55,4 @@ export default class MoveData extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _preCreate(data, options, user) {
-    if ((await super._preCreate(data, options, user)) === false) return false;
-
-    const { actor } = this.parent;
-
-    const isItemInvalidForActor =
-      actor?.system?.constructor?.metadata?.invalidItemTypes?.includes(
-        this.parent.type,
-      );
-    const hasReachedMaxMoves = actor?.itemTypes?.move?.length >= 4;
-
-    if (isItemInvalidForActor || hasReachedMaxMoves) return false;
-  }
 }

@@ -15,13 +15,8 @@
       "discord": "joaquinp98"
     }
   ],
-  "esmodules": [
-    "pokeymanz.mjs",
-    "greensock/esm/all.js"
-  ],
-  "styles": [
-    "styles/pokeymanz.css"
-  ],
+  "esmodules": ["pokeymanz.mjs", "greensock/esm/all.js"],
+  "styles": ["styles/pokeymanz.css"],
   "packs": [],
   "languages": [
     {
@@ -43,49 +38,32 @@
   ],
   "flags": {
     "hotReload": {
-      "extensions": [
-        "css",
-        "hbs",
-        "json"
-      ]
+      "extensions": ["css", "hbs", "json"]
     }
   },
   "initiative": "@initiativeFormula",
   "documentTypes": {
     "Actor": {
       "trainer": {
-        "htmlFields": [
-          "notes.biography"
-        ]
+        "htmlFields": ["notes.biography"]
       },
       "pokemon": {
-        "htmlFields": [
-          "notes.pokedexEntry",
-          "stats.ability"
-        ]
+        "htmlFields": ["notes.pokedexEntry", "stats.ability"]
       }
     },
     "Item": {
       "feat": {
-        "htmlFields": [
-          "notes.description",
-          "notes.gmNotes"
-        ],
-        "gmOnlyFields": [
-          "notes.gmNotes"
-        ]
+        "htmlFields": ["notes.description", "notes.gmNotes"],
+        "gmOnlyFields": ["notes.gmNotes"]
       },
       "gear": {
-        "htmlFields": [
-          "notes.description",
-          "notes.gmNotes"
-        ]
+        "htmlFields": ["notes.description", "notes.gmNotes"]
       },
       "move": {
-        "htmlFields": [
-          "notes.description",
-          "notes.gmNotes"
-        ]
+        "htmlFields": ["notes.description", "notes.gmNotes"]
+      },
+      "ability": {
+        "htmlFields": ["notes.description"]
       }
     }
   },

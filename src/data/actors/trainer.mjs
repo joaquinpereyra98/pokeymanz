@@ -7,13 +7,6 @@ import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 export default class TrainerData extends foundry.abstract.TypeDataModel {
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
 
-  /**
-   * Key information about this Actor subtype
-   */
-  static metadata = Object.freeze({
-    invalidItemTypes: ["move"],
-  });
-
   /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;

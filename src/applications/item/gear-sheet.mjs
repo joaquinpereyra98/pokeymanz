@@ -10,10 +10,24 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @alias GearSheet
  */
 export default class GearSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
+  /** @inheritdoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(
+      super.metadata,
+      {
+        label: "POKEYMANZ.SHEETS.GearSheet",
+        types: ["gear"],
+        isDefault: true,
+        register: true,
+      },
+      { inplace: false },
+    ),
+  );
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 510,
+      width: 650,
       height: 510,
     },
   };

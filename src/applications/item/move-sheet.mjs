@@ -10,10 +10,24 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @alias MoveSheet
  */
 export default class MoveSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
+  /** @inheritdoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(
+      super.metadata,
+      {
+        label: "POKEYMANZ.SHEETS.MoveSheet",
+        types: ["move"],
+        isDefault: true,
+        register: true,
+      },
+      { inplace: false },
+    ),
+  );
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 600,
+      width: 650,
       height: 550,
     },
     actions: {

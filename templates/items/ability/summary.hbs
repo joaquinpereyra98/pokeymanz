@@ -1,0 +1,18 @@
+<section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
+    <div class="summary-header flex">
+        <div class="portrait">
+            <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen
+                isPlayMode "renderIP" "editImage" }} alt="{{item.name}}" title="{{item.name}}" />
+        </div>
+        <div class="summary-inputs">
+            <input class="document-name" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}"
+                data-tooltip="{{item.name}}" {{disabled isPlayMode}} />
+        </div>
+    </div>
+    <div class="summary-body">
+
+        {{#each notes as |note|}}
+        {{formGroup note.field value=note.value enriched=note.enritch toggled=true accordion=true compact=true}}
+        {{/each}}
+    </div>
+</section>

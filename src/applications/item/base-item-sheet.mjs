@@ -8,8 +8,28 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
  * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
  */
 
+/**
+ * @typedef DocumentSheetMetadata
+ * @property {string} label
+ * @property {string[]} types
+ * @property {boolean} isDefault
+ * @property {boolean} register
+ */
 
-export default class BaseItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
+export default class BaseItemSheet extends HandlebarsApplicationMixin(
+  ItemSheetV2,
+) {
+  /**
+   * Default metadata which applies to each instance of this Document Sheet.
+   * @type {Readonly<DocumentSheetMetadata>}
+   */
+  static metadata = Object.freeze({
+    label: "DOCUMENT.Item",
+    types: [],
+    isDefault: false,
+    register: false,
+  });
+
   /** @type {Partial<foundry.applications.types.ApplicationConfiguration>} */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "item"],
@@ -60,11 +80,11 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(ItemSheetV
   static _PARTS = {
     header: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/header.hbs`,
-      scrollable: ["tab"]
+      scrollable: ["tab"],
     },
     effects: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/effects.hbs`,
-      scrollable: ["tab"]
+      scrollable: ["tab"],
     },
   };
 

@@ -2,15 +2,7 @@ import { pokemonTypeFields } from "../common.mjs";
 import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 export default class PokemonData extends foundry.abstract.TypeDataModel {
-
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
-
-  /**
-   * Key information about this Actor subtype
-   */
-  static metadata = Object.freeze({
-    invalidItemTypes: ["feat", "gear"],
-  });
 
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -56,6 +48,12 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
         inTeam: new fields.BooleanField({ initial: false }),
       }),
     };
+  }
+
+  /* -------------------------------------------- */
+
+  get ability() {
+    
   }
 
   /* -------------------------------------------- */

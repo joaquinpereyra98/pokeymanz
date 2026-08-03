@@ -1,157 +1,164 @@
 {
-    "EFFECT": {
-        "TabDuration": "Duration"
+  "EFFECT": {
+    "TabDuration": "Duration"
+  },
+  "TYPES": {
+    "Actor": {
+      "trainer": "Trainer",
+      "pokemon": "Pokemon"
     },
-    "TYPES": {
-        "Actor": {
-            "trainer": "Trainer",
-            "pokemon": "Pokemon"
-        },
-        "Item": {
-            "feat": "Feat",
-            "gear": "Gear",
-            "move": "Move"
-        }
-    },
-    "POKEYMANZ": {
-        "BASE_ACTOR": {
-            "FIELDS": {
-                "notes": {
-                    "pokedexEntry": {
-                        "label": "Pokedex Entry"
-                    },
-                    "biography": {
-                        "label": "Biography"
-                    }
-                }
-            }
-        },
-        "BASE_ITEM": {
-            "FIELDS": {
-                "notes": {
-                    "description": {
-                        "label": "Description"
-                    },
-                    "gmNotes": {
-                        "label": "GM Notes"
-                    }
-                }
-            }
-        },
-        "Attributes": {
-            "Label": "Attributes",
-            "Heart": "Heart",
-            "Fitness": "Fitness",
-            "Research": "Research",
-            "Tactics": "Tactics"
-        },
-        "ItemTypes": {
-            "Edge": "Edge",
-            "Hindrance": "Hindrance",
-            "Curative": "Curative",
-            "Pokeball": "Pokeball",
-            "HeldItem": "Held Item",
-            "RareItems": "Rare Items",
-            "Supplies": "Supplies",
-            "KeyItems": "Key Items"
-        },
-        "ItemSubtypes": {
-            "Edge": {
-                "Battle": "Battle",
-                "Social": "Social",
-                "Utility": "Utility"
-            },
-            "Hindrance": {
-                "Minor": "Minor",
-                "Major": "Major"
-            },
-            "Curative": {
-                "Simple": "Simple",
-                "Greater": "Greater"
-            },
-            "Pokeball": {
-                "Specialty": "Specialty",
-                "Stronger": "Stronger"
-            },
-            "HeldItem": {
-                "Disposable": "Disposable",
-                "Persistent": "Persistent"
-            }
-        },
-        "Moves": {
-            "Categories": {
-                "Physical": "Physical",
-                "Special": "Special",
-                "Status": "Status"
-            },
-            "Dice": "Dice Move"
-        },
-        "Actor": {
-            "Details": {
-                "Species": "Species",
-                "Gender": "Gender",
-                "Calling": "Calling",
-                "Pronouns": "Pronouns",
-                "Age": "Age"
-            }
-        },
-        "Sheets": {
-            "TABS": {
-                "summary": "Summary",
-                "features": "Features",
-                "inventory": "Inventory",
-                "pokemon": "Pokemon",
-                "effects": "Effects",
-                "notes": "Notes"
-            }
-        },
-        "Types": {
-            "None": "No Type",
-            "Normal": "Normal",
-            "Fire": "Fire",
-            "Water": "Water",
-            "Grass": "Grass",
-            "Flying": "Flying",
-            "Fighting": "Fighting",
-            "Poison": "Poison",
-            "Electric": "Electric",
-            "Ground": "Ground",
-            "Rock": "Rock",
-            "Psychic": "Psychic",
-            "Ice": "Ice",
-            "Bug": "Bug",
-            "Ghost": "Ghost",
-            "Steel": "Steel",
-            "Dragon": "Dragon",
-            "Dark": "Dark",
-            "Fairy": "Fairy"
-        },
-        "Effect": {
-            "Applied": "Applied",
-            "Inactive": "Inactive",
-            "Source": "Source",
-            "Passive": "Passive",
-            "Temporary": "Temporary",
-            "ActiveEffect": "Active {effect}",
-            "InactiveEffect": "Inactive {effect}"
-        },
-        "Item": {
-            "Backpack": "Backpack",
-            "Computer": "PC",
-            "EquipItem": "Equip {item}",
-            "UnquipItem": "Unquip {item}",
-            "EditItem": "Edit Item",
-            "UseItem": "Use {item}",
-            "StatusesLabel": "Status Effects",
-            "StatusesHint": "Select one or more status effects that this move can apply to the target",
-            "EffectsLabel": "Active Effects",
-            "EffectsHint": "Select one or more active effects that this movement possesses and that this move can apply to the target.",
-            "TargetLabel": "Target",
-            "TargetHint": "Choose how the effects are applied—whether to the targeted actors, yourself, or a specific actor set by UUID"
-        },
-        "Description": "Description",
-        "GMNotes": "GM Notes",
-        "Category": "Category",
-        "Type": "Type"
+    "Item": {
+      "ability": "Ability",
+      "feat": "Feat",
+      "gear": "Gear",
+      "move": "Move"
     }
+  },
+  "POKEYMANZ": {
+    "SHEETS": {
+      "AbilitySheet": "Pokeymanz Ability Sheet",
+      "FeatSheet": "Pokeymanz Feat Sheet",
+      "GearSheet": "Pokeymanz Gear Sheet",
+      "MoveSheet": "Pokeymanz Move Sheet"
+    },
+    "BASE_ACTOR": {
+      "FIELDS": {
+        "notes": {
+          "pokedexEntry": {
+            "label": "Pokedex Entry"
+          },
+          "biography": {
+            "label": "Biography"
+          }
+        }
+      }
+    },
+    "BASE_ITEM": {
+      "FIELDS": {
+        "notes": {
+          "description": {
+            "label": "Description"
+          },
+          "gmNotes": {
+            "label": "GM Notes"
+          }
+        }
+      }
+    },
+    "Attributes": {
+      "Label": "Attributes",
+      "Heart": "Heart",
+      "Fitness": "Fitness",
+      "Research": "Research",
+      "Tactics": "Tactics"
+    },
+    "ItemTypes": {
+      "Edge": "Edge",
+      "Hindrance": "Hindrance",
+      "Curative": "Curative",
+      "Pokeball": "Pokeball",
+      "HeldItem": "Held Item",
+      "RareItems": "Rare Items",
+      "Supplies": "Supplies",
+      "KeyItems": "Key Items"
+    },
+    "ItemSubtypes": {
+      "Edge": {
+        "Battle": "Battle",
+        "Social": "Social",
+        "Utility": "Utility"
+      },
+      "Hindrance": {
+        "Minor": "Minor",
+        "Major": "Major"
+      },
+      "Curative": {
+        "Simple": "Simple",
+        "Greater": "Greater"
+      },
+      "Pokeball": {
+        "Specialty": "Specialty",
+        "Stronger": "Stronger"
+      },
+      "HeldItem": {
+        "Disposable": "Disposable",
+        "Persistent": "Persistent"
+      }
+    },
+    "Moves": {
+      "Categories": {
+        "Physical": "Physical",
+        "Special": "Special",
+        "Status": "Status"
+      },
+      "Dice": "Dice Move"
+    },
+    "Actor": {
+      "Details": {
+        "Species": "Species",
+        "Gender": "Gender",
+        "Calling": "Calling",
+        "Pronouns": "Pronouns",
+        "Age": "Age"
+      }
+    },
+    "Sheets": {
+      "TABS": {
+        "summary": "Summary",
+        "features": "Features",
+        "inventory": "Inventory",
+        "pokemon": "Pokemon",
+        "effects": "Effects",
+        "notes": "Notes"
+      }
+    },
+    "Types": {
+      "None": "No Type",
+      "Normal": "Normal",
+      "Fire": "Fire",
+      "Water": "Water",
+      "Grass": "Grass",
+      "Flying": "Flying",
+      "Fighting": "Fighting",
+      "Poison": "Poison",
+      "Electric": "Electric",
+      "Ground": "Ground",
+      "Rock": "Rock",
+      "Psychic": "Psychic",
+      "Ice": "Ice",
+      "Bug": "Bug",
+      "Ghost": "Ghost",
+      "Steel": "Steel",
+      "Dragon": "Dragon",
+      "Dark": "Dark",
+      "Fairy": "Fairy"
+    },
+    "Effect": {
+      "Applied": "Applied",
+      "Inactive": "Inactive",
+      "Source": "Source",
+      "Passive": "Passive",
+      "Temporary": "Temporary",
+      "ActiveEffect": "Active {effect}",
+      "InactiveEffect": "Inactive {effect}"
+    },
+    "Item": {
+      "Backpack": "Backpack",
+      "Computer": "PC",
+      "EquipItem": "Equip {item}",
+      "UnquipItem": "Unquip {item}",
+      "EditItem": "Edit Item",
+      "UseItem": "Use {item}",
+      "StatusesLabel": "Status Effects",
+      "StatusesHint": "Select one or more status effects that this move can apply to the target",
+      "EffectsLabel": "Active Effects",
+      "EffectsHint": "Select one or more active effects that this movement possesses and that this move can apply to the target.",
+      "TargetLabel": "Target",
+      "TargetHint": "Choose how the effects are applied—whether to the targeted actors, yourself, or a specific actor set by UUID"
+    },
+    "Description": "Description",
+    "GMNotes": "GM Notes",
+    "Category": "Category",
+    "Type": "Type"
+  }
 }

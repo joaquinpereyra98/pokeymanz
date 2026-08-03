@@ -215,6 +215,10 @@ export const POKEYMANZ = {
         },
       },
     },
+    ability: {
+      img: `${SYSTEM_CONST.ASSETS_PATH}/icons/items/wingfoot.svg`,
+      icon: "fa-solid fa-foot-wing",
+    },
   },
   diceSteps: [4, 6, 8, 10, 12],
 };

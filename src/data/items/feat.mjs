@@ -1,13 +1,23 @@
-import NotesHTMLField from "../commons/notes-html-field.mjs";
+import { ITEMS_ASSETS_PATH } from "../../constants.mjs";
+import BaseItemData from "./base-item.mjs";
 
-export default class FeatData extends foundry.abstract.TypeDataModel {
-
-  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
+export default class FeatData extends BaseItemData {
+  /**@inheritdoc */
+  static get metadata() {
+    return {
+      ...super.metadata,
+      icon: "fa-solid fa-star",
+      type: "feat",
+      defaultImg: `${ITEMS_ASSETS_PATH}/round-star.svg`,
+      invalidActorTypes: ["pokemon"],
+    };
+  }
 
   /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      ...super.defineSchema(),
       type: new fields.SchemaField({
         value: new fields.StringField({
           initial: "edge",
@@ -20,10 +30,6 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
           blank: true,
           textSearch: true,
         }),
-      }),
-      notes: new fields.SchemaField({
-        description: new NotesHTMLField(),
-        gmNotes: new NotesHTMLField({ gmOnly: true }),
       }),
     };
   }
@@ -46,9 +52,5 @@ export default class FeatData extends foundry.abstract.TypeDataModel {
       this.type.label = typeConfig.label ?? null;
       this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
-  }
-
-  get hasSubtypes() {
-    return true;
   }
 }

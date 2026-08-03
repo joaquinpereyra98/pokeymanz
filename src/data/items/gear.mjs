@@ -1,13 +1,22 @@
-import NotesHTMLField from "../commons/notes-html-field.mjs";
+import BaseItemData from "./base-item.mjs";
 
-export default class GearData extends foundry.abstract.TypeDataModel {
-
-  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
+export default class GearData extends BaseItemData {
+  /**@inheritdoc */
+  static get metadata() {
+    return {
+      ...super.metadata,
+      icon: "fa-solid fa-backpack",
+      type: "gear",
+      defaultImg: `${ITEMS_ASSETS_PATH}/backpack.svg`,
+      invalidActorTypes: ["pokemon"],
+    };
+  }
 
   /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      ...super.defineSchema(),
       type: new fields.SchemaField({
         value: new fields.StringField({
           initial: "curative",
@@ -27,10 +36,6 @@ export default class GearData extends foundry.abstract.TypeDataModel {
       }),
       equipped: new fields.BooleanField({
         initial: false,
-      }),
-      notes: new fields.SchemaField({
-        description: new NotesHTMLField(),
-        gmNotes: new NotesHTMLField(),
       }),
     };
   }
@@ -55,11 +60,6 @@ export default class GearData extends foundry.abstract.TypeDataModel {
       this.subtype.label = typeConfig.subtypes?.[this.subtype.value] ?? null;
     }
 
-    if (!this.parent.parent instanceof Actor) this.equipped = false;
-
-  }
-
-  get hasSubtypes() {
-    return !["rareItems", "supplies", "keyItems"].includes(this.type.value);
+    if ((!this.parent.parent) instanceof Actor) this.equipped = false;
   }
 }

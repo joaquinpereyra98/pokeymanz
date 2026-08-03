@@ -3,10 +3,24 @@ import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs
 import * as SYSTEM_CONST from "../../constants.mjs";
 
 export default class FeatSheet extends InteractiveUIFeaturesMixin(BaseItemSheet) {
+  /** @inheritdoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(
+      super.metadata,
+      {
+        label: "POKEYMANZ.SHEETS.FeatSheet",
+        types: ["feat"],
+        isDefault: true,
+        register: true,
+      },
+      { inplace: false },
+    ),
+  );
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      width: 510,
+      width: 650,
       height: 510,
     },
   };
