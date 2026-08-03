@@ -21,10 +21,6 @@ export default class PokeymanzActor extends Actor {
     return foundry.utils.hasProperty(this, "system.attributes");
   }
 
-  get haveTrainer() {
-    return foundry.utils.hasProperty(this, "system.trainer");
-  }
-
   /**
    * Rolls an attribute for this actor.
    * Generates a roll formula based on the specified attribute's die, modifier, and wound penalties.

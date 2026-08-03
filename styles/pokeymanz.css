@@ -182,25 +182,6 @@
 .move-list .move-container .move-accordion .move-content .description-content * {
   word-break: break-word;
 }
-.move-list .move-container.empty-move {
-  cursor: pointer;
-  align-items: center;
-  font-size: 2.5rem;
-  border: 0.4rem dashed rgba(0, 0, 0, 0.4);
-  transition: border-color 700ms;
-}
-.move-list .move-container.empty-move .create-doc-icon {
-  margin: 0.5rem 0;
-  transition: color 500ms, transform 500ms;
-  color: rgba(0, 0, 0, 0.4);
-}
-.move-list .move-container.empty-move:hover {
-  border-color: rgba(0, 0, 0, 0.7);
-}
-.move-list .move-container.empty-move:hover .create-doc-icon {
-  color: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
-}
 
 .pokemon-list {
   gap: 1em;

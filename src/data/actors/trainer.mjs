@@ -17,6 +17,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
     invalidItemTypes: ["move"],
   });
 
+  /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -61,6 +62,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
+  /**@inheritdoc */
   prepareBaseData() {
     for (const key in this.stats.pokemonTypes) {
       const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;

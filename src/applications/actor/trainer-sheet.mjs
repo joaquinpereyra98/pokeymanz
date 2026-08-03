@@ -1,6 +1,6 @@
 import BaseActorSheet from "./base-actor-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
-import * as SYSTEM_CONST from "../../constants.mjs";
+import { TRAINER_TEMPLATES_PATH, TEMPLATES_PATH } from "../../constants.mjs";
 
 /**
  * The Pokeymanz Actor application.
@@ -9,9 +9,7 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias TrainerSheet
  */
-export default class TrainerSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet,
-) {
+export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -27,16 +25,20 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/summary.hbs`,
+      template: `${TRAINER_TEMPLATES_PATH}/summary.hbs`,
+      templates: [
+        `${TRAINER_TEMPLATES_PATH}/parts/sidebar.hbs`,
+        `${TEMPLATES_PATH}/actors/partials/attributes-container.hbs`,
+      ],
     },
     inventory: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/inventory.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/inventory.hbs`,
     },
     features: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/features.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/features.hbs`,
     },
     pokemon: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/pokemon.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/pokemon.hbs`,
     },
   };
 
@@ -44,52 +46,38 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
   /*  TABS                                        */
   /* -------------------------------------------- */
 
-  /**
-   * Available tabs for the sheet.
-   * @type {Array<{id: string, group: string, icon: string}>}
-   */
-  static TABS = [
-    {
-      id: "summary",
-      group: "primary",
-      icon: "fa-solid fa-address-card",
-      label: "POKEYMANZ.Sheets.TABS.Summary",
+  /**@inheritdoc */
+  static TABS = {
+    primary: {
+      tabs: [
+        {
+          id: "summary",
+          icon: "fa-solid fa-address-card",
+        },
+        {
+          id: "features",
+          icon: "fa-solid fa-list",
+        },
+        {
+          id: "inventory",
+          icon: "fa-solid fa-backpack",
+        },
+        {
+          id: "pokemon",
+          icon: "fa-solid fa-paw",
+        },
+        {
+          id: "effects",
+          icon: "fa-solid fa-bolt",
+        },
+        {
+          id: "notes",
+          icon: "fa-solid fa-notebook",
+        },
+      ],
+      initial: "summary",
+      labelPrefix: "POKEYMANZ.Sheets.TABS",
     },
-    {
-      id: "features",
-      group: "primary",
-      icon: "fa-solid fa-list",
-      label: "POKEYMANZ.Sheets.TABS.Features",
-    },
-    {
-      id: "inventory",
-      group: "primary",
-      icon: "fa-solid fa-backpack",
-      label: "POKEYMANZ.Sheets.TABS.Inventory",
-    },
-    {
-      id: "pokemon",
-      group: "primary",
-      icon: "fa-solid fa-paw",
-      label: "POKEYMANZ.Sheets.TABS.Pokemon",
-    },
-    {
-      id: "effects",
-      group: "primary",
-      icon: "fa-solid fa-bolt",
-      label: "POKEYMANZ.Sheets.TABS.Effects",
-    },
-    {
-      id: "notes",
-      group: "primary",
-      icon: "fa-solid fa-notebook",
-      label: "POKEYMANZ.Sheets.TABS.Notes",
-    },
-  ];
-
-  /** @override */
-  tabGroups = {
-    primary: "summary",
   };
 
   /* -------------------------------------------- */
@@ -137,8 +125,8 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     const pokemons = this.document.system.pokemons ?? [];
 
     return {
-      team: pokemons.filter(p => p.system.trainer.inTeam),
-      pc: pokemons.filter(p => !p.system.trainer.inTeam),
+      team: pokemons.filter((p) => p.system.trainer.inTeam),
+      pc: pokemons.filter((p) => !p.system.trainer.inTeam),
     };
   }
 
@@ -147,11 +135,10 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
   /* -------------------------------------------- */
 
   /**
-   * 
-   * @param {PointerEvent} event 
-   * @param {HTMLElement} target 
+   *
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
-  static _viewExternalActor(event, target) {
+  static _viewExternalActor(_, target) {
     const div = target.closest(".pokemon");
 
     const { docId } = div?.dataset;
@@ -161,14 +148,20 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
     pokemon?.sheet?.render({ force: true });
   }
 
-  static async _togglePokemonTeam(event, target) {
+  /**
+   *
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async _togglePokemonTeam(_, target) {
     const div = target.closest(".pokemon");
 
     const { docId } = div?.dataset;
     if (!docId) return;
     const pokemon = game.actors.get(docId);
 
-    await pokemon?.update({ "system.trainer.inTeam": !pokemon.system.trainer.inTeam });
+    await pokemon?.update({
+      "system.trainer.inTeam": !pokemon.system.trainer.inTeam,
+    });
     this.render();
   }
 }

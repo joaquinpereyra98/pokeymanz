@@ -97,12 +97,12 @@
         },
         "Sheets": {
             "TABS": {
-                "Summary": "Summary",
-                "Features": "Features",
-                "Inventory": "Inventory",
-                "Pokemon": "Pokemon",
-                "Effects": "Effects",
-                "Notes": "Notes"
+                "summary": "Summary",
+                "features": "Features",
+                "inventory": "Inventory",
+                "pokemon": "Pokemon",
+                "effects": "Effects",
+                "notes": "Notes"
             }
         },
         "Types": {

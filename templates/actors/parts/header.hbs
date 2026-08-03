@@ -10,6 +10,7 @@
     </div>
     <nav class="sheet-tabs tabs" aria-role="{{localize 'SHEETS.FormNavLabel'}}"
        >
+       {{log tabs}}
         {{#each tabs as |tab|}}
         <a class="tab-icon-button {{tab.cssClass}} {{tab.icon}}" data-action="tab" data-group="{{tab.group}}"
             data-tab="{{tab.id}}" data-tooltip="{{tab.label}}">

@@ -1,6 +1,6 @@
 import BaseActorSheet from "./base-actor-sheet.mjs";
 import InteractiveUIFeaturesMixin from "../mixins/InteractiveUIFeaturesMixin.mjs";
-import * as SYSTEM_CONST from "../../constants.mjs";
+import { POKEMON_TEMPLATES_PATH } from "../../constants.mjs";
 
 /**
  * The Pokeymanz Actor application.
@@ -9,9 +9,7 @@ import * as SYSTEM_CONST from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias PokemonSheet
  */
-export default class PokemonSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet,
-) {
+export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -19,7 +17,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       height: 550,
     },
     actions: {
-      toggleTrainerTeam: PokemonSheet._toggleTrainerTeam,
+      toggleTrainerTeam: PokemonSheet.#toggleTrainerTeam,
     },
     contextMenus: [
       {
@@ -42,7 +40,8 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   static _PARTS = {
     summary: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/summary.hbs`,
+      template: `${POKEMON_TEMPLATES_PATH}/summary.hbs`,
+      templates: [`${POKEMON_TEMPLATES_PATH}/parts/sidebar.hbs`],
     },
   };
 
@@ -50,34 +49,26 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /*  TABS                                        */
   /* -------------------------------------------- */
 
-  /**
-   * Available tabs for the sheet.
-   * @type {Array<{id: string, group: string, icon: string}>}
-   */
-  static TABS = [
-    {
-      id: "summary",
-      group: "primary",
-      icon: "fa-solid fa-address-card",
-      label: "POKEYMANZ.Sheets.TABS.Summary",
+  /**@inheritdoc */
+  static TABS = {
+    primary: {
+      tabs: [
+        {
+          id: "summary",
+          icon: "fa-solid fa-address-card",
+        },
+        {
+          id: "effects",
+          icon: "fa-solid fa-bolt",
+        },
+        {
+          id: "notes",
+          icon: "fa-solid fa-notebook",
+        },
+      ],
+      initial: "summary",
+      labelPrefix: "POKEYMANZ.Sheets.TABS",
     },
-    {
-      id: "effects",
-      group: "primary",
-      icon: "fa-solid fa-bolt",
-      label: "POKEYMANZ.Sheets.TABS.Effects",
-    },
-    {
-      id: "notes",
-      group: "primary",
-      icon: "fa-solid fa-notebook",
-      label: "POKEYMANZ.Sheets.TABS.Notes",
-    },
-  ];
-
-  /** @override */
-  tabGroups = {
-    primary: "summary",
   };
 
   /* -------------------------------------------- */
@@ -85,16 +76,13 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /* -------------------------------------------- */
 
   /**
-
- * @static
- * @returns {ContextMenuEntry[]} An array of context menu item objects.
- */
-
+   * @returns {ContextMenuEntry[]} An array of context menu item objects.
+   */
   static _getMoveMenuItems() {
     return [
       {
         label: "POKEYMANZ.Item.EditItem",
-        icon: "<i class=\"fas fa-edit\"></i>",
+        icon: '<i class="fas fa-edit"></i>',
         callback: (html) => {
           const element = html instanceof HTMLElement ? html : html[0];
           const uuid = element.dataset.itemUuid;
@@ -103,7 +91,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
       },
       {
         label: "Delete",
-        icon: "<i class=\"fas fa-trash\"></i>",
+        icon: '<i class="fas fa-trash"></i>',
         callback: (html) => {
           const element = html instanceof HTMLElement ? html : html[0];
           const uuid = element.dataset.itemUuid;
@@ -175,15 +163,14 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   /* -------------------------------------------- */
 
   /**
- * Handler for make rolls
- *
- * @this PokemonSheet
- * @param {PointerEvent} event - The originating click event
- * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
- * @private
- */
-  static async _toggleTrainerTeam(event, target) {
+   * 
+   * @this PokemonSheet
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async #toggleTrainerTeam(event, target) {
     event.preventDefault();
-    await this.document.update({ "system.trainer.inTeam": !this.document.system.trainer.inTeam });
+    await this.document.update({
+      "system.trainer.inTeam": !this.document.system.trainer.inTeam,
+    });
   }
 }

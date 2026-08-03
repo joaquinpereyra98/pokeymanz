@@ -1,0 +1,58 @@
+<section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
+    <div class="flex">
+        {{> "systems/pokeymanz/templates/actors/trainer/parts/sidebar.hbs"}}
+        
+        <div class="body-container flex flex-col">
+            <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
+                {{disabled isPlayMode }} />
+            <div class="flex details-container">
+                {{#each detailsFields as |field|}}
+                <div class="input-group flex items-center size--{{field.size}}" data-tooltip="{{field.value}}">
+                    <label class="input-group-label">{{field.label}}</label>
+                    <input class="input-group-field" type="{{field.type}}" name="{{field.name}}" value="{{field.value}}"
+                        {{disabled ../isPlayMode }}>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="pokemon-list">
+                {{#each pokemons.team as |pokemon|}}
+                <div class="info-card pokemon-card flex">
+                    <div class="portrait-contianer">
+                        <img src="{{pokemon.img}}" alt="{{pokemon.name}}">
+                    </div>
+                    <div class="card-containter">
+                        <div class="title-container flex">
+                            <span>
+                                {{pokemon.name}}
+                            </span>
+                            <div class="types-icons flex">
+                                {{#if pokemon.system.stats.pokemonTypes.primary.value}}
+                                <img style="--type-color: {{pokemon.system.stats.pokemonTypes.primary.color}};"
+                                    src="{{pokemon.system.stats.pokemonTypes.primary.img}}"
+                                    alt="{{localize pokemon.system.stats.pokemonTypes.primary.name}}">
+
+                                {{/if}}
+                                {{#if pokemon.system.stats.pokemonTypes.secondary.value}}
+                                <img style="--type-color: {{pokemon.system.stats.pokemonTypes.secondary.color}};"
+                                    src="{{pokemon.system.stats.pokemonTypes.secondary.img}}"
+                                    alt="{{localize pokemon.system.stats.pokemonTypes.secondary.name}}">
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            {{#each pokemon.itemTypes.move as |move|}}
+                            <a class="move-button flex items-center justify-around" style="--type-color: {{move.moveType.color}};" data-action="useItem" data-item-uuid="{{move.uuid}}">
+                                <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}" data-tooltip="{{move.moveType.name}}">
+                                <span data-tooltip="{{move.name}}">{{move.name}}</span>
+                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}" data-tooltip="{{move.system.roll.formula}}">
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>

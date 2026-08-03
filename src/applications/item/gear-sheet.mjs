@@ -27,28 +27,26 @@ export default class GearSheet extends InteractiveUIFeaturesMixin(
     },
   };
 
-  /**
-   * Available tabs for the sheet.
-   * @type {Array<{id: string, group: string, icon: string, label: string}>}
-   */
-  static TABS = [
-    {
-      id: "summary",
-      group: "primary",
-      icon: "fa-solid fa-address-card",
-      label: "POKEYMANZ.Sheets.TABS.Summary",
-    },
-    {
-      id: "effects",
-      group: "primary",
-      icon: "fa-solid fa-bolt",
-      label: "POKEYMANZ.Sheets.TABS.Effects",
-    },
-  ];
+  /* -------------------------------------------- */
+  /*  TABS                                        */
+  /* -------------------------------------------- */
 
-  /** @override */
-  tabGroups = {
-    primary: "summary",
+  /**@inheritdoc */
+  static TABS = {
+    primary: {
+      tabs: [
+        {
+          id: "summary",
+          icon: "fa-solid fa-address-card",
+        },
+        {
+          id: "effects",
+          icon: "fa-solid fa-bolt",
+        },
+      ],
+      initial: "summary",
+      labelPrefix: "POKEYMANZ.Sheets.TABS",
+    },
   };
 
   /* -------------------------------------------- */

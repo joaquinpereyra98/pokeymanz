@@ -1,12 +1,15 @@
 import gsap from "/scripts/greensock/esm/all.js";
-import * as SYSTEM_CONST from "../../constants.mjs";
+import { TEMPLATES_PATH } from "../../constants.mjs";
 
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
-export default class BaseActorSheet extends HandlebarsApplicationMixin(
-  ActorSheetV2,
-) {
+/**
+ * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
+ */
+
+export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+  /** @type {Partial<foundry.applications.types.ApplicationConfiguration>} */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
     actions: {
@@ -43,7 +46,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
   /**
    * This getter dynamically retrieves and merges `_PARTS` from the current class and the parent class
-   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   * @type {Record<string, HandlebarsTemplatePart>}
    */
   static get PARTS() {
     return [...this.inheritanceChain()].reverse().reduce((combined, cls) => {
@@ -53,17 +56,17 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
   /**
    * Defines the specific parts for the current class.
-   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   * @type {Record<string, HandlebarsTemplatePart>}
    */
   static _PARTS = {
     header: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/header.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/header.hbs`,
     },
     effects: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/effects.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/effects.hbs`,
     },
     notes: {
-      template: `${SYSTEM_CONST.TEMPLATES_PATH}/actors/parts/notes.hbs`,
+      template: `${TEMPLATES_PATH}/actors/parts/notes.hbs`,
     },
   };
 
@@ -71,8 +74,15 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /*  Context Preparation                         */
   /* -------------------------------------------- */
 
-  async _prepareContext(options) {
+  /**
+   * Prepare application rendering context data for a given render request.
+   * @param {foundry.applications.types.ApplicationRenderOptions} options - Options which configure application rendering behavior
+   * @returns {Promise<foundry.applications.types.ApplicationRenderContext>} - Context data for the render operation
+   * @protected
+   */
+  async _prepareContext(options = {}) {
     return {
+      ...super._prepareContext(options),
       actor: this.document,
       config: CONFIG.POKEYMANZ,
       editable: this.isEditable,
@@ -84,10 +94,10 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     };
   }
 
+  /**@inheritdoc */
   async _preparePartContext(partId, context, options) {
     switch (partId) {
       case "header":
-        context.tabWidth = this.constructor.TABS.length * 64;
         break;
       case "effects":
         context.effects = this._prepareEffects();
@@ -208,7 +218,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Prepares the details fields.
    * Each detail is enriched with a key, value, name, label, and type.
-   *
    * @returns {DetailsFields}
    */
   _prepareDetails() {
@@ -267,7 +276,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    * @param {HTMLElement} li - The list item representing the item/effect.
    * @param {HTMLElement|null} insertAfter - The element to insert after, or null to append.
    * @param {HTMLElement} itemList - The container element for the items/effects.
-   * @private
    */
   async _movingItemList(li, insertAfter, itemList) {
     await gsap.to(li, { duration: 0.2, opacity: 0 }); //fade Out
@@ -284,9 +292,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
    * Handle render ImagePopout of a image
    *
    * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static _renderIP(event, target) {
     event.preventDefault();
@@ -305,9 +311,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to toggle a ActiveEffect
    * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @returns
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _toggleEffect(event, target) {
     event.preventDefault();
@@ -355,9 +359,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
   /**
    * Handle to toggle a Item
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @returns
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _toggleGear(event, target) {
     event.preventDefault();
@@ -399,9 +401,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to create a new embedded document.
    * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _createDoc(event, target) {
     event.preventDefault();
@@ -438,12 +438,11 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     const doc = await cls.create(data, { parent: this.document });
     doc.sheet?.render({ force: true });
   }
+
   /**
    * Handle to delete a embedded document.
    * @this BaseActorSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _deleteDoc(event, target) {
     event.preventDefault();
@@ -463,8 +462,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to open a embedded document sheet.
    * @this BaseActorSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static _viewDoc(event, target) {
     event.preventDefault();
@@ -478,11 +476,8 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
 
   /**
    * Handler for make rolls
-   *
    * @this BaseActorSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static _onRoll(event, target) {
     const roll = target.dataset.roll;
@@ -499,8 +494,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to use a item.
    * @this PokemonSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _useItem(event, target) {
     const { itemUuid } = target.dataset;

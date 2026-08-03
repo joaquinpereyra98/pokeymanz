@@ -4,9 +4,13 @@ import * as SYSTEM_CONST from "../../constants.mjs";
 const { ItemSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
-export default class BaseItemSheet extends HandlebarsApplicationMixin(
-  ItemSheetV2,
-) {
+/**
+ * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
+ */
+
+
+export default class BaseItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
+  /** @type {Partial<foundry.applications.types.ApplicationConfiguration>} */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "item"],
     actions: {
@@ -41,7 +45,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
 
   /**
    * This getter dynamically retrieves and merges `_PARTS` from the current class and the parent class
-   * @type {Record<string, import("../../../v12/resources/app/client-esm/applications/api/handlebars-application.mjs").HandlebarsTemplatePart>}
+   * @type {Record<string, HandlebarsTemplatePart>}
    */
   static get PARTS() {
     return [...this.inheritanceChain()].reverse().reduce((combined, cls) => {
@@ -49,6 +53,10 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     }, {});
   }
 
+  /**
+   * Defines the specific parts for the current class.
+   * @type {Record<string, HandlebarsTemplatePart>}
+   */
   static _PARTS = {
     header: {
       template: `${SYSTEM_CONST.TEMPLATES_PATH}/items/parts/header.hbs`,
@@ -93,10 +101,6 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   async _preparePartContext(partId, context, options) {
     switch (partId) {
       case "header":
-        context.tabWidth = this.constructor.TABS.length * 64;
-        break;
-
-      default:
         break;
     }
     return await super._preparePartContext(partId, context, options);
@@ -164,11 +168,9 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
 
   /**
    * Handles the animation and DOM manipulation for moving items/effects between a list.
-   *
    * @param {HTMLElement} li - The list item representing the item/effect.
    * @param {HTMLElement|null} insertAfter - The element to insert after, or null to append.
    * @param {HTMLElement} itemList - The container element for the items/effects.
-   * @private
    */
   async _movingItemList(li, insertAfter, itemList) {
     await gsap.to(li, { duration: 0.2, opacity: 0 }); //fade Out
@@ -184,9 +186,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to create a new ActiveEffect
    * @this PokeymanzItemSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static _createDoc(event, target) {
     event.preventDefault();
@@ -212,9 +212,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   /**
    * Handle to toggle a ActiveEffect
    * @this BaseActorSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns
+   * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async _toggleEffect(event, target) {
     event.preventDefault();
@@ -234,7 +232,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
       )
       .findLast((effect) =>
         effectType === "inactive"
-          ? (doc.isTemporary === effect.isTemporary) && effect.active
+          ? doc.isTemporary === effect.isTemporary && effect.active
           : !effect.active,
       );
 
@@ -261,11 +259,8 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   }
 
   /**
-   *Handle to create a new ActiveEffect
+   * Handle to create a new ActiveEffect
    * @this PokeymanzItemSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns
    */
   static _viewDoc(event, target) {
     event.preventDefault();
@@ -278,11 +273,8 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
   }
 
   /**
-   *Handle to create a new ActiveEffect
+   * Handle to create a new ActiveEffect
    * @this PokeymanzItemSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns
    */
   static async _deleteDoc(event, target) {
     event.preventDefault();
@@ -298,11 +290,7 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
 
   /**
    * Handle render ImagePopout of a image
-   *
    * @this PokeymanzItemSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
    */
   static _renderIP(event, target) {
     event.preventDefault();
@@ -310,21 +298,17 @@ export default class BaseItemSheet extends HandlebarsApplicationMixin(
     if (!src) return;
 
     const ip = new foundry.applications.apps.ImagePopout({
-          window: { title: this.document.name },
-          src,
-          uuid: this.document.uuid,
-        });
+      window: { title: this.document.name },
+      src,
+      uuid: this.document.uuid,
+    });
 
     ip.render(true);
   }
 
   /**
    * Handle to equip/unquip the item;
-   *
    * @this PokeymanzItemSheet
-   * @param {PointerEvent} event - The originating click event
-   * @param {HTMLElement} target - The capturing HTML element which defined a [data-action]
-   * @private
    */
   static _toggleEquip(event, target) {
     event.preventDefault();

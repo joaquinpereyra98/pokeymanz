@@ -4,6 +4,7 @@ export default class GearData extends foundry.abstract.TypeDataModel {
 
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ITEM"];
 
+  /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {

@@ -60,6 +60,7 @@ export default class PokemonData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
+  /**@inheritdoc */
   prepareBaseData() {
     for (const key in this.stats.pokemonTypes) {
       const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;

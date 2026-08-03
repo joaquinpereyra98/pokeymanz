@@ -3,7 +3,6 @@ import * as SYSTEM_CONST from "../../constants.mjs";
 
 export default function InteractiveUIFeaturesMixin(BaseApplication) {
   class InteractiveApplication extends BaseApplication {
-
     /** @inheritDoc */
     static DEFAULT_OPTIONS = {
       actions: {
@@ -31,11 +30,6 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     }
 
     _contextMenus;
-
-    /**
-     * @type {Array<Partial<import("../../../v12/resources/app/client-esm/applications/_types.mjs").ApplicationTab>>}
-     */
-    static TABS = [];
 
     /**
      * Available sheet modes.
@@ -93,14 +87,18 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     }
 
     /**
-     * @returns {ContextMenu[]}
+     * @returns {foundry.applications.ux.ContextMenu[]}
      */
     _createContextMenus() {
       if (Array.isArray(this.options.contextMenus))
         return this.options.contextMenus.map(
           ({ selector, menuItems, options }) => {
             if (game.release.generation >= 13)
-              return this._createContextMenu(Array.isArray(menuItems) ? () => menuItems : menuItems, selector, { ...options });
+              return this._createContextMenu(
+                Array.isArray(menuItems) ? () => menuItems : menuItems,
+                selector,
+                { ...options },
+              );
             else
               return ContextMenu.create(
                 this,
@@ -124,31 +122,14 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       const baseContext = await super._prepareContext(options);
       return {
         ...baseContext,
+        tabs: this._prepareTabs("primary"),
         isPlayMode: this.isPlayMode,
-        tabs: this._getTabs(),
       };
-    }
-
-    /**
-     * Prepare an array of sheet tabs.
-     * @returns {Record<string, Partial<import("../../v12/resources/app/client-esm/applications/_types.mjs").ApplicationTab>}
-     */
-    _getTabs() {
-      return this.constructor.TABS.reduce((acc, tab) => {
-        acc[tab.id] = {
-          ...tab,
-          active: this.tabGroups[tab.group] === tab.id,
-          cssClass: this.tabGroups[tab.group] === tab.id ? "active" : "",
-        };
-        return acc;
-      }, {});
     }
 
     /** @override */
     async _preparePartContext(partId, context, options) {
-      if (this.constructor.TABS.some((tab) => tab.id === partId))
-        context.tab = context.tabs[partId];
-
+      if (partId in context.tabs) context.tab = context.tabs[partId];
       return await super._preparePartContext(partId, context, options);
     }
 
@@ -207,7 +188,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
      * @param {DragEvent} event
      * @protected
      */
-    _onDragOver(event) { }
+    _onDragOver(event) {}
     /* -------------------------------------------- */
 
     /**
@@ -222,11 +203,18 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
           event,
         );
       const actor = this.actor;
-      const allowed = Hooks.call("pokeymanz.dropActorSheetData", actor, this, data);
+      const allowed = Hooks.call(
+        "pokeymanz.dropActorSheetData",
+        actor,
+        this,
+        data,
+      );
       if (allowed === false) return;
 
       // Dropped Documents
-      const documentClass = foundry.utils.getDocumentClass?.(data.type) ?? getDocumentClass?.(data.type);
+      const documentClass =
+        foundry.utils.getDocumentClass?.(data.type) ??
+        getDocumentClass?.(data.type);
       if (documentClass) {
         const document = await documentClass.fromDropData(data);
         await this._onDropDocument(event, document);
@@ -238,14 +226,17 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     /**
      * Handle a dropped document on the ActorSheet
      * @param {DragEvent} event         The initiating drop event
-     * @param {Document} document       The resolved Document class
+     * @param {foundry.abstract.Document} document       The resolved Document class
      * @returns {Promise<void>}
      * @protected
      */
     async _onDropDocument(event, document) {
       switch (document.documentName) {
         case "ActiveEffect":
-          return this._onDropActiveEffect(event, /** @type ActiveEffect */ document);
+          return this._onDropActiveEffect(
+            event,
+            /** @type ActiveEffect */ document,
+          );
         case "Actor":
           return this._onDropActor(event, /** @type Actor */ document);
         case "Item":
@@ -261,16 +252,21 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
      * Handle a dropped Active Effect on the Actor Sheet.
      * The default implementation creates an Active Effect embedded document on the Actor.
      * @param {DragEvent} event       The initiating drop event
-     * @param {ActiveEffect} effect   The dropped ActiveEffect document
+     * @param {foundry.documents.ActiveEffect} effect   The dropped ActiveEffect document
      * @returns {Promise<void>}
      * @protected
      */
     async _onDropActiveEffect(event, effect) {
       if (!this.actor.isOwner) return;
-      if (!effect || (effect.target === this.actor)) return;
+      if (!effect || effect.target === this.actor) return;
       const keepId = !this.actor.effects.has(effect.id);
-      const ef = await ActiveEffect.implementation.create(effect.toObject(), { parent: this.actor, keepId });
-      ui.notifications.info(`The ActiveEffect '${ef.name}' has been successfully created by '${this.actor.name}'.`);
+      const ef = await ActiveEffect.implementation.create(effect.toObject(), {
+        parent: this.actor,
+        keepId,
+      });
+      ui.notifications.info(
+        `The ActiveEffect '${ef.name}' has been successfully created by '${this.actor.name}'.`,
+      );
       return ef;
     }
 
@@ -279,28 +275,34 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     /**
      * Handle a dropped Actor on the Actor Sheet.
      * @param {DragEvent} event     The initiating drop event
-     * @param {Actor} actor         The dropped Actor document
+     * @param {foundry.documents.Actor} actor         The dropped Actor document
      * @returns {Promise<void>}
      * @protected
      */
-    async _onDropActor(event, actor) { }
+    async _onDropActor(event, actor) {}
 
     /* -------------------------------------------- */
 
     /**
      * Handle a dropped Item on the Actor Sheet.
      * @param {DragEvent} event     The initiating drop event
-     * @param {Item} item           The dropped Item document
+     * @param {foundry.documents.Item} item           The dropped Item document
      * @returns {Promise<void>}
      * @protected
      */
     async _onDropItem(event, item) {
       if (!this.actor.isOwner) return;
-      if (this.actor.uuid === item.parent?.uuid) return this._onSortItem(event, item);
+      if (this.actor.uuid === item.parent?.uuid)
+        return this._onSortItem(event, item);
       const keepId = !this.actor.items.has(item.id);
 
-      const i = await Item.implementation.create(item.toObject(), { parent: this.actor, keepId });
-      ui.notifications.info(`The item '${i.name}' has been successfully created by '${this.actor.name}'.`);
+      const i = await Item.implementation.create(item.toObject(), {
+        parent: this.actor,
+        keepId,
+      });
+      ui.notifications.info(
+        `The item '${i.name}' has been successfully created by '${this.actor.name}'.`,
+      );
       return i;
     }
 
@@ -309,18 +311,18 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
     /**
      * Handle a dropped Folder on the Actor Sheet.
      * @param {DragEvent} event     The initiating drop event
-     * @param {Folder} folder       The dropped Folder document
+     * @param {foundry.documents.Folder} folder       The dropped Folder document
      * @returns {Promise<void>}
      * @protected
      */
-    async _onDropFolder(event, folder) { }
+    async _onDropFolder(event, folder) {}
 
     /* -------------------------------------------- */
 
     /**
      * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings.
      * @param {DragEvent} event     The initiating drop event
-     * @param {Item} item           The dropped Item document
+     * @param {foundry.documents.Item} item           The dropped Item document
      * @protected
      */
     _onSortItem(event, item) {
@@ -337,15 +339,17 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       const siblings = [];
       for (const element of dropTarget.parentElement.children) {
         const siblingId = element.dataset.itemId;
-        if (siblingId && (siblingId !== source.id)) siblings.push(items.get(element.dataset.itemId));
+        if (siblingId && siblingId !== source.id)
+          siblings.push(items.get(element.dataset.itemId));
       }
 
       // Perform the sort
 
-      const sortUpdates = foundry.utils.performIntegerSort?.(source, { target, siblings })
-        ?? SortingHelpers.performIntegerSort(source, { target, siblings });
+      const sortUpdates =
+        foundry.utils.performIntegerSort?.(source, { target, siblings }) ??
+        SortingHelpers.performIntegerSort(source, { target, siblings });
 
-      const updateData = sortUpdates.map(u => {
+      const updateData = sortUpdates.map((u) => {
         const update = u.update;
         update._id = u.target._id;
         return update;
