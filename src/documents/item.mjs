@@ -1,15 +1,11 @@
-export default class PokeymanzItem extends Item {
-  /**
-   * @inheritDoc
-   */
+export default class PokeymanzItem extends foundry.documents.Item {
+  /** @inheritDoc */
   static getDefaultArtwork(itemData) {
     const img = CONFIG.POKEYMANZ.items[itemData.type].img ?? this.DEFAULT_ICON;
     return { img };
   }
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   getRollData() {
     const rollData = this.parent?.getRollData?.() || {};
     rollData.item = foundry.utils.deepClone(this.system);
@@ -29,9 +25,7 @@ export default class PokeymanzItem extends Item {
    * @returns {Object|null} The primary type object from the Pokémon types list, or null if not found.
    */
   get moveType() {
-    if (!foundry.utils.hasProperty(this, "system.pokemonTypes.primary")) return null;
-
-    return foundry.utils.getProperty(this, "system.pokemonTypes.primary");
+    return this.system?.pokemonTypes?.primary ?? null;
   }
 
   /**

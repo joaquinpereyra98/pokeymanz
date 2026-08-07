@@ -1,16 +1,17 @@
-import { pokemonTypeFields } from "../common.mjs";
+import BaseActorData from "./base-actor.mjs";
 
 import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
-export default class TrainerData extends foundry.abstract.TypeDataModel {
+export default class TrainerData extends BaseActorData {
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
 
   /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      ...super.defineSchema(),
       attributes: new fields.SchemaField(
         ["heart", "fitness", "research", "tactics"].reduce((acc, v) => {
           acc[v] = new AttributeDiceField({
@@ -19,28 +20,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
           return acc;
         }, {}),
       ),
-      stats: new fields.SchemaField({
-        toughness: new fields.SchemaField({
-          value: new fields.NumberField({
-            initial: 0,
-            integer: true,
-            nullable: false,
-            required: true,
-          }),
-        }),
-        pokemonTypes: new fields.SchemaField({
-          primary: new fields.SchemaField({
-            value: pokemonTypeFields(),
-          }),
-          secondary: new fields.SchemaField({
-            value: pokemonTypeFields(),
-          }),
-        }),
-        wounds: new fields.SchemaField({
-          value: new fields.NumberField({ initial: 3 }),
-          max: new fields.NumberField({ initial: 3 }),
-        }),
-      }),
+
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: "" }),
         pronouns: new fields.StringField({ initial: "" }),
@@ -60,14 +40,7 @@ export default class TrainerData extends foundry.abstract.TypeDataModel {
 
   /**@inheritdoc */
   prepareBaseData() {
-    for (const key in this.stats.pokemonTypes) {
-      const pokemonTypesList = CONFIG.POKEYMANZ.pokemonTypesList;
-      const type = this.stats.pokemonTypes[key];
-      this.stats.pokemonTypes[key] = {
-        ...type,
-        ...pokemonTypesList.find((t) => t.id === type.value),
-      };
-    }
+    super.prepareBaseData();
 
     for (const key in this.attributes) {
       const attribute = this.attributes[key];

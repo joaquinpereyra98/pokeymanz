@@ -1,3 +1,4 @@
+import { ITEMS_ASSETS_PATH } from "../../constants.mjs";
 import BaseItemData from "./base-item.mjs";
 import { pokemonTypeFields } from "../common.mjs";
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";

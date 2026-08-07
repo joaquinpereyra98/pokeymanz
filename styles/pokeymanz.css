@@ -94,9 +94,11 @@
 .move-list {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
 }
 .move-list .move-container {
+  display: flex;
+  width: 100%;
   align-items: flex-start;
 }
 .move-list .move-container .move-portrait {
@@ -149,20 +151,19 @@
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 0.4rem 0.4rem 0;
+  gap: 0.5rem;
 }
 .move-list .move-container .move-accordion .move-header .move-name {
   font-size: 1.6rem;
   flex-grow: 1;
   height: 1.8rem;
   color: white;
-  min-width: 200px;
   text-overflow: ellipsis;
   text-wrap: nowrap;
   overflow: hidden;
-  max-width: 20ch;
 }
 .move-list .move-container .move-accordion .move-header .move-type {
-  margin: auto 1.5rem;
+  margin: auto;
 }
 .move-list .move-container .move-accordion .move-header .move-menu {
   font-size: 1.2rem;
@@ -311,10 +312,11 @@ section.summary.tab .body-container .details-container {
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-section.summary.tab .body-container .move-list-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1rem;
+section.summary.tab .body-container .list-header {
+  margin-right: 0.5rem;
+}
+section.summary.tab .body-container .list-header a.icon {
+  font-size: 1rem;
 }
 
 .pokeymanz .info-card .portrait-contianer {
@@ -389,6 +391,113 @@ section.summary.tab .body-container .move-list-header {
   white-space: nowrap;
   max-width: 100%;
   width: min-content;
+}
+
+.pokeymanz.sheet.actor.trainer {
+  min-width: 600px;
+}
+.pokeymanz.sheet.actor.pokemon {
+  min-width: 660px;
+}
+.pokeymanz.sheet.actor .abilities-list {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  gap: 0.5em;
+}
+.pokeymanz.sheet.actor .abilities-list.multiple {
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+}
+.pokeymanz.sheet.actor .abilities-list .ability-accordion {
+  width: 100%;
+  min-width: 240px;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container {
+  display: flex;
+  width: 100%;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.4rem 0.4rem 0 0.4rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .drag-line {
+  display: flex;
+  justify-content: center;
+  width: 0.3rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .drag-line i {
+  padding: 0 0.1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 1rem;
+  transition: 500ms;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .drag-line:hover i {
+  background-color: white;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .img-portrait {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .img-portrait img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  transition: opacity 300ms ease;
+  border-radius: 0.2rem;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .ability-name {
+  margin-left: 0.5rem;
+  font-size: 1.6rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  height: 2rem;
+  color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-container .ability-portrait .ability-menu {
+  font-size: 1.2rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-content {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin-left: 0.5rem;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-content .description-content {
+  min-height: 3rem;
+  overflow: hidden;
+}
+.pokeymanz.sheet.actor .abilities-list .ability-content .description-content * {
+  word-break: break-word;
+}
+.pokeymanz.sheet.actor .tab.summary .details-container div.input-group {
+  width: 0;
+}
+.pokeymanz.sheet.actor .tab.inventory .currency-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem;
 }
 
 .item section.summary.tab .sidebar-card {
@@ -711,24 +820,17 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   border-radius: 5px;
   overflow: hidden;
   color: var(--pokeymanz-color-ui-white);
-  margin: 0 0.2rem;
   flex-grow: 1;
   flex-shrink: 1;
+  display: flex;
+  align-items: center;
 }
-.pokeymanz div.input-group.size--xsmall {
-  max-width: 5rem;
-}
-.pokeymanz div.input-group.size--small {
-  max-width: 8rem;
-}
-.pokeymanz div.input-group.size--medium {
-  max-width: 12rem;
-}
-.pokeymanz div.input-group.size--large {
-  flex-basis: 100%;
+.pokeymanz div.input-group.currency-group {
+  flex: 0 0 7rem;
+  width: 7rem;
 }
 .pokeymanz div.input-group input.input-group-field {
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
   border-radius: 0;
   border: 0;
@@ -848,6 +950,53 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 .note-container .note-content {
   background: rgba(0, 0, 0, 0.3);
+}
+.note-container .note-content .prosemirror button.toggle, .note-container .note-content prose-mirror button.toggle {
+  top: 5px;
+  right: 5px;
+  width: 1.875rem;
+}
+.note-container .note-content .prosemirror button.toggle i, .note-container .note-content prose-mirror button.toggle i {
+  height: var(--font-size-14);
+  width: var(--font-size-14);
+}
+.note-container .note-content .prosemirror .editor-content, .note-container .note-content prose-mirror .editor-content {
+  padding-left: 0.75rem;
+}
+
+.pokeymanz hr.pokeymanz-hr {
+  --hr-gradient: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--pokeymanz-color-ui-red) 50%,
+    transparent 100%
+  );
+  --hr-border: 2px groove var(--pokeymanz-color-ui-red);
+  margin: 0.5rem 0;
+}
+.pokeymanz div.hr-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0.5rem 0;
+  opacity: 1;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-family: var(--pokeymanz-font-title);
+  color: var(--text-color);
+  font-weight: bold;
+}
+.pokeymanz div.hr-text::before, .pokeymanz div.hr-text::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  opacity: 0.8;
+}
+.pokeymanz div.hr-text::before {
+  background: linear-gradient(90deg, transparent, var(--pokeymanz-color-ui-red));
+}
+.pokeymanz div.hr-text::after {
+  background: linear-gradient(90deg, var(--pokeymanz-color-ui-red), transparent);
 }
 
 .flex {
@@ -984,6 +1133,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 .pokeymanz.sheet section.tab {
   height: 100%;
   overflow-y: auto;
-  margin: 10px 0px 15px 5px;
+  margin: 10px 0px 15px 10px;
   padding-right: 5px;
+  scrollbar-gutter: stable;
 }

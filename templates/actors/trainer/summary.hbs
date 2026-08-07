@@ -5,13 +5,27 @@
         <div class="body-container flex flex-col">
             <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
                 {{disabled isPlayMode }} />
-            <div class="details-container">
-                {{#each detailsFields}}
-                <div class="input-group flex items-center" data-tooltip="{{value}}">
-                    <label class="input-group-label">{{label}}</label>
-                    {{formInput field value=value disabled=@root.isPlayMode}}
+                <div class="details-container">
+                    {{#with detailsFields.calling}}
+                    <div class="input-group" data-tooltip="{{value}}">
+                        <label class="input-group-label">{{label}}</label>
+                        {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
+                    </div>
+                    {{/with}}
                 </div>
-                {{/each}}
+            <div class="details-container">
+                {{#with detailsFields.pronouns}}
+                <div class="input-group" data-tooltip="{{value}}">
+                    <label class="input-group-label">{{label}}</label>
+                    {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
+                </div>
+                {{/with}}
+                {{#with detailsFields.age}}
+                <div class="input-group" data-tooltip="{{value}}">
+                    <label class="input-group-label">{{label}}</label>
+                    {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
+                </div>
+                {{/with}}
             </div>
 
             <div class="pokemon-list">

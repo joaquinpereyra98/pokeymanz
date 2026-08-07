@@ -7,7 +7,7 @@
                 <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen
                     isPlayMode "renderIP" "editImage" }} alt="{{item.name}}" title="{{item.name}}" />
             </div>
-            <div class="input-group flex items-center">
+            <div class="input-group">
                 {{#if isPlayMode}}
                 <label class="input-group-label">{{localize
                     "POKEYMANZ.Category"}}</label>
@@ -38,7 +38,7 @@
                 {{/if}}
             </div>
             {{else}}
-            <div class="input-group flex items-center">
+            <div class="input-group">
                 <label class="input-group-label">{{localize
                     "POKEYMANZ.Type"}}</label>
                 {{formInput pokemonType.primary.field

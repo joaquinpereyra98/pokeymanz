@@ -6,11 +6,21 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
  * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
+ * @import { DocumentSheetMetadata } from "../_types";
  */
 
-export default class BaseActorSheet extends HandlebarsApplicationMixin(
-  ActorSheetV2,
-) {
+export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+  /**
+   * Default metadata which applies to each instance of this Document Sheet.
+   * @type {Readonly<DocumentSheetMetadata>}
+   */
+  static metadata = Object.freeze({
+    label: "DOCUMENT.Actor",
+    types: [],
+    isDefault: false,
+    register: false,
+  });
+
   /** @type {Partial<foundry.applications.types.ApplicationConfiguration>} */
   static DEFAULT_OPTIONS = {
     classes: ["pokeymanz", "sheet", "actor"],
@@ -66,11 +76,11 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     },
     effects: {
       template: `${TEMPLATES_PATH}/actors/parts/effects.hbs`,
-      scrollable: ["tab"]
+      scrollable: ["tab"],
     },
     notes: {
       template: `${TEMPLATES_PATH}/actors/parts/notes.hbs`,
-      scrollable: ["tab"]
+      scrollable: ["tab"],
     },
   };
 
@@ -228,11 +238,18 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(
     const details = this.document.system.details;
     const schemaFields = this.document.system.schema;
 
-    return Object.entries(details).map(([key, value]) => ({
-      value,
-      field: schemaFields.getField(`details.${key}`),
-      label: game.i18n.localize(`POKEYMANZ.Actor.Details.${key.capitalize()}`),
-    }));
+    const entries = Object.entries(details).map(([key, value]) => [
+      key,
+      {
+        value,
+        field: schemaFields.getField(`details.${key}`),
+        label: game.i18n.localize(
+          `POKEYMANZ.Actor.Details.${key.capitalize()}`,
+        ),
+      },
+    ]);
+
+    return Object.fromEntries(entries);
   }
 
   async _prepareNotes() {

@@ -16,6 +16,8 @@
   },
   "POKEYMANZ": {
     "SHEETS": {
+      "PokemonSheet": "Pokeymanz Pokemon Sheet",
+      "TrainerSheet": "Pokeymanz Trainer Sheet",
       "AbilitySheet": "Pokeymanz Ability Sheet",
       "FeatSheet": "Pokeymanz Feat Sheet",
       "GearSheet": "Pokeymanz Gear Sheet",
@@ -95,7 +97,7 @@
     },
     "Actor": {
       "Details": {
-        "Species": "Species",
+        "Species": "Specie",
         "Gender": "Gender",
         "Calling": "Calling",
         "Pronouns": "Pronouns",

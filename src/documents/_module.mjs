@@ -1,7 +1,2 @@
-import PokeymanzActor from "./actor.mjs";
-import PokeymanzItem from "./item.mjs";
-
-export {
-  PokeymanzActor as Actor,
-  PokeymanzItem as Item,
-};
+export * as PokeymanzActor from "./actor.mjs";
+export * as PokeymanzItem from "./item.mjs";

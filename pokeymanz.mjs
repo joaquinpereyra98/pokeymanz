@@ -29,8 +29,8 @@ Hooks.once("init", () => {
   });
 
   /*Registering document class*/
-  CONFIG.Actor.documentClass = document.Actor;
-  CONFIG.Item.documentClass = document.Item;
+  CONFIG.Actor.documentClass = document.PokeymanzActor;
+  CONFIG.Item.documentClass = document.PokeymanzItem;
 
   /*Registering Sheets*/
   foundry.documents.collections.Actors.registerSheet(

@@ -36,7 +36,8 @@
   section.tab {
     height: 100%;
     overflow-y: auto;
-    margin: 10px 0px 15px 5px;
+    margin: 10px 0px 15px 10px;
     padding-right: 5px;
+    scrollbar-gutter: stable;
   }
 }

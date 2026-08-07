@@ -1,3 +1,4 @@
+import { ITEMS_ASSETS_PATH } from "../../constants.mjs";
 import BaseItemData from "./base-item.mjs";
 
 export default class GearData extends BaseItemData {

@@ -9,11 +9,23 @@ import { TRAINER_TEMPLATES_PATH, TEMPLATES_PATH } from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias TrainerSheet
  */
-export default class TrainerSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet,
-) {
+export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
+  /** @inheritdoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(
+      super.metadata,
+      {
+        label: "POKEYMANZ.SHEETS.TrainerSheet",
+        types: ["trainer"],
+        register: true,
+      },
+      { inplace: false },
+    ),
+  );
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
+    classes: ["trainer"],
     position: {
       width: 720,
       height: 550,

@@ -147,10 +147,11 @@ section.summary.tab {
       gap: 0.5rem;
       flex-wrap: wrap;
     }
-    .move-list-header {
-      display: flex;
-      justify-content: flex-end;
-      margin-right: 1rem;
+    .list-header {
+      margin-right: 0.5rem;
+      a.icon {
+        font-size: 1rem;
+      }
     }
 
   }

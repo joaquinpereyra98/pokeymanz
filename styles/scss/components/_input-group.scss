@@ -6,30 +6,18 @@
     border-radius: 5px;
     overflow: hidden;
     color: $pokeymanz-c-white;
-    margin: 0 0.2rem;
     flex-grow: 1;
     flex-shrink: 1;
+    display: flex;
+    align-items: center;
 
-    &.size {
-        &--xsmall {
-            max-width: 5rem;
-        }
-
-        &--small {
-            max-width: 8rem;
-        }
-
-        &--medium {
-            max-width: 12rem;
-        }
-
-        &--large {
-            flex-basis: 100%;
-        }
+    &.currency-group {
+        flex: 0 0 7rem;
+        width: 7rem;
     }
 
     input.input-group-field {
-        font-size: 1.5rem;
+        font-size: 1rem;
         text-align: center;
         border-radius: 0;
         border: 0;

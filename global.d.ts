@@ -1,5 +1,6 @@
 import "@client/global.mjs";
 import Canvas from "@client/canvas/board.mjs";
+import "./src/_types";
 
 // Foundry's use of `Object.assign(globalThis)` means many globally available objects are not read as such
 // This declare global hopefully fixes that

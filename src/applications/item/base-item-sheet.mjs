@@ -6,15 +6,9 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
  * @import { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.mjs"
+ * @import { DocumentSheetMetadata } from "../_types";
  */
 
-/**
- * @typedef DocumentSheetMetadata
- * @property {string} label
- * @property {string[]} types
- * @property {boolean} isDefault
- * @property {boolean} register
- */
 
 export default class BaseItemSheet extends HandlebarsApplicationMixin(
   ItemSheetV2,

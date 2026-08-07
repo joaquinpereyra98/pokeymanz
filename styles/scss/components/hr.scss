@@ -1,0 +1,53 @@
+@use "../abstracts" as *;
+
+.pokeymanz {
+  hr.pokeymanz-hr {
+    --hr-gradient: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--pokeymanz-color-ui-red) 50%,
+      transparent 100%
+    );
+
+    --hr-border: 2px groove var(--pokeymanz-color-ui-red);
+
+    margin: 0.5rem 0;
+  }
+
+  div.hr-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0.5rem 0;
+    opacity: 1;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-family: var(--pokeymanz-font-title);
+    color: var(--text-color);
+    font-weight: bold;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      opacity: 0.8;
+    }
+
+    &::before {
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--pokeymanz-color-ui-red)
+      );
+    }
+
+    &::after {
+      background: linear-gradient(
+        90deg,
+        var(--pokeymanz-color-ui-red),
+        transparent
+      );
+    }
+  }
+}

@@ -1,8 +1,8 @@
 /**
  * Extend the base Actor class to implement additional system-specific logic.
  */
-export default class PokeymanzActor extends Actor {
-
+export default class PokeymanzActor extends foundry.documents.Actor {
+  /**@inheritdoc */
   getRollData() {
     const data = super.getRollData();
 
@@ -17,10 +17,6 @@ export default class PokeymanzActor extends Actor {
     return data;
   }
 
-  get haveAttributes() {
-    return foundry.utils.hasProperty(this, "system.attributes");
-  }
-
   /**
    * Rolls an attribute for this actor.
    * Generates a roll formula based on the specified attribute's die, modifier, and wound penalties.
@@ -28,16 +24,19 @@ export default class PokeymanzActor extends Actor {
    *
    * @param {string} attribute - The name of the attribute to roll.
    * @param {Object} [option={}] - Additional options for the roll (not currently used).
-   * @returns {Roll} The resulting roll object.
+   * @returns {foundry.dice.Roll} The resulting roll object.
    */
   rollAttribute(attribute, option = {}) {
     const data = this.getRollData();
-    const { label, formula } = foundry.utils.getProperty(data, `attributes.${attribute}`);
+    const { label, formula } = foundry.utils.getProperty(
+      data,
+      `attributes.${attribute}`,
+    );
 
     const wounds = `${this.calcWoundPenalties() || ""}`;
 
     const rollFormula = `${formula}${wounds}[${label}]`;
-    const roll = Roll.create(rollFormula, data);
+    const roll = foundry.dice.Roll.create(rollFormula, data);
 
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -56,8 +55,8 @@ export default class PokeymanzActor extends Actor {
    * @returns {number} The calculated wound penalty.
    */
   calcWoundPenalties() {
-    const wounds = foundry.utils.getProperty(this, "system.stats.wounds");
-    return (wounds.max - wounds.value) * -1;
+    const { value, max } = this.system.stats.wounds;
+    return (max - value) * -1;
   }
 
   /**

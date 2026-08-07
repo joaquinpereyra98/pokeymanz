@@ -14,7 +14,7 @@ import * as SYSTEM_CONST from "../../constants.mjs";
 /**
  *
  * @param {foundry.applications.api.ApplicationV2} BaseApplication
- * @returns
+ * @returns {foundry.applications.api.ApplicationV2}
  */
 export default function InteractiveUIFeaturesMixin(BaseApplication) {
   class InteractiveApplication extends BaseApplication {

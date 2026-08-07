@@ -14,8 +14,22 @@ import { POKEMON_TEMPLATES_PATH } from "../../constants.mjs";
  * @alias PokemonSheet
  */
 export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
+  /** @inheritdoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(
+      super.metadata,
+      {
+        label: "POKEYMANZ.SHEETS.PokemonSheet",
+        types: ["pokemon"],
+        register: true,
+      },
+      { inplace: false },
+    ),
+  );
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
+    classes: ["pokemon"],
     position: {
       width: 800,
       height: 550,
@@ -23,10 +37,11 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     actions: {
       toggleTrainerTeam: PokemonSheet.#toggleTrainerTeam,
       createMove: PokemonSheet.#createMove,
+      createAbility: PokemonSheet.#createAbility,
     },
     contextMenus: [
       {
-        selector: ".move-menu",
+        selector: ".context-menu",
         handler: PokemonSheet._getMoveMenuItems,
         options: {
           eventName: "click",
@@ -35,6 +50,11 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
       },
     ],
     accordions: [
+      {
+        headingSelector: ".ability-container",
+        contentSelector: ".ability-content",
+        startCollapsed: true,
+      },
       {
         headingSelector: ".move-header",
         contentSelector: ".move-content",
@@ -133,9 +153,14 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
         inTeam: trainer.inTeam,
       },
       moves: await this._prepareMoves(),
+      abilities: await this._prepareAbilties(),
     };
   }
 
+  /**
+   * Prepare the moves context by this Pokémon.
+   * @returns {Promise<Array<object>>}
+   */
   async _prepareMoves() {
     const moves = [];
 
@@ -157,18 +182,44 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     }
     moves.sort((a, b) => a.sort - b.sort);
 
-    while (moves.length < 4) {
-      moves.push(null);
-    }
-
     return moves;
   }
+
+  /**
+   * Prepare the abilities context owned by this Pokémon
+   * @returns {Promise<Array<object>>}
+   * @protected
+   */
+  async _prepareAbilties() {
+    const abilities = [];
+
+    for (const ability of this.document.itemTypes.ability) {
+      abilities.push({
+        doc: ability,
+        uuid: ability.uuid,
+        enrichDescription:
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            ability.system.notes.description,
+            {
+              secrets: ability.isOwner,
+              rollData: ability.getRollData(),
+              relativeTo: ability,
+            },
+          ),
+      });
+    }
+
+    abilities.sort((a, b) => a.sort - b.sort);
+
+    return abilities;
+  }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   /**
-   *
+   *T oggle whether this Pokémon is currently in the trainer's active team
    * @this PokemonSheet
    * @type {foundry.applications.types.ApplicationClickAction}
    */
@@ -180,15 +231,32 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
   }
 
   /**
-   *
+   * Create a new Move item on this Pokémon.
    * @this PokemonSheet
    * @type {foundry.applications.types.ApplicationClickAction}
    */
   static async #createMove(event) {
     const doc = await foundry.documents.Item.implementation.create(
       {
-        name: game.i18n.format("DOCUMENT.New", { type: "move" }),
+        name: _loc("DOCUMENT.New", { type: "Move" }),
         type: "move",
+      },
+      { parent: this.document },
+    );
+
+    if (!event.shiftKey) doc.sheet?.render({ force: true });
+  }
+
+  /**
+   * Create a new Ability item on this Pokémon
+   * @this PokemonSheet
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async #createAbility(event) {
+    const doc = await foundry.documents.Item.implementation.create(
+      {
+        name: _loc("DOCUMENT.New", { type: "Ability" }),
+        type: "ability",
       },
       { parent: this.document },
     );

@@ -8,15 +8,46 @@
                 {{disabled isPlayMode }} />
             <div class="details-container">
                 {{#each detailsFields}}
-                <div class="input-group flex items-center" data-tooltip="{{value}}">
+                <div class="input-group" data-tooltip="{{value}}">
                     <label class="input-group-label">{{label}}</label>
-                    {{formInput field value=value disabled=@root.isPlayMode}}
+                    {{formInput field classes="input-group-field" value=value disabled=@root.isPlayMode}}
                 </div>
                 {{/each}}
             </div>
-            <div class="move-list-header">
-                <button type="button" class="icon fa-solid fa-add" data-action="createMove"
-                    data-tooltip="{{localize 'DOCUMENT.New' type='Move' }}"></button>
+            <div class="list-header">
+                <div class="hr-text">Abilities
+                    <a class="icon fa-solid fa-add" data-action="createAbility"
+                        data-tooltip="{{localize 'DOCUMENT.New' type='Ability' }}">
+                    </a>
+                </div>
+            </div>
+            <div class="abilities-list {{ifThen (gte abilities.length 2) "multiple" ""}}">
+                {{#each abilities}}
+                <div class="ability-accordion">
+                    <div class="ability-container">
+                        <div class="ability-portrait flex">
+                            <div class="drag-line draggable" data-doc-id="{{doc._id}}" data-document-class="Item">
+                                <i></i>
+                            </div>
+                            <div class="img-portrait">
+                                <img class="ability-icon" src="{{doc.img}}" alt="{{doc.name}}" />
+                            </div>
+                            <div class="ability-name" data-tooltip="{{doc.name}}">{{doc.name}}</div>
+                            <a class="context-menu ability-menu" data-item-uuid="{{uuid}}">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ability-content">
+                        <div class="description-content">{{{enrichDescription}}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="list-header">
+                <div class="hr-text">Moves <a class="icon fa-solid fa-add" data-action="createMove"
+                        data-tooltip="{{localize 'DOCUMENT.New' type='Move' }}"></a></div>
+
             </div>
             <div class="move-list">
                 {{#each moves as |move|}}
@@ -45,7 +76,7 @@
                                         move.moveType.name}}</span>
                                 </div>
                             </div>
-                            <a class="move-menu fix-context-menu aling--right" data-item-uuid="{{move.uuid}}">
+                            <a class="context-menu move-menu" data-item-uuid="{{move.uuid}}">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </a>
                         </div>

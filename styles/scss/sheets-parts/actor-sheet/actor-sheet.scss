@@ -1,0 +1,131 @@
+.pokeymanz.sheet.actor {
+  &.trainer {
+    min-width: 600px;
+  }
+  &.pokemon {
+    min-width: 660px;
+  }
+
+  .abilities-list {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 0.5em;
+
+    &.multiple {
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+    }
+
+    .ability-accordion {
+      width: 100%;
+      min-width: 240px;
+    }
+
+    .ability-container {
+      display: flex;
+      width: 100%;
+
+      .ability-portrait {
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        border-radius: 0.4rem 0.4rem 0 0.4rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.1rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .drag-line {
+          display: flex;
+          justify-content: center;
+          width: 0.3rem;
+          height: 2rem;
+          padding: 0 0.5rem;
+
+          i {
+            padding: 0 0.1rem;
+            background-color: rgba($color: white, $alpha: 0.4);
+            border-radius: 1rem;
+            transition: 500ms;
+          }
+
+          &:hover i {
+            background-color: white;
+          }
+        }
+
+        .img-portrait {
+          position: relative;
+          width: 2rem;
+          height: 2rem;
+          flex-shrink: 0;
+
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: cover;
+            transition: opacity 300ms ease;
+            border-radius: 0.2rem;
+          }
+        }
+
+        .ability-name {
+          margin-left: 0.5rem;
+          font-size: 1.6rem;
+          flex-grow: 1;
+          flex-shrink: 1;
+          min-width: 0;
+          height: 2rem;
+          color: white;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        .ability-menu {
+          font-size: 1.2rem;
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    .ability-content {
+      background-color: rgba($color: #000000, $alpha: 0.3);
+      padding: 0.1rem 0.5rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      margin-left: 0.5rem;
+
+      .description-content {
+        min-height: 3rem;
+        overflow: hidden;
+
+        * {
+          word-break: break-word;
+        }
+      }
+    }
+  }
+
+  .tab.summary {
+    .details-container {
+      div.input-group {
+        width: 0;
+      }
+    }
+  }
+
+  .tab.inventory {
+    .currency-container {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0.5rem;
+    }
+  }
+}
