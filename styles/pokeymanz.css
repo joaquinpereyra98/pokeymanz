@@ -20,7 +20,7 @@
   --pokeymanz-color-ui-red: #C6242C;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
-  --pokeymanz-color-card-light: #818078;
+  --pokeymanz-color-card-light: #cccccc;
   --pokeymanz-color-card-dark: #222222;
   --pokeymanz-color-research: #2c94bb;
   --pokeymanz-color-heart: #ff3750;
@@ -184,13 +184,67 @@
   word-break: break-word;
 }
 
-.pokemon-list {
-  gap: 1em;
+.pokeymanz .item-list.pokemon-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(175px, 1fr));
+  align-items: start;
+  gap: 1rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding: 0.5rem;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card {
+  container-type: inline-size;
+  display: flex;
+  padding: 0.4rem;
+  gap: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 0.4em;
+  background: var(--card-color);
+  position: relative;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-portrait {
+  flex: 0 0 clamp(4rem, 35cqi, 5rem);
+  height: clamp(4rem, 35cqi, 5rem);
+  aspect-ratio: 1;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-portrait img.profile-img {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 4px solid var(--pokeymanz-color-ui-red);
+  object-fit: cover;
+  object-position: top center;
+  cursor: pointer;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-header {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-height: 135px;
-  overflow-x: auto;
-  flex-wrap: nowrap;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-header .pokemon-name {
+  color: var(--pokeymanz-color-ui-white);
+  font-size: 1.25rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-header .pokemon-types {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-header .pokemon-types .type-badge {
+  padding: 0.1em;
+}
+.pokeymanz .item-list.pokemon-list .pokemon-card .pokemon-controls {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
 }
 
 section.summary.tab .sidebar-card {
@@ -266,22 +320,30 @@ section.summary.tab .sidebar-card .types-container .type-badge {
   flex: 1;
   max-width: 50%;
 }
+section.summary.tab .sidebar-card .trainer-fields-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section.summary.tab .sidebar-card .trainer-fields-container .tainer-container {
+  overflow: hidden;
+  border-radius: 10px;
+  border: 3px solid var(--pokeymanz-color-ui-red);
+}
 section.summary.tab .sidebar-card .trainer-fields-container .trainer-portrait img {
   height: 70px;
   width: 70px;
-  border-radius: 10px 10px 0 0;
-  border: 3px solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
   object-position: top center;
 }
 section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer {
   color: var(--pokeymanz-color-ui-red);
   background: var(--pokeymanz-color-ui-black);
-  padding: 5px;
-  border-radius: 0 0 10px 10px;
-  border: 3px solid var(--pokeymanz-color-ui-red);
-  border-top: 0px;
-  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 0 0 20px;
 }
 section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer .switch-icon {
   font-size: 12px;
@@ -296,10 +358,6 @@ section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contian
   height: 20px;
   font-size: 20px;
   margin: 0 5px;
-}
-section.summary.tab .sidebar-card .trainer-fields-container .tainer-container {
-  align-items: center;
-  justify-content: space-evenly;
 }
 section.summary.tab .body-container {
   width: max(70%, 280px);
@@ -394,7 +452,8 @@ section.summary.tab .body-container .list-header a.icon {
 }
 
 .pokeymanz.sheet.actor.trainer {
-  min-width: 600px;
+  min-width: 660px;
+  min-height: 525px;
 }
 .pokeymanz.sheet.actor.pokemon {
   min-width: 660px;
@@ -494,10 +553,21 @@ section.summary.tab .body-container .list-header a.icon {
 .pokeymanz.sheet.actor .tab.summary .details-container div.input-group {
   width: 0;
 }
+.pokeymanz.sheet.actor .tab.summary .pokemon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 .pokeymanz.sheet.actor .tab.inventory .currency-container {
   display: flex;
   justify-content: flex-end;
   margin: 0.5rem;
+}
+.pokeymanz.sheet.actor .tab.inventory .item-grid {
+  grid-template-columns: auto 2fr 1fr 1fr 1fr 70px;
+}
+.pokeymanz.sheet.actor .tab.features .item-grid {
+  grid-template-columns: auto 2fr 1fr 70px;
 }
 
 .item section.summary.tab .sidebar-card {
@@ -585,92 +655,75 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   padding: 5px;
 }
 
-.pokeymanz ol.items-list {
+.pokeymanz .item-grid {
+  display: grid;
+  grid-template-columns: 2fr 70px;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+}
+.pokeymanz .item-grid .item-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pokeymanz .item-grid .item-data {
+  text-align: center;
+}
+.pokeymanz .item-grid .item-controls {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+  font-size: var(--font-size-14);
+}
+.pokeymanz .item-grid .item-controls a {
+  text-align: center;
+}
+.pokeymanz .items-header {
+  background-color: var(--pokeymanz-color-ui-red);
+  color: var(--pokeymanz-color-ui-white);
+  font-size: large;
+  font-weight: bold;
+  border-radius: 0.4rem 0.4rem 0 0;
+  margin-top: 0.5rem;
+}
+.pokeymanz .accordion-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  width: fit-content;
+}
+.pokeymanz .accordion-icon:hover {
+  opacity: 1;
+}
+.pokeymanz .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-.pokeymanz ol.items-list .item-list {
-  margin-top: 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5;
-  list-style: none;
   background-color: rgba(0, 0, 0, 0.3);
 }
-.pokeymanz ol.items-list .item-name {
-  flex: 2;
-  margin: 0;
-  overflow: hidden;
-  text-align: left;
-  align-items: center;
-  display: flex;
+.pokeymanz .item-list .item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: var(--font-size-16);
 }
-.pokeymanz ol.items-list .item-controls {
-  display: flex;
-  flex: 0 0 70px;
-  justify-content: flex-end;
-}
-.pokeymanz ol.items-list .item-controls a {
-  text-align: center;
-  margin: 0 6px;
-}
-.pokeymanz ol.items-list .item {
-  padding: 1px 0.4rem;
-  align-items: center;
-  border-bottom: 1px solid;
-}
-.pokeymanz ol.items-list .item:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-.pokeymanz ol.items-list .item:last-child {
+.pokeymanz .item-list .item:last-child {
   border-bottom: none;
 }
-.pokeymanz ol.items-list .item .item-name .item-image {
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
-  border: none;
-  margin-right: 5px;
+.pokeymanz .item-list .item:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
-.pokeymanz ol.items-list .item .item-type,
-.pokeymanz ol.items-list .item .item-price,
-.pokeymanz ol.items-list .item .item-subtype,
-.pokeymanz ol.items-list .item .item-controls,
-.pokeymanz ol.items-list .item .effect-source,
-.pokeymanz ol.items-list .item .effect-duration {
-  font-size: 0.9rem;
-  height: 1rem;
-  text-align: center;
-  border-left: 3px solid #c9c7b8;
-  border-right: 3px solid #c9c7b8;
+.pokeymanz .item:not(.collapsed) .item-description {
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
 }
-.pokeymanz ol.items-list .item .item-type,
-.pokeymanz ol.items-list .item .item-controls,
-.pokeymanz ol.items-list .item .effect-source {
-  flex-wrap: nowrap;
-  border: none;
-}
-.pokeymanz ol.items-list .items-header {
-  align-items: center;
-  align-content: center;
-  padding: 0.4rem 1rem 0.4rem 0.6rem;
-  font-size: large;
-  background-color: var(--pokeymanz-color-ui-red);
-  border-radius: 0.4rem 0.4rem 0 0;
-  color: white;
-  font-weight: bold;
-  margin: 0;
-  margin-top: 0.5rem;
-}
-.pokeymanz ol.items-list .items-header > * {
-  text-align: center;
-}
-.pokeymanz ol.items-list .items-header .accordion-icon {
-  flex: 0;
-}
-.pokeymanz ol.items-list .items-header .item-name {
-  padding-left: 5px;
-  text-align: left;
+.pokeymanz .item-description {
+  padding: 0 0.5rem;
+  font-size: var(--font-size-14);
 }
 
 .rollable-button,
@@ -767,6 +820,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   -webkit-box-shadow: 0 0 0.4em;
 }
 .pokeymanz .card .portrait .profile-img {
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   border: 4px solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
@@ -788,7 +842,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 .pokeymanz input.document-name:disabled {
   background-color: transparent;
-  border: 0;
+  border-color: transparent;
 }
 .pokeymanz input.document-name:focus {
   outline: none;
@@ -797,6 +851,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 
 .pokeymanz .item-type-fields {
   margin: 0.3rem 0;
+  gap: 0.5rem;
 }
 .pokeymanz .item-type-fields .item-type-badge {
   width: auto;
@@ -875,7 +930,6 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 
 .pokeymanz .type-badge {
   color: white;
-  min-width: max-content;
   padding-left: 0.4em;
   padding-right: 0.6em;
   background-color: var(--type-color);
@@ -934,6 +988,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
 }
 
 .note-container .note-header {
+  display: flex;
   align-items: center;
   align-content: center;
   padding: 0.4rem 1rem 0.4rem 0.6rem;
@@ -1136,4 +1191,23 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   margin: 10px 0px 15px 10px;
   padding-right: 5px;
   scrollbar-gutter: stable;
+}
+.pokeymanz.sheet .tab.effects .item-grid {
+  grid-template-columns: auto 2fr 1fr 1fr 70px;
+}
+.pokeymanz.sheet .tab.pokemon .item-grid {
+  grid-template-columns: auto 2fr 70px;
+}
+.pokeymanz.sheet .tab.pokemon .pokemons-trainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.pokeymanz.sheet .tab.pokemon .pokemons-trainer > section.items-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.pokeymanz.sheet .tab.pokemon .pokemons-trainer > section.items-list .item-list {
+  flex: 1;
 }

@@ -15,7 +15,6 @@ section.summary.tab {
     }
 
     .stat-bar {
-
       .stat-container {
         border-radius: 0.3rem;
         border: 3px solid;
@@ -92,11 +91,17 @@ section.summary.tab {
     }
 
     .trainer-fields-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .tainer-container {
+        overflow: hidden;
+        border-radius: 10px;
+        border: 3px solid $pokeymanz-c-red;
+      }
       .trainer-portrait img {
         height: 70px;
         width: 70px;
-        border-radius: 10px 10px 0 0;
-        border: 3px solid $pokeymanz-c-red;
         object-fit: cover;
         object-position: top center;
       }
@@ -104,11 +109,11 @@ section.summary.tab {
       .edit-switch-contianer {
         color: $pokeymanz-c-red;
         background: $pokeymanz-c-black;
-        padding: 5px;
-        border-radius: 0 0 10px 10px;
-        border: 3px solid $pokeymanz-c-red;
-        border-top: 0px;
-        width: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        flex: 0 0 20px;
 
         .switch-icon {
           font-size: 12px;
@@ -127,13 +132,7 @@ section.summary.tab {
           margin: 0 5px;
         }
       }
-
-      .tainer-container {
-        align-items: center;
-        justify-content: space-evenly;
-      }
     }
-
   }
 
   .body-container {
@@ -153,6 +152,5 @@ section.summary.tab {
         font-size: 1rem;
       }
     }
-
   }
 }

@@ -7,70 +7,62 @@
       </div>
     </div>
   </div>
-  <ol class="items-list">
+  <section class="items-list">
     {{#each inventory as |section sid|}}
-    <li class="items-header flexrow">
-      <div class="item-name flexrow">
-        <span>
-          <i class="{{section.icon}}"></i>
-          {{section.label}}
-        </span>
+    <div class="item items-header item-grid">
+      <i class="{{section.icon}}"></i>
+      <div class="item-name">
+        <span>{{section.label}}</span>
       </div>
-      <div class="item-data">
-        Price
-      </div>
-      <div class="item-data">
-        Type
-      </div>
-      <div class="item-data">
-        Subtype
-      </div>
+      <div class="item-data">Price</div>
+      <div class="item-data">Type</div>
+      <div class="item-data">Subtype</div>
       <div class="item-controls">
         <a class="item-control" data-action="createDoc" data-document-class="Item" data-type="gear"
-          data-equipped="{{eq sid 'backpack'}}" data-tooltip="{{localize 'DOCUMENT.New' type='Gear' }}">
+          data-equipped="{{eq sid 'backpack'}}" data-tooltip="{{localize 'DOCUMENT.New' type='Gear'}}">
           <i class="fas fa-plus"></i>
         </a>
       </div>
-    </li>
-    <ol class="item-list" data-category="{{sid}}">
-      {{#each section.items as |item|}}
-      <li class="item feat flexrow draggable" data-doc-id="{{item.id}}" data-document-class="Item" data-drag="true">
-        <div class="item-name item-name flexrow">
-          <img class="item-image" src="{{item.img}}" height="24" width="24" alt="{{item.name}}" />
-          <div>
-            {{item.name}}
+    </div>
+    <section class="item-list" data-category="{{sid}}">
+      {{#each section.items}}
+      <div class="item" data-doc-id="{{doc.id}}" data-document-class="Item" data-drag="true">
+        <div class="item-header item-grid draggable">
+          <i class="accordion-icon fa-solid fa-caret-down"></i>
+          <div class="item-name">
+            <img class="item-image" src="{{doc.img}}" height="24" width="24" alt="{{doc.name}}" />
+            <span>{{doc.name}}</span>
+          </div>
+
+          <div class="item-data">{{localize doc.system.price}}</div>
+          <div class="item-data">{{localize doc.system.type.label}}</div>
+          <div class="item-data">{{localize doc.system.subtype.label}}</div>
+
+          <div class="item-controls">
+            {{#if @root.editable}}
+            <a class="item-control" data-action="toggleGear"
+              data-tooltip="{{localize (ifThen doc.system.equipped 'POKEYMANZ.Item.UnquipItem' 'POKEYMANZ.Item.EquipItem') item=doc.name}}">
+              <i class="fa-solid {{ifThen doc.system.equipped 'fa-computer-classic' 'fa-backpack'}}"></i>
+            </a>
+            {{/if}}
+
+            <a class="item-control" data-action="viewDoc" data-tooltip="{{localize 'DOCUMENT.Update' type=doc.name}}">
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editable}}
+            <a class="item-control" data-action="deleteDoc" data-tooltip="{{localize 'DOCUMENT.Delete' type=doc.name}}">
+              <i class="fas fa-trash"></i>
+            </a>
+            {{/if}}
           </div>
         </div>
-        <div class="item-price">
-          {{localize item.system.price}}
+        <div class="item-description">
+          {{{description}}}
         </div>
-        <div class="item-type">
-          {{localize item.system.type.label}}
-        </div>
-        <div class="item-subtype">
-          {{localize item.system.subtype.label}}
-        </div>
-        <div class="item-controls flexrow">
-          {{#if @root.editable}}
-          <a class="item-control" data-action="toggleGear" {{#if item.system.equipped}} data-tooltip="{{localize '
-            POKEYMANZ.Item.UnquipItem' item=item.name}}" {{else}} data-tooltip="{{localize 'POKEYMANZ.Item.EquipItem'
-            item=item.name}}" {{/if}}>
-            <i class="{{ifThen item.system.equipped 'fa-solid' 'fa-regular' }} fa-backpack">
-            </i>
-          </a>
-          {{/if}}
-          <a class="item-control" data-action="viewDoc" data-tooltip="{{localize 'DOCUMENT.Update' type=item.name}}">
-            <i class="fas fa-edit"></i>
-          </a>
-          {{#if @root.editable}}
-          <a class="item-control" data-action="deleteDoc" data-tooltip="{{localize 'DOCUMENT.Delete' type=item.name}}">
-            <i class="fas fa-trash"></i>
-          </a>
-          {{/if}}
-        </div>
-      </li>
+      </div>
       {{/each}}
-    </ol>
+    </section>
     {{/each}}
-  </ol>
+  </section>
 </section>

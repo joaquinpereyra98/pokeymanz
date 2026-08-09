@@ -31,7 +31,7 @@ export default class PokeymanzItem extends foundry.documents.Item {
   /**
    * An array of ActiveEffect instances which are present on
    * the Actor which are active and dont have limited duration.
-   * @returns {ActiveEffect[]}
+   * @returns {foundry.documents.ActiveEffect[]}
    */
   get passiveEffects() {
     const effects = Array.from(this.effects);
@@ -40,7 +40,7 @@ export default class PokeymanzItem extends foundry.documents.Item {
 
   /**
    * An array of ActiveEffect instances which are present on the Actor Actor which are active and have a limited duration.
-   * @returns {ActiveEffect[]}
+   * @returns {foundry.documents.ActiveEffect[]}
    */
   get temporaryEffectsActive() {
     const effects = Array.from(this.effects);
@@ -49,7 +49,7 @@ export default class PokeymanzItem extends foundry.documents.Item {
 
   /**
    * An array of ActiveEffect instances which are present on the Actor Actor which are inactive
-   * @returns {ActiveEffect[]}
+   * @returns {foundry.documents.ActiveEffect[]}
    */
   get inactiveEffects() {
     const effects = Array.from(this.effects);
@@ -57,7 +57,7 @@ export default class PokeymanzItem extends foundry.documents.Item {
   }
 
   /**
-   * 
+   *
    */
   async use() {
     const type = this.type;
@@ -74,16 +74,17 @@ export default class PokeymanzItem extends foundry.documents.Item {
   async _useMove() {
     const data = this.getRollData();
     const { formula } = data.item.roll;
-    const roll = await Roll.create(formula, data).evaluate();
+    const roll = await foundry.dice.Roll.create(formula, data).evaluate();
 
-    const rollContente = await roll.render();
+    const rollContent = await roll.render();
 
     roll.toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+      speaker: foundry.documents.ChatMessage.implementation.getSpeaker({
+        actor: this.parent,
+      }),
       flavor: this.name,
-      rollMode: game.settings.get("core", "rollMode"),
-      content: `${this.system.notes.description} ${rollContente}`,
+      messageMode: game.settings.get("core", "messageMode"),
+      content: `${this.system.notes.description} ${rollContent}`,
     });
-
   }
 }

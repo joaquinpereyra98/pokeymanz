@@ -13,7 +13,9 @@ import { POKEMON_TEMPLATES_PATH } from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias PokemonSheet
  */
-export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
+export default class PokemonSheet extends InteractiveUIFeaturesMixin(
+  BaseActorSheet,
+) {
   /** @inheritdoc */
   static metadata = Object.freeze(
     foundry.utils.mergeObject(
@@ -68,7 +70,7 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     summary: {
       template: `${POKEMON_TEMPLATES_PATH}/summary.hbs`,
       templates: [`${POKEMON_TEMPLATES_PATH}/parts/sidebar.hbs`],
-      scrollable: ["tab"],
+      scrollable: [""],
     },
   };
 
@@ -97,6 +99,15 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(BaseActorSh
       labelPrefix: "POKEYMANZ.Sheets.TABS",
     },
   };
+
+  /** @inheritDoc */
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+    const trainer = this.actor.system.trainer.value;
+    if (trainer && !trainer.apps[this.id]) {
+      trainer.apps[this.id] = this;
+    }
+  }
 
   /* -------------------------------------------- */
   /*  Drop-Down Menus                             */

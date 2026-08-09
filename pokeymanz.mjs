@@ -1,5 +1,5 @@
 import * as data from "./src/data/_module.mjs";
-import * as document from "./src/documents/_module.mjs";
+import * as documents from "./src/documents/_module.mjs";
 import * as apps from "./src/applications/_module.mjs";
 
 import { POKEYMANZ } from "./src/config.mjs";
@@ -11,7 +11,7 @@ CONFIG.POKEYMANZ = POKEYMANZ;
 
 game[SYSTEM_ID] = {
   apps,
-  document,
+  documents,
   data,
 };
 
@@ -29,8 +29,8 @@ Hooks.once("init", () => {
   });
 
   /*Registering document class*/
-  CONFIG.Actor.documentClass = document.PokeymanzActor;
-  CONFIG.Item.documentClass = document.PokeymanzItem;
+  CONFIG.Actor.documentClass = documents.PokeymanzActor;
+  CONFIG.Item.documentClass = documents.PokeymanzItem;
 
   /*Registering Sheets*/
   foundry.documents.collections.Actors.registerSheet(

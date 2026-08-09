@@ -1,5 +1,6 @@
 import BaseActorData from "./base-actor.mjs";
 import NotesHTMLField from "../commons/notes-html-field.mjs";
+import TrainerDocumentField from "../fields/trainer-document-field.mjs";
 
 export default class PokemonData extends BaseActorData {
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
@@ -31,7 +32,7 @@ export default class PokemonData extends BaseActorData {
         pokedexEntry: new NotesHTMLField(),
       }),
       trainer: new fields.SchemaField({
-        value: new fields.ForeignDocumentField(foundry.documents.BaseActor),
+        value: new TrainerDocumentField(foundry.documents.BaseActor),
         inTeam: new fields.BooleanField({ initial: false }),
       }),
     };
@@ -44,8 +45,44 @@ export default class PokemonData extends BaseActorData {
   /* -------------------------------------------- */
 
   /**@inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if (allowed === false) return false;
+
+    const changeTrainerID = changes?.system?.trainer?.value;
+    const sourceTrainerID = this._source?.trainer?.value;
+
+    if (changeTrainerID !== undefined && changeTrainerID !== sourceTrainerID) {
+      this._checkDependedApps(changeTrainerID, sourceTrainerID);
+    }
+  }
+
+  /**
+   * 
+   * @param {string} changeTrainerID 
+   * @param {string} sourceTrainerID 
+   * @returns 
+   */
+  _checkDependedApps(changeTrainerID, sourceTrainerID) {
+    const sheet = this.parent?.sheet;
+    if (!sheet) return;
+
+    const changedTrainer = changeTrainerID
+      ? game.actors.get(changeTrainerID)
+      : null;
+    const sourceTrainer = sourceTrainerID
+      ? game.actors.get(sourceTrainerID)
+      : null;
+
+    const appId = sheet.id;
+
+    if (changedTrainer?.apps) {
+      changedTrainer.apps[appId] = sheet;
+    }
+
+    if (sourceTrainer?.apps && sourceTrainer.apps[appId]) {
+      delete sourceTrainer.apps[appId];
+    }
   }
 
   /* -------------------------------------------- */

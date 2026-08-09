@@ -39,11 +39,11 @@ export default class PokeymanzActor extends foundry.documents.Actor {
     const roll = foundry.dice.Roll.create(rollFormula, data);
 
     roll.toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: game.i18n.format("POKEYMANZ.AttributePromptTitle", {
+      speaker: foundry.documents.ChatMessage.implementation.getSpeaker({ actor: this.actor }),
+      flavor: _loc("POKEYMANZ.AttributePromptTitle", {
         attr: label,
       }),
-      rollMode: game.settings.get("core", "rollMode"),
+      messageMode: game.settings.get("core", "messageMode"),
     });
     return roll;
   }

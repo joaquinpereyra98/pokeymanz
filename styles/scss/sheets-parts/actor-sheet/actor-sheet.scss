@@ -1,6 +1,7 @@
 .pokeymanz.sheet.actor {
   &.trainer {
-    min-width: 600px;
+    min-width: 660px;
+    min-height: 525px;
   }
   &.pokemon {
     min-width: 660px;
@@ -119,6 +120,11 @@
         width: 0;
       }
     }
+    .pokemon-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   .tab.inventory {
@@ -126,6 +132,15 @@
       display: flex;
       justify-content: flex-end;
       margin: 0.5rem;
+    }
+    .item-grid {
+      grid-template-columns: auto 2fr 1fr 1fr 1fr 70px;
+    }
+  }
+
+  .tab.features {
+    .item-grid {
+      grid-template-columns: auto 2fr 1fr 70px;
     }
   }
 }

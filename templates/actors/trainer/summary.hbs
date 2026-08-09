@@ -29,7 +29,7 @@
             </div>
 
             <div class="pokemon-list">
-                {{#each pokemons.team as |pokemon|}}
+                {{#each pokemons.team.docs as |pokemon|}}
                 <div class="info-card pokemon-card flex">
                     <div class="portrait-contianer">
                         <img src="{{pokemon.img}}" alt="{{pokemon.name}}">

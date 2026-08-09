@@ -170,7 +170,7 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
      * @protected
      */
     async _onDragStart(event) {
-      const target = event.currentTarget;
+      const target = event.currentTarget.closest(".item");
       if ("link" in event.target.dataset) return;
       let dragData;
 

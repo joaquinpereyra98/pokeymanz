@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="types-container flex">
+            <div class="types-container">
                 {{#if isPlayMode}}
                 {{#if pokemonType.primary.value}}
                 <div class="type-badge flex items-center size--medium"
@@ -59,16 +59,16 @@
                 </div>
                 {{/if}}
                 {{#if (and trainer.value isPlayMode)}}
-                <div class="tainer-container flex flex-col">
+                <div class="tainer-container flex">
                     <div class="trainer-portrait flex">
                         <img class="trainer-sheet" src="{{actor.system.trainer.value.img}}"
                             alt="{{actor.system.trainer.value.name}}" data-action="openTrainerSheet">
                     </div>
 
-                    <div class="edit-switch-contianer flex items-center">
+                    <div class="edit-switch-contianer">
                         <i class="switch-icon fa-solid fa-backpack {{ ifThen trainer.inTeam 'active' '' }}"></i>
                         <a class="switch-btn" data-action="toggleTrainerTeam">
-                            <i class="fa-solid fa-toggle-{{ifThen trainer.inTeam 'off' 'on' }}"></i>
+                            <i class="fa-solid fa-toggle-{{ifThen trainer.inTeam 'off' 'on' }} fa-rotate-90" ></i>
                         </a>
                         <i class="switch-icon fa-solid fa-computer-classic {{ifThen trainer.inTeam '' 'active' }}"></i>
                     </div>

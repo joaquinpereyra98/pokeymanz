@@ -4,6 +4,11 @@ import NotesHTMLField from "../commons/notes-html-field.mjs";
 
 import AttributeDiceField from "../commons/attribute-dice-field.mjs";
 
+/**
+ * @import PokeymanzActor from "../../documents/actor.mjs";
+ * @import PokemonData from "./pokemon.mjs";
+ */
+
 export default class TrainerData extends BaseActorData {
   static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
 
@@ -67,6 +72,11 @@ export default class TrainerData extends BaseActorData {
   }
 
   /* -------------------------------------------- */
+  /**
+   * @type {Omit<PokeymanzActor, "system"> & {
+   *   system: PokemonData;
+   * }}
+   */
   get pokemons() {
     return game.actors.filter(
       (a) =>

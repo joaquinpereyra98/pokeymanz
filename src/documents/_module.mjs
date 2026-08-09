@@ -1,2 +1,2 @@
-export * as PokeymanzActor from "./actor.mjs";
-export * as PokeymanzItem from "./item.mjs";
+export { default as PokeymanzActor } from "./actor.mjs";
+export { default as PokeymanzItem } from "./item.mjs";

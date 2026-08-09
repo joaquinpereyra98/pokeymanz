@@ -18,6 +18,9 @@ import gsap from "/scripts/greensock/esm/all.js";
  * @param {AccordionConfiguration} config  Configuration options.
  */
 export default class Accordion {
+  /**
+   * @param {AccordionConfiguration} config
+   */
   constructor(config) {
     this.#config = config;
   }
@@ -54,7 +57,7 @@ export default class Accordion {
       this.#config;
 
     const forceExpand = startExpanded === true;
-    const forceCollapse = (startCollapsed === true) && !forceExpand;
+    const forceCollapse = startCollapsed === true && !forceExpand;
 
     let collapsedIndex = 0;
     for (const heading of root.querySelectorAll(headingSelector)) {
@@ -68,7 +71,7 @@ export default class Accordion {
       if (firstBind) {
         const isCollapsed = forceExpand
           ? false
-          : forceCollapse || (this.#collapsed.length > 0);
+          : forceCollapse || this.#collapsed.length > 0;
 
         this.#collapsed.push(isCollapsed);
 
@@ -125,7 +128,7 @@ export default class Accordion {
     if (this.#config.collapseOthers) {
       for (const [otherHeading, otherContent] of this.#sections.entries()) {
         if (
-          (heading !== otherHeading) &&
+          heading !== otherHeading &&
           !otherHeading.parentElement.classList.contains("collapsed")
         ) {
           this._onCollapseSection(otherHeading, otherContent);

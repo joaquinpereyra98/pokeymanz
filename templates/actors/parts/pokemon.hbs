@@ -1,47 +1,49 @@
 <section class="tab pokemon {{tab.cssClass}}" data-group="primary" data-tab="pokemon">
-  <div class="team-pokemon">
-    <ol class="items-list">
-      <div class="items-header flexrow">
-        <span>
-          <i class="fa-solid fa-backpack"></i>
-          Team
-        </span>
+  <div class="pokemons-trainer">
+    {{#each pokemons}}
+    <section class="items-list">
+      <div class="item items-header item-grid">
+        <i class="{{icon}}"></i>
+        <div class="item-name">
+          <span>{{localize label}}</span>
+        </div>
+        <div class="item-controls">
+          <a class="item-control" data-action="createPokemon" data-tooltip="{{localize 'DOCUMENT.New' type='Pokemon'}}">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
       </div>
-      <div class="item-list pokemon-list flex">
-        {{#each pokemons.team as |pokemon index|}}
-        <div class="pokemon-card card flex-col pokemon" data-doc-id="{{pokemon.id}}">
-          <div class="portrait flex">
-            <img class="profile-img" src="{{pokemon.img}}" data-edit="img" data-action="renderIP" alt="{{pokemon.name}}"
-              title="{{pokemon.name}}" />
+      <section class="item-list pokemon-list" data-category="{{id}}">
+        {{#each docs}}
+        <div class="pokemon-card" data-uuid="{{uuid}}">
+          <div class="pokemon-portrait">
+            <img class="profile-img" src="{{img}}" data-edit="img" data-action="viewExternalActor"
+              data-tooltip="Edit {{name}}" alt="{{name}} Image" />
           </div>
-          <div class="pokemon-controls flex">
-            <a class="fa-solid fa-user-pen" data-action="viewExternalActor"></a>
-            <a class="fa-solid fa-computer-classic" data-action="togglePokemonTeam"></a>
+          <div class="pokemon-header">
+            <div class="pokemon-name" data-tooltip="{{name}}">{{name}}</div>
+            <div class="pokemon-types">
+              {{#with system.stats.pokemonTypes as |types|}}
+              {{#each types}}
+              {{#if this.value}}
+              <div class="type-badge flex items-center size--small" style="--type-color: {{color}}"
+                data-tooltip="{{name}}">
+                <img src="{{img}}" alt="{{id}}">
+              </div>
+              {{/if}}
+              {{/each}}
+              {{/with}}
+            </div>
           </div>
-
+          <div class="pokemon-controls">
+            <a class="item-control" data-action="togglePokemonTeam" data-tooltip="Send to {{ifThen (eq ../id "team") "PC" "Team" }}">
+              <i class="fa-solid {{ifThen (eq ../id "team") "fa-computer-classic" "fa-backpack" }}"></i>
+            </a>
+          </div>
         </div>
         {{/each}}
-      </div>
-      <div class="items-header flexrow">
-        <span>
-          <i class="fa-solid fa-computer-classic"></i>
-          PC
-        </span>
-      </div>
-      <div class="item-list pokemon-list flex">
-        {{#each pokemons.pc as |pokemon index|}}
-        <div class="pokemon-card card flex-col pokemon" data-doc-id="{{pokemon.id}}">
-          <div class="portrait flex">
-            <img class="profile-img" src="{{pokemon.img}}" data-edit="img" data-action="renderIP" alt="{{pokemon.name}}"
-              title="{{pokemon.name}}" />
-          </div>
-          <div class="pokemon-controls flex">
-            <a class="fa-solid fa-user-pen" data-action="viewExternalActor"></a>
-            <a class="fa-solid fa-backpack" data-action="togglePokemonTeam"></a>
-          </div>
-        </div>
-        {{/each}}
-      </div>
-    </ol>
+      </section>
+    </section>
+    {{/each}}
   </div>
 </section>

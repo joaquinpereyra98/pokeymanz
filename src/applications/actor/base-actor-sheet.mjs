@@ -48,9 +48,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
         contentSelector: ".note-content",
       },
       {
-        headingSelector: ".effects-header",
-        contentSelector: ".effect-list",
-        startExpanded: true,
+        headingSelector: ".item-list .item .item-header",
+        contentSelector: ".item-list .item .item-description",
+        startCollapsed: true,
       },
     ],
     contextMenus: [],
@@ -76,11 +76,11 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
     },
     effects: {
       template: `${TEMPLATES_PATH}/actors/parts/effects.hbs`,
-      scrollable: ["tab"],
+      scrollable: [""],
     },
     notes: {
       template: `${TEMPLATES_PATH}/actors/parts/notes.hbs`,
-      scrollable: ["tab"],
+      scrollable: [""],
     },
   };
 
@@ -110,39 +110,24 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
 
   /**@inheritdoc */
   async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
     switch (partId) {
-      case "header":
-        break;
-      case "effects":
-        context.effects = this._prepareEffects();
-        break;
-      case "features":
-        context.feats = this._prepareFeats();
-        break;
-      case "inventory":
-        context.inventory = this._prepareInventory(context);
-        break;
       case "notes":
         context.notes = await this._prepareNotes(context);
       default:
         break;
     }
-    return await super._preparePartContext(partId, context, options);
+
+    const handlerName = `_prepare${partId.capitalize()}Part`;
+    /**@type {import("./_types").PartContextHandler} */
+    const handler = this[handlerName];
+
+    if (typeof handler === "function")
+      context = await handler.call(this, context, options);
+
+    return context;
   }
 
-  /**
-   * @typedef {Object} EffectCategories
-   * @property {string} type - The category effect type ("temporary", "passive" or "inactive").
-   * @property {string} label - The localized label for the category..
-   * @property {ActiveEffect[]} effects - A sorted list of effects belonging to the category.
-   */
-
-  /**
-   * Prepares and categorizes the effects associated with the actor into
-   * "temporary", "passive", and "inactive" groups. Each category contains
-   * a type, a localized label, and a sorted list of effects.
-   * @returns {EffectCategories}
-   */
   _prepareEffects() {
     const categories = {
       temporary: {
@@ -168,55 +153,52 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
     return categories;
   }
 
-  /**
-   * @typedef {Object} FeatCategories
-   * @property {string} label - The localized label for the category..
-   * @property {ActiveEffect[]} effects - A sorted list of feats belonging to the category.
-   */
+  /**@type {import("./_types").PartContextHandler} */
+  async _prepareEffectsPart(context) {
+    const { temporaryEffectsActive, passiveEffects, inactiveEffects } =
+      this.actor;
 
-  /**
-   * Prepares and categorizes the feats of the actor
-   * @returns {FeatCategories}
-   */
-  _prepareFeats() {
-    const {
-      feat: { types },
-    } = CONFIG.POKEYMANZ.items;
+    const prepareEffectsArray = (effects) => {
+      return Promise.all(
+        effects
+          .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+          .map(async (e) => {
+            const value = e.description;
+            const enrich =
+              await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                value,
+                {
+                  secrets: e.isOwner,
+                  relativeTo: e,
+                  rollData: e.getRollData?.() ?? {},
+                },
+              );
 
-    const feats = Object.fromEntries(
-      Object.entries(types).map(([key, { label }]) => [
-        key,
-        {
-          label: game.i18n.localize(label),
-          items: this.document.itemTypes.feat
-            .filter((i) => i.system.type.value === key)
-            .sort((a, b) => (a.sort || 0) - (b.sort || 0)),
-        },
-      ]),
-    );
-    return feats;
-  }
-
-  _prepareInventory() {
-    const items = this.document.items
-      .filter((i) => i.isEquipable)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
+            return { doc: e, description: enrich };
+          }),
+      );
+    };
 
     const categories = {
-      backpack: {
-        type: "backpack",
-        icon: "fa-solid fa-backpack",
-        label: game.i18n.localize("POKEYMANZ.Item.Backpack"),
-        items: items.filter((i) => i.system.equipped),
+      temporary: {
+        type: "temporary",
+        label: _loc("POKEYMANZ.Effect.Temporary"),
+        effects: await prepareEffectsArray(temporaryEffectsActive),
       },
-      computer: {
-        type: "computer",
-        icon: "fa-solid fa-computer-classic",
-        label: game.i18n.localize("POKEYMANZ.Item.Computer"),
-        items: items.filter((i) => !i.system.equipped),
+      passive: {
+        type: "passive",
+        label: _loc("POKEYMANZ.Effect.Passive"),
+        effects: await prepareEffectsArray(passiveEffects),
+      },
+      inactive: {
+        type: "inactive",
+        label: _loc("POKEYMANZ.Effect.Inactive"),
+        effects: await prepareEffectsArray(inactiveEffects),
       },
     };
-    return categories;
+
+    context.effects = categories;
+    return context;
   }
 
   /**
@@ -352,9 +334,9 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
           ? "temporary"
           : "passive"
         : "inactive";
-    const ol = li.closest(".effects-list");
+    const ol = li.closest(".items-list");
     const effectList = ol?.querySelector(
-      `.effect-list[data-effect-type="${newCategory}"]`,
+      `.item-list[data-category="${newCategory}"]`,
     );
 
     if (!effectList) return await doc?.update({ disabled: !doc.disabled });
@@ -482,7 +464,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
     const { documentClass, docId } = li.dataset;
     const doc = this.document.getEmbeddedDocument(documentClass, docId);
 
-    doc?.sheet?.render(true);
+    doc?.sheet?.render({force: true});
   }
 
   /**
