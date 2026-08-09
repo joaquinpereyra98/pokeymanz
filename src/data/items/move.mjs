@@ -1,7 +1,7 @@
 import { ITEMS_ASSETS_PATH } from "../../constants.mjs";
 import BaseItemData from "./base-item.mjs";
 import { pokemonTypeFields } from "../common.mjs";
-import AttributeDiceField from "../commons/attribute-dice-field.mjs";
+import AttributeData from "../attribute-data.mjs";
 
 export default class MoveData extends BaseItemData {
   /**@inheritdoc */
@@ -38,7 +38,9 @@ export default class MoveData extends BaseItemData {
           {},
         ),
       }),
-      roll: new AttributeDiceField({ label: "POKEYMANZ.Moves.Dice" }),
+      roll: new fields.EmbeddedDataField(AttributeData, {
+        label: "POKEYMANZ.Moves.Dice",
+      }),
     };
   }
 

@@ -1,5 +1,5 @@
 import BaseActorData from "./base-actor.mjs";
-import NotesHTMLField from "../commons/notes-html-field.mjs";
+import NotesHTMLField from "../fields/notes-html-field.mjs";
 import TrainerDocumentField from "../fields/trainer-document-field.mjs";
 
 export default class PokemonData extends BaseActorData {
@@ -12,14 +12,6 @@ export default class PokemonData extends BaseActorData {
     schema.stats.extendFields({
       toughness: new fields.SchemaField({
         value: new fields.NumberField({ initial: 4, integer: true }),
-      }),
-      mastery: new fields.SchemaField({
-        value1: new fields.BooleanField({ initial: true }),
-        value2: new fields.BooleanField({ initial: false }),
-      }),
-      exp: new fields.NumberField({
-        initial: 0,
-        integer: true,
       }),
     });
     return {

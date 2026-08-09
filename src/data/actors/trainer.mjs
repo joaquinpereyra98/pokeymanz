@@ -1,8 +1,6 @@
 import BaseActorData from "./base-actor.mjs";
-
-import NotesHTMLField from "../commons/notes-html-field.mjs";
-
-import AttributeDiceField from "../commons/attribute-dice-field.mjs";
+import NotesHTMLField from "../fields/notes-html-field.mjs";
+import AttributeData from "../attribute-data.mjs";
 
 /**
  * @import PokeymanzActor from "../../documents/actor.mjs";
@@ -17,15 +15,22 @@ export default class TrainerData extends BaseActorData {
     const fields = foundry.data.fields;
     return {
       ...super.defineSchema(),
-      attributes: new fields.SchemaField(
-        ["heart", "fitness", "research", "tactics"].reduce((acc, v) => {
-          acc[v] = new AttributeDiceField({
-            label: `POKEYMANZ.Attributes.${v.capitalize()}`,
-          });
-          return acc;
-        }, {}),
-      ),
 
+      advancement: new fields.SchemaField({}),
+      attributes: new fields.SchemaField({
+        heart: new fields.EmbeddedDataField(AttributeData, {
+          label: "POKEYMANZ.Attributes.Heart",
+        }),
+        fitness: new fields.EmbeddedDataField(AttributeData, {
+          label: "POKEYMANZ.Attributes.Fitness",
+        }),
+        research: new fields.EmbeddedDataField(AttributeData, {
+          label: "POKEYMANZ.Attributes.Research",
+        }),
+        tactics: new fields.EmbeddedDataField(AttributeData, {
+          label: "POKEYMANZ.Attributes.Tactics",
+        }),
+      }),
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: "" }),
         pronouns: new fields.StringField({ initial: "" }),
@@ -42,16 +47,6 @@ export default class TrainerData extends BaseActorData {
   }
 
   /* -------------------------------------------- */
-
-  /**@inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    for (const key in this.attributes) {
-      const attribute = this.attributes[key];
-      attribute.name = `POKEYMANZ.Attributes.${key.capitalize()}`;
-    }
-  }
 
   /* -------------------------------------------- */
 

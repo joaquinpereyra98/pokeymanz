@@ -1,4 +1,5 @@
 import PokeymanzActor from "../../documents/actor.mjs";
+import { AttributeDiceData } from "../commons/attribute-dice-field.mjs";
 /**
  =========================
  * Base Actor Data Model 
@@ -36,13 +37,7 @@ declare module "./base-actor.mjs" {
  */
 declare module "./pokemon.mjs" {
   export default interface PokemonData {
-    stats: BaseActorStats & {
-      mastery: {
-        value1: boolean;
-        value2: boolean;
-      };
-      exp: number;
-    };
+    stats: BaseActorStats & {};
     details: {
       species: string;
       gender: string;
@@ -62,19 +57,15 @@ declare module "./pokemon.mjs" {
  * Trainer Actor Data Model 
  =========================
  */
-export interface AttributeSchema {
-  faces: number;
-  modifier: number;
-}
 
 declare module "./trainer.mjs" {
   export default interface TrainerData {
     stats: BaseActorStats;
     attributes: {
-      heart: AttributeSchema;
-      fitness: AttributeSchema;
-      research: AttributeSchema;
-      tactics: AttributeSchema;
+      heart: AttributeDiceData;
+      fitness: AttributeDiceData;
+      research: AttributeDiceData;
+      tactics: AttributeDiceData;
     };
     details: {
       calling: string;
