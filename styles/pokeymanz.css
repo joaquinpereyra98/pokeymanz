@@ -17,7 +17,7 @@
 }
 
 .pokeymanz {
-  --pokeymanz-color-ui-red: #C6242C;
+  --pokeymanz-color-ui-red: #c6242c;
   --pokeymanz-color-ui-white: #fbfbfb !important;
   --pokeymanz-color-ui-black: #383939 !important;
   --pokeymanz-color-card-light: #cccccc;
@@ -30,16 +30,24 @@
   --pokeymanz-color-toughness-secondary: #3f6ab8;
   --pokeymanz-color-wounds-primary: #941100;
   --pokeymanz-color-wounds-secondary: #ce3922;
+  --pokeymanz-color-experience-primary: #0b5e2a;
+  --pokeymanz-color-experience-secondary: #2fa354;
+  --pokeymanz-color-advancement-primary: #855300;
+  --pokeymanz-color-advancement-secondary: #d68d11;
 }
 
 .theme-light .pokeymanz.sheet {
   --background-color: var(--pokeymanz-color-ui-white);
   --card-color: var(--pokeymanz-color-card-light);
+  --pokemon-card: color-mix(in srgb, var(--card-color) 70%, black);
+  --pokemon-card-2: color-mix(in srgb, var(--card-color) 85%, black);
   --text-color: black;
 }
 .theme-dark .pokeymanz.sheet {
   --background-color: var(--pokeymanz-color-ui-black);
   --card-color: var(--pokeymanz-color-card-dark);
+  --pokemon-card: var(--pokeymanz-color-card-dark);
+  --pokemon-card-2: color-mix(in srgb, var(--card-color) 80%, white);
   --text-color: white;
 }
 
@@ -288,12 +296,12 @@ section.summary.tab .sidebar-card .stat-bar .stat-container .stat-icon {
   margin-right: 0.2;
   margin-bottom: 0;
 }
-section.summary.tab .sidebar-card .stat-bar .stat-container.toughtness-container {
+section.summary.tab .sidebar-card .stat-bar .stat-container.toughness-container {
   border-color: var(--pokeymanz-color-toughness-primary);
   background-color: var(--pokeymanz-color-toughness-secondary);
   box-shadow: 0 0 5px var(--pokeymanz-color-toughness-secondary);
 }
-section.summary.tab .sidebar-card .stat-bar .stat-container.toughtness-container .stat-icon {
+section.summary.tab .sidebar-card .stat-bar .stat-container.toughness-container .stat-icon {
   color: var(--pokeymanz-color-toughness-primary);
 }
 section.summary.tab .sidebar-card .stat-bar .stat-container.wounds-container {
@@ -304,12 +312,31 @@ section.summary.tab .sidebar-card .stat-bar .stat-container.wounds-container {
 section.summary.tab .sidebar-card .stat-bar .stat-container.wounds-container .stat-icon {
   color: var(--pokeymanz-color-wounds-primary);
 }
+section.summary.tab .sidebar-card .stat-bar .stat-container.advancement-container {
+  border-color: var(--pokeymanz-color-advancement-primary);
+  background-color: var(--pokeymanz-color-advancement-secondary);
+  box-shadow: 0 0 5px var(--pokeymanz-color-advancement-secondary);
+}
+section.summary.tab .sidebar-card .stat-bar .stat-container.advancement-container .stat-icon {
+  color: var(--pokeymanz-color-advancement-primary);
+}
+section.summary.tab .sidebar-card .stat-bar .stat-container.experience-container {
+  border-color: var(--pokeymanz-color-experience-primary);
+  background-color: var(--pokeymanz-color-experience-secondary);
+  box-shadow: 0 0 5px var(--pokeymanz-color-experience-secondary);
+}
+section.summary.tab .sidebar-card .stat-bar .stat-container.experience-container .stat-icon {
+  color: var(--pokeymanz-color-experience-primary);
+}
 section.summary.tab .sidebar-card .stat-bar .stat-container.wounds-container span {
   font-size: 1.5rem;
   height: 1.5rem;
   color: var(--pokeymanz-color-wounds-primary);
   font-weight: bold;
   line-height: 1;
+}
+section.summary.tab .sidebar-card .stat-bar .stat-container.advancement-container .stat-input, section.summary.tab .sidebar-card .stat-bar .stat-container.experience-container .stat-input {
+  width: 3rem;
 }
 section.summary.tab .sidebar-card .types-container {
   display: flex;
@@ -378,11 +405,12 @@ section.summary.tab .body-container .list-header a.icon {
 }
 
 .pokeymanz .info-card .portrait-contianer {
-  background: var(--card-color);
+  background: var(--pokemon-card);
   padding: 10px;
   border-radius: 10px 0 0 10px;
   flex: 0 0 90px;
   height: 90px;
+  cursor: pointer;
 }
 .pokeymanz .info-card .portrait-contianer img {
   border: none;
@@ -392,7 +420,7 @@ section.summary.tab .body-container .list-header a.icon {
   flex: 1;
 }
 .pokeymanz .info-card .card-containter .title-container {
-  background: var(--card-color);
+  background: var(--pokemon-card);
   font: bold 25px var(--pokeymanz-font-title);
   color: var(--text-color);
   height: 2.5rem;
@@ -414,7 +442,7 @@ section.summary.tab .body-container .list-header a.icon {
 .pokeymanz .info-card .card-containter .card-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  background: rgb(from var(--card-color) r g b/0.5);
+  background: var(--pokemon-card-2);
   border-radius: 0 0 10px 10px;
   padding: 5px;
   min-height: 5em;
@@ -733,7 +761,7 @@ header.pokeymanz-sheet-header .sheet-tabs > [data-tab] {
   width: 100%;
   flex-wrap: wrap;
   border-radius: 5px;
-  padding: 0 5px;
+  padding: 5px 5px 0px 5px;
   color: white;
   transition: 200ms;
   filter: saturate(0.8);

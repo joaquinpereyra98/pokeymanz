@@ -8,7 +8,7 @@
                 <div class="details-container">
                     {{#with detailsFields.calling}}
                     <div class="input-group" data-tooltip="{{value}}">
-                        <label class="input-group-label">{{label}}</label>
+                        <label class="input-group-label">{{field.label}}</label>
                         {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
                     </div>
                     {{/with}}
@@ -16,13 +16,13 @@
             <div class="details-container">
                 {{#with detailsFields.pronouns}}
                 <div class="input-group" data-tooltip="{{value}}">
-                    <label class="input-group-label">{{label}}</label>
+                    <label class="input-group-label">{{field.label}}</label>
                     {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
                 </div>
                 {{/with}}
                 {{#with detailsFields.age}}
                 <div class="input-group" data-tooltip="{{value}}">
-                    <label class="input-group-label">{{label}}</label>
+                    <label class="input-group-label">{{field.label}}</label>
                     {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
                 </div>
                 {{/with}}
@@ -30,8 +30,8 @@
 
             <div class="pokemon-list">
                 {{#each pokemons.team.docs as |pokemon|}}
-                <div class="info-card pokemon-card flex">
-                    <div class="portrait-contianer">
+                <div class="info-card pokemon-card flex" data-uuid="{{uuid}}">
+                    <div class="portrait-contianer" data-action="viewExternalActor">
                         <img src="{{pokemon.img}}" alt="{{pokemon.name}}">
                     </div>
                     <div class="card-containter">

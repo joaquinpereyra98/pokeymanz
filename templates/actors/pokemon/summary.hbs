@@ -9,7 +9,7 @@
             <div class="details-container">
                 {{#each detailsFields}}
                 <div class="input-group" data-tooltip="{{value}}">
-                    <label class="input-group-label">{{label}}</label>
+                    <label class="input-group-label">{{field.label}}</label>
                     {{formInput field classes="input-group-field" value=value disabled=@root.isPlayMode}}
                 </div>
                 {{/each}}

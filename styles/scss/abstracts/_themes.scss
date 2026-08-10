@@ -2,16 +2,15 @@
   @if $theme == 'light' {
     --background-color: var(--pokeymanz-color-ui-white);
     --card-color: var(--pokeymanz-color-card-light);
+    --pokemon-card: color-mix(in srgb, var(--card-color) 70%, black);
+    --pokemon-card-2: color-mix(in srgb, var(--card-color) 85%, black);
     --text-color: black;
-  } @else if $theme == 'dark' {
+  } @else {
     --background-color: var(--pokeymanz-color-ui-black);
     --card-color: var(--pokeymanz-color-card-dark);
+    --pokemon-card: var(--pokeymanz-color-card-dark);
+    --pokemon-card-2: color-mix(in srgb, var(--card-color) 80%, white);;
     --text-color: white;
-  } @else {
-    @warn "Unknown theme #{$theme}, falling back to light.";
-    --background-color: var(--pokeymanz-color-ui-white);
-    --card-color: var(--pokeymanz-color-card-light);
-    --text-color: var(--pokeymanz-color-ui-black);
   }
 }
 

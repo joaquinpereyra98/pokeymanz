@@ -4,12 +4,12 @@
             isPlayMode "renderIP" "editImage" }} alt="{{actor.name}}" title="{{actor.name}}" />
     </div>
     <div class="stat-bar flex justify-around">
-        <div class="toughtness-container stat-container flex items-center">
+        <div class="toughness-container stat-container flex items-center" data-tooltip="Toughness">
             <i class="stat-icon fa-solid fa-shield"></i>
             <input class="stat-input" type="number" name="system.stats.toughness.value"
                 value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
         </div>
-        <div class="wounds-container stat-container flex items-center">
+        <div class="wounds-container stat-container flex items-center" data-tooltip="Wounds">
             <i class="stat-icon fa-solid fa-heart"></i>
             <div class="wound-input-container flex">
                 <input class="stat-input" type="number" name="system.stats.wounds.value"
@@ -20,8 +20,21 @@
             </div>
         </div>
     </div>
+    <div class="stat-bar flex justify-around">
+        <div class="advancement-container stat-container flex items-center" data-tooltip="Advancement">
+            <i class="stat-icon fa-solid fa-ranking-star"></i>
+            <input class="stat-input" type="number" name="system.progress.advancement"
+                value="{{system.progress.advancement}}">
+        </div>
+        <div class="experience-container stat-container flex items-center" data-tooltip="Experience">
+            <i class="stat-icon fa-solid fa-circle-star"></i>
+            <input class="stat-input" type="number" name="system.progress.experience"
+                value="{{system.progress.experience}}">
+        </div>
+    </div>
+    {{#if isPlayMode}}
+    {{#if (or pokemonType.primary.value pokemonType.secondary.value)}}
     <div class="types-container flex">
-        {{#if isPlayMode}}
         {{#if pokemonType.primary.value}}
         <div class="type-badge flex items-center size--medium" style="--type-color: {{pokemonType.primary.color}}">
             <img src="{{pokemonType.primary.img}}" alt="{{pokemonType.primary.id}}">
@@ -34,7 +47,10 @@
             <span>{{localize pokemonType.secondary.name}}</span>
         </div>
         {{/if}}
-        {{else}}
+    </div>
+    {{/if}}
+    {{else}}
+    <div class="types-container flex">
         <div class="type-select-container">
             {{formInput pokemonType.primary.field
             value=pokemonType.primary.value
@@ -45,8 +61,9 @@
             value=pokemonType.secondary.value
             localize=true}}
         </div>
-        {{/if}}
     </div>
+    {{/if}}
+
     {{> "systems/pokeymanz/templates/actors/partials/attributes-container.hbs" }}
 
 </div>

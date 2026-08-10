@@ -3,7 +3,7 @@ import NotesHTMLField from "../fields/notes-html-field.mjs";
 import TrainerDocumentField from "../fields/trainer-document-field.mjs";
 
 export default class PokemonData extends BaseActorData {
-  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR", "POKEYMANZ.POKEMON"];
 
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -16,6 +16,9 @@ export default class PokemonData extends BaseActorData {
     });
     return {
       ...schema,
+      progress: new fields.SchemaField({
+        mastery: new fields.NumberField({ initial: 0 }),
+      }),
       details: new fields.SchemaField({
         species: new fields.StringField({ initial: "" }),
         gender: new fields.StringField({ initial: "" }),
@@ -50,10 +53,10 @@ export default class PokemonData extends BaseActorData {
   }
 
   /**
-   * 
-   * @param {string} changeTrainerID 
-   * @param {string} sourceTrainerID 
-   * @returns 
+   *
+   * @param {string} changeTrainerID
+   * @param {string} sourceTrainerID
+   * @returns
    */
   _checkDependedApps(changeTrainerID, sourceTrainerID) {
     const sheet = this.parent?.sheet;

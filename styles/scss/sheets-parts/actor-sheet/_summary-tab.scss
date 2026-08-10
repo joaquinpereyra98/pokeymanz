@@ -1,5 +1,24 @@
 @use "../../abstracts" as *;
 
+$stat-themes: (
+  "toughness": (
+    $pokeymanz-c-toughness-1,
+    $pokeymanz-c-toughness-2,
+  ),
+  "wounds": (
+    $pokeymanz-c-wounds-1,
+    $pokeymanz-c-wounds-2,
+  ),
+  "advancement": (
+    $pokeymanz-c-advancement-1,
+    $pokeymanz-c-advancement-2,
+  ),
+  "experience": (
+    $pokeymanz-c-experience-1,
+    $pokeymanz-c-experience-2,
+  ),
+);
+
 section.summary.tab {
   .sidebar-card {
     width: max(30%, 230px);
@@ -49,31 +68,33 @@ section.summary.tab {
           margin-bottom: 0;
         }
 
-        &.toughtness-container {
-          border-color: $pokeymanz-c-toughness-1;
-          background-color: $pokeymanz-c-toughness-2;
-          box-shadow: 0 0 5px $pokeymanz-c-toughness-2;
+        @each $name, $colors in $stat-themes {
+          $primary: nth($colors, 1);
+          $secondary: nth($colors, 2);
 
-          .stat-icon {
-            color: $pokeymanz-c-toughness-1;
+          &.#{$name}-container {
+            border-color: $primary;
+            background-color: $secondary;
+            box-shadow: 0 0 5px $secondary;
+
+            .stat-icon {
+              color: $primary;
+            }
           }
         }
 
-        &.wounds-container {
-          border-color: $pokeymanz-c-wounds-1;
-          background-color: $pokeymanz-c-wounds-2;
-          box-shadow: 0 0 5px $pokeymanz-c-wounds-2;
+        &.wounds-container span {
+          font-size: 1.5rem;
+          height: 1.5rem;
+          color: $pokeymanz-c-wounds-1;
+          font-weight: bold;
+          line-height: 1;
+        }
 
-          .stat-icon {
-            color: $pokeymanz-c-wounds-1;
-          }
-
-          span {
-            font-size: 1.5rem;
-            height: 1.5rem;
-            color: $pokeymanz-c-wounds-1;
-            font-weight: bold;
-            line-height: 1;
+        &.advancement-container,
+        &.experience-container {
+          .stat-input {
+            width: 3rem;
           }
         }
       }

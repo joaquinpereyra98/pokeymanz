@@ -8,28 +8,22 @@ import AttributeData from "../attribute-data.mjs";
  */
 
 export default class TrainerData extends BaseActorData {
-  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR"];
+  static LOCALIZATION_PREFIXES = ["POKEYMANZ.BASE_ACTOR", "POKEYMANZ.TRAINER"];
 
   /**@inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
       ...super.defineSchema(),
-
-      advancement: new fields.SchemaField({}),
+      progress: new fields.SchemaField({
+        advancement: new fields.NumberField({ initial: 0 }),
+        experience: new fields.NumberField({ initial: 0 }),
+      }),
       attributes: new fields.SchemaField({
-        heart: new fields.EmbeddedDataField(AttributeData, {
-          label: "POKEYMANZ.Attributes.Heart",
-        }),
-        fitness: new fields.EmbeddedDataField(AttributeData, {
-          label: "POKEYMANZ.Attributes.Fitness",
-        }),
-        research: new fields.EmbeddedDataField(AttributeData, {
-          label: "POKEYMANZ.Attributes.Research",
-        }),
-        tactics: new fields.EmbeddedDataField(AttributeData, {
-          label: "POKEYMANZ.Attributes.Tactics",
-        }),
+        heart: new fields.EmbeddedDataField(AttributeData),
+        fitness: new fields.EmbeddedDataField(AttributeData),
+        research: new fields.EmbeddedDataField(AttributeData),
+        tactics: new fields.EmbeddedDataField(AttributeData),
       }),
       details: new fields.SchemaField({
         calling: new fields.StringField({ initial: "" }),

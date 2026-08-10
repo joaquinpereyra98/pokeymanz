@@ -225,9 +225,6 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
       {
         value,
         field: schemaFields.getField(`details.${key}`),
-        label: game.i18n.localize(
-          `POKEYMANZ.Actor.Details.${key.capitalize()}`,
-        ),
       },
     ]);
 

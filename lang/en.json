@@ -35,6 +35,29 @@
         }
       }
     },
+    "TRAINER": {
+      "FIELDS": {
+        "attributes": {
+          "heart": { "label": "Heart" },
+          "fitness": { "label": "Fitness" },
+          "research": { "label": "Research" },
+          "tactics": { "label": "Tactics" }
+        },
+        "details": {
+          "calling": { "label": "Calling" },
+          "pronouns": { "label": "Pronouns" },
+          "age": { "label": "Age" }
+        }
+      }
+    },
+    "POKEMON": {
+      "FIELDS": {
+        "details": {
+          "species": { "label": "Specie" },
+          "gender": { "label": "Gender" }
+        }
+      }
+    },
     "BASE_ITEM": {
       "FIELDS": {
         "notes": {
@@ -94,15 +117,6 @@
         "Status": "Status"
       },
       "Dice": "Dice Move"
-    },
-    "Actor": {
-      "Details": {
-        "Species": "Specie",
-        "Gender": "Gender",
-        "Calling": "Calling",
-        "Pronouns": "Pronouns",
-        "Age": "Age"
-      }
     },
     "Sheets": {
       "TABS": {
