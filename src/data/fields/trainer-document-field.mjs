@@ -16,9 +16,10 @@ export default class TrainerDocumentField
   static get _defaults() {
     return Object.assign(super._defaults, {
       choices: () =>
-        game.actors
-          .filter((a) => a.type === "trainer")
-          .map((a) => ({ value: a.id, label: a.name })),
+        game.actors.reduce((acc, a) => {
+          if (a.type === "trainer") acc[a.id] = a.name;
+          return acc;
+        }, {}),
     });
   }
 }
