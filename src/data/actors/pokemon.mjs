@@ -39,6 +39,17 @@ export default class PokemonData extends BaseActorData {
 
   /* -------------------------------------------- */
 
+  async _preCreate(data, options, user) {
+    const allowed = await super._preCreate(data, options, user);
+    if (allowed === false) return false;
+    const trainerID = data?.system?.trainer?.value;
+    const trainer = game.actors.get(trainerID);
+    if (trainerID && trainer) {
+      const pkmSheet = this.parent.sheet;
+      if (pkmSheet) trainer.relatedApps[pkmSheet.id] ??= pkmSheet;
+    }
+  }
+
   /**@inheritdoc */
   async _preUpdate(changes, options, user) {
     const allowed = await super._preUpdate(changes, options, user);
@@ -71,12 +82,12 @@ export default class PokemonData extends BaseActorData {
 
     const appId = sheet.id;
 
-    if (changedTrainer?.apps) {
-      changedTrainer.apps[appId] = sheet;
+    if (changedTrainer?.relatedApps) {
+      changedTrainer.relatedApps[appId] = sheet;
     }
 
-    if (sourceTrainer?.apps && sourceTrainer.apps[appId]) {
-      delete sourceTrainer.apps[appId];
+    if (sourceTrainer?.relatedApps && sourceTrainer.relatedApps[appId]) {
+      delete sourceTrainer.relatedApps[appId];
     }
   }
 

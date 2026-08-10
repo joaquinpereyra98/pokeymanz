@@ -104,8 +104,8 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
     const trainer = this.actor.system.trainer.value;
-    if (trainer && !trainer.apps[this.id]) {
-      trainer.apps[this.id] = this;
+    if (trainer && !trainer.relatedApps[this.id]) {
+      trainer.relatedApps[this.id] = this;
     }
   }
 

@@ -1,8 +1,8 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
   <div class="summary-header flex">
     <div class="portrait">
-      <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "editImage" }}
-        alt="{{item.name}}" title="{{item.name}}" />
+      <img class="profile-img" src="{{item.img}}" data-edit="img" data-action={{ifThen isPlayMode "renderIP" "editImage"
+        }} alt="{{item.name}}" title="{{item.name}}" />
     </div>
     <div class="summary-inputs">
       <div class="item-type-fields flex">
@@ -25,43 +25,24 @@
       </div>
       <input class="document-name" name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}"
         data-tooltip="{{item.name}}" {{disabled isPlayMode}} />
-      <div class="flex">
+      <div class="input-groups">
         {{#if havePrice}}
         <div class="input-group currency-group">
-          <input class="input-group-field" type="number" name="system.price" value="{{system.price}}"
-            {{disabled isPlayMode}} />
-            <div class="icon-flex">
-              <i class="input-group-icon fa-solid fa-coin"></i>
-            </div>
+          <input class="input-group-field" type="number" name="system.price" value="{{system.price}}" {{disabled
+            isPlayMode}} />
+          <div class="icon-flex">
+            <i class="input-group-icon fa-solid fa-coin"></i>
+          </div>
         </div>
         {{/if}}
         {{#if (and item.isEquipable item.parent)}}
-        <div class="input-group">
-          {{#if (not isPlayMode)}}
-          <a data-action="toggleEquip">
-            <i class=" input-group-icon fa-solid fa-toggle-{{ifThen system.equipped 'on' 'off'}}"></i>
-            <div class="icon-flex">
-              <i class="input-group-icon fa-solid
-                {{ifThen
-                  system.equipped
-                  'fa-backpack'
-                  'fa-computer-classic'
-                }}">
-              </i>
-            </div>
-          </a>
-          {{else}}
-          <div class="icon-flex">
-            <i class="input-group-icon
+        <button type="button" data-action="toggleEquip" class="eqquiped-btn icon fa-solid
             {{ifThen
               system.equipped
-              ' fa-solid fa-backpack'
-              'fa-solid fa-computer-classic'
+              'fa-backpack'
+              'fa-computer-classic'
             }}">
-            </i>
-          </div>
-          {{/if}}
-        </div>
+        </button>
         {{/if}}
       </div>
     </div>

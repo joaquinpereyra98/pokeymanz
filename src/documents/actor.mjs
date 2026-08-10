@@ -2,6 +2,27 @@
  * Extend the base Actor class to implement additional system-specific logic.
  */
 export default class PokeymanzActor extends foundry.documents.Actor {
+  constructor(data, context) {
+    super(data, context);
+
+    /**
+     * A collection of Application instances which should be re-rendered whenever this document is updated.
+     * @type {Record<string,Application|ApplicationV2>}
+     */
+    Object.defineProperty(this, "relatedApps", {
+      value: {},
+      writable: false,
+      enumerable: false,
+    });
+  }
+  
+  /**@inheritdoc */
+  render(force = false, context = {}) {
+    super.render(force, context);
+    for (const app of Object.values(this.relatedApps)) {
+      app.render(force, foundry.utils.deepClone(context));
+    }
+  }
   /**@inheritdoc */
   getRollData() {
     const data = super.getRollData();
@@ -39,7 +60,9 @@ export default class PokeymanzActor extends foundry.documents.Actor {
     const roll = foundry.dice.Roll.create(rollFormula, data);
 
     roll.toMessage({
-      speaker: foundry.documents.ChatMessage.implementation.getSpeaker({ actor: this.actor }),
+      speaker: foundry.documents.ChatMessage.implementation.getSpeaker({
+        actor: this.actor,
+      }),
       flavor: _loc("POKEYMANZ.AttributePromptTitle", {
         attr: label,
       }),

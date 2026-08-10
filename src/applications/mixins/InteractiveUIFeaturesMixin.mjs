@@ -346,10 +346,10 @@ export default function InteractiveUIFeaturesMixin(BaseApplication) {
       }
 
       // Perform the sort
-
-      const sortUpdates =
-        foundry.utils.performIntegerSort?.(source, { target, siblings }) ??
-        SortingHelpers.performIntegerSort(source, { target, siblings });
+      const sortUpdates = foundry.utils.performIntegerSort?.(source, {
+        target,
+        siblings,
+      });
 
       const updateData = sortUpdates.map((u) => {
         const update = u.update;

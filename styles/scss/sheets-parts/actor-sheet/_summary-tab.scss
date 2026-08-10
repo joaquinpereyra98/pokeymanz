@@ -129,7 +129,7 @@ section.summary.tab {
 
       .edit-switch-contianer {
         color: $pokeymanz-c-red;
-        background: $pokeymanz-c-black;
+        background: var(--pokemon-card-2);
         display: flex;
         flex-direction: column;
         align-items: center;

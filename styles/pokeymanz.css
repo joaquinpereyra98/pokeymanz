@@ -140,6 +140,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  aspect-ratio: 1;
   border: 0;
   object-fit: cover;
   transition: opacity 300ms ease;
@@ -365,7 +366,7 @@ section.summary.tab .sidebar-card .trainer-fields-container .trainer-portrait im
 }
 section.summary.tab .sidebar-card .trainer-fields-container .edit-switch-contianer {
   color: var(--pokeymanz-color-ui-red);
-  background: var(--pokeymanz-color-ui-black);
+  background: var(--pokemon-card-2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -617,20 +618,21 @@ section.summary.tab .body-container .list-header a.icon {
 }
 
 .summary-header {
-  --profile-img-width: max(20%, 130px);
+  gap: 0.5rem;
 }
 .summary-header .portrait {
-  width: calc(var(--profile-img-width) + 1rem);
-  padding: 0 0.5rem;
+  --profile-img-size: clamp(130px, 20%, 200px);
+  flex-shrink: 0;
+  width: var(--profile-img-size);
+  aspect-ratio: 1;
 }
 .summary-header .portrait .profile-img {
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border: 0.3em solid var(--pokeymanz-color-ui-red);
   object-fit: cover;
   object-position: top center;
-  width: var(--profile-img-width);
-  height: var(--profile-img-width);
-  max-height: 200px;
 }
 .summary-header .summary-inputs {
   width: calc(100% - var(--profile-img-width) - 1rem);
@@ -638,6 +640,18 @@ section.summary.tab .body-container .list-header a.icon {
 .summary-header .summary-inputs input.document-name {
   font-size: 3rem;
   height: 3rem;
+}
+.summary-header .summary-inputs .input-groups {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+.summary-header .summary-inputs .input-groups .eqquiped-btn {
+  font-size: 1.2rem;
+  --button-size: 2rem;
+}
+.summary-header .summary-inputs .input-groups .eqquiped-btn:hover::before {
+  transform: scale(1.1);
 }
 
 header.pokeymanz-sheet-header .edit-switch-contianer {

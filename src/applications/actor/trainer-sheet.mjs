@@ -9,7 +9,9 @@ import { TRAINER_TEMPLATES_PATH, TEMPLATES_PATH } from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias TrainerSheet
  */
-export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
+export default class TrainerSheet extends InteractiveUIFeaturesMixin(
+  BaseActorSheet,
+) {
   /** @inheritdoc */
   static metadata = Object.freeze(
     foundry.utils.mergeObject(
@@ -31,6 +33,8 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSh
       height: 550,
     },
     actions: {
+      createFeat: TrainerSheet.#createFeat,
+      createPokemon: TrainerSheet.#createPokemon,
       viewExternalActor: TrainerSheet._viewExternalActor,
       togglePokemonTeam: TrainerSheet._togglePokemonTeam,
     },
@@ -105,7 +109,7 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSh
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
     for (const pokemon of this.actor.system.pokemons) {
-      if (!pokemon.apps[this.id]) pokemon.apps[this.id] = this;
+      if (!pokemon.relatedApps[this.id]) pokemon.relatedApps[this.id] = this;
     }
   }
 
@@ -280,6 +284,27 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSh
    *
    * @type {foundry.applications.types.ApplicationClickAction}
    */
+  static async #createFeat(event, target) {
+    const { type } = target.dataset;
+    const cls = foundry.documents.Item.implementation;
+    if (!cls) return;
+
+    const label = _loc(CONFIG.POKEYMANZ.items.feat.types[type]?.label);
+    const doc = await cls.create(
+      {
+        name: _loc("DOCUMENT.New", { type: label }),
+        type: "feat",
+        "system.type.value": type,
+      },
+      { parent: this.actor },
+    );
+    if (!event.shiftKey) doc.sheet.render({ force: true });
+  }
+
+  /**
+   *
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
   static _viewExternalActor(_, target) {
     const { uuid } = target.closest("[data-uuid]")?.dataset;
     if (!uuid) return;
@@ -299,5 +324,26 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSh
     await pokemon?.update({
       "system.trainer.inTeam": !pokemon.system.trainer.inTeam,
     });
+  }
+
+  /**
+   *
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async #createPokemon(event, target) {
+    const { state } = target.dataset;
+    const cls = foundry.documents.Actor.implementation;
+    if (!cls) return;
+
+    const doc = await cls.create({
+      name: _loc("DOCUMENT.New", { type: "Pokemon" }),
+      type: "pokemon",
+      "system.trainer": {
+        value: this.actor.id,
+        inTeam: state === "team",
+      },
+    });
+    if (!event.shiftKey) doc.sheet.render({ force: true });
+    this.render();
   }
 }

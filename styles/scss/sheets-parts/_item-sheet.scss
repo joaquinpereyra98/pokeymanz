@@ -1,30 +1,42 @@
-@use '../abstracts/' as *;
-
+@use "../abstracts/" as *;
 
 .summary-header {
-    --profile-img-width: max(20%, 130px);
+  gap: 0.5rem;
+  .portrait {
+    --profile-img-size: clamp(130px, 20%, 200px);
+    flex-shrink: 0;
+    width: var(--profile-img-size);
+    aspect-ratio: 1;
 
-    .portrait {
-        width: calc(var(--profile-img-width) + 1rem);
-        padding: 0 0.5rem;
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      border: 0.3em solid $pokeymanz-c-red;
+      object-fit: cover;
+      object-position: top center;
+    }
+  }
 
-        .profile-img {
-            border-radius: 10px;
-            border: 0.3em solid $pokeymanz-c-red;
-            object-fit: cover;
-            object-position: top center;
-            width: var(--profile-img-width);
-            height: var(--profile-img-width);
-            max-height: 200px;
-        }
+  .summary-inputs {
+    width: calc(100% - var(--profile-img-width) - 1rem);
+
+    input.document-name {
+      font-size: 3rem;
+      height: 3rem;
     }
 
-    .summary-inputs {
-        width: calc(100% - var(--profile-img-width) - 1rem);
-
-        input.document-name {
-            font-size: 3rem;
-            height: 3rem;
+    .input-groups {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.2rem;
+      .eqquiped-btn {
+        font-size: 1.2rem;
+        --button-size: 2rem;
+        &:hover::before {
+          transform: scale(1.1);
         }
+      }
     }
+  }
 }

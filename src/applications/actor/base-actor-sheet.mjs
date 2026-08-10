@@ -417,7 +417,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
         Object.assign(data, {
           name: game.i18n.format("DOCUMENT.New", { type }),
           type,
-          "system.type": systemType,
+          "system.type.value": systemType,
           "system.equipped": equipped === "true",
         });
         break;

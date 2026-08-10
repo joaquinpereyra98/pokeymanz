@@ -24,9 +24,9 @@
             <div class="abilities-list {{ifThen (gte abilities.length 2) "multiple" ""}}">
                 {{#each abilities}}
                 <div class="ability-accordion">
-                    <div class="ability-container">
-                        <div class="ability-portrait flex">
-                            <div class="drag-line draggable" data-doc-id="{{doc._id}}" data-document-class="Item">
+                    <div class="ability-container item" data-doc-id="{{doc._id}}" data-document-class="Item">
+                        <div class="ability-portrait flex draggable">
+                            <div class="drag-line">
                                 <i></i>
                             </div>
                             <div class="img-portrait">
@@ -52,9 +52,9 @@
             <div class="move-list">
                 {{#each moves as |move|}}
                 {{#if move}}
-                <div class="move-container flex">
+                <div class="move-container flex item draggable" data-doc-id="{{move._id}}" data-document-class="Item">
                     <div class="move-portrait flex">
-                        <div class="drag-line draggable" data-doc-id="{{move._id}}" data-document-class="Item">
+                        <div class="drag-line">
                             <i></i>
                         </div>
                         <div class="img-portrait" data-action="useItem" data-item-uuid="{{move.uuid}}"
