@@ -15,6 +15,7 @@ export default class TrainerDocumentField
   /** @inheritdoc */
   static get _defaults() {
     return Object.assign(super._defaults, {
+      required: false,
       choices: () =>
         game.actors.reduce((acc, a) => {
           if (a.type === "trainer") acc[a.id] = a.name;
