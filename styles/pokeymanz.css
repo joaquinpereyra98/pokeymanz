@@ -345,7 +345,7 @@ section.summary.tab .sidebar-card .types-container {
   justify-content: center;
 }
 section.summary.tab .sidebar-card .types-container .type-badge {
-  flex: 1;
+  flex: 0 0 auto;
   max-width: 50%;
 }
 section.summary.tab .sidebar-card .trainer-fields-container {

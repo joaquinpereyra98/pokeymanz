@@ -11,7 +11,6 @@ export default class MoveData extends BaseItemData {
       icon: "fa-solid fa-meteor",
       type: "move",
       defaultImg: `${ITEMS_ASSETS_PATH}/comet-spark.svg`,
-      invalidActorTypes: ["trainer"],
     };
   }
 

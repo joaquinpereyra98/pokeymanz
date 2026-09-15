@@ -29,6 +29,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
       toggleEffect: BaseActorSheet._toggleEffect,
       createDoc: BaseActorSheet._createDoc,
       deleteDoc: BaseActorSheet._deleteDoc,
+      createMove: BaseActorSheet.#createMove,
       viewDoc: BaseActorSheet._viewDoc,
       toggleGear: BaseActorSheet._toggleGear,
       useItem: BaseActorSheet._useItem,
@@ -52,8 +53,22 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
         contentSelector: ".item-list .item .item-description",
         startCollapsed: true,
       },
+      {
+        headingSelector: ".move-header",
+        contentSelector: ".move-content",
+        startCollapsed: true,
+      },
     ],
-    contextMenus: [],
+    contextMenus: [
+      {
+        selector: ".context-menu",
+        handler: BaseActorSheet._getMoveMenuItems,
+        options: {
+          eventName: "click",
+          fixed: true,
+        },
+      },
+    ],
   };
 
   /**
@@ -85,6 +100,34 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
   };
 
   /* -------------------------------------------- */
+  /*  Drop-Down Menus                             */
+  /* -------------------------------------------- */
+
+  /**
+   * @returns {ContextMenuEntry[]} An array of context menu item objects.
+   */
+  static _getMoveMenuItems() {
+    return [
+      {
+        label: "POKEYMANZ.Item.EditItem",
+        icon: '<i class="fas fa-edit"></i>',
+        onClick: (_, target) => {
+          const uuid = target.dataset.itemUuid;
+          fromUuidSync(uuid)?.sheet?.render({ force: true });
+        },
+      },
+      {
+        label: "Delete",
+        icon: '<i class="fas fa-trash"></i>',
+        onClick: (_, target) => {
+          const uuid = target.dataset.itemUuid;
+          fromUuidSync(uuid)?.delete();
+        },
+      },
+    ];
+  }
+
+  /* -------------------------------------------- */
   /*  Context Preparation                         */
   /* -------------------------------------------- */
 
@@ -102,10 +145,39 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
       editable: this.isEditable,
       flags: this.document.flags,
       system: this.document.system,
-      systemSource: this.document.system._source,
+      source: this.document.toObject(),
       systemFields: this.document.system.schema.fields,
       detailsFields: this._prepareDetails(),
+      moves: await this._prepareMoves(),
     };
+  }
+
+  /**
+   * Prepare the moves context by this Pokémon.
+   * @returns {Promise<Array<object>>}
+   */
+  async _prepareMoves() {
+    const moves = [];
+
+    for (const move of this.document.itemTypes.move) {
+      moves.push({
+        ...move.toObject(),
+        uuid: move.uuid,
+        moveType: move.system.pokemonTypes.primary,
+        enrichDescription:
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            move.system.notes.description,
+            {
+              secrets: move.isOwner,
+              rollData: move.getRollData(),
+              relativeTo: move,
+            },
+          ),
+      });
+    }
+    moves.sort((a, b) => a.sort - b.sort);
+
+    return moves;
   }
 
   /**@inheritdoc */
@@ -430,6 +502,23 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
   }
 
   /**
+   * Create a new Move item on this Pokémon.
+   * @this BaseActorSheet
+   * @type {foundry.applications.types.ApplicationClickAction}
+   */
+  static async #createMove(event) {
+    const doc = await foundry.documents.Item.implementation.create(
+      {
+        name: _loc("DOCUMENT.New", { type: "Move" }),
+        type: "move",
+      },
+      { parent: this.document },
+    );
+
+    if (!event.shiftKey) doc.sheet?.render({ force: true });
+  }
+
+  /**
    * Handle to delete a embedded document.
    * @this BaseActorSheet
    * @type {foundry.applications.types.ApplicationClickAction}
@@ -461,7 +550,7 @@ export default class BaseActorSheet extends HandlebarsApplicationMixin(ActorShee
     const { documentClass, docId } = li.dataset;
     const doc = this.document.getEmbeddedDocument(documentClass, docId);
 
-    doc?.sheet?.render({force: true});
+    doc?.sheet?.render({ force: true });
   }
 
   /**

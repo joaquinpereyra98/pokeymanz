@@ -4,7 +4,7 @@
         {{> "systems/pokeymanz/templates/actors/pokemon/parts/sidebar.hbs"}}
 
         <div class="body-container flex flex-col">
-            <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
+            <input class="document-name" name="name" type="text" value="{{ifThen isPlayMode source.name actor.name}}" data-tooltip="{{actor.name}}"
                 {{disabled isPlayMode }} />
             <div class="details-container">
                 {{#each detailsFields}}

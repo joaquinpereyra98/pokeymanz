@@ -15,7 +15,7 @@ export default class PokeymanzActor extends foundry.documents.Actor {
       enumerable: false,
     });
   }
-  
+
   /**@inheritdoc */
   render(force = false, context = {}) {
     super.render(force, context);
@@ -54,7 +54,8 @@ export default class PokeymanzActor extends foundry.documents.Actor {
       `attributes.${attribute}`,
     );
 
-    const wounds = `${this.calcWoundPenalties() || ""}`;
+    const penalty = this.calcWoundPenalties();
+    const wounds = (penalty && penalty.signedString()) || "";
 
     const rollFormula = `${formula}${wounds}[${label}]`;
     const roll = foundry.dice.Roll.create(rollFormula, data);
@@ -74,12 +75,11 @@ export default class PokeymanzActor extends foundry.documents.Actor {
   /**
    * Calculates the penalties from wounds for this actor.
    * The penalty is determined as the negative of the clamped wound value.
-   *
    * @returns {number} The calculated wound penalty.
    */
   calcWoundPenalties() {
     const { value, max } = this.system.stats.wounds;
-    return (max - value) * -1;
+    return value - max;
   }
 
   /**

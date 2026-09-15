@@ -7,7 +7,7 @@
         <div class="toughness-container stat-container flex items-center" data-tooltip="Toughness">
             <i class="stat-icon fa-solid fa-shield"></i>
             <input class="stat-input" type="number" name="system.stats.toughness.value"
-                value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
+                value="{{ifThen isPlayMode system.stats.toughness.value source.system.stats.toughness.value}}" {{disabled isPlayMode }}>
         </div>
         <div class="wounds-container stat-container flex items-center" data-tooltip="Wounds">
             <i class="stat-icon fa-solid fa-heart"></i>
@@ -16,7 +16,7 @@
                     value="{{system.stats.wounds.value}}">
                 <span>/</span>
                 <input class="stat-input" type="number" name="system.stats.wounds.max"
-                    value="{{system.stats.wounds.max}}" {{disabled isPlayMode }}>
+                    value="{{ifThen isPlaymode system.stats.wounds.max source.system.stats.wounds.max}}" {{disabled isPlayMode }}>
             </div>
         </div>
     </div>

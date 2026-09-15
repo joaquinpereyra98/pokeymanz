@@ -1,29 +1,29 @@
 <div class="sidebar-card card">
     <div class="portrait actor-portrait">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action={{ifThen
+        <img class="profile-img" src="{{ifThen isPlayMode actor.img source.img}}" {{#unless isPlayMode}}data-edit="img" {{/unless}} data-action={{ifThen
             isPlayMode "renderIP" "editImage" }} alt="{{actor.name}}" title="{{actor.name}}" />
     </div>
     <div class="stat-bar flex justify-around">
         <div class="toughness-container stat-container flex items-center" data-tooltip="Toughness">
             <i class="stat-icon fa-solid fa-shield"></i>
             <input class="stat-input" type="number" name="system.stats.toughness.value"
-                value="{{system.stats.toughness.value}}" {{disabled isPlayMode }}>
+                value="{{ifThen isPlayMode system.stats.toughness.value source.system.stats.toughness.value}}" {{disabled isPlayMode }}>
         </div>
         <div class="wounds-container stat-container flex items-center" data-tooltip="Wounds">
             <i class="stat-icon fa-solid fa-heart"></i>
             <div class="wound-input-container flex">
                 <input class="stat-input" type="number" name="system.stats.wounds.value"
-                    value="{{system.stats.wounds.value}}">
+                    value="{{ifThen isPlayMode system.stats.wounds.value source.system.stats.wounds.value}}">
                 <span>/</span>
                 <input class="stat-input" type="number" name="system.stats.wounds.max"
-                    value="{{system.stats.wounds.max}}" {{disabled isPlayMode }}>
+                    value="{{ifThen isPlayMode system.stats.wounds.max source.system.stats.wounds.value}}" {{disabled isPlayMode }}>
             </div>
         </div>
     </div>
     <div class="stat-bar flex justify-around">
         <div class="advancement-container stat-container flex items-center" data-tooltip="Mastery">
             <i class="stat-icon fa-solid fa-ranking-star"></i>
-            <input class="stat-input" type="number" name="system.progress.mastery" value="{{system.progress.mastery}}">
+            <input class="stat-input" type="number" name="system.progress.mastery" value="{{ifThen isPlayMode system.progress.mastery source.system.progress.mastery}}">
         </div>
     </div>
     {{#if isPlayMode}}

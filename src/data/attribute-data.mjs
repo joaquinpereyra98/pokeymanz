@@ -24,7 +24,8 @@ export default class AttributeData extends foundry.abstract.DataModel {
   }
 
   get formula() {
-    const formula = `1d${this.faces}x${this.modifier.signedString()}`;
+    const modifier = (this.modifier && this.modifier.signedString()) || "";
+    const formula = `1d${this.faces}x${modifier}`;
     return foundry.dice.Roll.defaultImplementation.validate(formula)
       ? formula
       : `1d${this.faces}x`;

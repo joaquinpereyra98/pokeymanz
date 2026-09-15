@@ -1,18 +1,18 @@
 <section class="tab summary {{tab.cssClass}}" data-group="primary" data-tab="summary">
     <div class="flex">
         {{> "systems/pokeymanz/templates/actors/trainer/parts/sidebar.hbs"}}
-        
+
         <div class="body-container flex flex-col">
-            <input class="document-name" name="name" type="text" value="{{actor.name}}" data-tooltip="{{actor.name}}"
-                {{disabled isPlayMode }} />
-                <div class="details-container">
-                    {{#with detailsFields.calling}}
-                    <div class="input-group" data-tooltip="{{value}}">
-                        <label class="input-group-label">{{field.label}}</label>
-                        {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
-                    </div>
-                    {{/with}}
+            <input class="document-name" name="name" type="text" value="{{ifThen isPlayMode actor.name source.name}}"
+                data-tooltip="{{actor.name}}" {{disabled isPlayMode }} />
+            <div class="details-container">
+                {{#with detailsFields.calling}}
+                <div class="input-group" data-tooltip="{{value}}">
+                    <label class="input-group-label">{{field.label}}</label>
+                    {{formInput field value=value classes="input-group-field" disabled=@root.isPlayMode}}
                 </div>
+                {{/with}}
+            </div>
             <div class="details-container">
                 {{#with detailsFields.pronouns}}
                 <div class="input-group" data-tooltip="{{value}}">
@@ -55,16 +55,66 @@
                         </div>
                         <div class="card-content">
                             {{#each pokemon.itemTypes.move as |move|}}
-                            <a class="move-button flex items-center justify-around" style="--type-color: {{move.moveType.color}};" data-action="useItem" data-item-uuid="{{move.uuid}}">
-                                <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}" data-tooltip="{{move.moveType.name}}">
+                            <a class="move-button flex items-center justify-around"
+                                style="--type-color: {{move.moveType.color}};" data-action="useItem"
+                                data-item-uuid="{{move.uuid}}">
+                                <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}"
+                                    data-tooltip="{{move.moveType.name}}">
                                 <span data-tooltip="{{move.name}}">{{move.name}}</span>
-                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}" data-tooltip="{{move.system.roll.formula}}">
+                                <img class="dice-icon" src="{{move.system.roll.diceIcon}}"
+                                    data-tooltip="{{move.system.roll.formula}}">
                             </a>
                             {{/each}}
                         </div>
                     </div>
                 </div>
                 {{/each}}
+            </div>
+            <div class="list-header">
+                <div class="hr-text">Moves <a class="icon fa-solid fa-add" data-action="createMove"
+                        data-tooltip="{{localize 'DOCUMENT.New' type='Move' }}"></a></div>
+                <div class="move-list">
+                    {{#each moves as |move|}}
+                    {{#if move}}
+                    <div class="move-container flex item draggable" data-doc-id="{{move._id}}"
+                        data-document-class="Item">
+                        <div class="move-portrait flex">
+                            <div class="drag-line">
+                                <i></i>
+                            </div>
+                            <div class="img-portrait" data-action="useItem" data-item-uuid="{{move.uuid}}"
+                                data-tooltip="{{localize 'POKEYMANZ.Item.UseItem' item=move.name}}">
+                                <img class="move-icon" src="{{move.img}}" alt="{{move.name}}">
+                                <img class="roll-icon" src="icons/svg/d20-black.svg" alt="roll-dice">
+                            </div>
+                        </div>
+                        <div class="move-accordion">
+                            <div class="move-header flex">
+                                <div class="move-name">
+                                    {{move.name}}
+                                </div>
+                                <div class="move-type">
+                                    <div class="type-badge flex items-center size--medium"
+                                        style="--type-color: {{move.moveType.color}}">
+                                        <img src="{{move.moveType.img}}" alt="{{move.moveType.id}}">
+                                        <span>{{localize
+                                            move.moveType.name}}</span>
+                                    </div>
+                                </div>
+                                <a class="context-menu move-menu" data-item-uuid="{{move.uuid}}">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </a>
+                            </div>
+                            <div class="move-content">
+                                <div class="description-content">
+                                    {{{move.enrichDescription}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>

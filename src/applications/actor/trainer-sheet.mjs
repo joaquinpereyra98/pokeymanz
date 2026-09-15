@@ -9,9 +9,7 @@ import { TRAINER_TEMPLATES_PATH, TEMPLATES_PATH } from "../../constants.mjs";
  * @mixes HandlebarsApplication
  * @alias TrainerSheet
  */
-export default class TrainerSheet extends InteractiveUIFeaturesMixin(
-  BaseActorSheet,
-) {
+export default class TrainerSheet extends InteractiveUIFeaturesMixin(BaseActorSheet) {
   /** @inheritdoc */
   static metadata = Object.freeze(
     foundry.utils.mergeObject(
@@ -120,17 +118,19 @@ export default class TrainerSheet extends InteractiveUIFeaturesMixin(
   /** @override */
   async _prepareContext(options) {
     const baseContext = await super._prepareContext(options);
-    const { stats, schema } = this.actor.system;
+    const { stats, schema, _source: source } = this.actor.system;
     this._preparePokemons(baseContext);
     return {
       ...baseContext,
       pokemonType: {
         primary: {
           ...stats.pokemonTypes.primary,
+          source: source.stats.pokemonTypes.primary,
           field: schema.getField("stats.pokemonTypes.primary.value"),
         },
         secondary: {
           ...stats.pokemonTypes.secondary,
+          source: source.stats.pokemonTypes.secondary,
           field: schema.getField("stats.pokemonTypes.secondary.value"),
         },
       },

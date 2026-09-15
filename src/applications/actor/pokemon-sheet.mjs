@@ -38,28 +38,12 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
     },
     actions: {
       toggleTrainerTeam: PokemonSheet.#toggleTrainerTeam,
-      createMove: PokemonSheet.#createMove,
       createAbility: PokemonSheet.#createAbility,
     },
-    contextMenus: [
-      {
-        selector: ".context-menu",
-        handler: PokemonSheet._getMoveMenuItems,
-        options: {
-          eventName: "click",
-          fixed: true,
-        },
-      },
-    ],
     accordions: [
       {
         headingSelector: ".ability-container",
         contentSelector: ".ability-content",
-        startCollapsed: true,
-      },
-      {
-        headingSelector: ".move-header",
-        contentSelector: ".move-content",
         startCollapsed: true,
       },
     ],
@@ -110,34 +94,6 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
   }
 
   /* -------------------------------------------- */
-  /*  Drop-Down Menus                             */
-  /* -------------------------------------------- */
-
-  /**
-   * @returns {ContextMenuEntry[]} An array of context menu item objects.
-   */
-  static _getMoveMenuItems() {
-    return [
-      {
-        label: "POKEYMANZ.Item.EditItem",
-        icon: '<i class="fas fa-edit"></i>',
-        onClick: (_, target) => {
-          const uuid = target.dataset.itemUuid;
-          fromUuidSync(uuid)?.sheet?.render({ force: true });
-        },
-      },
-      {
-        label: "Delete",
-        icon: '<i class="fas fa-trash"></i>',
-        onClick: (_, target) => {
-          const uuid = target.dataset.itemUuid;
-          fromUuidSync(uuid)?.delete();
-        },
-      },
-    ];
-  }
-
-  /* -------------------------------------------- */
   /*  Context Preparation                         */
   /* -------------------------------------------- */
 
@@ -163,37 +119,8 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
         field: schema.getField("trainer.value"),
         inTeam: trainer.inTeam,
       },
-      moves: await this._prepareMoves(),
       abilities: await this._prepareAbilties(),
     };
-  }
-
-  /**
-   * Prepare the moves context by this Pokémon.
-   * @returns {Promise<Array<object>>}
-   */
-  async _prepareMoves() {
-    const moves = [];
-
-    for (const move of this.document.itemTypes.move) {
-      moves.push({
-        ...move.toObject(),
-        uuid: move.uuid,
-        moveType: move.system.pokemonTypes.primary,
-        enrichDescription:
-          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-            move.system.notes.description,
-            {
-              secrets: move.isOwner,
-              rollData: move.getRollData(),
-              relativeTo: move,
-            },
-          ),
-      });
-    }
-    moves.sort((a, b) => a.sort - b.sort);
-
-    return moves;
   }
 
   /**
@@ -239,23 +166,6 @@ export default class PokemonSheet extends InteractiveUIFeaturesMixin(
     await this.document.update({
       "system.trainer.inTeam": !this.document.system.trainer.inTeam,
     });
-  }
-
-  /**
-   * Create a new Move item on this Pokémon.
-   * @this PokemonSheet
-   * @type {foundry.applications.types.ApplicationClickAction}
-   */
-  static async #createMove(event) {
-    const doc = await foundry.documents.Item.implementation.create(
-      {
-        name: _loc("DOCUMENT.New", { type: "Move" }),
-        type: "move",
-      },
-      { parent: this.document },
-    );
-
-    if (!event.shiftKey) doc.sheet?.render({ force: true });
   }
 
   /**
